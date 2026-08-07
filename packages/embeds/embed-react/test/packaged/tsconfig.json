@@ -1,0 +1,12 @@
+{
+  "extends": "@calcom/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2015",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "jsx": "preserve",
+    "outDir": "dist"
+  },
+  "include": ["**/*.ts"]
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "@calcom/tsconfig/base.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "resolveJsonModule": true
+  },
+  "include": [".", "../types/next-auth.d.ts", "../types/window.d.ts"],
+  "exclude": ["dist", "build", "**/node_modules/**"]
+}

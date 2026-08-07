@@ -1,0 +1,43 @@
+export * from "@trpc/react-query/shared";
+
+export const ENDPOINTS = [
+  "loggedInViewerRouter",
+  "admin",
+  "apiKeys",
+  "apps",
+  "auth",
+  "availability",
+  "appBasecamp3",
+  "bookings",
+  "calendars",
+  "calVideo",
+  "credentials",
+  "deploymentSetup",
+  "eventTypes",
+  "eventTypesHeavy",
+  "features",
+  "feedback",
+  "holidays",
+  "featureOptIn",
+  "i18n",
+  "me",
+  "ooo",
+  "payments",
+  "public",
+  "timezones",
+  "slots",
+  "travelSchedules",
+  "users",
+  // Every viewer sub-router needs BOTH this endpoint entry AND a matching
+  // apps/web/pages/api/trpc/<name>/[trpc].ts handler — resolveEndpoint() in
+  // trpc.ts routes viewer.<name>.* calls here (3-segment paths use parts[1]).
+  "vendor",
+  "viewer",
+  "webhook",
+  "googleWorkspace",
+  "oAuth",
+  "delegationCredential",
+  "credits",
+  "filterSegments",
+  "phoneNumber",
+] as const;
