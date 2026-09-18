@@ -7,7 +7,7 @@ import { Dialog, DialogContent } from "@kalo/ui/components/dialog";
 import { Logo } from "@kalo/ui/components/logo";
 import { CheckIcon, UserIcon } from "@coss/ui/icons";
 
-import { useWelcomeToCalcomModal } from "../hooks/useWelcomeToCalcomModal";
+import { useWelcomeToKaloModal } from "../hooks/useWelcomeToCalcomModal";
 
 const features = [
   "unlimited_calendars",
@@ -19,11 +19,11 @@ const features = [
   "cal_video",
 ];
 
-const titleKey = APP_NAME === "Kalo" ? "welcome_to_kalo" : "welcome_to_calcom";
+const titleKey = "welcome_to_kalo";
 
-export function WelcomeToCalcomModal() {
+export function WelcomeToKaloModal() {
   const { t } = useLocale();
-  const { isOpen, closeModal } = useWelcomeToCalcomModal();
+  const { isOpen, closeModal } = useWelcomeToKaloModal();
 
   const LARGE = { outer: 48, icon: 24 };
   const RINGS = [60, 95, 130]; // Ring radii in px
