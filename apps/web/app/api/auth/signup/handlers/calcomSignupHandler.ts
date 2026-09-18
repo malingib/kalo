@@ -39,7 +39,7 @@ import { buildLegacyRequest } from "@kalo/web/lib/buildLegacyCtx";
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 
-const log = logger.getSubLogger({ prefix: ["signupCalcomHandler"] });
+const log = logger.getSubLogger({ prefix: ["signupKaloHandler"] });
 
 const billingService = {
   async createCustomer(_args: Record<string, unknown>): Promise<{ stripeCustomerId: string }> {
