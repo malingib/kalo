@@ -1,6 +1,6 @@
 import process from "node:process";
-import { validJson } from "@calcom/lib/jsonUtils";
-import type { AppMeta } from "@calcom/types/App";
+import { validJson } from "@kalo/lib/jsonUtils";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Google Meet",
@@ -14,10 +14,10 @@ export const metadata = {
   title: "Google Meet",
   variant: "conferencing",
   logo: "logo.webp",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   url: "https://cal.com/",
   isGlobal: false,
-  email: "help@cal.com",
+  email: "help@kalo",
   appData: {
     location: {
       linkType: "dynamic",

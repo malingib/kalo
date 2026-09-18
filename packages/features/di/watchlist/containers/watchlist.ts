@@ -1,27 +1,27 @@
-import { PrismaBookingReportRepository } from "@calcom/features/bookingReport/repositories/PrismaBookingReportRepository";
-import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
-import { moduleLoader as loggerModuleLoader } from "@calcom/features/di/shared/services/logger.service";
-import { taskerServiceModule } from "@calcom/features/di/shared/services/tasker.service";
-import { SHARED_TOKENS } from "@calcom/features/di/shared/shared.tokens";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
+import { PrismaBookingReportRepository } from "@kalo/features/bookingReport/repositories/PrismaBookingReportRepository";
+import { moduleLoader as prismaModuleLoader } from "@kalo/features/di/modules/Prisma";
+import { moduleLoader as loggerModuleLoader } from "@kalo/features/di/shared/services/logger.service";
+import { taskerServiceModule } from "@kalo/features/di/shared/services/tasker.service";
+import { SHARED_TOKENS } from "@kalo/features/di/shared/shared.tokens";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
 import {
   createWatchlistFeature,
   type WatchlistFeature,
-} from "@calcom/features/watchlist/lib/facade/WatchlistFeature";
+} from "@kalo/features/watchlist/lib/facade/WatchlistFeature";
 import type {
   IGlobalWatchlistRepository,
   IOrganizationWatchlistRepository,
-} from "@calcom/features/watchlist/lib/interface/IWatchlistRepositories";
-import { WatchlistRepository } from "@calcom/features/watchlist/lib/repository/WatchlistRepository";
-import { AdminWatchlistOperationsService } from "@calcom/features/watchlist/lib/service/AdminWatchlistOperationsService";
-import { AdminWatchlistQueryService } from "@calcom/features/watchlist/lib/service/AdminWatchlistQueryService";
-import type { GlobalBlockingService } from "@calcom/features/watchlist/lib/service/GlobalBlockingService";
-import type { OrganizationBlockingService } from "@calcom/features/watchlist/lib/service/OrganizationBlockingService";
-import { OrganizationWatchlistOperationsService } from "@calcom/features/watchlist/lib/service/OrganizationWatchlistOperationsService";
-import { OrganizationWatchlistQueryService } from "@calcom/features/watchlist/lib/service/OrganizationWatchlistQueryService";
-import type { WatchlistAuditService } from "@calcom/features/watchlist/lib/service/WatchlistAuditService";
-import type { WatchlistService } from "@calcom/features/watchlist/lib/service/WatchlistService";
-import { prisma } from "@calcom/prisma";
+} from "@kalo/features/watchlist/lib/interface/IWatchlistRepositories";
+import { WatchlistRepository } from "@kalo/features/watchlist/lib/repository/WatchlistRepository";
+import { AdminWatchlistOperationsService } from "@kalo/features/watchlist/lib/service/AdminWatchlistOperationsService";
+import { AdminWatchlistQueryService } from "@kalo/features/watchlist/lib/service/AdminWatchlistQueryService";
+import type { GlobalBlockingService } from "@kalo/features/watchlist/lib/service/GlobalBlockingService";
+import type { OrganizationBlockingService } from "@kalo/features/watchlist/lib/service/OrganizationBlockingService";
+import { OrganizationWatchlistOperationsService } from "@kalo/features/watchlist/lib/service/OrganizationWatchlistOperationsService";
+import { OrganizationWatchlistQueryService } from "@kalo/features/watchlist/lib/service/OrganizationWatchlistQueryService";
+import type { WatchlistAuditService } from "@kalo/features/watchlist/lib/service/WatchlistAuditService";
+import type { WatchlistService } from "@kalo/features/watchlist/lib/service/WatchlistService";
+import { prisma } from "@kalo/prisma";
 import { createContainer } from "@evyweb/ioctopus";
 import { watchlistModule } from "../modules/Watchlist.module";
 import { WATCHLIST_DI_TOKENS } from "../Watchlist.tokens";

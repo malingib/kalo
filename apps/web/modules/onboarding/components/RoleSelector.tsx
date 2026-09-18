@@ -1,8 +1,8 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { ToggleGroup } from "@calcom/ui/components/form";
-import { InfoBadge } from "@calcom/ui/components/badge";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { ToggleGroup } from "@kalo/ui/components/form";
+import { InfoBadge } from "@kalo/ui/components/badge";
 
 import type { InviteRole } from "../store/onboarding-store";
 

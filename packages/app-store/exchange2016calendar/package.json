@@ -1,13 +1,13 @@
 {
   "private": true,
-  "name": "@calcom/exchange2016calendar",
+  "name": "@kalo/exchange2016calendar",
   "version": "0.0.0",
   "main": "./index.ts",
   "description": "For calendars hosted on on-premises Microsoft Exchange 2016 servers",
   "dependencies": {
-    "@calcom/lib": "workspace:*",
-    "@calcom/prisma": "workspace:*",
-    "@calcom/ui": "workspace:*",
+    "@kalo/lib": "workspace:*",
+    "@kalo/prisma": "workspace:*",
+    "@kalo/ui": "workspace:*",
     "ews-javascript-api": "0.11.0"
   },
   "peerDependencies": {
@@ -16,6 +16,6 @@
     "react-hook-form": "^7.0.0"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   }
 }

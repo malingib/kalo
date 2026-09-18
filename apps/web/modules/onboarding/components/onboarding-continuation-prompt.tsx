@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
 import { XIcon } from "@coss/ui/icons";
 
 import { useOnboardingStore } from "../store/onboarding-store";

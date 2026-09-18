@@ -2,8 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsIn, ValidateNested, IsNotEmptyObject } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS, REDIRECT_STATUS } from "@calcom/platform-constants";
-import { CreateOAuthClientOutput } from "@calcom/platform-types";
+import { SUCCESS_STATUS, ERROR_STATUS, REDIRECT_STATUS } from "@kalo/platform-constants";
+import { CreateOAuthClientOutput } from "@kalo/platform-types";
 
 export class CreateOAuthClientResponseDto {
   @ApiProperty({ example: SUCCESS_STATUS, enum: [SUCCESS_STATUS, ERROR_STATUS] })

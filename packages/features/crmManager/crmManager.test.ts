@@ -1,12 +1,12 @@
-import { mockCrmApp } from "@calcom/testing/lib/bookingScenario/bookingScenario";
+import { mockCrmApp } from "@kalo/testing/lib/bookingScenario/bookingScenario";
 
 import type { TFunction } from "i18next";
 import { describe, expect, test, vi, afterEach } from "vitest";
 
-vi.mock("@calcom/app-store/salesforce/lib/graphql/SalesforceGraphQLClient", () => ({
+vi.mock("@kalo/app-store/salesforce/lib/graphql/SalesforceGraphQLClient", () => ({
   SalesforceGraphQLClient: vi.fn(),
 }));
-vi.mock("@calcom/app-store/salesforce/lib/CrmService", () => ({
+vi.mock("@kalo/app-store/salesforce/lib/CrmService", () => ({
   default: vi.fn(),
 }));
 vi.mock("@urql/core", () => ({
@@ -18,11 +18,11 @@ vi.mock("@urql/exchange-retry", () => ({
   retryExchange: vi.fn(),
 }));
 
-import { getCrm } from "@calcom/app-store/_utils/getCrm";
+import { getCrm } from "@kalo/app-store/_utils/getCrm";
 
 import CrmManager from "./crmManager";
 
-// vi.mock("@calcom/app-store/_utils/getCrm");
+// vi.mock("@kalo/app-store/_utils/getCrm");
 
 describe.skip("crmManager tests", () => {
   test("Set crmService if not set", async () => {

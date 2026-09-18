@@ -1,17 +1,17 @@
 import type { TFunction } from "i18next";
 
-import dayjs from "@calcom/dayjs";
-import { sendRequestRescheduleEmailAndSMS } from "@calcom/emails/email-manager";
-import { deleteMeeting } from "@calcom/features/conferencing/lib/videoClient";
-import { CalendarEventBuilder } from "@calcom/lib/builders/CalendarEvent/builder";
-import { CalendarEventDirector } from "@calcom/lib/builders/CalendarEvent/director";
-import logger from "@calcom/lib/logger";
-import { getTranslation } from "@calcom/i18n/server";
-import prisma from "@calcom/prisma";
-import type { Booking, BookingReference, User } from "@calcom/prisma/client";
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import type { Person } from "@calcom/types/Calendar";
+import dayjs from "@kalo/dayjs";
+import { sendRequestRescheduleEmailAndSMS } from "@kalo/emails/email-manager";
+import { deleteMeeting } from "@kalo/features/conferencing/lib/videoClient";
+import { CalendarEventBuilder } from "@kalo/lib/builders/CalendarEvent/builder";
+import { CalendarEventDirector } from "@kalo/lib/builders/CalendarEvent/director";
+import logger from "@kalo/lib/logger";
+import { getTranslation } from "@kalo/i18n/server";
+import prisma from "@kalo/prisma";
+import type { Booking, BookingReference, User } from "@kalo/prisma/client";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import type { Person } from "@kalo/types/Calendar";
 
 import { getCalendar } from "../../_utils/getCalendar";
 

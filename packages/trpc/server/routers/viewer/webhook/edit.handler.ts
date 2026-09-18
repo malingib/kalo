@@ -2,10 +2,10 @@ import {
   updateTriggerForExistingBookings,
   deleteWebhookScheduledTriggers,
   cancelNoShowTasksForBooking,
-} from "@calcom/features/webhooks/lib/scheduleTrigger";
-import { validateUrlForSSRFSync } from "@calcom/lib/ssrfProtection";
-import { prisma } from "@calcom/prisma";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+} from "@kalo/features/webhooks/lib/scheduleTrigger";
+import { validateUrlForSSRFSync } from "@kalo/lib/ssrfProtection";
+import { prisma } from "@kalo/prisma";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import { TRPCError } from "@trpc/server";
 

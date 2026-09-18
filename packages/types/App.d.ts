@@ -1,5 +1,5 @@
-import type { Tag } from "@calcom/app-store/types";
-import type { AppCategories, Prisma } from "@calcom/prisma/client";
+import type { Tag } from "@kalo/app-store/types";
+import type { AppCategories, Prisma } from "@kalo/prisma/client";
 
 type CommonProperties = {
   default?: false;
@@ -115,7 +115,7 @@ export interface App {
   url: string;
   /** Optional documentation website URL */
   docsUrl?: string;
-  /** Whether the app is verified by Cal.diy or not */
+  /** Whether the app is verified by Kalo or not */
   verified?: boolean;
   /** Whether the app should appear in the trending section of the app store */
   trending?: boolean;

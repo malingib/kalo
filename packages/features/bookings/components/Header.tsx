@@ -1,23 +1,23 @@
 import { useCallback, useMemo } from "react";
 import { shallow } from "zustand/shallow";
 
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import dayjs from "@calcom/dayjs";
-import { useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useInitializeWeekStart } from "@calcom/features/bookings/hooks/useInitializeWeekStart";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { formatDateTime } from "@calcom/lib/dateTimeFormatter";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookerLayouts } from "@calcom/prisma/zod-utils";
-import { Button } from "@calcom/ui/components/button";
-import { ButtonGroup } from "@calcom/ui/components/buttonGroup";
-import { ToggleGroup } from "@calcom/ui/components/form";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import dayjs from "@kalo/dayjs";
+import { useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useInitializeWeekStart } from "@kalo/features/bookings/hooks/useInitializeWeekStart";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { formatDateTime } from "@kalo/lib/dateTimeFormatter";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookerLayouts } from "@kalo/prisma/zod-utils";
+import { Button } from "@kalo/ui/components/button";
+import { ButtonGroup } from "@kalo/ui/components/buttonGroup";
+import { ToggleGroup } from "@kalo/ui/components/form";
 import { CalendarIcon, Columns3Icon, Grid3x3Icon } from "@coss/ui/icons";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 
-import { TimeFormatToggle } from "@calcom/features/bookings/components/TimeFormatToggle";
-import type { BookerLayout } from "@calcom/features/bookings/Booker/types";
+import { TimeFormatToggle } from "@kalo/features/bookings/components/TimeFormatToggle";
+import type { BookerLayout } from "@kalo/features/bookings/Booker/types";
 
 export function Header({
   extraDays,

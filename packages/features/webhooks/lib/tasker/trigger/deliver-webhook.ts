@@ -1,4 +1,4 @@
-import { ErrorWithCode } from "@calcom/lib/errors";
+import { ErrorWithCode } from "@kalo/lib/errors";
 import { logger, schemaTask, type TaskWithSchema } from "@trigger.dev/sdk";
 
 import type { WebhookTaskPayload } from "../../types/webhookTask";
@@ -28,7 +28,7 @@ export const deliverWebhook: TaskWithSchema<
   ...webhookDeliveryTaskConfig,
   schema: webhookDeliveryTaskSchema,
   run: async (payload: WebhookTaskPayload, { ctx }) => {
-    const { getWebhookTaskConsumer } = await import("@calcom/features/di/webhooks/containers/webhook");
+    const { getWebhookTaskConsumer } = await import("@kalo/features/di/webhooks/containers/webhook");
 
     const webhookTaskConsumer = getWebhookTaskConsumer();
     const taskId = ctx.run.id;

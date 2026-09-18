@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "HubSpot CRM",
@@ -9,14 +9,14 @@ export const metadata = {
   type: "hubspot_crm",
   variant: "crm",
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   url: "https://hubspot.com/",
   categories: ["crm"],
   label: "HubSpot CRM",
   slug: "hubspot",
   extendsFeature: "EventType",
   title: "HubSpot CRM",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "hubspot",
   isOAuth: true,
 } as AppMeta;

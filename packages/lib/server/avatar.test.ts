@@ -9,7 +9,7 @@ vi.mock("uuid", () => ({
   v4: (...args: unknown[]) => mockUuidv4(...args),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {
     avatar: {
       findUnique: (...args: unknown[]) => mockFindUnique(...args),

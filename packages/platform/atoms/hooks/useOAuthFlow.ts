@@ -4,7 +4,7 @@ import { debounce } from "lodash";
 import { useEffect, useState } from "react";
 import usePrevious from "react-use/lib/usePrevious";
 
-import type { ApiResponse } from "@calcom/platform-types";
+import type { ApiResponse } from "@kalo/platform-types";
 
 import http from "../lib/http";
 

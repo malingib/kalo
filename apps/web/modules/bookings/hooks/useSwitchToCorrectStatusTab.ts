@@ -1,4 +1,4 @@
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { validStatuses } from "../lib/validStatuses";

@@ -1,8 +1,8 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Button, type ButtonProps, buttonClasses } from "@calcom/ui/components/button";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Button, type ButtonProps, buttonClasses } from "@kalo/ui/components/button";
 import {
   Command,
   CommandEmpty,
@@ -11,8 +11,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@calcom/ui/components/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@calcom/ui/components/popover";
+} from "@kalo/ui/components/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@kalo/ui/components/popover";
 import { CheckIcon } from "@coss/ui/icons";
 import type { Table } from "@tanstack/react-table";
 import { forwardRef, useState } from "react";

@@ -7,16 +7,16 @@ import { useForm } from "react-hook-form";
 import { Toaster } from "sonner";
 import { z } from "zod";
 
-import AppNotInstalledMessage from "@calcom/app-store/_components/AppNotInstalledMessage";
-import KeyField from "@calcom/app-store/btcpayserver/components/KeyInput";
-import { btcpayCredentialKeysSchema } from "@calcom/app-store/btcpayserver/lib/btcpayCredentialKeysSchema";
-import type { IBTCPaySetupProps } from "@calcom/app-store/btcpayserver/pages/setup/_getServerSideProps";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
+import AppNotInstalledMessage from "@kalo/app-store/_components/AppNotInstalledMessage";
+import KeyField from "@kalo/app-store/btcpayserver/components/KeyInput";
+import { btcpayCredentialKeysSchema } from "@kalo/app-store/btcpayserver/lib/btcpayCredentialKeysSchema";
+import type { IBTCPaySetupProps } from "@kalo/app-store/btcpayserver/pages/setup/_getServerSideProps";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
 import { LoaderIcon } from "@coss/ui/icons";
 
 export default function BTCPaySetup(props: IBTCPaySetupProps) {

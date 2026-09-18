@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type { OOOCreatedDTO } from "../dto/types";
 import type { ILogger, ITasker } from "../interface/infrastructure";
 import type { IOOOWebhookService, IWebhookRepository } from "../interface/services";

@@ -1,6 +1,6 @@
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import { MembershipRole } from "@calcom/platform-libraries";
-import { CreateOAuthClientInput, Pagination, UpdateOAuthClientInput } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import { MembershipRole } from "@kalo/platform-libraries";
+import { CreateOAuthClientInput, Pagination, UpdateOAuthClientInput } from "@kalo/platform-types";
 import {
   BadRequestException,
   Body,

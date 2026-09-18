@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 
 type SkeletonBaseProps = {
   className?: string;

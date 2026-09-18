@@ -1,7 +1,7 @@
 undecided:
-  - "@calcom/app-store-cli"
-  - "@calcom/platform-constants"
-  - "@calcom/platform-enums"
-  - "@calcom/platform-types"
-  - "@calcom/platform-utils"
-  - "@calcom/prisma"
+  - "@kalo/app-store-cli"
+  - "@kalo/platform-constants"
+  - "@kalo/platform-enums"
+  - "@kalo/platform-types"
+  - "@kalo/platform-utils"
+  - "@kalo/prisma"

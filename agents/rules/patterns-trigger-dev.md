@@ -92,7 +92,7 @@ export const myTask: TaskWithSchema<typeof MY_TASK_JOB_ID, typeof myTaskSchema> 
     ...myTaskConfig,
     schema: myTaskSchema,
     run: async (payload: z.infer<typeof myTaskSchema>) => {
-      const { getMyService } = await import("@calcom/features/<domain>/di/<container>");
+      const { getMyService } = await import("@kalo/features/<domain>/di/<container>");
       const service = getMyService();
       await service.execute(payload);
     },
@@ -208,7 +208,7 @@ export const myTask = schemaTask({
 
 ```typescript
 // Bad - eager import of heavy modules at file scope
-import { MyService } from "@calcom/features/domain/service/MyService";
+import { MyService } from "@kalo/features/domain/service/MyService";
 
 export const myTask = schemaTask({
   id: "my-task",
@@ -224,7 +224,7 @@ export const myTask = schemaTask({
   id: "my-task",
   schema: myTaskSchema,
   run: async (payload) => {
-    const { getMyService } = await import("@calcom/features/domain/di/container");
+    const { getMyService } = await import("@kalo/features/domain/di/container");
     const service = getMyService();
     await service.execute(payload);
   },

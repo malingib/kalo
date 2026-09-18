@@ -1,6 +1,6 @@
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { eventTypesRouter } from "@calcom/trpc/server/routers/viewer/eventTypes/_router";
-import { EventTypeWebWrapper } from "@calcom/web/modules/event-types/components/EventTypeWebWrapper";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { eventTypesRouter } from "@kalo/trpc/server/routers/viewer/eventTypes/_router";
+import { EventTypeWebWrapper } from "@kalo/web/modules/event-types/components/EventTypeWebWrapper";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { createRouterCaller, getTRPCContext } from "app/_trpc/context";
 import type { PageProps, ReadonlyHeaders, ReadonlyRequestCookies } from "app/_types";

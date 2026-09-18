@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/platform-libraries",
+  "name": "@kalo/platform-libraries",
   "version": "0.0.0",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -17,9 +17,9 @@
     "publish-npm": "yarn && node scripts/prepublish.js && npx rimraf dist && yarn build && npm publish --access public && node scripts/postpublish.js"
   },
   "dependencies": {
-    "@calcom/features": "workspace:*",
-    "@calcom/i18n": "workspace:*",
-    "@calcom/lib": "workspace:*"
+    "@kalo/features": "workspace:*",
+    "@kalo/i18n": "workspace:*",
+    "@kalo/lib": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

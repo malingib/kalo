@@ -2,8 +2,8 @@ import type { GetServerSidePropsContext } from "next";
 import type { ParsedUrlQuery } from "node:querystring";
 import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
-import * as constants from "@calcom/lib/constants";
-import { RedirectType } from "@calcom/prisma/enums";
+import * as constants from "@kalo/lib/constants";
+import { RedirectType } from "@kalo/prisma/enums";
 
 import { handleOrgRedirect, getRedirectWithOriginAndSearchString } from "./handleOrgRedirect";
 
@@ -14,7 +14,7 @@ const prismaMock = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: prismaMock,
 }));
 

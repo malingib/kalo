@@ -4,7 +4,7 @@ import { dir } from "i18next";
 import type { DocumentContext, DocumentProps } from "next/document";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 
-import { IS_PRODUCTION } from "@calcom/lib/constants";
+import { IS_PRODUCTION } from "@kalo/lib/constants";
 
 import { applyTheme, applyToDesktopClass } from "./../lib/pages/document/_applyThemeForDocument";
 
@@ -12,7 +12,7 @@ type Props = Record<string, unknown> & DocumentProps & { newLocale: string };
 
 class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
-    const getLocaleModule = ctx.req ? await import("@calcom/features/auth/lib/getLocale") : null;
+    const getLocaleModule = ctx.req ? await import("@kalo/features/auth/lib/getLocale") : null;
 
     const newLocale =
       ctx.req && getLocaleModule

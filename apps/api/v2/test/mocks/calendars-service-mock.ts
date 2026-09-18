@@ -1,6 +1,6 @@
 import { CalendarsService } from "@/ee/calendars/services/calendars.service";
 
-import { ICS_CALENDAR_ID, ICS_CALENDAR_TYPE } from "@calcom/platform-constants";
+import { ICS_CALENDAR_ID, ICS_CALENDAR_TYPE } from "@kalo/platform-constants";
 
 export class CalendarsServiceMock {
   async getCalendars() {

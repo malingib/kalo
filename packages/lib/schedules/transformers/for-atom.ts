@@ -1,8 +1,8 @@
-import dayjs from "@calcom/dayjs";
-import { getWorkingHours } from "@calcom/lib/availability";
-import { yyyymmdd } from "@calcom/lib/dayjs";
-import type { Availability } from "@calcom/prisma/client";
-import type { Schedule, TimeRange } from "@calcom/types/schedule";
+import dayjs from "@kalo/dayjs";
+import { getWorkingHours } from "@kalo/lib/availability";
+import { yyyymmdd } from "@kalo/lib/dayjs";
+import type { Availability } from "@kalo/prisma/client";
+import type { Schedule, TimeRange } from "@kalo/types/schedule";
 
 type ScheduleAvailability = Pick<Availability, "days" | "startTime" | "endTime">[];
 type ScheduleOverride = Pick<Availability, "date" | "startTime" | "endTime">[];

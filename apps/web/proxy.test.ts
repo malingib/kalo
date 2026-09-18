@@ -1,6 +1,6 @@
 // Import mocked functions
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 import { get as edgeConfigGet } from "@vercel/edge-config";
 import { NextRequest, NextResponse } from "next/server";
 import type { Mock } from "vitest";

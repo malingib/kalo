@@ -1,9 +1,9 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
-import logger from "@calcom/lib/logger";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { teamMetadataSchema } from "@calcom/prisma/zod-utils";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
+import logger from "@kalo/lib/logger";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { teamMetadataSchema } from "@kalo/prisma/zod-utils";
 import type { NextApiResponse } from "next";
 import stripe from "../../server";
 

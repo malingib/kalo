@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
+import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
 
 import prisma from "../../lib/prismaClient";
 
@@ -21,7 +21,7 @@ async function createUserWithDefaultSchedule(email: string, name: string, avatar
 
   const managedUserResponse = await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/oauth-clients/${process.env.NEXT_PUBLIC_X_CAL_ID}/users`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/oauth-clients/${process.env.NEXT_PUBLIC_X_CAL_ID}/users`,
     {
       method: "POST",
       headers: {
@@ -150,7 +150,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 async function createTeam(orgId: number, name: string) {
   const response = await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/teams`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/teams`,
     {
       method: "POST",
       headers: {
@@ -175,7 +175,7 @@ async function createTeam(orgId: number, name: string) {
 async function createOrgTeamMembershipMember(orgId: number, teamId: number, userId: number) {
   await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/memberships`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/memberships`,
     {
       method: "POST",
       headers: {
@@ -198,7 +198,7 @@ async function createOrgTeamMembershipMember(orgId: number, teamId: number, user
 async function createOrgMembershipAdmin(orgId: number, userId: number) {
   await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/memberships`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/memberships`,
     {
       method: "POST",
       headers: {
@@ -221,7 +221,7 @@ async function createOrgMembershipAdmin(orgId: number, userId: number) {
 async function createCollectiveEventType(orgId: number, teamId: number, userIds: number[]) {
   await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
     {
       method: "POST",
       headers: {
@@ -246,7 +246,7 @@ async function createCollectiveEventType(orgId: number, teamId: number, userIds:
 async function createRoundRobinEventType(orgId: number, teamId: number, userIds: number[]) {
   await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
     {
       method: "POST",
       headers: {
@@ -271,7 +271,7 @@ async function createRoundRobinEventType(orgId: number, teamId: number, userIds:
 async function createManagedEventType(orgId: number, teamId: number, userIds: number[]) {
   await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/organizations/${orgId}/teams/${teamId}/event-types`,
     {
       method: "POST",
       headers: {
@@ -300,7 +300,7 @@ async function createDefaultSchedule(accessToken: string) {
 
   const response = await fetch(
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/schedules`,
+    `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/schedules`,
     {
       method: "POST",
       headers: {

@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
-import { CalendarCacheEventService } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventService";
+import { CalendarCacheEventService } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventService";
 
 vi.mock("next/server", () => ({
   NextRequest: class MockNextRequest {
@@ -33,9 +33,9 @@ vi.mock("next/server", () => ({
   },
 }));
 
-vi.mock("@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventService");
-vi.mock("@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventRepository");
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventService");
+vi.mock("@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventRepository");
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: vi.fn(() => ({
       info: vi.fn(),
@@ -43,7 +43,7 @@ vi.mock("@calcom/lib/logger", () => ({
     })),
   },
 }));
-vi.mock("@calcom/lib/server/perfObserver", () => ({
+vi.mock("@kalo/lib/server/perfObserver", () => ({
   performance: {
     mark: vi.fn(),
     measure: vi.fn(),
@@ -53,7 +53,7 @@ vi.mock("@sentry/nextjs", () => ({
   wrapApiHandlerWithSentry: vi.fn((handler) => handler),
   captureException: vi.fn(),
 }));
-vi.mock("@calcom/lib/server/getServerErrorFromUnknown", () => ({
+vi.mock("@kalo/lib/server/getServerErrorFromUnknown", () => ({
   getServerErrorFromUnknown: vi.fn((error) => ({
     message: error instanceof Error ? error.message : "Unknown error",
     statusCode: 500,
@@ -64,7 +64,7 @@ vi.mock("@calcom/lib/server/getServerErrorFromUnknown", () => ({
 vi.mock("../../defaultResponderForAppDir", () => ({
   defaultResponderForAppDir: vi.fn((handler) => handler),
 }));
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {},
 }));
 

@@ -1,5 +1,5 @@
-import { ConfirmationPolicyEnum } from "@calcom/platform-enums";
-import type { NoticeThresholdTransformedSchema, ConfirmationPolicy_2024_06_14 } from "@calcom/platform-types";
+import { ConfirmationPolicyEnum } from "@kalo/platform-enums";
+import type { NoticeThresholdTransformedSchema, ConfirmationPolicy_2024_06_14 } from "@kalo/platform-types";
 
 export function transformRequiresConfirmationInternalToApi(
   requiresConfirmation: boolean,

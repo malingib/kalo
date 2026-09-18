@@ -1,7 +1,7 @@
 import type z from "zod";
 
-import { slugify } from "@calcom/lib/slugify";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import { slugify } from "@kalo/lib/slugify";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 import type { bookingCreateSchemaLegacyPropsForApi } from "../bookingCreateBodySchema";
 import type { getEventTypeResponse } from "./getEventTypesFromDB";

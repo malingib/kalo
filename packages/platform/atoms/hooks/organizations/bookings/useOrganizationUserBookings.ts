@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { GetBookingsInput_2024_08_13, GetBookingsOutput_2024_08_13 } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { GetBookingsInput_2024_08_13, GetBookingsOutput_2024_08_13 } from "@kalo/platform-types";
 
 import http from "../../../lib/http";
 import { extractBookingsQueryKeys } from "../../bookings/useBookings";

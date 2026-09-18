@@ -1,4 +1,4 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import { expect, test, vi, describe } from "vitest";
 
@@ -52,7 +52,7 @@ const testCredential = {
   },
   type: config.type,
   userId: 1,
-  user: { email: "example@cal.com" },
+  user: { email: "example@kalo" },
   teamId: 1,
   delegatedTo: null,
   delegationCredentialId: null,

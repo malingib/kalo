@@ -1,4 +1,4 @@
-import { BookerStoreProvider } from "@calcom/features/bookings/Booker/BookerStoreProvider";
+import { BookerStoreProvider } from "@kalo/features/bookings/Booker/BookerStoreProvider";
 
 import { CalendarViewComponent } from "../CalendarViewComponent";
 import { EventTypeCalendarViewComponent } from "../EventTypeCalendarViewComponent";

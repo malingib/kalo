@@ -1,14 +1,14 @@
 import process from "node:process";
-import { getCalendar } from "@calcom/app-store/_utils/getCalendar";
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import { decryptSecret } from "@calcom/lib/crypto/keyring";
-import { isDelegationCredential } from "@calcom/lib/delegationCredential";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeCredential, getPiiFreeSelectedCalendar } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { performance } from "@calcom/lib/server/perfObserver";
-import type { CalendarFetchMode, EventBusyDate, SelectedCalendar } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import { getCalendar } from "@kalo/app-store/_utils/getCalendar";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import { decryptSecret } from "@kalo/lib/crypto/keyring";
+import { isDelegationCredential } from "@kalo/lib/delegationCredential";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeCredential, getPiiFreeSelectedCalendar } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { performance } from "@kalo/lib/server/perfObserver";
+import type { CalendarFetchMode, EventBusyDate, SelectedCalendar } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 import { normalizeTimezone } from "./timezone-conversion";
 
 const log = logger.getSubLogger({ prefix: ["getCalendarsEvents"] });
@@ -59,7 +59,7 @@ export const getCalendarsEventsWithTimezones = async (
     if (!passedSelectedCalendars.length) {
       if (!isADelegationCredential) {
         // It was done to fix the secondary calendar connections from always checking the conflicts even if intentional no calendars are selected.
-        // https://github.com/calcom/cal.diy/issues/8929
+        // https://github.com/calcom/kalo/issues/8929
         log.error(
           `No selected calendars for non DWD credential: Skipping getAvailability call for credential ${credential?.id}`
         );
@@ -159,7 +159,7 @@ const getCalendarsEvents = async (
     if (!passedSelectedCalendars.length) {
       if (!isADelegationCredential) {
         // It was done to fix the secondary calendar connections from always checking the conflicts even if intentional no calendars are selected.
-        // https://github.com/calcom/cal.diy/issues/8929
+        // https://github.com/calcom/kalo/issues/8929
         log.error(
           `No selected calendars for non DWD credential: Skipping getAvailability call for credential ${credential?.id}`
         );

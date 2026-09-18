@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
 
 export const useUrlMatchesCurrentUrl = (url: string, matchFullPath?: boolean) => {
   // I don't know why usePathname ReturnType doesn't include null.

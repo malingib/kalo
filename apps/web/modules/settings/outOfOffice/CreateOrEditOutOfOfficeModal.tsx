@@ -1,14 +1,14 @@
-import dayjs from "@calcom/dayjs";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useDebounce } from "@calcom/lib/hooks/useDebounce";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
+import dayjs from "@kalo/dayjs";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useDebounce } from "@kalo/lib/hooks/useDebounce";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import useMeQuery from "@kalo/trpc/react/hooks/useMeQuery";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
 import {
   Checkbox,
   DateRangePicker,
@@ -17,8 +17,8 @@ import {
   Select,
   Switch,
   TextArea,
-} from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { OutOfOfficeTab } from "~/settings/outOfOffice/OutOfOfficeToggleGroup";

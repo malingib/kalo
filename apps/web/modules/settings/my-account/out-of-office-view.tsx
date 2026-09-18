@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
 
 import type { BookingRedirectForm } from "~/settings/outOfOffice/types";
 

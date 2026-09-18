@@ -1,6 +1,6 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as loggerServiceModule } from "@calcom/features/di/shared/services/logger.service";
-import { CalendarsTasker } from "@calcom/features/calendars/lib/tasker/CalendarsTasker";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as loggerServiceModule } from "@kalo/features/di/shared/services/logger.service";
+import { CalendarsTasker } from "@kalo/features/calendars/lib/tasker/CalendarsTasker";
 
 import { moduleLoader as calendarsSyncTaskerModuleLoader } from "./CalendarsSyncTasker.module";
 import { moduleLoader as calendarsTriggerTaskerModuleLoader } from "./CalendarsTriggerTasker.module";

@@ -19,14 +19,14 @@ import {
   OFFICE_365_CALENDAR_ID,
   OFFICE_365_CALENDAR_TYPE,
   SUCCESS_STATUS,
-} from "@calcom/platform-constants";
-import { ICS_CALENDAR, ICS_CALENDAR_TYPE } from "@calcom/platform-constants/apps";
-import type { Credential, PlatformOAuthClient, Team, User } from "@calcom/prisma/client";
+} from "@kalo/platform-constants";
+import { ICS_CALENDAR, ICS_CALENDAR_TYPE } from "@kalo/platform-constants/apps";
+import type { Credential, PlatformOAuthClient, Team, User } from "@kalo/prisma/client";
 
 // Mock the BuildIcsFeedCalendarService factory function
 const mockBuildIcsFeedCalendarService = jest.fn();
-jest.mock("@calcom/platform-libraries/app-store", () => {
-  const actual = jest.requireActual("@calcom/platform-libraries/app-store");
+jest.mock("@kalo/platform-libraries/app-store", () => {
+  const actual = jest.requireActual("@kalo/platform-libraries/app-store");
   return {
     ...actual,
     BuildIcsFeedCalendarService: (...args: unknown[]) => mockBuildIcsFeedCalendarService(...args),

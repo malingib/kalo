@@ -1,20 +1,20 @@
-import { PaymentServiceMap } from "@calcom/app-store/payment.services.generated";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import dayjs from "@calcom/dayjs";
-import { sendNoShowFeeChargedEmail } from "@calcom/emails/billing-email-service";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
+import { PaymentServiceMap } from "@kalo/app-store/payment.services.generated";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import dayjs from "@kalo/dayjs";
+import { sendNoShowFeeChargedEmail } from "@kalo/emails/billing-email-service";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
 import {
   type EventTypeBrandingData,
   getEventTypeService,
-} from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import logger from "@calcom/lib/logger";
-import { getTranslation } from "@calcom/i18n/server";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { IAbstractPaymentService } from "@calcom/types/PaymentService";
+} from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import logger from "@kalo/lib/logger";
+import { getTranslation } from "@kalo/i18n/server";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { IAbstractPaymentService } from "@kalo/types/PaymentService";
 
 export const handleNoShowFee= async ({
   booking,

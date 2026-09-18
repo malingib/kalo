@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 export class DeleteScheduleOutput_2024_04_15 {
   @ApiProperty({ example: SUCCESS_STATUS, enum: [SUCCESS_STATUS, ERROR_STATUS] })

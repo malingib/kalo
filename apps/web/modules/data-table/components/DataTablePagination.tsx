@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "@calcom/ui/components/pagination";
+import { Pagination } from "@kalo/ui/components/pagination";
 import type { Table } from "@tanstack/react-table";
 import { useDataTable } from "~/data-table/hooks";
 

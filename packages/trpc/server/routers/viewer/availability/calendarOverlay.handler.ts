@@ -1,8 +1,8 @@
-import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import dayjs from "@calcom/dayjs";
-import { getBusyCalendarTimes } from "@calcom/features/calendars/lib/CalendarManager";
-import { prisma } from "@calcom/prisma";
-import type { EventBusyDate } from "@calcom/types/Calendar";
+import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import dayjs from "@kalo/dayjs";
+import { getBusyCalendarTimes } from "@kalo/features/calendars/lib/CalendarManager";
+import { prisma } from "@kalo/prisma";
+import type { EventBusyDate } from "@kalo/types/Calendar";
 
 import { TRPCError } from "@trpc/server";
 

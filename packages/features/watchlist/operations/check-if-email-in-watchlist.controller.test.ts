@@ -1,13 +1,13 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
-import { WatchlistType } from "@calcom/prisma/enums";
+import { WatchlistType } from "@kalo/prisma/enums";
 
 import { WatchlistFeature } from "../lib/facade/WatchlistFeature";
 import type { SpanFn } from "../lib/telemetry";
 import { checkIfEmailIsBlockedInWatchlistController } from "./check-if-email-in-watchlist.controller";
 
 // Mock the DI container
-vi.mock("@calcom/features/di/watchlist/containers/watchlist", () => ({
+vi.mock("@kalo/features/di/watchlist/containers/watchlist", () => ({
   getWatchlistFeature: vi.fn(),
 }));
 
@@ -29,7 +29,7 @@ const mockWatchlistFeature = {
 describe("checkIfEmailIsBlockedInWatchlistController", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { getWatchlistFeature } = await import("@calcom/features/di/watchlist/containers/watchlist");
+    const { getWatchlistFeature } = await import("@kalo/features/di/watchlist/containers/watchlist");
     vi.mocked(getWatchlistFeature).mockResolvedValue(mockWatchlistFeature as WatchlistFeature);
   });
 

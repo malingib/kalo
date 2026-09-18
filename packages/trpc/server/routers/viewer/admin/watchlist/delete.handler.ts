@@ -1,6 +1,6 @@
-import { getAdminWatchlistOperationsService } from "@calcom/features/di/watchlist/containers/watchlist";
-import { WatchlistError, WatchlistErrorCode } from "@calcom/features/watchlist/lib/errors/WatchlistErrors";
-import logger from "@calcom/lib/logger";
+import { getAdminWatchlistOperationsService } from "@kalo/features/di/watchlist/containers/watchlist";
+import { WatchlistError, WatchlistErrorCode } from "@kalo/features/watchlist/lib/errors/WatchlistErrors";
+import logger from "@kalo/lib/logger";
 
 import { TRPCError } from "@trpc/server";
 

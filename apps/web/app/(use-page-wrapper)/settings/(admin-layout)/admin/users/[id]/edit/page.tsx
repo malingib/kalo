@@ -1,6 +1,6 @@
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { prisma } from "@calcom/prisma";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { prisma } from "@kalo/prisma";
 import type { Params } from "app/_types";
 import { _generateMetadata, getTranslate } from "app/_utils";
 import { z } from "zod";

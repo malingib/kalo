@@ -1,4 +1,4 @@
-import logger from "@calcom/lib/logger";
+import logger from "@kalo/lib/logger";
 
 const log = logger.getSubLogger({ prefix: ["timezoneConversion"] });
 

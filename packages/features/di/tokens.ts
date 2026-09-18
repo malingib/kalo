@@ -1,10 +1,10 @@
-import { BOOKING_DI_TOKENS } from "@calcom/features/bookings/di/tokens";
-import { EVENT_TYPE_DI_TOKENS } from "@calcom/features/eventtypes/di/tokens";
-import { FEATURE_OPT_IN_DI_TOKENS } from "@calcom/features/feature-opt-in/di/tokens";
-import { FLAGS_DI_TOKENS } from "@calcom/features/flags/di/tokens";
-import { HASHED_LINK_DI_TOKENS } from "@calcom/features/hashedLink/di/tokens";
-import { OAUTH_DI_TOKENS } from "@calcom/features/oauth/di/tokens";
-import { TRANSLATION_DI_TOKENS } from "@calcom/features/translation/di/tokens";
+import { BOOKING_DI_TOKENS } from "@kalo/features/bookings/di/tokens";
+import { EVENT_TYPE_DI_TOKENS } from "@kalo/features/eventtypes/di/tokens";
+import { FEATURE_OPT_IN_DI_TOKENS } from "@kalo/features/feature-opt-in/di/tokens";
+import { FLAGS_DI_TOKENS } from "@kalo/features/flags/di/tokens";
+import { HASHED_LINK_DI_TOKENS } from "@kalo/features/hashedLink/di/tokens";
+import { OAUTH_DI_TOKENS } from "@kalo/features/oauth/di/tokens";
+import { TRANSLATION_DI_TOKENS } from "@kalo/features/translation/di/tokens";
 import { WATCHLIST_DI_TOKENS } from "./watchlist/Watchlist.tokens";
 import { WEBHOOK_TOKENS } from "./webhooks/Webhooks.tokens";
 

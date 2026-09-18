@@ -1,9 +1,9 @@
-import { getPremiumMonthlyPlanPriceId } from "@calcom/app-store/stripepayment/lib/utils";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { usernameCheck } from "@calcom/lib/server/username";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import { getPremiumMonthlyPlanPriceId } from "@kalo/app-store/stripepayment/lib/utils";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { usernameCheck } from "@kalo/lib/server/username";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import type Stripe from "stripe";
 import { getStripeCustomerIdFromUserId } from "../lib/customer";

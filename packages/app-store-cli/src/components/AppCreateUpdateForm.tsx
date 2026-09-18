@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 import { Box, Newline, Text, useApp } from "ink";
 import SelectInput from "ink-select-input";
 import TextInput from "ink-text-input";

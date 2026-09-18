@@ -1,33 +1,33 @@
-import { getCalendar } from "@calcom/app-store/_utils/getCalendar";
+import { getCalendar } from "@kalo/app-store/_utils/getCalendar";
 import {
   getDelegationCredentialOrRegularCredential,
   getUsersCredentialsIncludeServiceAccountKey,
-} from "@calcom/app-store/delegationCredential";
-import dayjs from "@calcom/dayjs";
-import { sendRequestRescheduleEmailAndSMS } from "@calcom/emails/email-manager";
-import { getCalEventResponses } from "@calcom/features/bookings/lib/getCalEventResponses";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { deleteMeeting } from "@calcom/features/conferencing/lib/videoClient";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
+} from "@kalo/app-store/delegationCredential";
+import dayjs from "@kalo/dayjs";
+import { sendRequestRescheduleEmailAndSMS } from "@kalo/emails/email-manager";
+import { getCalEventResponses } from "@kalo/features/bookings/lib/getCalEventResponses";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { deleteMeeting } from "@kalo/features/conferencing/lib/videoClient";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
 import {
   cancelNoShowTasksForBooking,
   deleteWebhookScheduledTriggers,
-} from "@calcom/features/webhooks/lib/scheduleTrigger";
-import sendPayload from "@calcom/features/webhooks/lib/sendOrSchedulePayload";
-import { CalendarEventBuilder } from "@calcom/lib/builders/CalendarEvent/builder";
-import { CalendarEventDirector } from "@calcom/lib/builders/CalendarEvent/director";
-import getOrgIdFromMemberOrTeamId from "@calcom/lib/getOrgIdFromMemberOrTeamId";
-import { getTeamIdFromEventType } from "@calcom/lib/getTeamIdFromEventType";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { getTranslation } from "@calcom/i18n/server";
-import { BookingWebhookFactory } from "@calcom/lib/server/service/BookingWebhookFactory";
-import { prisma } from "@calcom/prisma";
-import type { BookingReference, EventType } from "@calcom/prisma/client";
-import type { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import type { Person } from "@calcom/types/Calendar";
+} from "@kalo/features/webhooks/lib/scheduleTrigger";
+import sendPayload from "@kalo/features/webhooks/lib/sendOrSchedulePayload";
+import { CalendarEventBuilder } from "@kalo/lib/builders/CalendarEvent/builder";
+import { CalendarEventDirector } from "@kalo/lib/builders/CalendarEvent/director";
+import getOrgIdFromMemberOrTeamId from "@kalo/lib/getOrgIdFromMemberOrTeamId";
+import { getTeamIdFromEventType } from "@kalo/lib/getTeamIdFromEventType";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { getTranslation } from "@kalo/i18n/server";
+import { BookingWebhookFactory } from "@kalo/lib/server/service/BookingWebhookFactory";
+import { prisma } from "@kalo/prisma";
+import type { BookingReference, EventType } from "@kalo/prisma/client";
+import type { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import type { Person } from "@kalo/types/Calendar";
 import { TRPCError } from "@trpc/server";
 import type { TFunction } from "i18next";
 import type { TrpcSessionUser } from "../../../types";

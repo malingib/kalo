@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog, ConfirmationDialogContent } from "@calcom/ui/components/dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog, ConfirmationDialogContent } from "@kalo/ui/components/dialog";
 import {
   Dropdown,
   DropdownItem,
@@ -14,8 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/dropdown";
+import { showToast } from "@kalo/ui/components/toast";
 
 import type { AtomEventTypeListItem } from "../types";
 import { formatEventTypeDuration } from "../lib/formatEventTypeDuration";

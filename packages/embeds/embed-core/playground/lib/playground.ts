@@ -81,7 +81,7 @@ window.heavilyCustomizeUi = ({ namespace }) => {
         "cal-radius-full": "7px",
         "cal-spacing-px": "5px",
         // More CSS variables are defined here
-        // https://github.com/calcom/cal.diy/blob/main/packages/config/tailwind-preset.js
+        // https://github.com/calcom/kalo/blob/main/packages/config/tailwind-preset.js
       },
       dark: {
         // Set the similar variables as in light theme but for dark mode.

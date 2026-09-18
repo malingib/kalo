@@ -2,7 +2,7 @@ import { EventTypesRepository_2024_06_14 } from "@/platform/event-types/event-ty
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { DateTime } from "luxon";
 
-import { SlotFormat } from "@calcom/platform-enums";
+import { SlotFormat } from "@kalo/platform-enums";
 import type {
   GetReservedSlotOutput_2024_09_04,
   RangeSlot_2024_09_04,
@@ -12,8 +12,8 @@ import type {
   SeatedSlot_2024_09_04,
   Slot_2024_09_04,
   SlotsOutput_2024_09_04,
-} from "@calcom/platform-types";
-import type { SelectedSlots } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { SelectedSlots } from "@kalo/prisma/client";
 
 type GetAvailableSlots = {
   slots: Record<string, { time: string; attendees?: number; bookingUid?: string; away?: boolean }[]>;

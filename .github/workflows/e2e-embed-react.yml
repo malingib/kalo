@@ -84,7 +84,7 @@ jobs:
       - name: Run Tests
         run: |
           yarn e2e:embed-react --workers=4
-          yarn workspace @calcom/embed-react packaged:tests
+          yarn workspace @kalo/embed-react packaged:tests
       - name: Upload Test Results
         if: ${{ always() }}
         uses: actions/upload-artifact@v4

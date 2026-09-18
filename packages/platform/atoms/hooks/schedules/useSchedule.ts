@@ -5,8 +5,8 @@ import {
   SUCCESS_STATUS,
   VERSION_2024_06_11,
   CAL_API_VERSION_HEADER,
-} from "@calcom/platform-constants";
-import type { GetScheduleOutput_2024_06_11 } from "@calcom/platform-types";
+} from "@kalo/platform-constants";
+import type { GetScheduleOutput_2024_06_11 } from "@kalo/platform-types";
 
 import http from "../../lib/http";
 import { useAtomsContext } from "../useAtomsContext";

@@ -2,8 +2,8 @@
 
 import type { FC } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { OFFICE_365_CALENDAR } from "@calcom/platform-constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { OFFICE_365_CALENDAR } from "@kalo/platform-constants";
 
 import type { OAuthConnectProps } from "../OAuthConnect";
 import { OAuthConnect } from "../OAuthConnect";

@@ -1,4 +1,4 @@
-import { RecurringBookingService as BaseRecurringBookingService } from "@calcom/platform-libraries/bookings";
+import { RecurringBookingService as BaseRecurringBookingService } from "@kalo/platform-libraries/bookings";
 import { Injectable } from "@nestjs/common";
 import { RegularBookingService } from "@/lib/services/regular-booking.service";
 

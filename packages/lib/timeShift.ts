@@ -1,4 +1,4 @@
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 /**
  * Given a list of UTC datetimes and a target timezone, returns a boolean array

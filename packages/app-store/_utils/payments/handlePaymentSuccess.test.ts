@@ -2,25 +2,25 @@
  * @vitest-environment node
  */
 
-import { BookingStatus, WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { BookingStatus, WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handlePaymentSuccess } from "./handlePaymentSuccess";
 
 // Mock dependencies
-vi.mock("@calcom/features/bookings/lib/payment/getBooking");
-vi.mock("@calcom/features/webhooks/lib/getWebhooks");
-vi.mock("@calcom/features/webhooks/lib/sendOrSchedulePayload");
-vi.mock("@calcom/features/tasker");
-vi.mock("@calcom/features/bookings/lib/getAllCredentialsForUsersOnEvent/getAllCredentials", () => ({
+vi.mock("@kalo/features/bookings/lib/payment/getBooking");
+vi.mock("@kalo/features/webhooks/lib/getWebhooks");
+vi.mock("@kalo/features/webhooks/lib/sendOrSchedulePayload");
+vi.mock("@kalo/features/tasker");
+vi.mock("@kalo/features/bookings/lib/getAllCredentialsForUsersOnEvent/getAllCredentials", () => ({
   getAllCredentialsIncludeServiceAccountKey: vi.fn().mockResolvedValue([]),
 }));
-vi.mock("@calcom/features/users/repositories/UserRepository", () => ({
+vi.mock("@kalo/features/users/repositories/UserRepository", () => ({
   UserRepository: class {
     enrichUserWithItsProfile = vi.fn().mockResolvedValue({ profile: null });
   },
 }));
-vi.mock("@calcom/prisma", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@calcom/prisma")>();
+vi.mock("@kalo/prisma", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@kalo/prisma")>();
   return {
     ...actual,
     default: {
@@ -37,19 +37,19 @@ vi.mock("@calcom/prisma", async (importOriginal) => {
     },
   };
 });
-vi.mock("@calcom/lib/getTeamIdFromEventType");
-vi.mock("@calcom/lib/CalEventParser");
-vi.mock("@calcom/features/platform-oauth-client/platform-oauth-client.repository", () => ({
+vi.mock("@kalo/lib/getTeamIdFromEventType");
+vi.mock("@kalo/lib/CalEventParser");
+vi.mock("@kalo/features/platform-oauth-client/platform-oauth-client.repository", () => ({
   PlatformOAuthClientRepository: class {
     getByUserId = vi.fn().mockResolvedValue(null);
   },
 }));
-vi.mock("@calcom/features/platform-oauth-client/get-platform-params");
-vi.mock("@calcom/features/bookings/lib/handleConfirmation");
-vi.mock("@calcom/features/bookings/lib/handleBookingRequested");
-vi.mock("@calcom/emails/email-manager");
-vi.mock("@calcom/lib/tracing/factory");
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/features/platform-oauth-client/get-platform-params");
+vi.mock("@kalo/features/bookings/lib/handleConfirmation");
+vi.mock("@kalo/features/bookings/lib/handleBookingRequested");
+vi.mock("@kalo/emails/email-manager");
+vi.mock("@kalo/lib/tracing/factory");
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: vi.fn(() => ({
       debug: vi.fn(),
@@ -60,11 +60,11 @@ vi.mock("@calcom/lib/logger", () => ({
 }));
 // Routing forms feature removed - mocks no longer needed
 
-vi.mock("@calcom/app-store/_utils/getCalendar", () => ({
+vi.mock("@kalo/app-store/_utils/getCalendar", () => ({
   getCalendar: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock("@calcom/app-store/delegationCredential", () => ({
+vi.mock("@kalo/app-store/delegationCredential", () => ({
   enrichHostsWithDelegationCredentials: vi.fn(),
   getUsersCredentialsIncludeServiceAccountKey: vi.fn(),
   getCredentialForSelectedCalendar: vi.fn(),
@@ -73,20 +73,20 @@ vi.mock("@calcom/app-store/delegationCredential", () => ({
   getDelegationCredentialOrFindRegularCredential: vi.fn(),
 }));
 
-vi.mock("@calcom/features/calendars/lib/CalendarManager", () => ({
+vi.mock("@kalo/features/calendars/lib/CalendarManager", () => ({
   getBusyCalendarTimes: vi.fn().mockResolvedValue([]),
   createEvent: vi.fn().mockResolvedValue({}),
   updateEvent: vi.fn().mockResolvedValue({}),
   deleteEvent: vi.fn().mockResolvedValue({}),
 }));
 
-import { getBooking } from "@calcom/features/bookings/lib/payment/getBooking";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
-import { WebhookVersion } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-import sendPayload from "@calcom/features/webhooks/lib/sendOrSchedulePayload";
-import { getTeamIdFromEventType } from "@calcom/lib/getTeamIdFromEventType";
-import type { TraceContext } from "@calcom/lib/tracing";
-import prisma from "@calcom/prisma";
+import { getBooking } from "@kalo/features/bookings/lib/payment/getBooking";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
+import { WebhookVersion } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+import sendPayload from "@kalo/features/webhooks/lib/sendOrSchedulePayload";
+import { getTeamIdFromEventType } from "@kalo/lib/getTeamIdFromEventType";
+import type { TraceContext } from "@kalo/lib/tracing";
+import prisma from "@kalo/prisma";
 
 describe("handlePaymentSuccess", () => {
   const mockBookingId = 1;

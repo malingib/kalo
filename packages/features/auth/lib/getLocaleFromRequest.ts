@@ -1,11 +1,11 @@
 import parser from "accept-language-parser";
 import type { GetServerSidePropsContext, NextApiRequest } from "next";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
 
 type Maybe<T> = T | null | undefined;
 
-const { i18n } = require("@calcom/i18n/next-i18next.config");
+const { i18n } = require("@kalo/i18n/next-i18next.config");
 
 export async function getLocaleFromRequest(
   req: NextApiRequest | GetServerSidePropsContext["req"]

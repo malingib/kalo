@@ -1,4 +1,4 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 import type { NextApiRequest } from "next";
 import type { Session } from "next-auth";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -14,7 +14,7 @@ import { buildReturnUrl, validateAuthentication } from "../portal";
 vi.mock("../../lib/customer");
 vi.mock("../../lib/server");
 vi.mock("../../lib/subscriptions");
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
 }));
 

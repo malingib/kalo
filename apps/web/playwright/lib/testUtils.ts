@@ -3,9 +3,9 @@ import EventEmitter from "node:events";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { createServer } from "node:http";
 import process from "node:process";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import type { Prisma } from "@calcom/prisma/client";
-import { BookingStatus, SchedulingType } from "@calcom/prisma/enums";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import type { Prisma } from "@kalo/prisma/client";
+import { BookingStatus, SchedulingType } from "@kalo/prisma/enums";
 import type { Frame, Page, Request as PlaywrightRequest } from "@playwright/test";
 import { expect } from "@playwright/test";
 import type { Messages } from "mailhog";
@@ -36,8 +36,8 @@ export const IS_STRIPE_ENABLED = !!(
 
 export const IS_GOOGLE_CALENDAR_ENABLED = !!(
   process.env.GOOGLE_API_CREDENTIALS &&
-  process.env.E2E_TEST_CALCOM_GCAL_KEYS &&
-  process.env.E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS
+  process.env.E2E_TEST_KALO_GCAL_KEYS &&
+  process.env.E2E_TEST_KALO_QA_GCAL_CREDENTIALS
 );
 
 export const IS_SENDGRID_ENABLED = !!process.env.SENDGRID_API_KEY;

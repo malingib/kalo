@@ -1,5 +1,5 @@
-import type { eventTypeBookingFields } from "@calcom/prisma/zod-utils";
-import { test } from "@calcom/testing/lib/fixtures/fixtures";
+import type { eventTypeBookingFields } from "@kalo/prisma/zod-utils";
+import { test } from "@kalo/testing/lib/fixtures/fixtures";
 import { describe, expect } from "vitest";
 import type { z } from "zod";
 import getBookingResponsesSchema, { getBookingResponsesPartialSchema } from "./getBookingResponsesSchema";
@@ -667,7 +667,7 @@ describe("getBookingResponsesSchema", () => {
 
     describe("excluded email/domain validation", () => {
       test("should fail if the email is present in excluded emails", async () => {
-        const excludedEmails = "spammer@cal.com, hotmail.com, yahoo.com, gmail.com";
+        const excludedEmails = "spammer@kalo, hotmail.com, yahoo.com, gmail.com";
 
         const schema = getBookingResponsesSchema({
           bookingFields: [
@@ -700,7 +700,7 @@ describe("getBookingResponsesSchema", () => {
       });
 
       test("should pass if the email is not present in excluded emails", async () => {
-        const excludedEmails = "spammer@cal.com, hotmail.com, yahoo.com, gmail.com";
+        const excludedEmails = "spammer@kalo, hotmail.com, yahoo.com, gmail.com";
 
         const schema = getBookingResponsesSchema({
           bookingFields: [
@@ -833,7 +833,7 @@ describe("getBookingResponsesSchema", () => {
       });
 
       test("should block full email match when exact email is excluded", async () => {
-        const excludedEmails = "anik@cal.com";
+        const excludedEmails = "anik@kalo";
 
         const schema = getBookingResponsesSchema({
           bookingFields: [
@@ -852,10 +852,10 @@ describe("getBookingResponsesSchema", () => {
           view: "ALL_VIEWS",
         });
 
-        // anik@cal.com should be blocked
+        // anik@kalo should be blocked
         const parsedResponses = await schema.safeParseAsync({
           name: "test",
-          email: "anik@cal.com",
+          email: "anik@kalo",
         });
 
         expectParsingToFail(

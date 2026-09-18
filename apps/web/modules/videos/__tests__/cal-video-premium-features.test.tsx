@@ -4,7 +4,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { BUTTONS } from "../button-states";
 import { createCalVideoCallbacks } from "../cal-video-premium-features";
 
-vi.mock("@calcom/lib/constants", () => ({
+vi.mock("@kalo/lib/constants", () => ({
   TRANSCRIPTION_STARTED_ICON: "/transcription-started-icon.svg",
   RECORDING_IN_PROGRESS_ICON: "/recording-in-progress-icon.svg",
   TRANSCRIPTION_STOPPED_ICON: "/transcription-stopped-icon.svg",

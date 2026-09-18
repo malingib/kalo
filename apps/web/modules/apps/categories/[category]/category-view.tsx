@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 
-import { AppCard } from "@calcom/web/modules/apps/components/AppCard";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { AppCard } from "@kalo/web/modules/apps/components/AppCard";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 import type { CategoryDataProps } from "@lib/apps/categories/[category]/getStaticProps";
 

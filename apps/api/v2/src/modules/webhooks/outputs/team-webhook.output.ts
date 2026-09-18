@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsInt, IsEnum, ValidateNested } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 import { WebhookOutputDto } from "./webhook.output";
 

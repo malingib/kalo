@@ -1,6 +1,6 @@
-import dayjs from "@calcom/dayjs";
-import prisma from "@calcom/prisma";
-import { BookingStatus } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import prisma from "@kalo/prisma";
+import { BookingStatus } from "@kalo/prisma/enums";
 import { expect } from "@playwright/test";
 import { v4 as uuidv4 } from "uuid";
 import { test } from "./lib/fixtures";
@@ -388,8 +388,8 @@ test.describe("BOOKING_RESCHEDULED", async () => {
     webhooks,
   }) => {
     const { user, eventType, booking } = await createUserWithSeatedEventAndAttendees({ users, bookings }, [
-      { name: "John First", email: "first+seats@cal.com", timeZone: "Europe/Berlin" },
-      { name: "Jane Second", email: "second+seats@cal.com", timeZone: "Europe/Berlin" },
+      { name: "John First", email: "first+seats@kalo", timeZone: "Europe/Berlin" },
+      { name: "Jane Second", email: "second+seats@kalo", timeZone: "Europe/Berlin" },
     ]);
 
     await prisma.eventType.update({

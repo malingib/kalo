@@ -1,13 +1,13 @@
 import z from "zod";
 
-import type { CloseComFieldOptions } from "@calcom/lib/CloseCom";
-import CloseCom from "@calcom/lib/CloseCom";
-import { getCustomActivityTypeInstanceData } from "@calcom/lib/CloseComeUtils";
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import logger from "@calcom/lib/logger";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { CRM, ContactCreateInput, CrmEvent, Contact } from "@calcom/types/CrmService";
+import type { CloseComFieldOptions } from "@kalo/lib/CloseCom";
+import CloseCom from "@kalo/lib/CloseCom";
+import { getCustomActivityTypeInstanceData } from "@kalo/lib/CloseComeUtils";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import logger from "@kalo/lib/logger";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { CRM, ContactCreateInput, CrmEvent, Contact } from "@kalo/types/CrmService";
 
 // Schema that supports both OAuth and API key credentials
 const credentialSchema = z
@@ -29,7 +29,7 @@ const credentialSchema = z
 
 const CALENDSO_ENCRYPTION_KEY = process.env.CALENDSO_ENCRYPTION_KEY || "";
 
-// Cal.diy Custom Activity Fields
+// Kalo Custom Activity Fields
 const calComCustomActivityFields: CloseComFieldOptions = [
   // Field name, field type, required?, multiple values?
   ["Attendees", "contact", false, true],
@@ -55,7 +55,7 @@ const calComCustomActivityFields: CloseComFieldOptions = [
  * Contact creation
  * Every contact in Close.com need to belong to a Lead. When creating a contact in
  * Close.com as part of this integration, a new generic Lead will be created in order
- * to assign every contact created by this process, and it is named "From Cal.diy"
+ * to assign every contact created by this process, and it is named "From Kalo"
  */
 class CloseComCRMService implements CRM {
   private integrationName = "";

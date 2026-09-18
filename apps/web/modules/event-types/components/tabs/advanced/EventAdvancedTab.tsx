@@ -1,12 +1,12 @@
-import { getPaymentAppData } from "@calcom/app-store/_utils/payments/getPaymentAppData";
-import { useAtomsContext } from "@calcom/atoms/hooks/useAtomsContext";
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import { Timezone as PlatformTimzoneSelect } from "@calcom/atoms/timezone";
-import getLocationsOptionsForSelect from "@calcom/features/bookings/lib/getLocationOptionsForSelect";
-import DestinationCalendarSelector from "@calcom/features/calendars/components/DestinationCalendarSelector";
-import { LearnMoreLink } from "@calcom/features/eventtypes/components/LearnMoreLink";
-import type { EventNameObjectType } from "@calcom/features/eventtypes/lib/eventNaming";
-import { getEventName } from "@calcom/features/eventtypes/lib/eventNaming";
+import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
+import { useAtomsContext } from "@kalo/atoms/hooks/useAtomsContext";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import { Timezone as PlatformTimzoneSelect } from "@kalo/atoms/timezone";
+import getLocationsOptionsForSelect from "@kalo/features/bookings/lib/getLocationOptionsForSelect";
+import DestinationCalendarSelector from "@kalo/features/calendars/components/DestinationCalendarSelector";
+import { LearnMoreLink } from "@kalo/features/eventtypes/components/LearnMoreLink";
+import type { EventNameObjectType } from "@kalo/features/eventtypes/lib/eventNaming";
+import { getEventName } from "@kalo/features/eventtypes/lib/eventNaming";
 import type {
   CheckboxClassNames,
   EventTypeSetupProps,
@@ -14,24 +14,24 @@ import type {
   InputClassNames,
   SelectClassNames,
   SettingsToggleClassNames,
-} from "@calcom/features/eventtypes/lib/types";
+} from "@kalo/features/eventtypes/lib/types";
 import {
   DEFAULT_DARK_BRAND_COLOR,
   DEFAULT_LIGHT_BRAND_COLOR,
   MAX_SEATS_PER_TIME_SLOT,
-} from "@calcom/lib/constants";
-import { generateHashedLink } from "@calcom/lib/generateHashedLink";
-import { checkWCAGContrastColor } from "@calcom/lib/getBrandColours";
-import { extractHostTimezone } from "@calcom/lib/hashedLinksUtils";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { Prisma } from "@calcom/prisma/client";
-import { CancellationReasonRequirement, SchedulingType } from "@calcom/prisma/enums";
-import type { EditableSchema, fieldSchema } from "@calcom/prisma/zod-utils";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
+} from "@kalo/lib/constants";
+import { generateHashedLink } from "@kalo/lib/generateHashedLink";
+import { checkWCAGContrastColor } from "@kalo/lib/getBrandColours";
+import { extractHostTimezone } from "@kalo/lib/hashedLinksUtils";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { Prisma } from "@kalo/prisma/client";
+import { CancellationReasonRequirement, SchedulingType } from "@kalo/prisma/enums";
+import type { EditableSchema, fieldSchema } from "@kalo/prisma/zod-utils";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
 import {
   CheckboxField,
   ColorPicker,
@@ -41,16 +41,16 @@ import {
   SettingsToggle,
   Switch,
   TextField,
-} from "@calcom/ui/components/form";
+} from "@kalo/ui/components/form";
 import {
   SelectedCalendarSettingsScope,
   SelectedCalendarsSettingsWebWrapper,
   SelectedCalendarsSettingsWebWrapperSkeleton,
-} from "@calcom/web/modules/calendars/components/SelectedCalendarsSettingsWebWrapper";
-import { MultiplePrivateLinksController } from "@calcom/web/modules/event-types/components";
-import AddVerifiedEmail from "@calcom/web/modules/event-types/components/AddVerifiedEmail";
-import { BookerLayoutSelector } from "@calcom/web/modules/settings/components/BookerLayoutSelector";
-import { TimezoneSelect as WebTimezoneSelect } from "@calcom/web/modules/timezone/components/TimezoneSelect";
+} from "@kalo/web/modules/calendars/components/SelectedCalendarsSettingsWebWrapper";
+import { MultiplePrivateLinksController } from "@kalo/web/modules/event-types/components";
+import AddVerifiedEmail from "@kalo/web/modules/event-types/components/AddVerifiedEmail";
+import { BookerLayoutSelector } from "@kalo/web/modules/settings/components/BookerLayoutSelector";
+import { TimezoneSelect as WebTimezoneSelect } from "@kalo/web/modules/timezone/components/TimezoneSelect";
 import { InfoIcon, PencilIcon } from "@coss/ui/icons";
 import type { Dispatch, SetStateAction } from "react";
 import { Suspense, useEffect, useMemo, useState } from "react";

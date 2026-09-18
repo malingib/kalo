@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { filterRedundantDateRanges } from "./filterRedundantDateRanges";
 

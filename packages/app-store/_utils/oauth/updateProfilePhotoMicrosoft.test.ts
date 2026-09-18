@@ -6,22 +6,22 @@ const mockUpdateUserAvatarUrl = vi.fn();
 const mockLoggerInfo = vi.fn();
 const mockLoggerError = vi.fn();
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     info: (...args: unknown[]) => mockLoggerInfo(...args),
     error: (...args: unknown[]) => mockLoggerError(...args),
   },
 }));
 
-vi.mock("@calcom/lib/server/avatar", () => ({
+vi.mock("@kalo/lib/server/avatar", () => ({
   uploadAvatar: (...args: unknown[]) => mockUploadAvatar(...args),
 }));
 
-vi.mock("@calcom/lib/server/resizeBase64Image", () => ({
+vi.mock("@kalo/lib/server/resizeBase64Image", () => ({
   resizeBase64Image: (...args: unknown[]) => mockResizeBase64Image(...args),
 }));
 
-vi.mock("@calcom/lib/server/updateUserAvatarUrl", () => ({
+vi.mock("@kalo/lib/server/updateUserAvatarUrl", () => ({
   updateUserAvatarUrl: (...args: unknown[]) => mockUpdateUserAvatarUrl(...args),
 }));
 

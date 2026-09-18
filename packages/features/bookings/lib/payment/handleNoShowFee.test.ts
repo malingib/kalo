@@ -1,13 +1,13 @@
-import { PaymentServiceMap } from "@calcom/app-store/payment.services.generated";
-import { sendNoShowFeeChargedEmail } from "@calcom/emails/billing-email-service";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { getTranslation } from "@calcom/i18n/server";
+import { PaymentServiceMap } from "@kalo/app-store/payment.services.generated";
+import { sendNoShowFeeChargedEmail } from "@kalo/emails/billing-email-service";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { getTranslation } from "@kalo/i18n/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handleNoShowFee } from "./handleNoShowFee";
 
-vi.mock("@calcom/app-store/payment.services.generated", () => ({
+vi.mock("@kalo/app-store/payment.services.generated", () => ({
   PaymentServiceMap: {
     stripepayment: Promise.resolve({
       BuildPaymentService: vi.fn().mockImplementation(function () {
@@ -19,15 +19,15 @@ vi.mock("@calcom/app-store/payment.services.generated", () => ({
   },
 }));
 
-vi.mock("@calcom/emails/billing-email-service", () => ({
+vi.mock("@kalo/emails/billing-email-service", () => ({
   sendNoShowFeeChargedEmail: vi.fn(),
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: vi.fn().mockResolvedValue((key: string) => key),
 }));
 
-vi.mock("@calcom/features/credentials/repositories/CredentialRepository", () => ({
+vi.mock("@kalo/features/credentials/repositories/CredentialRepository", () => ({
   CredentialRepository: {
     findPaymentCredentialByAppIdAndUserIdOrTeamId: vi.fn(),
     findPaymentCredentialByAppIdAndTeamId: vi.fn(),
@@ -35,7 +35,7 @@ vi.mock("@calcom/features/credentials/repositories/CredentialRepository", () => 
 }));
 
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));

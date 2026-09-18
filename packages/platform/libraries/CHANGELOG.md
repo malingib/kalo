@@ -1,5 +1,5 @@
 ## 0.0.51
-Released to support PR https://github.com/calcom/cal.diy/pull/17224 which enabled attendee specified location during booking.
+Released to support PR https://github.com/calcom/kalo/pull/17224 which enabled attendee specified location during booking.
 
 ## 0.0.41
 Released to support handle cancel booking passing oauth client id to webhooks.
@@ -23,15 +23,15 @@ Released to support handle cancel booking passing oauth client id to webhooks.
   - Added `transformSeatsInternalToApi` translator to enhance readability and clarity of the `seats` data.
 
 ## 0.0.37
-Released to support PR https://github.com/calcom/cal.diy/pull/16200
+Released to support PR https://github.com/calcom/kalo/pull/16200
 
 ## 0.0.36
 
-Released to support PR https://github.com/calcom/cal.diy/pull/16685
+Released to support PR https://github.com/calcom/kalo/pull/16685
 
 ## 0.0.31
 
-PR https://github.com/calcom/cal.diy/pull/16414 fixed issue of deleting and rescheduling recurring events.
+PR https://github.com/calcom/kalo/pull/16414 fixed issue of deleting and rescheduling recurring events.
 
 ## 0.0.30
 
@@ -72,7 +72,7 @@ request body overwrites metadata of the original body so that whatever metadata 
 
 ## 0.0.22
 
-Export `updateNewTeamMemberEventTypes` from `"@calcom/lib/server/queries"` so that we can assign newly created organizations
+Export `updateNewTeamMemberEventTypes` from `"@kalo/lib/server/queries"` so that we can assign newly created organizations
 teams members to event-types that have been marked as "assign all team members"
 
 ## 0.0.20
@@ -82,5 +82,5 @@ to a specific schedule.
 
 ## 0.0.19
 
-Added - create event type handler was [updated](https://github.com/calcom/cal.diy/pull/15774) for system admins not to be required
+Added - create event type handler was [updated](https://github.com/calcom/kalo/pull/15774) for system admins not to be required
 to be part of org team when creating event type for team. Update libraries to include these changes.

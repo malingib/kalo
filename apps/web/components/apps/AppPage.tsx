@@ -3,22 +3,22 @@ import { useRouter } from "next/navigation";
 import type { IframeHTMLAttributes } from "react";
 import React, { useEffect, useState } from "react";
 
-import { AppDependencyComponent } from "@calcom/app-store/AppDependencyComponent";
-import { InstallAppButton } from "@calcom/app-store/InstallAppButton";
-import { isRedirectApp } from "@calcom/app-store/_utils/redirectApps";
-import useAddAppMutation from "@calcom/app-store/_utils/useAddAppMutation";
-import { doesAppSupportTeamInstall, isConferencing } from "@calcom/app-store/utils";
-import DisconnectIntegration from "@calcom/web/modules/apps/components/DisconnectIntegration";
-import { AppOnboardingSteps } from "@calcom/lib/apps/appOnboardingSteps";
-import { getAppOnboardingUrl } from "@calcom/lib/apps/getAppOnboardingUrl";
-import { APP_NAME, COMPANY_NAME, SUPPORT_MAIL_ADDRESS, WEBAPP_URL } from "@calcom/lib/constants";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc, type RouterOutputs } from "@calcom/trpc/react";
-import type { App as AppType } from "@calcom/types/App";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
+import { AppDependencyComponent } from "@kalo/app-store/AppDependencyComponent";
+import { InstallAppButton } from "@kalo/app-store/InstallAppButton";
+import { isRedirectApp } from "@kalo/app-store/_utils/redirectApps";
+import useAddAppMutation from "@kalo/app-store/_utils/useAddAppMutation";
+import { doesAppSupportTeamInstall, isConferencing } from "@kalo/app-store/utils";
+import DisconnectIntegration from "@kalo/web/modules/apps/components/DisconnectIntegration";
+import { AppOnboardingSteps } from "@kalo/lib/apps/appOnboardingSteps";
+import { getAppOnboardingUrl } from "@kalo/lib/apps/getAppOnboardingUrl";
+import { APP_NAME, COMPANY_NAME, SUPPORT_MAIL_ADDRESS, WEBAPP_URL } from "@kalo/lib/constants";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc, type RouterOutputs } from "@kalo/trpc/react";
+import type { App as AppType } from "@kalo/types/App";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
 import {
   BookOpenIcon,
   CircleAlertIcon,
@@ -28,8 +28,8 @@ import {
   MailIcon,
   ShieldIcon,
 } from "@coss/ui/icons";
-import { SkeletonButton, SkeletonText } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
+import { SkeletonButton, SkeletonText } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
 
 import { InstallAppButtonChild } from "./InstallAppButtonChild";
 import { MultiDisconnectIntegration } from "./MultiDisconnectIntegration";

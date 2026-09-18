@@ -5,17 +5,17 @@ import { useSession } from "next-auth/react";
 import type { RefCallback } from "react";
 import { useEffect, useState } from "react";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { fetchUsername } from "@calcom/lib/fetchUsername";
-import { useDebounce } from "@calcom/lib/hooks/useDebounce";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import type { AppRouter } from "@calcom/trpc/types/server/routers/_app";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
-import { TextField } from "@calcom/ui/components/form";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { fetchUsername } from "@kalo/lib/fetchUsername";
+import { useDebounce } from "@kalo/lib/hooks/useDebounce";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import type { AppRouter } from "@kalo/trpc/types/server/routers/_app";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
+import { TextField } from "@kalo/ui/components/form";
 import { CheckIcon } from "@coss/ui/icons";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 
 import type { TRPCClientErrorLike } from "@trpc/client";
 

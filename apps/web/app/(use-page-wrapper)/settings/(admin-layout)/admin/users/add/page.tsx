@@ -1,4 +1,4 @@
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
 import { _generateMetadata, getTranslate } from "app/_utils";
 import UsersAddView from "~/users/views/users-add-view";
 

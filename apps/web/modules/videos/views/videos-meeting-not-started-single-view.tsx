@@ -1,12 +1,12 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { detectBrowserTimeFormat } from "@calcom/lib/timeFormat";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
-import { Button } from "@calcom/ui/components/button";
+import dayjs from "@kalo/dayjs";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { detectBrowserTimeFormat } from "@kalo/lib/timeFormat";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
+import { Button } from "@kalo/ui/components/button";
 import { CalendarIcon } from "@coss/ui/icons";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 
 import type { getServerSideProps } from "@lib/video/meeting-not-started/[uid]/getServerSideProps";
 

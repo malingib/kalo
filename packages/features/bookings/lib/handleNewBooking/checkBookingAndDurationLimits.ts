@@ -1,8 +1,8 @@
-import dayjs from "@calcom/dayjs";
-import type { CheckBookingLimitsService } from "@calcom/features/bookings/lib/checkBookingLimits";
-import { checkDurationLimits } from "@calcom/features/bookings/lib/checkDurationLimits";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import { withReporting } from "@calcom/lib/sentryWrapper";
+import dayjs from "@kalo/dayjs";
+import type { CheckBookingLimitsService } from "@kalo/features/bookings/lib/checkBookingLimits";
+import { checkDurationLimits } from "@kalo/features/bookings/lib/checkDurationLimits";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import { withReporting } from "@kalo/lib/sentryWrapper";
 
 import type { NewBookingEventType } from "./getEventTypesFromDB";
 

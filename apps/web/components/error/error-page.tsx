@@ -2,9 +2,9 @@
 
 import { useLayoutEffect } from "react";
 
-import "@calcom/embed-core/src/embed-iframe";
-import { HttpError } from "@calcom/lib/http-error";
-import { Button } from "@calcom/ui/components/button";
+import "@kalo/embed-core/src/embed-iframe";
+import { HttpError } from "@kalo/lib/http-error";
+import { Button } from "@kalo/ui/components/button";
 
 type Props = {
   statusCode?: number | null;
@@ -89,7 +89,7 @@ export const ErrorPage: React.FC<Props> = (props) => {
             </pre>
           </div>
 
-          <Button href="mailto:support@cal.com">Contact Support</Button>
+          <Button href="mailto:support@kalo">Contact Support</Button>
           <Button color="secondary" className="ml-2" onClick={handleReset}>
             Try again
           </Button>

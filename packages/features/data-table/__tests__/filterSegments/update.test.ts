@@ -1,8 +1,8 @@
-import prismock from "@calcom/testing/lib/__mocks__/prisma";
-import { ColumnFilterType } from "@calcom/features/data-table/lib/types";
-import { MembershipRole } from "@calcom/prisma/enums";
+import prismock from "@kalo/testing/lib/__mocks__/prisma";
+import { ColumnFilterType } from "@kalo/features/data-table/lib/types";
+import { MembershipRole } from "@kalo/prisma/enums";
 import { describe, expect, it } from "vitest";
-import type { UserFromSession } from "@calcom/features/auth/lib/userFromSessionUtils";
+import type { UserFromSession } from "@kalo/features/auth/lib/userFromSessionUtils";
 import { FilterSegmentRepository } from "../../repositories/filterSegment";
 import type { TUpdateFilterSegmentInputSchema } from "../../repositories/filterSegment.type";
 

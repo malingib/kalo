@@ -1,7 +1,7 @@
-import dayjs from "@calcom/dayjs";
-import { validateAndGetCorrectedUsernameInTeam } from "@calcom/features/auth/signup/utils/validateUsername";
-import { HttpError } from "@calcom/lib/http-error";
-import { prisma } from "@calcom/prisma";
+import dayjs from "@kalo/dayjs";
+import { validateAndGetCorrectedUsernameInTeam } from "@kalo/features/auth/signup/utils/validateUsername";
+import { HttpError } from "@kalo/lib/http-error";
+import { prisma } from "@kalo/prisma";
 
 export async function findTokenByToken({ token }: { token: string }) {
   const foundToken = await prisma.verificationToken.findUnique({

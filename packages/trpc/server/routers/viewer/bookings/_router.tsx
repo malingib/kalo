@@ -1,4 +1,4 @@
-import { MembershipRole } from "@calcom/prisma/enums";
+import { MembershipRole } from "@kalo/prisma/enums";
 import authedProcedure from "../../../procedures/authedProcedure";
 import { createTeamPbacProcedure } from "../../../procedures/pbacProcedures";
 import publicProcedure from "../../../procedures/publicProcedure";

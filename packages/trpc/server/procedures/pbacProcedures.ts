@@ -1,4 +1,4 @@
-import { MembershipRole } from "@calcom/prisma/enums";
+import { MembershipRole } from "@kalo/prisma/enums";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import authedProcedure from "./authedProcedure";

@@ -1,5 +1,5 @@
-import { findUsersForAvailabilityCheck } from "@calcom/features/availability/lib/findUsersForAvailabilityCheck";
-import { getUserAvailabilityService } from "@calcom/features/di/containers/GetUserAvailability";
+import { findUsersForAvailabilityCheck } from "@kalo/features/availability/lib/findUsersForAvailabilityCheck";
+import { getUserAvailabilityService } from "@kalo/features/di/containers/GetUserAvailability";
 import { TRPCError } from "@trpc/server";
 import type { TrpcSessionUser } from "../../../types";
 import type { TUserInputSchema } from "./user.schema";

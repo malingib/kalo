@@ -3,8 +3,8 @@ import { filterReqHeaders } from "@/lib/filterReqHeaders";
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from "@nestjs/common";
 import { Request } from "express";
 
-import { ERROR_STATUS } from "@calcom/platform-constants";
-import { Response } from "@calcom/platform-types";
+import { ERROR_STATUS } from "@kalo/platform-constants";
+import { Response } from "@kalo/platform-types";
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter<HttpException> {

@@ -1,9 +1,9 @@
 {
-  "name": "@calcom/features",
+  "name": "@kalo/features",
   "sideEffects": false,
   "private": true,
-  "description": "Cal.diy's main collocation of features",
-  "authors": "Cal.com, Inc.",
+  "description": "Kalo's main collocation of features",
+  "authors": "Kalo, Inc.",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
@@ -14,14 +14,14 @@
     "deploy:trigger:staging": "npx trigger.dev@latest deploy --env staging --skip-promotion"
   },
   "dependencies": {
-    "@calcom/atoms": "workspace:*",
-    "@calcom/dayjs": "workspace:*",
-    "@calcom/i18n": "workspace:*",
-    "@calcom/lib": "workspace:*",
-    "@calcom/trpc": "workspace:*",
-    "@calcom/ui": "workspace:*",
     "@coss/ui": "workspace:*",
     "@evyweb/ioctopus": "1.2.0",
+    "@kalo/atoms": "workspace:*",
+    "@kalo/dayjs": "workspace:*",
+    "@kalo/i18n": "workspace:*",
+    "@kalo/lib": "workspace:*",
+    "@kalo/trpc": "workspace:*",
+    "@kalo/ui": "workspace:*",
     "@tanstack/react-table": "8.20.6",
     "@tanstack/react-virtual": "3.10.9",
     "@trigger.dev/sdk": "4.3.2",
@@ -48,7 +48,7 @@
     "zod": "^3.0.0"
   },
   "devDependencies": {
-    "@calcom/testing": "workspace:*",
+    "@kalo/testing": "workspace:*",
     "@testing-library/react-hooks": "8.0.1",
     "@types/deasync": "^0",
     "@types/web-push": "3.6.3",

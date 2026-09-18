@@ -10,7 +10,7 @@ import type {
   OutputPhoneLocation_2024_06_14,
   OutputUnknownLocation_2024_06_14,
   OutputLocation_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 import type { InternalLocation } from "../internal/locations";
 

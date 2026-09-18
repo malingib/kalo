@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
-import { EMBED_LIB_URL, WEBAPP_URL } from "@calcom/lib/constants";
-import { MembershipRole } from "@calcom/prisma/enums";
+import { EMBED_LIB_URL, WEBAPP_URL } from "@kalo/lib/constants";
+import { MembershipRole } from "@kalo/prisma/enums";
 import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { parse } from "node-html-parser";

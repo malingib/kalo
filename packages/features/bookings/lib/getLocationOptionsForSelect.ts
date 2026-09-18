@@ -1,9 +1,9 @@
-import type { LocationObject } from "@calcom/app-store/locations";
-import { locationKeyToString } from "@calcom/app-store/locations";
-import { getLocationByType } from "@calcom/app-store/locations";
-import { getTranslatedLocation } from "@calcom/app-store/locations";
-import type { useLocale } from "@calcom/lib/hooks/useLocale";
-import notEmpty from "@calcom/lib/notEmpty";
+import type { LocationObject } from "@kalo/app-store/locations";
+import { locationKeyToString } from "@kalo/app-store/locations";
+import { getLocationByType } from "@kalo/app-store/locations";
+import { getTranslatedLocation } from "@kalo/app-store/locations";
+import type { useLocale } from "@kalo/lib/hooks/useLocale";
+import notEmpty from "@kalo/lib/notEmpty";
 
 export default function getLocationsOptionsForSelect(
   locations: LocationObject[],

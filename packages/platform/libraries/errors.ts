@@ -1,4 +1,4 @@
-export { ErrorCode } from "@calcom/lib/errorCodes";
-export { ErrorWithCode } from "@calcom/lib/errors";
-export { getHttpStatusCode } from "@calcom/lib/server/getServerErrorFromUnknown";
-export { HttpError } from "@calcom/lib/http-error";
+export { ErrorCode } from "@kalo/lib/errorCodes";
+export { ErrorWithCode } from "@kalo/lib/errors";
+export { getHttpStatusCode } from "@kalo/lib/server/getServerErrorFromUnknown";
+export { HttpError } from "@kalo/lib/http-error";

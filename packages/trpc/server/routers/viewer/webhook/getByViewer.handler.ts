@@ -1,6 +1,6 @@
-import { getWebhookFeature } from "@calcom/features/di/webhooks/containers/webhook";
-import type { WebhookGroup } from "@calcom/features/webhooks/lib/dto/types";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getWebhookFeature } from "@kalo/features/di/webhooks/containers/webhook";
+import type { WebhookGroup } from "@kalo/features/webhooks/lib/dto/types";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 type GetByViewerOptions = {
   ctx: {

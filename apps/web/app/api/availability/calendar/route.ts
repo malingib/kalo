@@ -4,16 +4,16 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
 import {
   getCalendarCredentials,
   getConnectedCalendars,
-} from "@calcom/features/calendars/lib/CalendarManager";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { HttpError } from "@calcom/lib/http-error";
-import notEmpty from "@calcom/lib/notEmpty";
-import { SelectedCalendarRepository } from "@calcom/features/selectedCalendar/repositories/SelectedCalendarRepository";
-import prisma from "@calcom/prisma";
+} from "@kalo/features/calendars/lib/CalendarManager";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { HttpError } from "@kalo/lib/http-error";
+import notEmpty from "@kalo/lib/notEmpty";
+import { SelectedCalendarRepository } from "@kalo/features/selectedCalendar/repositories/SelectedCalendarRepository";
+import prisma from "@kalo/prisma";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 
@@ -44,7 +44,7 @@ async function authMiddleware() {
   return userWithCredentials;
 }
 
-// TODO: It doesn't seem to be used from within the app. It is possible that someone outside Cal.diy is using this GET endpoint
+// TODO: It doesn't seem to be used from within the app. It is possible that someone outside Kalo is using this GET endpoint
 async function getHandler() {
   const user = await authMiddleware();
 

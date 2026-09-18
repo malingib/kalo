@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SinkClient } from "../providers/SinkClient";
 import { SinkShortener } from "../providers/SinkShortener";
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: () => ({
       debug: vi.fn(),

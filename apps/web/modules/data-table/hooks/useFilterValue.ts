@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import type { z } from "zod";
 
-import type { FilterValueSchema, ZFilterValue } from "@calcom/features/data-table/lib/types";
-import type { FilterType } from "@calcom/types/data-table";
+import type { FilterValueSchema, ZFilterValue } from "@kalo/features/data-table/lib/types";
+import type { FilterType } from "@kalo/types/data-table";
 import { useDataTable } from "./useDataTable";
 
 export function useFilterValue<

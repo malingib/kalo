@@ -1,7 +1,7 @@
-import { ScheduleRepository } from "@calcom/features/schedules/repositories/ScheduleRepository";
-import { hasReadPermissionsForUserId } from "@calcom/lib/hasEditPermissionForUser";
-import logger from "@calcom/lib/logger";
-import { prisma } from "@calcom/prisma";
+import { ScheduleRepository } from "@kalo/features/schedules/repositories/ScheduleRepository";
+import { hasReadPermissionsForUserId } from "@kalo/lib/hasEditPermissionForUser";
+import logger from "@kalo/lib/logger";
+import { prisma } from "@kalo/prisma";
 
 import { TRPCError } from "@trpc/server";
 

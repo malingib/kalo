@@ -1,6 +1,6 @@
-import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
-import { getReplyToHeader } from "@calcom/lib/getReplyToHeader";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { EMAIL_FROM_NAME } from "@kalo/lib/constants";
+import { getReplyToHeader } from "@kalo/lib/getReplyToHeader";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 import generateIcsFile, { GenerateIcsRole } from "../lib/generateIcsFile";
 import renderEmail from "../src/renderEmail";

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { getUsernameList } from "@calcom/features/eventtypes/lib/defaultEvents";
-import { SUCCESS_STATUS, V2_ENDPOINTS } from "@calcom/platform-constants";
-import type { EventTypeOutput_2024_06_14 } from "@calcom/platform-types";
-import type { ApiResponse } from "@calcom/platform-types";
+import { getUsernameList } from "@kalo/features/eventtypes/lib/defaultEvents";
+import { SUCCESS_STATUS, V2_ENDPOINTS } from "@kalo/platform-constants";
+import type { EventTypeOutput_2024_06_14 } from "@kalo/platform-types";
+import type { ApiResponse } from "@kalo/platform-types";
 
 import http from "../../../lib/http";
 

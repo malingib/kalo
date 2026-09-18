@@ -1,5 +1,5 @@
 import { createOrganization } from "./bookingScenario";
-import { WEBSITE_URL } from "@calcom/lib/constants";
+import { WEBSITE_URL } from "@kalo/lib/constants";
 import type { Fixtures } from "../fixtures/fixtures";
 import { test } from "../fixtures/fixtures";
 

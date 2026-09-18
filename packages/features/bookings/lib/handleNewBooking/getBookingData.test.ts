@@ -1,20 +1,20 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { z } from "zod";
 
-import { OrganizerDefaultConferencingAppType } from "@calcom/app-store/locations";
+import { OrganizerDefaultConferencingAppType } from "@kalo/app-store/locations";
 
 import { getBookingData } from "./getBookingData";
 import type { getEventTypeResponse } from "./getEventTypesFromDB";
 
 // Mock the dependencies
-vi.mock("@calcom/features/bookings/lib/getCalEventResponses", () => ({
+vi.mock("@kalo/features/bookings/lib/getCalEventResponses", () => ({
   getCalEventResponses: vi.fn().mockReturnValue({
     userFieldsResponses: {},
     responses: {},
   }),
 }));
 
-vi.mock("@calcom/lib/sentryWrapper", () => ({
+vi.mock("@kalo/lib/sentryWrapper", () => ({
   withReporting: (fn: Function) => fn,
 }));
 

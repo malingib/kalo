@@ -6,16 +6,16 @@ import {
   useEmbedUiConfig,
   useIsEmbed,
   useSlotsViewOnSmallScreen,
-} from "@calcom/embed-core/embed-iframe";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { extraDaysConfig } from "@calcom/features/bookings/Booker/config";
-import type { BookerLayout } from "@calcom/features/bookings/Booker/types";
-import { validateLayout } from "@calcom/features/bookings/Booker/utils/layout";
-import { getQueryParam } from "@calcom/features/bookings/Booker/utils/query-param";
-import type { BookerEvent } from "@calcom/features/bookings/types";
-import useMediaQuery from "@calcom/lib/hooks/useMediaQuery";
-import type { BookerLayouts } from "@calcom/prisma/zod-utils";
-import { defaultBookerLayoutSettings } from "@calcom/prisma/zod-utils";
+} from "@kalo/embed-core/embed-iframe";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { extraDaysConfig } from "@kalo/features/bookings/Booker/config";
+import type { BookerLayout } from "@kalo/features/bookings/Booker/types";
+import { validateLayout } from "@kalo/features/bookings/Booker/utils/layout";
+import { getQueryParam } from "@kalo/features/bookings/Booker/utils/query-param";
+import type { BookerEvent } from "@kalo/features/bookings/types";
+import useMediaQuery from "@kalo/lib/hooks/useMediaQuery";
+import type { BookerLayouts } from "@kalo/prisma/zod-utils";
+import { defaultBookerLayoutSettings } from "@kalo/prisma/zod-utils";
 
 export type UseBookerLayoutType = ReturnType<typeof useBookerLayout>;
 

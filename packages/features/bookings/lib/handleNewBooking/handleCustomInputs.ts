@@ -1,7 +1,7 @@
 import { isValidPhoneNumber } from "libphonenumber-js/max";
 import z from "zod";
 
-import type { EventTypeCustomInput } from "@calcom/prisma/client";
+import type { EventTypeCustomInput } from "@kalo/prisma/client";
 
 type CustomInput = {
   value: string | boolean;

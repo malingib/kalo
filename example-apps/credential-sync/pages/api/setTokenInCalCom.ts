@@ -1,12 +1,12 @@
 import type { NextApiRequest } from "next";
 
-import { symmetricEncrypt } from "@calcom/lib/crypto";
+import { symmetricEncrypt } from "@kalo/lib/crypto";
 
 import {
-  CALCOM_APP_CREDENTIAL_ENCRYPTION_KEY,
-  CALCOM_CREDENTIAL_SYNC_SECRET,
-  CALCOM_CREDENTIAL_SYNC_HEADER_NAME,
-  CALCOM_ADMIN_API_KEY,
+  KALO_APP_CREDENTIAL_ENCRYPTION_KEY,
+  KALO_CREDENTIAL_SYNC_SECRET,
+  KALO_CREDENTIAL_SYNC_HEADER_NAME,
+  KALO_ADMIN_API_KEY,
 } from "../../constants";
 import { generateGoogleCalendarAccessToken, generateZoomAccessToken } from "../../lib/integrations";
 
@@ -30,12 +30,12 @@ export default async function handler(req: NextApiRequest, res) {
     }
 
     const result = await fetch(
-      `http://localhost:3002/api/v1/credential-sync?apiKey=${CALCOM_ADMIN_API_KEY}&userId=${userId}`,
+      `http://localhost:3002/api/v1/credential-sync?apiKey=${KALO_ADMIN_API_KEY}&userId=${userId}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          [CALCOM_CREDENTIAL_SYNC_HEADER_NAME]: CALCOM_CREDENTIAL_SYNC_SECRET,
+          [KALO_CREDENTIAL_SYNC_HEADER_NAME]: KALO_CREDENTIAL_SYNC_SECRET,
         },
         body: JSON.stringify({
           appSlug,
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res) {
             JSON.stringify({
               access_token: isInvalid ? "1233231231231" : accessToken,
             }),
-            CALCOM_APP_CREDENTIAL_ENCRYPTION_KEY
+            KALO_APP_CREDENTIAL_ENCRYPTION_KEY
           ),
         }),
       }

@@ -7,7 +7,7 @@ const { mockGetRawBody, mockHandleMessage } = vi.hoisted(() => ({
 }));
 
 vi.mock("raw-body", () => ({ default: mockGetRawBody }));
-vi.mock("@calcom/features/whatsapp-bot/src/webhookService", () => ({
+vi.mock("@kalo/features/whatsapp-bot/src/webhookService", () => ({
   whatsAppWebhookService: { handleMessage: mockHandleMessage },
 }));
 

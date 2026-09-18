@@ -1,4 +1,4 @@
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
 
 import { createModule, type Module } from "../di";
 import { DI_TOKENS } from "../tokens";

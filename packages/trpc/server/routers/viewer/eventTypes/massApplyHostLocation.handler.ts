@@ -1,8 +1,8 @@
-import { appStoreMetadata } from "@calcom/app-store/appStoreMetaData";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { HostRepository } from "@calcom/features/host/repositories/HostRepository";
-import { HostLocationRepository } from "@calcom/features/host/repositories/HostLocationRepository";
-import type { PrismaClient } from "@calcom/prisma";
+import { appStoreMetadata } from "@kalo/app-store/appStoreMetaData";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { HostRepository } from "@kalo/features/host/repositories/HostRepository";
+import { HostLocationRepository } from "@kalo/features/host/repositories/HostLocationRepository";
+import type { PrismaClient } from "@kalo/prisma";
 import { TRPCError } from "@trpc/server";
 
 import type { TrpcSessionUser } from "../../../types";

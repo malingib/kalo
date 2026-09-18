@@ -1,5 +1,5 @@
 import z from "zod";
-import type { GetPublicEventInput } from "@calcom/features/eventtypes/repositories/EventRepository";
+import type { GetPublicEventInput } from "@kalo/features/eventtypes/repositories/EventRepository";
 
 // Note: fromRedirectOfNonOrgLink has .default(false), so input has it optional but output has it required
 

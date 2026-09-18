@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/sirius_video",
+  "name": "@kalo/sirius_video",
   "version": "0.0.0",
   "main": "./index.ts",
   "description": "Video meetings made for music.\rCreate your own virtual music classroom, easily.",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   }
 }

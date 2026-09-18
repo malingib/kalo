@@ -1,14 +1,14 @@
-import { SelectedCalendarsSettings } from "@calcom/atoms/selected-calendars/SelectedCalendarsSettings";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Select } from "@calcom/ui/components/form";
-import { List } from "@calcom/ui/components/list";
-import AppListCardWebWrapper from "@calcom/web/modules/apps/components/AppListCardWebWrapper";
-import CredentialActionsDropdown from "@calcom/web/modules/apps/components/CredentialActionsDropdown";
-import AdditionalCalendarSelector from "@calcom/web/modules/calendars/components/AdditionalCalendarSelector";
-import { CalendarSwitch } from "@calcom/web/modules/calendars/components/CalendarSwitch";
+import { SelectedCalendarsSettings } from "@kalo/atoms/selected-calendars/SelectedCalendarsSettings";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Select } from "@kalo/ui/components/form";
+import { List } from "@kalo/ui/components/list";
+import AppListCardWebWrapper from "@kalo/web/modules/apps/components/AppListCardWebWrapper";
+import CredentialActionsDropdown from "@kalo/web/modules/apps/components/CredentialActionsDropdown";
+import AdditionalCalendarSelector from "@kalo/web/modules/calendars/components/AdditionalCalendarSelector";
+import { CalendarSwitch } from "@kalo/web/modules/calendars/components/CalendarSwitch";
 import Link from "next/link";
 import React from "react";
 

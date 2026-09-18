@@ -1,6 +1,6 @@
-import type { BookingForCalEventBuilder } from "@calcom/features/CalendarEventBuilder";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type { BookingForCalEventBuilder } from "@kalo/features/CalendarEventBuilder";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 import type { WebhookEventDTO, WebhookSubscriber } from "../dto/types";
 import type { PayloadBuilderFactory } from "../factory/versioned/PayloadBuilderFactory";
 import type { IWebhookDataFetcher } from "../interface/IWebhookDataFetcher";

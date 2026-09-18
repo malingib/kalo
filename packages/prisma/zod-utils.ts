@@ -227,8 +227,8 @@ export const bookingResponses = z
 
 export type BookingResponses = z.infer<typeof bookingResponses>;
 
-// Re-exported from @calcom/lib/zod/eventType for backwards compatibility
-export { type EventTypeLocation, eventTypeLocations } from "@calcom/lib/zod/eventType";
+// Re-exported from @kalo/lib/zod/eventType for backwards compatibility
+export { type EventTypeLocation, eventTypeLocations } from "@kalo/lib/zod/eventType";
 
 // Matching RRule.Options: rrule/dist/esm/src/types.d.ts
 export const recurringEventType = z
@@ -265,8 +265,8 @@ export const eventTypeColor = z
 
 export type IntervalLimitsType = IntervalLimit | null;
 
-// Re-exported from @calcom/lib/zod/eventType for backwards compatibility
-export { eventTypeSlug } from "@calcom/lib/zod/eventType";
+// Re-exported from @kalo/lib/zod/eventType for backwards compatibility
+export { eventTypeSlug } from "@kalo/lib/zod/eventType";
 
 export const stringToDate = z.string().transform((a) => new Date(a));
 

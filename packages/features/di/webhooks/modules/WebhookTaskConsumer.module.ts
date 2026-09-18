@@ -1,9 +1,9 @@
-import type { PayloadBuilderFactory } from "@calcom/features/webhooks/lib/factory/versioned/PayloadBuilderFactory";
-import type { IWebhookDataFetcher } from "@calcom/features/webhooks/lib/interface/IWebhookDataFetcher";
-import type { IWebhookRepository } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-import type { ILogger } from "@calcom/features/webhooks/lib/interface/infrastructure";
-import type { IWebhookService } from "@calcom/features/webhooks/lib/interface/services";
-import { WebhookTaskConsumer } from "@calcom/features/webhooks/lib/service/WebhookTaskConsumer";
+import type { PayloadBuilderFactory } from "@kalo/features/webhooks/lib/factory/versioned/PayloadBuilderFactory";
+import type { IWebhookDataFetcher } from "@kalo/features/webhooks/lib/interface/IWebhookDataFetcher";
+import type { IWebhookRepository } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+import type { ILogger } from "@kalo/features/webhooks/lib/interface/infrastructure";
+import type { IWebhookService } from "@kalo/features/webhooks/lib/interface/services";
+import { WebhookTaskConsumer } from "@kalo/features/webhooks/lib/service/WebhookTaskConsumer";
 import type { ResolveFunction } from "@evyweb/ioctopus";
 import { createModule, type Module } from "@evyweb/ioctopus";
 import { SHARED_TOKENS } from "../../shared/shared.tokens";

@@ -1,23 +1,23 @@
-import { getCalendar } from "@calcom/app-store/_utils/getCalendar";
+import { getCalendar } from "@kalo/app-store/_utils/getCalendar";
 import {
   getAllDelegationCredentialsForUserIncludeServiceAccountKey,
   getDelegationCredentialOrFindRegularCredential,
-} from "@calcom/app-store/delegationCredential";
-import { sendCancelledSeatEmailsAndSMS } from "@calcom/emails/email-manager";
-import { updateMeeting } from "@calcom/features/conferencing/lib/videoClient";
-import type { WebhookVersion } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-import sendPayload from "@calcom/features/webhooks/lib/sendOrSchedulePayload";
-import type { EventPayloadType, EventTypeInfo } from "@calcom/features/webhooks/lib/sendPayload";
-import { getRichDescription } from "@calcom/lib/CalEventParser";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { getTranslation } from "@calcom/i18n/server";
-import prisma from "@calcom/prisma";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import { bookingCancelAttendeeSeatSchema } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+} from "@kalo/app-store/delegationCredential";
+import { sendCancelledSeatEmailsAndSMS } from "@kalo/emails/email-manager";
+import { updateMeeting } from "@kalo/features/conferencing/lib/videoClient";
+import type { WebhookVersion } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+import sendPayload from "@kalo/features/webhooks/lib/sendOrSchedulePayload";
+import type { EventPayloadType, EventTypeInfo } from "@kalo/features/webhooks/lib/sendPayload";
+import { getRichDescription } from "@kalo/lib/CalEventParser";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { getTranslation } from "@kalo/i18n/server";
+import prisma from "@kalo/prisma";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import { bookingCancelAttendeeSeatSchema } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 import type { BookingToDelete } from "../../handleCancelBooking";
 
 async function cancelAttendeeSeat(

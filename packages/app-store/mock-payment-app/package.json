@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/mock-payment-app",
+  "name": "@kalo/mock-payment-app",
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   },
   "description": "The mock payment app for tests"
 }

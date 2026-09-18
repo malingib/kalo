@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
 
 const log = logger.getSubLogger({ prefix: ["[parseRequestData]"] });
 

@@ -3,10 +3,10 @@ import { parseUrlFormData } from "app/api/parseRequestData";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import { getOAuthService } from "@calcom/features/oauth/di/OAuthService.container";
-import { OAUTH_ERROR_REASONS } from "@calcom/features/oauth/services/OAuthService";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { getHttpStatusCode } from "@calcom/lib/server/getServerErrorFromUnknown";
+import { getOAuthService } from "@kalo/features/oauth/di/OAuthService.container";
+import { OAUTH_ERROR_REASONS } from "@kalo/features/oauth/services/OAuthService";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { getHttpStatusCode } from "@kalo/lib/server/getServerErrorFromUnknown";
 
 async function handler(req: NextRequest) {
   const { code, client_id, client_secret, grant_type, redirect_uri, code_verifier } =

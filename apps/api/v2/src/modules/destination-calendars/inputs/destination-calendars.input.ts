@@ -6,7 +6,7 @@ import {
   APPLE_CALENDAR_TYPE,
   GOOGLE_CALENDAR_TYPE,
   OFFICE_365_CALENDAR_TYPE,
-} from "@calcom/platform-constants";
+} from "@kalo/platform-constants";
 
 export class DestinationCalendarsInputBodyDto {
   @IsString()

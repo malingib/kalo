@@ -3,13 +3,13 @@
 As described in the upgrade guide, you should use the
 
 ```bash
-yarn workspace @calcom/prisma db-migrate
+yarn workspace @kalo/prisma db-migrate
 ```
 
 or
 
 ```bash
-yarn workspace @calcom/prisma db-deploy
+yarn workspace @kalo/prisma db-deploy
 ```
 
 command to update the database. We use database migrations in order to handle changes to the database schema in a more secure and stable way. This is actually very common. The thing is that when just changing the schema in `schema.prisma` without creating migrations, the update to the newer database schema can damage or delete all data in production mode, since the system sometimes doesn't know how to transform the data from A to B. Using migrations, each step is reproducible, transparent and can be undone in a simple way.
@@ -19,7 +19,7 @@ command to update the database. We use database migrations in order to handle ch
 If you are modifying the codebase and make a change to the `schema.prisma` file, you must create a migration. To create a migration for your previously changed `schema.prisma`, simply run the following:
 
 ```bash
-yarn workspace @calcom/prisma db-migrate
+yarn workspace @kalo/prisma db-migrate
 ```
 
 Now, you must create a short name for your migration to describe what changed (for example, "user_add_email_verified"). Then just add and commit it with the corresponding code that uses your new database schema.

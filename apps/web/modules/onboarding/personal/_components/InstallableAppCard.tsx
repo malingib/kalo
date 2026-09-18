@@ -1,8 +1,8 @@
-import { InstallAppButtonWithoutPlanCheck } from "@calcom/app-store/InstallAppButtonWithoutPlanCheck";
-import type { UseAddAppMutationOptions } from "@calcom/app-store/_utils/useAddAppMutation";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { App } from "@calcom/types/App";
-import { Button } from "@calcom/ui/components/button";
+import { InstallAppButtonWithoutPlanCheck } from "@kalo/app-store/InstallAppButtonWithoutPlanCheck";
+import type { UseAddAppMutationOptions } from "@kalo/app-store/_utils/useAddAppMutation";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { App } from "@kalo/types/App";
+import { Button } from "@kalo/ui/components/button";
 
 type AppData = {
   slug: string;

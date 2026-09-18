@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/platform-enums",
+  "name": "@kalo/platform-enums",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.ts",
@@ -22,6 +22,6 @@
     "post-install": "yarn build"
   },
   "dependencies": {
-    "@calcom/platform-constants": "workspace:*"
+    "@kalo/platform-constants": "workspace:*"
   }
 }

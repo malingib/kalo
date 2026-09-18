@@ -1,7 +1,7 @@
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import type { DialogProps as ControlledDialogProps } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { ConfirmationDialogContent } from "@calcom/ui/components/dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import type { DialogProps as ControlledDialogProps } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { ConfirmationDialogContent } from "@kalo/ui/components/dialog";
 
 export function DeleteDialog({
   isManagedEvent,

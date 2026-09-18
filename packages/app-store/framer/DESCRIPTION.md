@@ -8,7 +8,7 @@ items:
 
 {DESCRIPTION}
 
-Introducing the official Cal.diy component, now available in the Insert Panel under Forms. 
+Introducing the official Kalo component, now available in the Insert Panel under Forms. 
 
 Cal is a fully customizable scheduling software for individuals, businesses taking calls, and developers building scheduling platforms. 
 

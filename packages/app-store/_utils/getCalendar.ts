@@ -1,14 +1,14 @@
-import { CalendarSubscriptionService } from "@calcom/features/calendar-subscription/lib/CalendarSubscriptionService";
-import { CalendarCacheEventRepository } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventRepository";
-import { CalendarCacheEventService } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventService";
-import { CalendarCacheWrapper } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheWrapper";
-import { CalendarTelemetryWrapper } from "@calcom/features/calendar-subscription/lib/telemetry/CalendarTelemetryWrapper";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import logger from "@calcom/lib/logger";
-import { isTelemetryEnabled } from "@calcom/lib/sentryWrapper";
-import { prisma } from "@calcom/prisma";
-import type { Calendar, CalendarFetchMode } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import { CalendarSubscriptionService } from "@kalo/features/calendar-subscription/lib/CalendarSubscriptionService";
+import { CalendarCacheEventRepository } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventRepository";
+import { CalendarCacheEventService } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventService";
+import { CalendarCacheWrapper } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheWrapper";
+import { CalendarTelemetryWrapper } from "@kalo/features/calendar-subscription/lib/telemetry/CalendarTelemetryWrapper";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import logger from "@kalo/lib/logger";
+import { isTelemetryEnabled } from "@kalo/lib/sentryWrapper";
+import { prisma } from "@kalo/prisma";
+import type { Calendar, CalendarFetchMode } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 
 import { CalendarServiceMap } from "../calendar.services.generated";
 

@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import { APP_NAME, SENDER_NAME, SUPPORT_MAIL_ADDRESS } from "@calcom/lib/constants";
+import { APP_NAME, SENDER_NAME, SUPPORT_MAIL_ADDRESS } from "@kalo/lib/constants";
 
 import { BaseEmailHtml } from "../components";
 

@@ -1,18 +1,18 @@
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import type { EventType } from "@calcom/features/availability/lib/getUserAvailability";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { getCheckBookingLimitsService } from "@calcom/features/di/containers/BookingLimits";
-import { getBusyTimesService } from "@calcom/features/di/containers/BusyTimes";
-import { descendingLimitKeys, intervalLimitKeyToUnit } from "@calcom/lib/intervalLimits/intervalLimit";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import LimitManager, { LimitSources } from "@calcom/lib/intervalLimits/limitManager";
-import { isBookingWithinPeriod } from "@calcom/lib/intervalLimits/utils";
-import { getPeriodStartDatesBetween } from "@calcom/lib/intervalLimits/utils/getPeriodStartDatesBetween";
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import { performance } from "@calcom/lib/server/perfObserver";
-import prisma from "@calcom/prisma";
-import type { EventBusyDetails } from "@calcom/types/Calendar";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import type { EventType } from "@kalo/features/availability/lib/getUserAvailability";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { getCheckBookingLimitsService } from "@kalo/features/di/containers/BookingLimits";
+import { getBusyTimesService } from "@kalo/features/di/containers/BusyTimes";
+import { descendingLimitKeys, intervalLimitKeyToUnit } from "@kalo/lib/intervalLimits/intervalLimit";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import LimitManager, { LimitSources } from "@kalo/lib/intervalLimits/limitManager";
+import { isBookingWithinPeriod } from "@kalo/lib/intervalLimits/utils";
+import { getPeriodStartDatesBetween } from "@kalo/lib/intervalLimits/utils/getPeriodStartDatesBetween";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import { performance } from "@kalo/lib/server/perfObserver";
+import prisma from "@kalo/prisma";
+import type { EventBusyDetails } from "@kalo/types/Calendar";
 
 const _getBusyTimesFromLimits = async (
   bookingLimits: IntervalLimit | null,

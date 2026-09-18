@@ -1,8 +1,8 @@
 "use client";
 
-import type { FilterableColumn } from "@calcom/features/data-table/lib/types";
-import { ColumnFilterType, ZSingleSelectFilterValue } from "@calcom/features/data-table/lib/types";
-import type { FilterType } from "@calcom/types/data-table";
+import type { FilterableColumn } from "@kalo/features/data-table/lib/types";
+import { ColumnFilterType, ZSingleSelectFilterValue } from "@kalo/features/data-table/lib/types";
+import type { FilterType } from "@kalo/types/data-table";
 import { useDataTable } from "~/data-table/hooks";
 import { BaseSelectFilterOptions } from "./BaseSelectFilterOptions";
 

@@ -1,5 +1,5 @@
-import { sendOrganizerPaymentRefundFailedEmail } from "@calcom/emails/billing-email-service";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import { sendOrganizerPaymentRefundFailedEmail } from "@kalo/emails/billing-email-service";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 const handleRefundError = async (opts: { event: CalendarEvent; reason: string; paymentId: string }) => {
   console.error(`refund failed: ${opts.reason} for booking '${opts.event.uid}'`);

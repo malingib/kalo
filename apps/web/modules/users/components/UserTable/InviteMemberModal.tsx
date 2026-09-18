@@ -1,7 +1,7 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { CreationSource } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { showToast } from "@calcom/ui/components/toast";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { CreationSource } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { showToast } from "@kalo/ui/components/toast";
 import { useSession } from "next-auth/react";
 import type { Dispatch } from "react";
 import type { UserTableAction } from "./types";

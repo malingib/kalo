@@ -1,27 +1,27 @@
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { getTranslation } from "@calcom/i18n/server";
-import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@calcom/lib/availability";
-import { buildNonDelegationCredentials } from "@calcom/lib/delegationCredential";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { withSelectedCalendars } from "@calcom/lib/server/withSelectedCalendars";
-import type { PrismaClient } from "@calcom/prisma";
-import { availabilityUserSelect } from "@calcom/prisma";
-import type { DestinationCalendar, SelectedCalendar, User as UserType } from "@calcom/prisma/client";
-import { Prisma } from "@calcom/prisma/client";
-import type { IdentityProvider } from "@calcom/prisma/enums";
-import type { CreationSource } from "@calcom/prisma/enums";
-import { BookingStatus, MembershipRole } from "@calcom/prisma/enums";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import { userSelect as prismaUserSelect } from "@calcom/prisma/selects/user";
-import { userMetadata } from "@calcom/prisma/zod-utils";
-import type { UpId, UserProfile } from "@calcom/types/UserProfile";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { getTranslation } from "@kalo/i18n/server";
+import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@kalo/lib/availability";
+import { buildNonDelegationCredentials } from "@kalo/lib/delegationCredential";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { withSelectedCalendars } from "@kalo/lib/server/withSelectedCalendars";
+import type { PrismaClient } from "@kalo/prisma";
+import { availabilityUserSelect } from "@kalo/prisma";
+import type { DestinationCalendar, SelectedCalendar, User as UserType } from "@kalo/prisma/client";
+import { Prisma } from "@kalo/prisma/client";
+import type { IdentityProvider } from "@kalo/prisma/enums";
+import type { CreationSource } from "@kalo/prisma/enums";
+import { BookingStatus, MembershipRole } from "@kalo/prisma/enums";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import { userSelect as prismaUserSelect } from "@kalo/prisma/selects/user";
+import { userMetadata } from "@kalo/prisma/zod-utils";
+import type { UpId, UserProfile } from "@kalo/types/UserProfile";
 import type { z } from "zod";
 
 const whereClauseForOrgWithSlugOrRequestedSlug = (..._args: unknown[]) => ({});
 const getParsedTeam = <T>(team: T): T => team;
 
-export type { UserWithLegacySelectedCalendars } from "@calcom/lib/server/withSelectedCalendars";
+export type { UserWithLegacySelectedCalendars } from "@kalo/lib/server/withSelectedCalendars";
 export { withSelectedCalendars };
 export type UserAdminTeams = number[];
 
@@ -1447,7 +1447,7 @@ export class UserRepository {
         },
       },
       select: {
-        ...prismaUserSelect, // Use the proper userSelect from @calcom/prisma/selects/user which includes schedules
+        ...prismaUserSelect, // Use the proper userSelect from @kalo/prisma/selects/user which includes schedules
         credentials: {
           select: credentialForCalendarServiceSelect,
         },

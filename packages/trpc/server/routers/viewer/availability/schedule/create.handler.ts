@@ -1,6 +1,6 @@
-import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@calcom/lib/availability";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@kalo/lib/availability";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 
 import { TRPCError } from "@trpc/server";
 

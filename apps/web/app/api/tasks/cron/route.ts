@@ -1,6 +1,6 @@
 import { defaultResponderForAppDir } from "app/api/defaultResponderForAppDir";
 
-import { GET as handler } from "@calcom/features/tasker/api/cron";
+import { GET as handler } from "@kalo/features/tasker/api/cron";
 
 export const GET = defaultResponderForAppDir(handler);
 

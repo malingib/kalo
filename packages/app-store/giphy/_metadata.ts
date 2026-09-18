@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Giphy",
@@ -7,14 +7,14 @@ export const metadata = {
   installed: true,
   categories: ["other"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "giphy",
   title: "Giphy",
   type: "giphy_other",
   url: "https://cal.com/apps/giphy",
   variant: "other",
   extendsFeature: "EventType",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "giphy",
   isOAuth: false,
 } as AppMeta;

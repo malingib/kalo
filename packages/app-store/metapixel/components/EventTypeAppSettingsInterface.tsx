@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
-import { Label, Select, TextField } from "@calcom/ui/components/form";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
+import { Label, Select, TextField } from "@kalo/ui/components/form";
 
 const EventTypeAppSettingsInterface: EventTypeAppSettingsComponent = ({
   getAppData,

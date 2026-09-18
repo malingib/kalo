@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/app-store-cli",
+  "name": "@kalo/app-store-cli",
   "private": true,
   "sideEffects": false,
   "version": "0.0.0",
@@ -18,7 +18,7 @@
     "dist/cli.js"
   ],
   "dependencies": {
-    "@calcom/lib": "workspace:*",
+    "@kalo/lib": "workspace:*",
     "ink": "3.2.0",
     "ink-select-input": "4.2.1",
     "ink-text-input": "4.0.3",

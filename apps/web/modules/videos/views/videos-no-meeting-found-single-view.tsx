@@ -1,8 +1,8 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 
 export default function NoMeetingFound() {
   const { t } = useLocale();

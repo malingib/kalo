@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, ValidateNested, IsNumber, IsString, IsOptional, IsUrl } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 export class RecordingItem {
   @ApiProperty({ example: "1234567890" })

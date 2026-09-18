@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
 
-import type { IOutOfOfficeData } from "@calcom/features/availability/lib/getUserAvailability";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
+import type { IOutOfOfficeData } from "@kalo/features/availability/lib/getUserAvailability";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
 
 interface IOutOfOfficeInSlotsProps {
   date: string;

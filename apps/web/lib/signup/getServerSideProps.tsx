@@ -1,11 +1,11 @@
 import process from "node:process";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { getOrgUsernameFromEmail } from "@calcom/features/auth/signup/utils/getOrgUsernameFromEmail";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { IS_SELF_HOSTED, WEBAPP_URL } from "@calcom/lib/constants";
-import { emailSchema } from "@calcom/lib/emailSchema";
-import slugify from "@calcom/lib/slugify";
-import { teamMetadataSchema } from "@calcom/prisma/zod-utils";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { getOrgUsernameFromEmail } from "@kalo/features/auth/signup/utils/getOrgUsernameFromEmail";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { IS_SELF_HOSTED, WEBAPP_URL } from "@kalo/lib/constants";
+import { emailSchema } from "@kalo/lib/emailSchema";
+import slugify from "@kalo/lib/slugify";
+import { teamMetadataSchema } from "@kalo/prisma/zod-utils";
 import { IS_GOOGLE_LOGIN_ENABLED } from "@server/lib/constants";
 import type { GetServerSidePropsContext } from "next";
 import { z } from "zod";
@@ -21,7 +21,7 @@ const querySchema = z.object({
 });
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const prisma = await import("@calcom/prisma").then((mod) => mod.default);
+  const prisma = await import("@kalo/prisma").then((mod) => mod.default);
   const featuresRepository = new FeaturesRepository(prisma);
   const emailVerificationEnabled =
     await featuresRepository.checkIfFeatureIsEnabledGlobally("email-verification");

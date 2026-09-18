@@ -1,14 +1,14 @@
-import { AttendeeRepository } from "@calcom/features/bookings/repositories/AttendeeRepository";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { BookingAccessService } from "@calcom/features/bookings/services/BookingAccessService";
-import { WebhookService } from "@calcom/features/webhooks/lib/WebhookService";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { getTranslation } from "@calcom/i18n/server";
-import { getTimeFormatStringFromUserTimeFormat } from "@calcom/lib/timeFormat";
-import { prisma } from "@calcom/prisma";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { bookingMetadataSchema, type PlatformClientParams } from "@calcom/prisma/zod-utils";
+import { AttendeeRepository } from "@kalo/features/bookings/repositories/AttendeeRepository";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { BookingAccessService } from "@kalo/features/bookings/services/BookingAccessService";
+import { WebhookService } from "@kalo/features/webhooks/lib/WebhookService";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { getTranslation } from "@kalo/i18n/server";
+import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
+import { prisma } from "@kalo/prisma";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { bookingMetadataSchema, type PlatformClientParams } from "@kalo/prisma/zod-utils";
 import type { TFunction } from "i18next";
 import { z } from "zod";
 

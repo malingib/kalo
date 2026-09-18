@@ -1,4 +1,4 @@
-import type { SelectedSlots } from "@calcom/prisma/client";
+import type { SelectedSlots } from "@kalo/prisma/client";
 import { TestingModule } from "@nestjs/testing";
 import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";

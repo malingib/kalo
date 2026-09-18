@@ -1,4 +1,4 @@
-import type { Membership, Team } from "@calcom/prisma/client";
+import type { Membership, Team } from "@kalo/prisma/client";
 
 class PermissionCheckService {
   constructor(_prisma?: unknown) {}

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import type { ReactNode } from "react";
 
-import { TOP_BANNER_HEIGHT } from "@calcom/lib/constants";
+import { TOP_BANNER_HEIGHT } from "@kalo/lib/constants";
 
 import { Icon } from "../icon";
 import type { IconName } from "../icon";

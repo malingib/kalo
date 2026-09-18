@@ -1,6 +1,6 @@
-import { createContainer } from "@calcom/features/di/di";
-import { prismaModule } from "@calcom/features/di/modules/Prisma";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
+import { createContainer } from "@kalo/features/di/di";
+import { prismaModule } from "@kalo/features/di/modules/Prisma";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
 import {
   type EventTypeBrandingData,
   type EventTypeService,

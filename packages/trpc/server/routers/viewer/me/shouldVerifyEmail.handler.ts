@@ -1,4 +1,4 @@
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 type ShouldVerifyEmailType = {
   ctx: {

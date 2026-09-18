@@ -5,7 +5,7 @@ import {
   ZSortingState,
   ZColumnSizing,
   ZColumnVisibility,
-} from "@calcom/features/data-table/lib/types";
+} from "@kalo/features/data-table/lib/types";
 
 export const ZListFilterSegmentsInputSchema = z.object({
   tableIdentifier: z.string(),

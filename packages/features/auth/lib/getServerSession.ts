@@ -1,8 +1,8 @@
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import prisma from "@calcom/prisma";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import prisma from "@kalo/prisma";
 import { LRUCache } from "lru-cache";
 import type { GetServerSidePropsContext, NextApiRequest } from "next";
 import type { AuthOptions, Session } from "next-auth";

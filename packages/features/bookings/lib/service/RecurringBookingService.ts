@@ -1,7 +1,7 @@
-import type { CreateBookingMeta, CreateRecurringBookingData } from "@calcom/features/bookings/lib/dto/types";
-import type { BookingResponse } from "@calcom/features/bookings/types";
-import { type CreationSource, SchedulingType } from "@calcom/prisma/enums";
-import type { AppsStatus } from "@calcom/types/Calendar";
+import type { CreateBookingMeta, CreateRecurringBookingData } from "@kalo/features/bookings/lib/dto/types";
+import type { BookingResponse } from "@kalo/features/bookings/types";
+import { type CreationSource, SchedulingType } from "@kalo/prisma/enums";
+import type { AppsStatus } from "@kalo/types/Calendar";
 import type { IBookingService } from "../interfaces/IBookingService";
 import type { RegularBookingService } from "./RegularBookingService";
 export type BookingHandlerInput = {

@@ -1,6 +1,6 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useUrlMatchesCurrentUrl } from "@calcom/lib/hooks/useUrlMatchesCurrentUrl";
-import classNames from "@calcom/ui/classNames";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useUrlMatchesCurrentUrl } from "@kalo/lib/hooks/useUrlMatchesCurrentUrl";
+import classNames from "@kalo/ui/classNames";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { Fragment } from "react";

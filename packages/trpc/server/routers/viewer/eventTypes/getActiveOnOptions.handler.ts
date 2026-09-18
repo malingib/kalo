@@ -1,10 +1,10 @@
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import type { PrismaClient } from "@calcom/prisma";
-import { MembershipRole, SchedulingType } from "@calcom/prisma/enums";
-import { EventTypeMetaDataSchema, teamMetadataSchema } from "@calcom/prisma/zod-utils";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import type { PrismaClient } from "@kalo/prisma";
+import { MembershipRole, SchedulingType } from "@kalo/prisma/enums";
+import { EventTypeMetaDataSchema, teamMetadataSchema } from "@kalo/prisma/zod-utils";
 import { TRPCError } from "@trpc/server";
 import type { TrpcSessionUser } from "../../../types";
 import type { TGetActiveOnOptionsSchema } from "./getActiveOnOptions.schema";

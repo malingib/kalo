@@ -1,6 +1,6 @@
-import { getLocale } from "@calcom/features/auth/lib/getLocale";
-import { loadTranslations } from "@calcom/i18n/server";
-import { IconSprites } from "@calcom/ui/components/icon";
+import { getLocale } from "@kalo/features/auth/lib/getLocale";
+import { loadTranslations } from "@kalo/i18n/server";
+import { IconSprites } from "@kalo/ui/components/icon";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { dir } from "i18next";
 import { Inter } from "next/font/google";
@@ -68,8 +68,8 @@ export const metadata = {
     "application-TileColor": "#ff0000",
   },
   twitter: {
-    site: "@calcom",
-    creator: "@calcom",
+    site: "@kalo",
+    creator: "@kalo",
     card: "summary_large_image",
   },
   robots: {

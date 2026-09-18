@@ -1,4 +1,4 @@
-import { CALENDARS, ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { CALENDARS, ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
 import { ApiExtraModels, ApiProperty, ApiPropertyOptional, getSchemaPath } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, IsISO8601, IsOptional, IsString, ValidateNested } from "class-validator";

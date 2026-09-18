@@ -1,6 +1,6 @@
-import type { PrismaClient } from "@calcom/prisma";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import type { PrismaClient } from "@kalo/prisma";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 
 export type HashedLinkInputType = {
   link: string;

@@ -39,8 +39,8 @@ async function main() {
     const apiV2PackageJson = JSON.parse(fs.readFileSync(apiV2PackageJsonPath, "utf8"));
 
     apiV2PackageJson.dependencies[
-      "@calcom/platform-libraries"
-    ] = `npm:@calcom/platform-libraries@${publishedVersion}`;
+      "@kalo/platform-libraries"
+    ] = `npm:@kalo/platform-libraries@${publishedVersion}`;
     fs.writeFileSync(apiV2PackageJsonPath, `${JSON.stringify(apiV2PackageJson, null, 2)}\n`);
 
     // Run yarn install

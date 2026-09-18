@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsString, ValidateNested, IsBoolean } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 export class VerifyEmailCodeData {
   @ApiProperty({ example: true })

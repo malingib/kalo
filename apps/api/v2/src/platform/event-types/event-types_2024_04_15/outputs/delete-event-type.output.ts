@@ -8,7 +8,7 @@ import { ApiProperty as DocsProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, IsInt, IsString } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 class DeleteData {
   @IsInt()

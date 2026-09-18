@@ -1,4 +1,4 @@
-import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
+import { EMAIL_FROM_NAME } from "@kalo/lib/constants";
 
 import type { IBookingRedirect } from "../lib/types/booking-redirect-types";
 import renderEmail from "../src/renderEmail";

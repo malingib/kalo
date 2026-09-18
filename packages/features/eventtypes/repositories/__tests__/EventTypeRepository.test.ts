@@ -1,9 +1,9 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { readonlyPrisma } from "@calcom/prisma";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { readonlyPrisma } from "@kalo/prisma";
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   readonlyPrisma: {
     eventType: {
       findMany: vi.fn(),

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookingStatus } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { showToast } from "@calcom/ui/components/toast";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookingStatus } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { showToast } from "@kalo/ui/components/toast";
 
 interface UseBookingConfirmationOptions {
   isRecurring?: boolean;

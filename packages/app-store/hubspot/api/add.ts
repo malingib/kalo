@@ -1,4 +1,4 @@
-import { WEBAPP_URL_FOR_OAUTH } from "@calcom/lib/constants";
+import { WEBAPP_URL_FOR_OAUTH } from "@kalo/lib/constants";
 import * as hubspot from "@hubspot/api-client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import getAppKeysFromSlug from "../../_utils/getAppKeysFromSlug";

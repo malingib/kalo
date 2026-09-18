@@ -1,9 +1,9 @@
 import type z from "zod";
 
-import type { TraceContext } from "@calcom/lib/tracing";
-import type { Prisma } from "@calcom/prisma/client";
-import type { BuiltCalendarEvent } from "@calcom/features/CalendarEventBuilder";
-import type { AppsStatus, CalendarEvent } from "@calcom/types/Calendar";
+import type { TraceContext } from "@kalo/lib/tracing";
+import type { Prisma } from "@kalo/prisma/client";
+import type { BuiltCalendarEvent } from "@kalo/features/CalendarEventBuilder";
+import type { AppsStatus, CalendarEvent } from "@kalo/types/Calendar";
 
 import type { Booking } from "../handleNewBooking/createBooking";
 import type { NewBookingEventType } from "../handleNewBooking/getEventTypesFromDB";

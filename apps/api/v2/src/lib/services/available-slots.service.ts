@@ -1,4 +1,4 @@
-import { AvailableSlotsService as BaseAvailableSlotsService } from "@calcom/platform-libraries/slots";
+import { AvailableSlotsService as BaseAvailableSlotsService } from "@kalo/platform-libraries/slots";
 import { Injectable } from "@nestjs/common";
 import { PrismaBookingRepository } from "@/lib/repositories/prisma-booking.repository";
 import { PrismaEventTypeRepository } from "@/lib/repositories/prisma-event-type.repository";

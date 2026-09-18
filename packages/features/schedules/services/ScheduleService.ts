@@ -1,11 +1,11 @@
-import { getAvailabilityFromSchedule } from "@calcom/lib/availability";
-import { timeZoneSchema } from "@calcom/lib/dayjs/timeZone.schema";
-import { hasEditPermissionForUserID } from "@calcom/lib/hasEditPermissionForUser";
-import { HttpError } from "@calcom/lib/http-error";
-import { transformScheduleToAvailabilityForAtom } from "@calcom/lib/schedules/transformers/for-atom";
-import type { PrismaClient } from "@calcom/prisma";
+import { getAvailabilityFromSchedule } from "@kalo/lib/availability";
+import { timeZoneSchema } from "@kalo/lib/dayjs/timeZone.schema";
+import { hasEditPermissionForUserID } from "@kalo/lib/hasEditPermissionForUser";
+import { HttpError } from "@kalo/lib/http-error";
+import { transformScheduleToAvailabilityForAtom } from "@kalo/lib/schedules/transformers/for-atom";
+import type { PrismaClient } from "@kalo/prisma";
 import { z } from "zod";
-import type { UserFromSession } from "@calcom/features/auth/lib/userFromSessionUtils";
+import type { UserFromSession } from "@kalo/features/auth/lib/userFromSessionUtils";
 import { ScheduleRepository } from "../repositories/ScheduleRepository";
 
 export const ZUpdateInputSchema = z.object({

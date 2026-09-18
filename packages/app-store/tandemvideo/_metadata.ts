@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Tandem Video",
@@ -14,7 +14,7 @@ export const metadata = {
   publisher: "",
   url: "",
   isGlobal: false,
-  email: "help@cal.com",
+  email: "help@kalo",
   appData: {
     location: {
       linkType: "dynamic",

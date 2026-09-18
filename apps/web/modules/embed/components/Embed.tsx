@@ -8,54 +8,54 @@ import type { ControlProps } from "react-select";
 import { components } from "react-select";
 import { shallow } from "zustand/shallow";
 
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { AvailableTimes } from "@calcom/web/modules/bookings/components/AvailableTimes";
-import { AvailableTimesHeader } from "@calcom/web/modules/bookings/components/AvailableTimesHeader";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { AvailableTimes } from "@kalo/web/modules/bookings/components/AvailableTimes";
+import { AvailableTimesHeader } from "@kalo/web/modules/bookings/components/AvailableTimesHeader";
 import {
   BookerStoreProvider,
   useInitializeBookerStoreContext,
   useBookerStoreContext,
-} from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useInitializeBookerStore } from "@calcom/features/bookings/Booker/store";
-import { useEvent, useScheduleForEvent } from "@calcom/web/modules/schedules/hooks/useEvent";
-import DatePicker from "@calcom/features/calendars/components/DatePicker";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { TimezoneSelect } from "@calcom/web/modules/timezone/components/TimezoneSelect";
+} from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useInitializeBookerStore } from "@kalo/features/bookings/Booker/store";
+import { useEvent, useScheduleForEvent } from "@kalo/web/modules/schedules/hooks/useEvent";
+import DatePicker from "@kalo/features/calendars/components/DatePicker";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { TimezoneSelect } from "@kalo/web/modules/timezone/components/TimezoneSelect";
 import type { Slot } from "~/schedules/lib/types";
-import { useNonEmptyScheduleDays } from "@calcom/web/modules/schedules/hooks/useNonEmptyScheduleDays";
-import { useSlotsForDate } from "@calcom/web/modules/schedules/hooks/useSlotsForDate";
-import { APP_NAME, DEFAULT_LIGHT_BRAND_COLOR, DEFAULT_DARK_BRAND_COLOR } from "@calcom/lib/constants";
-import { weekdayToWeekIndex } from "@calcom/lib/dayjs";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookerLayouts } from "@calcom/prisma/zod-utils";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
-import { Select, ColorPicker } from "@calcom/ui/components/form";
-import { Label } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Switch } from "@calcom/ui/components/form";
+import { useNonEmptyScheduleDays } from "@kalo/web/modules/schedules/hooks/useNonEmptyScheduleDays";
+import { useSlotsForDate } from "@kalo/web/modules/schedules/hooks/useSlotsForDate";
+import { APP_NAME, DEFAULT_LIGHT_BRAND_COLOR, DEFAULT_DARK_BRAND_COLOR } from "@kalo/lib/constants";
+import { weekdayToWeekIndex } from "@kalo/lib/dayjs";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookerLayouts } from "@kalo/prisma/zod-utils";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
+import { Select, ColorPicker } from "@kalo/ui/components/form";
+import { Label } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { Switch } from "@kalo/ui/components/form";
 import { ArrowLeftIcon, SunIcon } from "@coss/ui/icons";
-import { HorizontalTabs } from "@calcom/ui/components/navigation";
-import { showToast } from "@calcom/ui/components/toast";
+import { HorizontalTabs } from "@kalo/ui/components/navigation";
+import { showToast } from "@kalo/ui/components/toast";
 
-import { useBookerTime } from "@calcom/features/bookings/Booker/hooks/useBookerTime";
-import { EmbedTabName } from "@calcom/features/embed/lib/EmbedTabs";
-import { buildCssVarsPerTheme } from "@calcom/features/embed/lib/buildCssVarsPerTheme";
-import { EmbedTheme } from "@calcom/features/embed/lib/constants";
-import { getDimension } from "@calcom/features/embed/lib/getDimension";
-import { useEmbedDialogCtx } from "@calcom/features/embed/lib/hooks/useEmbedDialogCtx";
-import { useEmbedParams } from "@calcom/features/embed/lib/hooks/useEmbedParams";
+import { useBookerTime } from "@kalo/features/bookings/Booker/hooks/useBookerTime";
+import { EmbedTabName } from "@kalo/features/embed/lib/EmbedTabs";
+import { buildCssVarsPerTheme } from "@kalo/features/embed/lib/buildCssVarsPerTheme";
+import { EmbedTheme } from "@kalo/features/embed/lib/constants";
+import { getDimension } from "@kalo/features/embed/lib/getDimension";
+import { useEmbedDialogCtx } from "@kalo/features/embed/lib/hooks/useEmbedDialogCtx";
+import { useEmbedParams } from "@kalo/features/embed/lib/hooks/useEmbedParams";
 import type {
   EmbedTabs,
   EmbedType,
   EmbedTypes,
   PreviewState,
   EmbedConfig,
-} from "@calcom/features/embed/types";
+} from "@kalo/features/embed/types";
 
 type EventType = RouterOutputs["viewer"]["eventTypes"]["get"]["eventType"] | undefined;
 type EmbedDialogProps = {

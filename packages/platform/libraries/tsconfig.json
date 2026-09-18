@@ -1,5 +1,5 @@
 {
-  "extends": "@calcom/tsconfig/base.json",
+  "extends": "@kalo/tsconfig/base.json",
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ES2021",
@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
-      "@calcom/i18n/server": ["./../../i18n/server.ts"]
+      "@kalo/i18n/server": ["./../../i18n/server.ts"]
     }
   },
   "include": [".", "../../types/*.d.ts"],

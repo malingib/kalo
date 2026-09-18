@@ -15,7 +15,7 @@ export const ensureDefaultCalendars: TaskWithSchema<
   schema: calendarsTaskSchema,
   run: async (payload: z.infer<typeof calendarsTaskSchema>) => {
     const { getCalendarsTaskService } = await import(
-      "@calcom/features/calendars/di/tasker/CalendarsTaskService.container"
+      "@kalo/features/calendars/di/tasker/CalendarsTaskService.container"
     );
 
     const calendarsTaskService = getCalendarsTaskService();

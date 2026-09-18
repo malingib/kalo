@@ -1,9 +1,9 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import { describe, expect, it, beforeEach, vi } from "vitest";
 
-import { RetryableError } from "@calcom/lib/crmManager/errors";
-import { BookingStatus } from "@calcom/prisma/enums";
+import { RetryableError } from "@kalo/lib/crmManager/errors";
+import { BookingStatus } from "@kalo/prisma/enums";
 
 import { createCRMEvent } from "../createCRMEvent";
 
@@ -62,7 +62,7 @@ vi.mock("../lib/buildCalendarEvent", () => ({
 }));
 
 const mockCreateEvent = vi.fn().mockResolvedValue({ id: "sf-event-123" });
-vi.mock("@calcom/features/crmManager/crmManager", () => ({
+vi.mock("@kalo/features/crmManager/crmManager", () => ({
   default: class MockCrmManager {
     private credential: CRMCredential;
 

@@ -4,15 +4,15 @@ import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 import { Toaster } from "sonner";
 
-import AppNotInstalledMessage from "@calcom/app-store/_components/AppNotInstalledMessage";
-import { albyCredentialKeysSchema } from "@calcom/app-store/alby/lib/albyCredentialKeysSchema";
-import type { IAlbySetupProps } from "@calcom/app-store/alby/pages/setup/_getServerSideProps";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
+import AppNotInstalledMessage from "@kalo/app-store/_components/AppNotInstalledMessage";
+import { albyCredentialKeysSchema } from "@kalo/app-store/alby/lib/albyCredentialKeysSchema";
+import type { IAlbySetupProps } from "@kalo/app-store/alby/pages/setup/_getServerSideProps";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon } from "@coss/ui/icons";
 
 export default function AlbySetup(props: IAlbySetupProps) {
@@ -102,7 +102,7 @@ function AlbySetupPage(props: IAlbySetupProps) {
     const webhookEndpoint = await client.createWebhookEndpoint({
       filter_types: ["invoice.incoming.settled"],
       url: `${process.env.NEXT_PUBLIC_WEBAPP_URL}/api/integrations/alby/webhook`,
-      description: "Cal.diy",
+      description: "Kalo",
     });
 
     saveKeysMutation.mutate({

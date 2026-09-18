@@ -1,4 +1,4 @@
-import type { ITeamFeatureRepository } from "@calcom/features/flags/repositories/PrismaTeamFeatureRepository";
+import type { ITeamFeatureRepository } from "@kalo/features/flags/repositories/PrismaTeamFeatureRepository";
 import { moduleLoader as cachedTeamFeatureRepositoryModuleLoader } from "../../flags/di/CachedTeamFeatureRepository.module";
 import { createContainer } from "../di";
 

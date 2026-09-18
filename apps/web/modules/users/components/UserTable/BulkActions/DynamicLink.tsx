@@ -1,6 +1,6 @@
-import { useCopy } from "@calcom/lib/hooks/useCopy";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
+import { useCopy } from "@kalo/lib/hooks/useCopy";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
 import type { Table } from "@tanstack/react-table";
 import { parseAsBoolean, useQueryState } from "nuqs";
 

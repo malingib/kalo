@@ -1,7 +1,7 @@
-import type { OutOfOfficeRenderProps } from "@calcom/features/calendars/weeklyview/types/state";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import type { OutOfOfficeRenderProps } from "@kalo/features/calendars/weeklyview/types/state";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 
 export function DefaultOutOfOfficeSlot(props: OutOfOfficeRenderProps) {
   const { t } = useLocale();

@@ -1,5 +1,5 @@
-import isAuthorized from "@calcom/features/auth/lib/oAuthAuthorization";
-import { HttpError } from "@calcom/lib/http-error";
+import isAuthorized from "@kalo/features/auth/lib/oAuthAuthorization";
+import { HttpError } from "@kalo/lib/http-error";
 import type { NextApiRequest } from "next";
 import { findValidApiKey } from "../../_utils/findValidApiKey";
 

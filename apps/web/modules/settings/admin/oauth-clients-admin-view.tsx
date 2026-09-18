@@ -1,9 +1,9 @@
 "use client";
 
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { showToast } from "@calcom/ui/components/toast";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { showToast } from "@kalo/ui/components/toast";
 import { useState } from "react";
 import type { OAuthClientCreateFormValues } from "../oauth/create/OAuthClientCreateModal";
 import { OAuthClientCreateDialog } from "../oauth/create/OAuthClientCreateModal";

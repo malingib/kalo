@@ -1,4 +1,4 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 import RawHtml from "./RawHtml";
 import Row from "./Row";

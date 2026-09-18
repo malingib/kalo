@@ -1,6 +1,6 @@
 /**
  * Tracking type for UTM parameters in booking requests.
- * Cloned from @calcom/features/bookings/lib/handleNewBooking/types to avoid circular dependency.
+ * Cloned from @kalo/features/bookings/lib/handleNewBooking/types to avoid circular dependency.
  */
 export type Tracking = {
   utm_source?: string;

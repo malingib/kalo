@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/tsconfig",
+  "name": "@kalo/tsconfig",
   "sideEffects": false,
   "version": "0.0.0",
   "private": true,

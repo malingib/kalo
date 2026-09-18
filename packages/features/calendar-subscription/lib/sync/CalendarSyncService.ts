@@ -1,17 +1,17 @@
-import type { CreateRegularBookingData } from "@calcom/features/bookings/lib/dto/types";
-import handleCancelBooking from "@calcom/features/bookings/lib/handleCancelBooking";
-import type { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import type { CalendarSubscriptionEventItem } from "@calcom/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
-import { APP_NAME } from "@calcom/lib/constants";
-import { IdempotencyKeyService } from "@calcom/lib/idempotencyKey/idempotencyKeyService";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { SelectedCalendar } from "@calcom/prisma/client";
+import type { CreateRegularBookingData } from "@kalo/features/bookings/lib/dto/types";
+import handleCancelBooking from "@kalo/features/bookings/lib/handleCancelBooking";
+import type { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import type { CalendarSubscriptionEventItem } from "@kalo/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
+import { APP_NAME } from "@kalo/lib/constants";
+import { IdempotencyKeyService } from "@kalo/lib/idempotencyKey/idempotencyKeyService";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { SelectedCalendar } from "@kalo/prisma/client";
 import { metrics } from "@sentry/nextjs";
 
 const log = logger.getSubLogger({ prefix: ["CalendarSyncService"] });
 const CAL_MANAGED_ICAL_UID_SUFFIXES: ReadonlySet<string> = new Set(
-  ["cal.com", "cal.diy", APP_NAME].map((suffix) => suffix.toLowerCase())
+  ["cal.com", "kalo", APP_NAME].map((suffix) => suffix.toLowerCase())
 );
 
 const isCalManagedICalUID = (iCalUID?: string | null): boolean => {
@@ -131,7 +131,7 @@ export class CalendarSyncService {
           cancellationReason: "Cancelled on user's calendar",
           cancelledBy: booking.userPrimaryEmail,
           // Skip calendar event deletion to avoid infinite loops
-          // (Google/Office365 → Cal.diy → Google/Office365 → ...)
+          // (Google/Office365 → Kalo → Google/Office365 → ...)
           skipCalendarSyncTaskCancellation: true,
         },
       });
@@ -206,14 +206,14 @@ export class CalendarSyncService {
       // Dynamic import to avoid loading the entire booking service chain at module evaluation time
       // This prevents react-awesome-query-builder from being loaded in server-side contexts
       const { getRegularBookingService } = await import(
-        "@calcom/features/bookings/di/RegularBookingService.container"
+        "@kalo/features/bookings/di/RegularBookingService.container"
       );
       const regularBookingService = getRegularBookingService();
       await regularBookingService.createBooking({
         bookingData: buildRescheduleBookingData(booking, event),
         bookingMeta: {
           // Skip calendar event creation to avoid infinite loops
-          // (Google/Office365 → Cal.diy → Google/Office365 → ...)
+          // (Google/Office365 → Kalo → Google/Office365 → ...)
           skipCalendarSyncTaskCreation: true,
           skipAvailabilityCheck: true,
           skipEventLimitsCheck: true,
@@ -259,7 +259,7 @@ export const buildRescheduleBookingData = (
   const fallbackStart = booking.startTime.toISOString();
   const start = event.start?.toISOString() ?? fallbackStart;
 
-  // Keep the original booking duration — external calendar controls "when", Cal.diy controls "how long"
+  // Keep the original booking duration — external calendar controls "when", Kalo controls "how long"
   const originalDurationMs = booking.endTime.getTime() - booking.startTime.getTime();
   const end = new Date(new Date(start).getTime() + originalDurationMs).toISOString();
 

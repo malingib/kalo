@@ -1,4 +1,4 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 import { CallToAction, Separator, CallToActionTable, BookingConfirmationForm } from "../components";
 import { OrganizerScheduledEmail } from "./OrganizerScheduledEmail";

@@ -1,5 +1,5 @@
-import type { IRedisService } from "@calcom/features/redis/IRedisService";
-import type { PrismaClient } from "@calcom/prisma/client";
+import type { IRedisService } from "@kalo/features/redis/IRedisService";
+import type { PrismaClient } from "@kalo/prisma/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CachedUserFeatureRepository } from "../CachedUserFeatureRepository";
 import { PrismaUserFeatureRepository } from "../PrismaUserFeatureRepository";
@@ -45,7 +45,7 @@ function createMockPrisma(): MockPrisma {
 
 let mockRedis: IRedisService;
 
-vi.mock("@calcom/features/di/containers/Redis", () => ({
+vi.mock("@kalo/features/di/containers/Redis", () => ({
   getRedisService: () => mockRedis,
 }));
 

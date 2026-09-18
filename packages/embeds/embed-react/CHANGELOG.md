@@ -1,4 +1,4 @@
-# @calcom/embed-react
+# @kalo/embed-react
 
 ## 1.5.3
 
@@ -6,8 +6,8 @@
 
 - Added react-19 as peer dependency
 - Updated dependencies
-  - @calcom/embed-core@1.5.3
-  - @calcom/embed-snippet@1.3.3
+  - @kalo/embed-core@1.5.3
+  - @kalo/embed-snippet@1.3.3
 
 ## 1.5.2
 
@@ -15,8 +15,8 @@
 
 - Bundle size reduction for embed-react
 - Updated dependencies
-  - @calcom/embed-core@1.5.2
-  - @calcom/embed-snippet@1.3.2
+  - @kalo/embed-core@1.5.2
+  - @kalo/embed-snippet@1.3.2
 
 ## 1.5.1
 
@@ -24,8 +24,8 @@
 
 - Ships latest types of new events added like bookingSuccessfulV2
 - Updated dependencies
-  - @calcom/embed-core@1.5.1
-  - @calcom/embed-snippet@1.3.1
+  - @kalo/embed-core@1.5.1
+  - @kalo/embed-snippet@1.3.1
 
 ## 1.5.0
 
@@ -36,8 +36,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @calcom/embed-core@1.5.0
-  - @calcom/embed-snippet@1.3.0
+  - @kalo/embed-core@1.5.0
+  - @kalo/embed-snippet@1.3.0
 
 ## 1.4.0
 
@@ -48,8 +48,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @calcom/embed-core@1.4.0
-  - @calcom/embed-snippet@1.2.0
+  - @kalo/embed-core@1.4.0
+  - @kalo/embed-snippet@1.2.0
 
 ## 1.3.0
 
@@ -63,8 +63,8 @@
 
 - Improve UI instruction layout typings
 - Updated dependencies
-  - @calcom/embed-snippet@1.1.2
-  - @calcom/embed-core@1.3.2
+  - @kalo/embed-snippet@1.1.2
+  - @kalo/embed-core@1.3.2
 
 ## 1.2.1
 
@@ -72,8 +72,8 @@
 
 - layout type fix as zod-utils can't be used in npm package
 - Updated dependencies
-  - @calcom/embed-snippet@1.1.1
-  - @calcom/embed-core@1.3.1
+  - @kalo/embed-snippet@1.1.1
+  - @kalo/embed-core@1.3.1
 
 ## 1.2.0
 
@@ -84,8 +84,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @calcom/embed-core@1.3.0
-  - @calcom/embed-snippet@1.1.0
+  - @kalo/embed-core@1.3.0
+  - @kalo/embed-snippet@1.1.0
 
 ## 1.1.1
 
@@ -93,20 +93,20 @@
 
 - Fix the build for embed-react
 - Updated dependencies
-  - @calcom/embed-snippet@1.0.9
-  - @calcom/embed-core@1.2.1
+  - @kalo/embed-snippet@1.0.9
+  - @kalo/embed-core@1.2.1
 
 ## 1.1.0
 
 ### Minor Changes
 
-- Fix missing types for @calcom/embed-react. Also, release support for floatingButton config parameter. Though the support is available using embed.js already, for users using getCalApi the TypeScript types would report that config isn't supported.
+- Fix missing types for @kalo/embed-react. Also, release support for floatingButton config parameter. Though the support is available using embed.js already, for users using getCalApi the TypeScript types would report that config isn't supported.
 
 ### Patch Changes
 
 - Updated dependencies
-  - @calcom/embed-core@1.2.0
-  - @calcom/embed-snippet@1.0.8
+  - @kalo/embed-core@1.2.0
+  - @kalo/embed-snippet@1.0.8
 
 ## 1.0.12
 
@@ -114,5 +114,5 @@
 
 - Add changesets. Use prepack instead of prePublish and prepublish only as that works with both yarn and npm
 - Updated dependencies
-  - @calcom/embed-snippet@1.0.7
-  - @calcom/embed-core@1.1.5
+  - @kalo/embed-snippet@1.0.7
+  - @kalo/embed-core@1.1.5

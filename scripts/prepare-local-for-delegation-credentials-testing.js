@@ -8,10 +8,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Dynamic import for ES module
-  const { FeaturesRepository } = await import("@calcom/features/flags/features.repository");
+  const { FeaturesRepository } = await import("@kalo/features/flags/features.repository");
   const featuresRepository = new FeaturesRepository(prisma);
   // Parse newEmail from args
-  const newEmail = process.argv[2] || "hariom@cal.com";
+  const newEmail = process.argv[2] || "hariom@kalo";
   console.log(`Using newEmail: ${newEmail}`);
 
   // 1. Update user email

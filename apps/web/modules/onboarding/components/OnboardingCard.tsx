@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 type OnboardingCardProps = {
   title: string;

@@ -1,9 +1,9 @@
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import type { PrismaClient } from "@calcom/prisma";
-import type { Booking, Prisma } from "@calcom/prisma/client";
-import { BookingStatus, RRTimestampBasis } from "@calcom/prisma/enums";
-import { bookingDetailsSelect, bookingMinimalSelect } from "@calcom/prisma/selects/booking";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import type { PrismaClient } from "@kalo/prisma";
+import type { Booking, Prisma } from "@kalo/prisma/client";
+import { BookingStatus, RRTimestampBasis } from "@kalo/prisma/enums";
+import { bookingDetailsSelect, bookingMinimalSelect } from "@kalo/prisma/selects/booking";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
 import type {
   BookingUpdateData,
   BookingWhereInput,
@@ -883,7 +883,7 @@ export class BookingRepository implements IBookingRepository {
             phoneNumber: true,
           },
           // Ascending order ensures that the first attendee in the list is the booker and others are guests
-          // See why it is important https://github.com/calcom/cal.diy/pull/20935
+          // See why it is important https://github.com/calcom/kalo/pull/20935
           // TODO: Ideally we should return `booker` property directly from the booking
           orderBy: {
             id: "asc",

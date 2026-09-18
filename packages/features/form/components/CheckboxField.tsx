@@ -1,8 +1,8 @@
 import type { InputHTMLAttributes } from "react";
 import React, { forwardRef } from "react";
 
-import classNames from "@calcom/ui/classNames";
-import { InfoBadge } from "@calcom/ui/components/badge";
+import classNames from "@kalo/ui/classNames";
+import { InfoBadge } from "@kalo/ui/components/badge";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   label?: React.ReactNode;

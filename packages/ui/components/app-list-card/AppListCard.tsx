@@ -1,9 +1,9 @@
 "use client";
 
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { CredentialOwner } from "@calcom/types/CredentialOwner";
-import classNames from "@calcom/ui/classNames";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { CredentialOwner } from "@kalo/types/CredentialOwner";
+import classNames from "@kalo/ui/classNames";
 import { CircleAlertIcon } from "@coss/ui/icons";
 import type { ReactNode } from "react";
 import { Avatar } from "../avatar/Avatar";

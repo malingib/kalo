@@ -17,7 +17,7 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
   IS_E2E: "true",
   API_KEY_PREFIX: "cal_test_",
   GET_LICENSE_KEY_URL: " https://console.cal.com/api/license",
-  CALCOM_LICENSE_KEY: "c4234812-12ab-42s6-a1e3-55bedd4a5bb7",
+  KALO_LICENSE_KEY: "c4234812-12ab-42s6-a1e3-55bedd4a5bb7",
   RATE_LIMIT_DEFAULT_TTL_MS: 60000,
   // note(Lauris): setting high limit so that e2e tests themselves are not rate limited
   RATE_LIMIT_DEFAULT_LIMIT: 10000,
@@ -37,7 +37,7 @@ process.env = {
     "BIds0AQJ96xGBjTSMHTOqLBLutQE7Lu32KKdgSdy7A2cS4mKI2cgb3iGkhDJa5Siy-stezyuPm8qpbhmNxdNHMw",
   VAPID_PRIVATE_KEY: "6cJtkASCar5sZWguIAW7OjvyixpBw9p8zL8WDDwk9Jk",
   CALENDSO_ENCRYPTION_KEY: "22gfxhWUlcKliUeXcu8xNah2+HP/29ZX",
-  CALCOM_SERVICE_ACCOUNT_ENCRYPTION_KEY: "ae1ca912d1ff09f1527dae78e84f88b4",
+  KALO_SERVICE_ACCOUNT_ENCRYPTION_KEY: "ae1ca912d1ff09f1527dae78e84f88b4",
   INTEGRATION_TEST_MODE: "true",
   e2e: "true",
   SLOTS_CACHE_TTL: "1",

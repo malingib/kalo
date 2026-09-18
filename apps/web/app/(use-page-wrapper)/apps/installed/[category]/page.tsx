@@ -5,10 +5,10 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { AppCategories } from "@calcom/prisma/enums";
-import { appsRouter } from "@calcom/trpc/server/routers/viewer/apps/_router";
-import { calendarsRouter } from "@calcom/trpc/server/routers/viewer/calendars/_router";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { AppCategories } from "@kalo/prisma/enums";
+import { appsRouter } from "@kalo/trpc/server/routers/viewer/apps/_router";
+import { calendarsRouter } from "@kalo/trpc/server/routers/viewer/calendars/_router";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

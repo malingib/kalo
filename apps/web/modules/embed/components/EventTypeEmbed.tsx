@@ -1,10 +1,10 @@
 import type { ComponentProps } from "react";
 
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 
 import { EmbedButton, EmbedDialog } from "./Embed";
-import { tabs } from "@calcom/features/embed/lib/EmbedTabs";
-import { useEmbedTypes } from "@calcom/features/embed/lib/hooks";
+import { tabs } from "@kalo/features/embed/lib/EmbedTabs";
+import { useEmbedTypes } from "@kalo/features/embed/lib/hooks";
 
 export const EventTypeEmbedDialog = () => {
   const types = useEmbedTypes();

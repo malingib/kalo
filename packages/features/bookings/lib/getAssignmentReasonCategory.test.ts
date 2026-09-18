@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { AssignmentReasonEnum } from "@calcom/prisma/enums";
+import { AssignmentReasonEnum } from "@kalo/prisma/enums";
 
 import { getAssignmentReasonCategory } from "./getAssignmentReasonCategory";
 

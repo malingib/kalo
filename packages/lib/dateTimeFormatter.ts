@@ -1,4 +1,4 @@
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 type DateTimeStyle = "full" | "long" | "medium" | "short";
 

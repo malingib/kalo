@@ -1,8 +1,8 @@
 import type { Dayjs } from "dayjs";
 
-import dayjs from "@calcom/dayjs";
-import type { CurrentSeats } from "@calcom/features/availability/lib/getUserAvailability";
-import type { BufferedBusyTime } from "@calcom/types/BufferedBusyTime";
+import dayjs from "@kalo/dayjs";
+import type { CurrentSeats } from "@kalo/features/availability/lib/getUserAvailability";
+import type { BufferedBusyTime } from "@kalo/types/BufferedBusyTime";
 
 type BufferedBusyTimes = BufferedBusyTime[];
 

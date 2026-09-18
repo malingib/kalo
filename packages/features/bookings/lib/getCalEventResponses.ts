@@ -1,14 +1,14 @@
 import type z from "zod";
 
-import type { bookingResponsesDbSchema } from "@calcom/features/bookings/lib/getBookingResponsesSchema";
-import { SystemField } from "@calcom/lib/bookings/SystemField";
-import { contructEmailFromPhoneNumber } from "@calcom/lib/contructEmailFromPhoneNumber";
-import { getBookingWithResponses } from "@calcom/lib/getBooking";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import type { EventType, Prisma } from "@calcom/prisma/client";
-import { eventTypeBookingFields } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type { bookingResponsesDbSchema } from "@kalo/features/bookings/lib/getBookingResponsesSchema";
+import { SystemField } from "@kalo/lib/bookings/SystemField";
+import { contructEmailFromPhoneNumber } from "@kalo/lib/contructEmailFromPhoneNumber";
+import { getBookingWithResponses } from "@kalo/lib/getBooking";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import type { EventType, Prisma } from "@kalo/prisma/client";
+import { eventTypeBookingFields } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 const log = logger.getSubLogger({ prefix: ["[getCalEventResponses]"] });
 

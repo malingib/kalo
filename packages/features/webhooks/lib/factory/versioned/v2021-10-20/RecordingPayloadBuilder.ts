@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 import type { RecordingReadyDTO, TranscriptionGeneratedDTO } from "../../../dto/types";
 import type { WebhookPayload } from "../../types";

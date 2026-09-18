@@ -1,11 +1,11 @@
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SMSLockState } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { Avatar } from "@calcom/ui/components/avatar";
-import type { IconName } from "@calcom/ui/components/icon";
-import { Table, DropdownActions } from "@calcom/ui/components/table";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SMSLockState } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { Avatar } from "@kalo/ui/components/avatar";
+import type { IconName } from "@kalo/ui/components/icon";
+import { Table, DropdownActions } from "@kalo/ui/components/table";
 
 const { Cell, ColumnTitle, Header, Row } = Table;
 

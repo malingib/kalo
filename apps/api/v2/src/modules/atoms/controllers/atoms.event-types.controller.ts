@@ -1,7 +1,7 @@
-import { ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { UpdateEventTypeReturn } from "@calcom/platform-libraries/event-types";
-import { listWithTeamHandler, PublicEventType } from "@calcom/platform-libraries/event-types";
-import { ApiResponse } from "@calcom/platform-types";
+import { ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { UpdateEventTypeReturn } from "@kalo/platform-libraries/event-types";
+import { listWithTeamHandler, PublicEventType } from "@kalo/platform-libraries/event-types";
+import { ApiResponse } from "@kalo/platform-types";
 import {
   Body,
   Controller,

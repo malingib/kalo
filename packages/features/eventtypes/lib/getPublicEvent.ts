@@ -1,20 +1,20 @@
 import process from "node:process";
-import type { LocationObject } from "@calcom/app-store/locations";
-import { privacyFilteredLocations } from "@calcom/app-store/locations";
-import { getAppFromSlug } from "@calcom/app-store/utils";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import dayjs from "@calcom/dayjs";
-import { getBookingFieldsWithSystemFields } from "@calcom/features/bookings/lib/getBookingFields";
-import { getDefaultEvent, getUsernameList } from "@calcom/features/eventtypes/lib/defaultEvents";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { getOrgOrTeamAvatar, getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import { isRecurringEvent, parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import type { PrismaClient } from "@calcom/prisma";
-import type { Prisma, Team, User as UserType } from "@calcom/prisma/client";
-import { MembershipRole } from "@calcom/prisma/enums";
-import type { BookerLayoutSettings } from "@calcom/prisma/zod-utils";
+import type { LocationObject } from "@kalo/app-store/locations";
+import { privacyFilteredLocations } from "@kalo/app-store/locations";
+import { getAppFromSlug } from "@kalo/app-store/utils";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import dayjs from "@kalo/dayjs";
+import { getBookingFieldsWithSystemFields } from "@kalo/features/bookings/lib/getBookingFields";
+import { getDefaultEvent, getUsernameList } from "@kalo/features/eventtypes/lib/defaultEvents";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { getOrgOrTeamAvatar, getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import { isRecurringEvent, parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import type { PrismaClient } from "@kalo/prisma";
+import type { Prisma, Team, User as UserType } from "@kalo/prisma/client";
+import { MembershipRole } from "@kalo/prisma/enums";
+import type { BookerLayoutSettings } from "@kalo/prisma/zod-utils";
 import {
   BookerLayouts,
   bookerLayoutOptions,
@@ -22,8 +22,8 @@ import {
   customInputSchema,
   teamMetadataSchema,
   userMetadata as userMetadataSchema,
-} from "@calcom/prisma/zod-utils";
-import type { UserProfile } from "@calcom/types/UserProfile";
+} from "@kalo/prisma/zod-utils";
+import type { UserProfile } from "@kalo/types/UserProfile";
 
 class PermissionCheckService {
   constructor(_prisma?: unknown) {}

@@ -5,7 +5,7 @@ import { describe, it, expect, vi } from "vitest";
 import { Editor } from "./Editor";
 import type { TextEditorProps } from "./types";
 
-vi.mock("@calcom/lib/hooks/useMediaQuery", () => ({
+vi.mock("@kalo/lib/hooks/useMediaQuery", () => ({
   default: (_query: string) => false,
 }));
 

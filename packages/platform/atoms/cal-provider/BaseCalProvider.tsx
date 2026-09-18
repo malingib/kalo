@@ -3,15 +3,15 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 
-import type { API_VERSIONS_ENUM } from "@calcom/platform-constants";
-import { IconSprites } from "@calcom/ui/components/icon";
-import deTranslations from "@calcom/i18n/locales/de/common.json";
-import enTranslations from "@calcom/i18n/locales/en/common.json";
-import esTranslations from "@calcom/i18n/locales/es/common.json";
-import frTranslations from "@calcom/i18n/locales/fr/common.json";
-import itTranslations from "@calcom/i18n/locales/it/common.json";
-import nlTranslations from "@calcom/i18n/locales/nl/common.json";
-import ptBrTranslations from "@calcom/i18n/locales/pt-BR/common.json";
+import type { API_VERSIONS_ENUM } from "@kalo/platform-constants";
+import { IconSprites } from "@kalo/ui/components/icon";
+import deTranslations from "@kalo/i18n/locales/de/common.json";
+import enTranslations from "@kalo/i18n/locales/en/common.json";
+import esTranslations from "@kalo/i18n/locales/es/common.json";
+import frTranslations from "@kalo/i18n/locales/fr/common.json";
+import itTranslations from "@kalo/i18n/locales/it/common.json";
+import nlTranslations from "@kalo/i18n/locales/nl/common.json";
+import ptBrTranslations from "@kalo/i18n/locales/pt-BR/common.json";
 
 import { AtomsContext } from "../hooks/useAtomsContext";
 import { useMe } from "../hooks/useMe";

@@ -3,7 +3,7 @@ import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { Injectable } from "@nestjs/common";
 import { v4 as uuidv4 } from "uuid";
 
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 @Injectable()
 export class ProfilesRepository {

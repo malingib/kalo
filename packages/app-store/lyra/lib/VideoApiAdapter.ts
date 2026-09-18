@@ -3,15 +3,15 @@ import {
   CREDENTIAL_SYNC_ENDPOINT,
   CREDENTIAL_SYNC_SECRET,
   CREDENTIAL_SYNC_SECRET_HEADER_NAME,
-} from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { PartialReference } from "@calcom/types/EventManager";
-import type { VideoApiAdapter, VideoCallData } from "@calcom/types/VideoApiAdapter";
+} from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { PartialReference } from "@kalo/types/EventManager";
+import type { VideoApiAdapter, VideoCallData } from "@kalo/types/VideoApiAdapter";
 
 import { invalidateCredential } from "../../_utils/invalidateCredential";
 import { OAuthManager } from "../../_utils/oauth/OAuthManager";

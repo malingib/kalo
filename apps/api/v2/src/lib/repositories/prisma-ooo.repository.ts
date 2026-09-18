@@ -1,8 +1,8 @@
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { Injectable } from "@nestjs/common";
 
-import { PrismaOOORepository as PrismaOOORepositoryLib } from "@calcom/platform-libraries/repositories";
-import type { PrismaClient } from "@calcom/prisma";
+import { PrismaOOORepository as PrismaOOORepositoryLib } from "@kalo/platform-libraries/repositories";
+import type { PrismaClient } from "@kalo/prisma";
 
 @Injectable()
 export class PrismaOOORepository extends PrismaOOORepositoryLib {

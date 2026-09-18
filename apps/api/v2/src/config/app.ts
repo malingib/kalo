@@ -19,7 +19,7 @@ const loadConfig = (): AppConfig => {
       path: apiUrl,
       url: `${apiUrl}${portSuffix}/v2`,
       keyPrefix: getEnv("API_KEY_PREFIX", "cal_"),
-      licenseKey: getEnv("CALCOM_LICENSE_KEY", ""),
+      licenseKey: getEnv("KALO_LICENSE_KEY", ""),
       licenseKeyUrl: getEnv("GET_LICENSE_KEY_URL", "https://console.cal.com/api/license"),
     },
     db: {

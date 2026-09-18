@@ -1,4 +1,4 @@
-import logger from "@calcom/lib/logger";
+import logger from "@kalo/lib/logger";
 
 export const createLoggerWithEventDetails = (
   eventTypeId: number,

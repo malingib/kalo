@@ -1,8 +1,8 @@
 import { UsersRepository } from "@/modules/users/users.repository";
 import { Injectable } from "@nestjs/common";
 
-import type { WeekDay } from "@calcom/platform-types";
-import type { Availability, Schedule } from "@calcom/prisma/client";
+import type { WeekDay } from "@kalo/platform-types";
+import type { Availability, Schedule } from "@kalo/prisma/client";
 
 type DatabaseSchedule = Schedule & { availability: Availability[] };
 

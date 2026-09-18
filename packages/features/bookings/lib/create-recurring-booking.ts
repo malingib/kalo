@@ -1,4 +1,4 @@
-import { post } from "@calcom/lib/fetch-wrapper";
+import { post } from "@kalo/lib/fetch-wrapper";
 
 import type { RecurringBookingCreateBody, BookingResponse } from "../types";
 

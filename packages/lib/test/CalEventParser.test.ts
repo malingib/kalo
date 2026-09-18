@@ -9,9 +9,9 @@ import {
 } from "../CalEventParser";
 import { buildCalendarEvent, buildVideoCallData } from "./builder";
 
-vi.mock("@calcom/lib/constants", () => ({
+vi.mock("@kalo/lib/constants", () => ({
   WEBAPP_URL: "http://localhost:3000",
-  APP_NAME: "Cal.diy",
+  APP_NAME: "Kalo",
 }));
 
 vi.mock("short-uuid", () => ({
@@ -30,7 +30,7 @@ describe("getLocation", () => {
     expect(getLocation(calEvent)).toEqual(getVideoCallUrlFromCalEvent(calEvent));
   });
   it("should return an integration provider name from event", () => {
-    const provideName = "Cal.diy";
+    const provideName = "Kalo";
     const calEvent = buildCalendarEvent({
       videoCallData: undefined,
       location: `integrations:${provideName}`,

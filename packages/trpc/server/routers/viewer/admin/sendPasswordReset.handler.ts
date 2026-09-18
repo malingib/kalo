@@ -1,8 +1,8 @@
-import dayjs from "@calcom/dayjs";
-import { sendPasswordResetEmail } from "@calcom/emails/auth-email-service";
-import { PASSWORD_RESET_EXPIRY_HOURS } from "@calcom/features/auth/lib/passwordResetRequest";
-import { getTranslation } from "@calcom/i18n/server";
-import { prisma } from "@calcom/prisma";
+import dayjs from "@kalo/dayjs";
+import { sendPasswordResetEmail } from "@kalo/emails/auth-email-service";
+import { PASSWORD_RESET_EXPIRY_HOURS } from "@kalo/features/auth/lib/passwordResetRequest";
+import { getTranslation } from "@kalo/i18n/server";
+import { prisma } from "@kalo/prisma";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TAdminPasswordResetSchema } from "./sendPasswordReset.schema";

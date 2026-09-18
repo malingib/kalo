@@ -7,16 +7,16 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import type { LocationObject } from "@calcom/app-store/locations";
-import { locationsResolver } from "@calcom/app-store/locations";
-import NoSSR from "@calcom/lib/components/NoSSR";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { AppCategories } from "@calcom/prisma/enums";
-import type { EventTypeMetaDataSchema, eventTypeBookingFields } from "@calcom/prisma/zod-utils";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Button } from "@calcom/ui/components/button";
-import { Form } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
+import type { LocationObject } from "@kalo/app-store/locations";
+import { locationsResolver } from "@kalo/app-store/locations";
+import NoSSR from "@kalo/lib/components/NoSSR";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { AppCategories } from "@kalo/prisma/enums";
+import type { EventTypeMetaDataSchema, eventTypeBookingFields } from "@kalo/prisma/zod-utils";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Button } from "@kalo/ui/components/button";
+import { Form } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
 
 import EventTypeAppSettingsWrapper from "@components/apps/installation/EventTypeAppSettingsWrapper";
 import EventTypeConferencingAppSettings from "@components/apps/installation/EventTypeConferencingAppSettings";

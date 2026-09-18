@@ -3,7 +3,7 @@ import { SlotsRepository_2024_04_15 } from "@/modules/slots/slots-2024-04-15/slo
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { v4 as uuid } from "uuid";
 
-import { ReserveSlotInput_2024_04_15 } from "@calcom/platform-types";
+import { ReserveSlotInput_2024_04_15 } from "@kalo/platform-types";
 
 @Injectable()
 export class SlotsService_2024_04_15 {

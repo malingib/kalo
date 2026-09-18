@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { TrpcSessionUser } from "../../../types";
 
 // Mock prisma
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {
     credential: {
       findFirst: vi.fn(),
@@ -13,7 +13,7 @@ vi.mock("@calcom/prisma", () => ({
 }));
 
 // Mock getAppKeysFromSlug
-vi.mock("@calcom/app-store/_utils/getAppKeysFromSlug", () => ({
+vi.mock("@kalo/app-store/_utils/getAppKeysFromSlug", () => ({
   default: vi.fn(),
 }));
 
@@ -49,14 +49,14 @@ const createMockCredential = (overrides: Record<string, unknown> = {}) => ({
 });
 
 describe("googleWorkspace.handler", () => {
-  let prisma: Awaited<typeof import("@calcom/prisma")>["prisma"];
-  let getAppKeysFromSlug: Awaited<typeof import("@calcom/app-store/_utils/getAppKeysFromSlug")>["default"];
+  let prisma: Awaited<typeof import("@kalo/prisma")>["prisma"];
+  let getAppKeysFromSlug: Awaited<typeof import("@kalo/app-store/_utils/getAppKeysFromSlug")>["default"];
   let handlers: typeof import("./googleWorkspace.handler");
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    ({ prisma } = await import("@calcom/prisma"));
-    getAppKeysFromSlug = (await import("@calcom/app-store/_utils/getAppKeysFromSlug")).default;
+    ({ prisma } = await import("@kalo/prisma"));
+    getAppKeysFromSlug = (await import("@kalo/app-store/_utils/getAppKeysFromSlug")).default;
     handlers = await import("./googleWorkspace.handler");
   });
 

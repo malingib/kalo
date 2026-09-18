@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { getDecoyBooking } from "@calcom/features/bookings/lib/client/decoyBookingStore";
-import type { DecoyBookingData } from "@calcom/features/bookings/lib/client/decoyBookingStore";
+import { getDecoyBooking } from "@kalo/features/bookings/lib/client/decoyBookingStore";
+import type { DecoyBookingData } from "@kalo/features/bookings/lib/client/decoyBookingStore";
 
 /**
  * Hook to retrieve and manage decoy booking data from localStorage

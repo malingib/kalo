@@ -2,13 +2,13 @@ import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useEffect, useState } from "react";
 import useDigitInput from "react-digit-input";
 
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader, DialogClose } from "@calcom/ui/components/dialog";
-import { Input } from "@calcom/ui/components/form";
-import { Label } from "@calcom/ui/components/form";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader, DialogClose } from "@kalo/ui/components/dialog";
+import { Input } from "@kalo/ui/components/form";
+import { Label } from "@kalo/ui/components/form";
 import { InfoIcon } from "@coss/ui/icons";
 
 export const VerifyCodeDialog = ({

@@ -1,6 +1,6 @@
-import { Memoize, Unmemoize } from "@calcom/features/cache";
-import type { TeamFeaturesDto } from "@calcom/lib/dto/TeamFeaturesDto";
-import { TeamFeaturesDtoSchema } from "@calcom/lib/dto/TeamFeaturesDto";
+import { Memoize, Unmemoize } from "@kalo/features/cache";
+import type { TeamFeaturesDto } from "@kalo/lib/dto/TeamFeaturesDto";
+import { TeamFeaturesDtoSchema } from "@kalo/lib/dto/TeamFeaturesDto";
 import { z } from "zod";
 import type { FeatureId, TeamFeatures } from "../config";
 import type { ITeamFeatureRepository } from "./PrismaTeamFeatureRepository";

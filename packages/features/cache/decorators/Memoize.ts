@@ -1,5 +1,5 @@
-import { getRedisService } from "@calcom/features/di/containers/Redis";
-import logger from "@calcom/lib/logger";
+import { getRedisService } from "@kalo/features/di/containers/Redis";
+import logger from "@kalo/lib/logger";
 import type { ZodSchema } from "zod";
 import { DEFAULT_TTL_MS } from "./types";
 

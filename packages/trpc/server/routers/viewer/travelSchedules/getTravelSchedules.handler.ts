@@ -1,5 +1,5 @@
-import { TravelScheduleRepository } from "@calcom/features/travelSchedule/repositories/TravelScheduleRepository";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { TravelScheduleRepository } from "@kalo/features/travelSchedule/repositories/TravelScheduleRepository";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 type GetTravelSchedulesOptions = {
   ctx: {

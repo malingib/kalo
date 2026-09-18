@@ -1,5 +1,5 @@
-export type { Tasker } from "@calcom/features/tasker/tasker";
-export { getTasker } from "@calcom/features/tasker/tasker-factory";
+export type { Tasker } from "@kalo/features/tasker/tasker";
+export { getTasker } from "@kalo/features/tasker/tasker-factory";
 
 // Billing tasker helpers removed (EE feature) — stubs for API v2
 export function getIncrementUsageIdempotencyKey(bookingUid: string): string {

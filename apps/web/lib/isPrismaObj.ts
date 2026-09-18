@@ -1,4 +1,4 @@
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 function isPrismaObj(obj: unknown): obj is Prisma.JsonObject {
   return typeof obj === "object" && !Array.isArray(obj);

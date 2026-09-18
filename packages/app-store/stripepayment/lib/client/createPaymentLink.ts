@@ -1,5 +1,5 @@
 
-import { WEBSITE_URL } from "@calcom/lib/constants";
+import { WEBSITE_URL } from "@kalo/lib/constants";
 
 // biome-ignore lint/style/useNodejsImportProtocol: No node env
 import { stringify } from "querystring";

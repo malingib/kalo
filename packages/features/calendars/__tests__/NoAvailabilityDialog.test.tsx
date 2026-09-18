@@ -1,12 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import { PeriodType } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { PeriodType } from "@kalo/prisma/enums";
 
 import NoAvailabilityDialog from "../components/NoAvailabilityDialog";
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string, vars?: { [key: string]: string | number }) => {
       if (key === "no_availability_in_month") return `No availability in ${vars?.month}`;

@@ -1,4 +1,4 @@
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";

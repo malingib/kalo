@@ -1,4 +1,4 @@
-import { sessionStorage } from "@calcom/lib/webstorage";
+import { sessionStorage } from "@kalo/lib/webstorage";
 
 const BOOKING_SUCCESS_STORAGE_KEY_PREFIX = "cal.successfulBooking";
 const DECOY_BOOKING_EXPIRATION_MS = 5 * 60 * 1000;

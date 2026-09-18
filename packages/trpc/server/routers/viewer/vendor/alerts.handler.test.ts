@@ -3,7 +3,7 @@ import type { TRPCAuthedContext } from "../../../procedures/authedProcedure";
 
 const alertCount = vi.fn();
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {
     alert: {
       count: alertCount,

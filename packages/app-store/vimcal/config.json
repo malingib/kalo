@@ -4,13 +4,13 @@
   "slug": "vimcal",
   "type": "vimcal_other",
   "logo": "icon.svg",
-  "url": "https://cal.com/",
+  "url": "https://github.com/malingib/kalo",
   "variant": "other",
   "categories": [
     "calendar"
   ],
-  "publisher": "Cal.com, Inc.",
-  "email": "support@cal.com",
+  "publisher": "Kalo, Inc.",
+  "email": "support@kalo",
   "description": "The world's fastest calendar, beautifully designed for a remote world\r",
   "__createdUsingCli": true,
   "dependencies": [
@@ -18,7 +18,7 @@
   ],
   "isOAuth": false,
   "externalLink": {
-    "url": "https://cal.com/blog/cal-plus-vimcal",
+    "url": "https://github.com/malingib/kalo",
     "newTab": true
   }
 }

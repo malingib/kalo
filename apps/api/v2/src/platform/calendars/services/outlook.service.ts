@@ -17,7 +17,7 @@ import {
   OFFICE_365_CALENDAR,
   OFFICE_365_CALENDAR_ID,
   OFFICE_365_CALENDAR_TYPE,
-} from "@calcom/platform-constants";
+} from "@kalo/platform-constants";
 
 @Injectable()
 export class OutlookService implements OAuthCalendarApp {

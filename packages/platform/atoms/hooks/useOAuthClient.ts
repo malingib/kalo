@@ -2,8 +2,8 @@ import type { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import { usePrevious } from "react-use";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { ApiResponse } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { ApiResponse } from "@kalo/platform-types";
 
 import http from "../lib/http";
 

@@ -1,5 +1,5 @@
 import type { BookingFlowConfig } from "../dto/types";
-import type { BookingStatus } from "@calcom/prisma/enums";
+import type { BookingStatus } from "@kalo/prisma/enums";
 
 export interface BookingCreatedPayload {
   config: BookingFlowConfig;

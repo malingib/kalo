@@ -1,6 +1,6 @@
-import { DI_TOKENS } from "@calcom/features/di/tokens";
-import { redisModule } from "@calcom/features/redis/di/redisModule";
-import type { IRedisService } from "@calcom/features/redis/IRedisService";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
+import { redisModule } from "@kalo/features/redis/di/redisModule";
+import type { IRedisService } from "@kalo/features/redis/IRedisService";
 import { type Container, createContainer } from "../di";
 
 const container: Container = createContainer();

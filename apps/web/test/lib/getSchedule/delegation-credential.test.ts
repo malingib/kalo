@@ -7,13 +7,13 @@ import {
   createDelegationCredential,
   createOrganization,
   getOrganizer,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
-import { expectNoAttemptToGetAvailability } from "@calcom/testing/lib/bookingScenario/expects";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
+import { expectNoAttemptToGetAvailability } from "@kalo/testing/lib/bookingScenario/expects";
 
 import { describe, test } from "vitest";
 
-import { getAvailableSlotsService } from "@calcom/features/di/containers/AvailableSlots";
-import { MembershipRole } from "@calcom/prisma/enums";
+import { getAvailableSlotsService } from "@kalo/features/di/containers/AvailableSlots";
+import { MembershipRole } from "@kalo/prisma/enums";
 
 import { expect, expectedSlotsForSchedule } from "./expects";
 import { setupAndTeardown } from "./setupAndTeardown";

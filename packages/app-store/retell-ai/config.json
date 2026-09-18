@@ -4,7 +4,7 @@
   "slug": "retell-ai",
   "type": "retell-ai_automation",
   "logo": "icon-dark.svg",
-  "url": "https://go.cal.com/retellai",
+  "url": "https://github.com/malingib/kalo",
   "variant": "automation",
   "categories": [
     "automation"
@@ -16,7 +16,7 @@
   "__createdUsingCli": true,
   "__template": "link-as-an-app",
   "externalLink": {
-    "url": "https://go.cal.com/retellai",
+    "url": "https://github.com/malingib/kalo",
     "newTab": true
   }
 }

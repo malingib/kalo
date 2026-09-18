@@ -1,6 +1,6 @@
 import type { z } from "zod";
 
-import { eventTypeColor as eventTypeColorSchema } from "@calcom/prisma/zod-utils";
+import { eventTypeColor as eventTypeColorSchema } from "@kalo/prisma/zod-utils";
 
 type EventTypeColor = z.infer<typeof eventTypeColorSchema>;
 export function isEventTypeColor(obj: unknown): obj is EventTypeColor {

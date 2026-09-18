@@ -4,7 +4,7 @@ import { getCsrfToken } from "next-auth/react";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
 
 import { buildLegacyCtx } from "@lib/buildLegacyCtx";
 

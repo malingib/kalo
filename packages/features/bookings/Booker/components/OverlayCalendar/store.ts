@@ -1,4 +1,4 @@
-import type { EventBusyDate } from "@calcom/types/Calendar";
+import type { EventBusyDate } from "@kalo/types/Calendar";
 import { createWithEqualityFn } from "zustand/traditional";
 
 interface IOverlayCalendarStore {

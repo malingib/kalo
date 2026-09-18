@@ -5,15 +5,15 @@ import {
   useEmbedNonStylesConfig,
   useEmbedStyles,
   useIsEmbed,
-} from "@calcom/embed-core/embed-iframe";
-import { useRouterQuery } from "@calcom/lib/hooks/useRouterQuery";
-import useTheme from "@calcom/lib/hooks/useTheme";
-import { UserAvatar } from "@calcom/ui/components/avatar";
-import { Icon } from "@calcom/ui/components/icon";
-import { OrgBanner } from "@calcom/ui/components/organization-banner";
-import { UnpublishedEntity } from "@calcom/ui/components/unpublished-entity";
-import { EventTypeDescriptionLazy as EventTypeDescription } from "@calcom/web/modules/event-types/components";
-import EmptyPage from "@calcom/web/modules/event-types/components/EmptyPage";
+} from "@kalo/embed-core/embed-iframe";
+import { useRouterQuery } from "@kalo/lib/hooks/useRouterQuery";
+import useTheme from "@kalo/lib/hooks/useTheme";
+import { UserAvatar } from "@kalo/ui/components/avatar";
+import { Icon } from "@kalo/ui/components/icon";
+import { OrgBanner } from "@kalo/ui/components/organization-banner";
+import { UnpublishedEntity } from "@kalo/ui/components/unpublished-entity";
+import { EventTypeDescriptionLazy as EventTypeDescription } from "@kalo/web/modules/event-types/components";
+import EmptyPage from "@kalo/web/modules/event-types/components/EmptyPage";
 import type { getServerSideProps } from "@server/lib/[user]/getServerSideProps";
 import classNames from "classnames";
 import type { InferGetServerSidePropsType } from "next";

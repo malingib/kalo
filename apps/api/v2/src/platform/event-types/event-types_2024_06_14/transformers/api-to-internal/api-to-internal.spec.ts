@@ -4,7 +4,7 @@ import {
   ConfirmationPolicyEnum,
   FrequencyInput,
   NoticeThresholdUnitEnum,
-} from "@calcom/platform-enums";
+} from "@kalo/platform-enums";
 import type {
   BookerLayouts_2024_06_14,
   BookingLimitsCount_2024_06_14,
@@ -21,7 +21,7 @@ import type {
   Recurrence_2024_06_14,
   SeatOptionsDisabledSchema,
   SeatOptionsTransformedSchema,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import {
   type CustomField,
   type SystemField,

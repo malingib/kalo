@@ -3,15 +3,15 @@ import type { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import type { EventLocationType } from "@calcom/app-store/locations";
-import { getLocationByType } from "@calcom/app-store/locations";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
-import { Form } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
+import type { EventLocationType } from "@kalo/app-store/locations";
+import { getLocationByType } from "@kalo/app-store/locations";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
+import { Form } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
 
 export type UpdateUsersDefaultConferencingAppParams = {
   appSlug: string;

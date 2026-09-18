@@ -27,7 +27,7 @@ export const createEmbedsFixture = (page: Page) => {
             //@ts-ignore
             window.postMessageListenerAdded = true;
             window.addEventListener("message", (event) => {
-              // Filter for Cal.diy embed messages
+              // Filter for Kalo embed messages
               if (
                 event.data &&
                 typeof event.data === "object" &&

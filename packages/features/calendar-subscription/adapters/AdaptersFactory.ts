@@ -1,6 +1,6 @@
-import { GoogleCalendarSubscriptionAdapter } from "@calcom/features/calendar-subscription/adapters/GoogleCalendarSubscription.adapter";
-import { Office365CalendarSubscriptionAdapter } from "@calcom/features/calendar-subscription/adapters/Office365CalendarSubscription.adapter";
-import type { ICalendarSubscriptionPort } from "@calcom/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
+import { GoogleCalendarSubscriptionAdapter } from "@kalo/features/calendar-subscription/adapters/GoogleCalendarSubscription.adapter";
+import { Office365CalendarSubscriptionAdapter } from "@kalo/features/calendar-subscription/adapters/Office365CalendarSubscription.adapter";
+import type { ICalendarSubscriptionPort } from "@kalo/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
 
 export type CalendarSubscriptionProvider = "google_calendar" | "office365_calendar";
 

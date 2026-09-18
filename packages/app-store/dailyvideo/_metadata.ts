@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Cal Video",
@@ -11,12 +11,12 @@ export const metadata = {
   url: "https://daily.co",
   categories: ["conferencing"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   category: "conferencing",
   slug: "daily-video",
   title: "Cal Video",
   isGlobal: true,
-  email: "help@cal.com",
+  email: "help@kalo",
   appData: {
     location: {
       linkType: "dynamic",

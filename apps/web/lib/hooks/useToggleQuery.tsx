@@ -1,4 +1,4 @@
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
 
 export function useToggleQuery(name: string) {
   const searchParams = useCompatSearchParams();

@@ -1,7 +1,7 @@
 import * as crypto from "node:crypto";
 import { z } from "zod";
 
-import { CALCOM_PRIVATE_API_ROUTE } from "@calcom/lib/constants";
+import { KALO_PRIVATE_API_ROUTE } from "@kalo/lib/constants";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TCreateSelfHostedLicenseSchema } from "./createSelfHostedLicenseKey.schema";
@@ -51,7 +51,7 @@ const fetchWithSignature = async (
 };
 
 const createSelfHostedInstance = async ({ input, ctx }: GetOptions) => {
-  const privateApiUrl = CALCOM_PRIVATE_API_ROUTE;
+  const privateApiUrl = KALO_PRIVATE_API_ROUTE;
   const signatureToken = process.env.CAL_SIGNATURE_TOKEN;
 
   if (!privateApiUrl || !signatureToken) {

@@ -1,9 +1,9 @@
-import dayjs from "@calcom/dayjs";
-import * as CalcomEmails from "@calcom/emails/organization-email-service";
-import { getNoSlotsNotificationService } from "@calcom/features/di/containers/NoSlotsNotification";
+import dayjs from "@kalo/dayjs";
+import * as CalcomEmails from "@kalo/emails/organization-email-service";
+import { getNoSlotsNotificationService } from "@kalo/features/di/containers/NoSlotsNotification";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@calcom/features/redis/RedisService", () => {
+vi.mock("@kalo/features/redis/RedisService", () => {
   const mockedRedis = vi.fn();
   mockedRedis.prototype.lrange = vi.fn();
   mockedRedis.prototype.lpush = vi.fn();
@@ -13,7 +13,7 @@ vi.mock("@calcom/features/redis/RedisService", () => {
   };
 });
 
-vi.mock("@calcom/features/flags/features.repository", () => ({
+vi.mock("@kalo/features/flags/features.repository", () => ({
   FeaturesRepository: vi.fn(function () {
     return {
       checkIfFeatureIsEnabledGlobally: vi.fn().mockResolvedValue(false),
@@ -21,7 +21,7 @@ vi.mock("@calcom/features/flags/features.repository", () => ({
   }),
 }));
 
-vi.mock("@calcom/emails/organization-email-service", () => ({
+vi.mock("@kalo/emails/organization-email-service", () => ({
   OrganizationEmailService: vi.fn().mockImplementation(() => ({
     sendOrganizationCreationEmail: vi.fn(),
   })),

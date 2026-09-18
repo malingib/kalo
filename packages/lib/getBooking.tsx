@@ -1,6 +1,6 @@
-import slugify from "@calcom/lib/slugify";
-import type { PrismaClient } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import slugify from "@kalo/lib/slugify";
+import type { PrismaClient } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 
 type BookingSelect = {
   description: true;

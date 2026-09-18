@@ -1,6 +1,6 @@
-import type { PrismaClient } from "@calcom/prisma";
-import type { BookingReportStatus, SystemReportStatus } from "@calcom/prisma/enums";
-import type { Prisma } from "@calcom/prisma/generated/prisma/client";
+import type { PrismaClient } from "@kalo/prisma";
+import type { BookingReportStatus, SystemReportStatus } from "@kalo/prisma/enums";
+import type { Prisma } from "@kalo/prisma/generated/prisma/client";
 
 import type {
   IBookingReportRepository,

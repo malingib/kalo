@@ -1,4 +1,4 @@
-import type { CalendarCacheEvent } from "@calcom/prisma/client";
+import type { CalendarCacheEvent } from "@kalo/prisma/client";
 
 /**
  * Repository to handle calendar cache

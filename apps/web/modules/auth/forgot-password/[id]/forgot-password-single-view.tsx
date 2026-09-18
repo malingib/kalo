@@ -5,11 +5,11 @@ import { useEffect, useReducer, type CSSProperties } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
-import { Button } from "@calcom/ui/components/button";
-import { Form } from "@calcom/ui/components/form";
-import { PasswordField } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
+import { Button } from "@kalo/ui/components/button";
+import { Form } from "@kalo/ui/components/form";
+import { PasswordField } from "@kalo/ui/components/form";
 
 import AuthContainer from "@components/ui/AuthContainer";
 

@@ -1,4 +1,4 @@
-import type { Payment } from "@calcom/prisma/client";
+import type { Payment } from "@kalo/prisma/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handleNoShowFee } from "./handleNoShowFee";
 import { processNoShowFeeOnCancellation } from "./processNoShowFeeOnCancellation";
@@ -14,7 +14,7 @@ const { mockFindUniqueByUserIdAndTeamId, MockMembershipRepository } = vi.hoisted
   return { mockFindUniqueByUserIdAndTeamId, MockMembershipRepository };
 });
 
-vi.mock("@calcom/features/membership/repositories/MembershipRepository", () => ({
+vi.mock("@kalo/features/membership/repositories/MembershipRepository", () => ({
   MembershipRepository: MockMembershipRepository,
 }));
 

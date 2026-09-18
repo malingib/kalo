@@ -3,7 +3,7 @@ import { vi, describe, it, expect } from "vitest";
 
 import { AddVariablesDropdown } from "./AddVariablesDropdown";
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string) => key,
   }),
@@ -17,7 +17,7 @@ vi.mock("../../dropdown", () => ({
   DropdownMenuItem: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-vi.mock("@calcom/lib/hooks/useMediaQuery", () => ({
+vi.mock("@kalo/lib/hooks/useMediaQuery", () => ({
   default: (_query: string) => false,
 }));
 

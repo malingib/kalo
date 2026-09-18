@@ -2,7 +2,7 @@
 
 <!-- Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
 
-Note: Cal.diy is a community-maintained open-source project. Contributions here do NOT flow to Cal.com's production service. -->
+Note: Kalo is a community-maintained open-source project. Contributions here do NOT flow to Kalo's production service. -->
 
 - Fixes #XXXX (GitHub issue number)
 
@@ -39,7 +39,7 @@ A visual demonstration is strongly recommended, for both the original and new ch
 
 <!-- Remove bullet points below that don't apply to you -->
 
-- I haven't read the [contributing guide](https://github.com/calcom/cal.diy/blob/main/CONTRIBUTING.md)
+- I haven't read the [contributing guide](https://github.com/malingib/kalo/blob/main/CONTRIBUTING.md)
 - My code doesn't follow the style guidelines of this project
 - I haven't commented my code, particularly in hard-to-understand areas
 - I haven't checked if my changes generate no new warnings

@@ -1,4 +1,4 @@
-import type { InputLocation_2024_06_14, InputTeamLocation_2024_06_14 } from "@calcom/platform-types";
+import type { InputLocation_2024_06_14, InputTeamLocation_2024_06_14 } from "@kalo/platform-types";
 
 import type {
   AttendeeAddressLocation,

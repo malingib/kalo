@@ -1,8 +1,8 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import type { AppFrontendPayload } from "@calcom/types/App";
-import type { ButtonProps } from "@calcom/ui/components/button";
-import { Button } from "@calcom/ui/components/button";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import type { AppFrontendPayload } from "@kalo/types/App";
+import type { ButtonProps } from "@kalo/ui/components/button";
+import { Button } from "@kalo/ui/components/button";
 
 export const InstallAppButtonChild = ({
   multiInstall,

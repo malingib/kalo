@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Microsoft 365/Teams (Requires work/school account)",
@@ -17,11 +17,11 @@ export const metadata = {
   category: "conferencing",
   categories: ["conferencing"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "msteams",
   dirName: "office365video",
   url: "https://www.microsoft.com/en-ca/microsoft-teams/group-chat-software",
-  email: "help@cal.com",
+  email: "help@kalo",
   isOAuth: true,
 } as AppMeta;
 

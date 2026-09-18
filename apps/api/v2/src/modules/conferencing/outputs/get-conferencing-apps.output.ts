@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsString, ValidateNested, IsEnum, IsNumber, IsOptional, IsBoolean } from "class-validator";
 
-import { ERROR_STATUS, GOOGLE_MEET_TYPE, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { ERROR_STATUS, GOOGLE_MEET_TYPE, SUCCESS_STATUS } from "@kalo/platform-constants";
 
 export class ConferencingAppsOutputDto {
   @Expose()

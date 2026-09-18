@@ -9,19 +9,19 @@ import {
   mockSuccessfulVideoMeetingCreation,
   TestData,
   getDate,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
 import {
   expectBookingCancelledWebhookToHaveBeenFired,
-} from "@calcom/testing/lib/bookingScenario/expects";
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
+} from "@kalo/testing/lib/bookingScenario/expects";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
 
 import { describe, expect, vi } from "vitest";
 
-import { processPaymentRefund } from "@calcom/features/bookings/lib/payment/processPaymentRefund";
-import { BookingStatus } from "@calcom/prisma/enums";
-import { test } from "@calcom/testing/lib/fixtures/fixtures";
+import { processPaymentRefund } from "@kalo/features/bookings/lib/payment/processPaymentRefund";
+import { BookingStatus } from "@kalo/prisma/enums";
+import { test } from "@kalo/testing/lib/fixtures/fixtures";
 
-vi.mock("@calcom/features/bookings/lib/payment/processPaymentRefund", () => ({
+vi.mock("@kalo/features/bookings/lib/payment/processPaymentRefund", () => ({
   processPaymentRefund: vi.fn(),
 }));
 
@@ -29,7 +29,7 @@ describe("Cancel Booking", () => {
   setupAndTeardown();
 
   test("Should trigger BOOKING_CANCELLED webhook", async ({ emails }) => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -145,7 +145,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should throw when cancelling a non-existing booking", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     await expect(
       handleCancelBooking({
@@ -160,7 +160,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should call processPaymentRefund", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -290,7 +290,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should pass all seat payments to processPaymentRefund when fully cancelling a paid seated booking", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -395,7 +395,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should block cancelling past bookings", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -464,7 +464,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should block canceling bookings without a cancellation reason when cancelledBy is set to the host", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -532,7 +532,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should not charge cancellation fee when organizer cancels booking", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -644,7 +644,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should not charge cancellation fee when team admin cancels booking", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -770,7 +770,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should charge cancellation fee when attendee cancels within time threshold", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -887,7 +887,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should trigger BOOKING_CANCELLED webhook with username for bookings", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -1010,7 +1010,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should cancel seated event and delete all attendees when seatsPerTimeSlot is enabled", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -1116,7 +1116,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should cancel all remaining recurring bookings when allRemainingBookings is true", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -1237,7 +1237,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should cancel subsequent bookings when cancelSubsequentBookings is true", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -1358,7 +1358,7 @@ describe("Cancel Booking", () => {
   });
 
   test("Should handle booking reference cleanup during cancellation", async () => {
-    const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+    const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
     const booker = getBooker({
       email: "booker@example.com",
@@ -1472,7 +1472,7 @@ describe("Cancel Booking", () => {
 
   describe("Cancellation Reason Requirement", () => {
     test("Should block host cancellation without reason when requiresCancellationReason is MANDATORY_BOTH", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1536,7 +1536,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should block attendee cancellation without reason when requiresCancellationReason is MANDATORY_BOTH", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1600,7 +1600,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should block attendee cancellation without reason when requiresCancellationReason is MANDATORY_ATTENDEE_ONLY", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1664,7 +1664,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should allow host cancellation without reason when requiresCancellationReason is MANDATORY_ATTENDEE_ONLY", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1744,7 +1744,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should allow host cancellation without reason when requiresCancellationReason is OPTIONAL_BOTH", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1824,7 +1824,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should allow attendee cancellation without reason when requiresCancellationReason is OPTIONAL_BOTH", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1904,7 +1904,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should allow attendee cancellation without reason when requiresCancellationReason is MANDATORY_HOST_ONLY", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -1984,7 +1984,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should block host cancellation without reason when requiresCancellationReason is null (default behavior)", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",
@@ -2047,7 +2047,7 @@ describe("Cancel Booking", () => {
     });
 
     test("Should allow attendee cancellation without reason when requiresCancellationReason is null (default behavior)", async () => {
-      const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking")).default;
+      const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking")).default;
 
       const booker = getBooker({
         email: "booker@example.com",

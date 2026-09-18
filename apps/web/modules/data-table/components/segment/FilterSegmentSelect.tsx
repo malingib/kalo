@@ -1,13 +1,13 @@
-import { checkAdminOrOwner } from "@calcom/features/auth/lib/checkAdminOrOwner";
+import { checkAdminOrOwner } from "@kalo/features/auth/lib/checkAdminOrOwner";
 import { useDataTable } from "~/data-table/hooks";
 import type {
   CombinedFilterSegment,
   FilterSegmentOutput,
   SystemFilterSegmentInternal,
   UserFilterSegment,
-} from "@calcom/features/data-table/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
+} from "@kalo/features/data-table/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
 import {
   Dropdown,
   DropdownItem,
@@ -16,8 +16,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { Icon, type IconName } from "@calcom/ui/components/icon";
+} from "@kalo/ui/components/dropdown";
+import { Icon, type IconName } from "@kalo/ui/components/icon";
 import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import { DeleteSegmentDialog } from "./DeleteSegmentDialog";

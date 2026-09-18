@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { Prisma } from "@calcom/prisma/client";
+import { Prisma } from "@kalo/prisma/client";
 
 import { makeSqlCondition } from "../server";
 import { ColumnFilterType } from "../types";

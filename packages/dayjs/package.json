@@ -1,6 +1,6 @@
 {
-  "name": "@calcom/dayjs",
-  "description": "Cal.diy's Day.js shared library",
+  "name": "@kalo/dayjs",
+  "description": "Kalo's Day.js shared library",
   "private": true,
   "version": "1.0.0",
   "main": "./index.ts",

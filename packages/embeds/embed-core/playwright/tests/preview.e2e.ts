@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-import { test } from "@calcom/web/playwright/lib/fixtures";
+import { test } from "@kalo/web/playwright/lib/fixtures";
 
 test.describe("Preview", () => {
   test("Preview - embed-core should load if correct embedLibUrl is provided", async ({ page }) => {

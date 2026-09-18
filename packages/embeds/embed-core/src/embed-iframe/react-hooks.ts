@@ -3,7 +3,7 @@
  * All hooks defined in this file must be client side hooks and must not be executed in server side.
  * So, they should start with isBrowser check.
  */
-import useMediaQuery from "@calcom/lib/hooks/useMediaQuery";
+import useMediaQuery from "@kalo/lib/hooks/useMediaQuery";
 import { sdkActionManager } from "../sdk-event";
 import { useEmbedUiConfig, useIsEmbed } from "../embed-iframe";
 import { embedStore, getEventHasFired, setEventHasFired, getReloadInitiated, setReloadInitiated } from "./lib/embedStore";

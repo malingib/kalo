@@ -1,4 +1,4 @@
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 import {
   CUSTOM_PRESET,
   CUSTOM_PRESET_VALUE,
@@ -8,25 +8,25 @@ import {
   getDefaultEndDate,
   getDefaultStartDate,
   type PresetOption,
-} from "@calcom/features/data-table/lib/dateRange";
-import { preserveLocalTime } from "@calcom/features/data-table/lib/preserveLocalTime";
-import type { DateRangeFilterOptions, FilterableColumn } from "@calcom/features/data-table/lib/types";
-import { ColumnFilterType, ZDateRangeFilterValue } from "@calcom/features/data-table/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { CURRENT_TIMEZONE } from "@calcom/lib/timezoneConstants";
-import type { FilterType } from "@calcom/types/data-table";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button, buttonClasses } from "@calcom/ui/components/button";
+} from "@kalo/features/data-table/lib/dateRange";
+import { preserveLocalTime } from "@kalo/features/data-table/lib/preserveLocalTime";
+import type { DateRangeFilterOptions, FilterableColumn } from "@kalo/features/data-table/lib/types";
+import { ColumnFilterType, ZDateRangeFilterValue } from "@kalo/features/data-table/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
+import type { FilterType } from "@kalo/types/data-table";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button, buttonClasses } from "@kalo/ui/components/button";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@calcom/ui/components/command";
-import { DateRangePicker } from "@calcom/ui/components/form";
-import { Popover, PopoverContent, PopoverTrigger } from "@calcom/ui/components/popover";
+} from "@kalo/ui/components/command";
+import { DateRangePicker } from "@kalo/ui/components/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@kalo/ui/components/popover";
 import { CheckIcon } from "@coss/ui/icons";
 import { format } from "date-fns";
 import type { Dayjs } from "dayjs";

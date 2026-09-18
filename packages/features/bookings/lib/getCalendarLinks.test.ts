@@ -3,8 +3,8 @@ import { createEvent } from "ics";
 import { RRule } from "rrule";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
+import dayjs from "@kalo/dayjs";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
 
 import { getCalendarLinks, CalendarLinkType } from "./getCalendarLinks";
 
@@ -13,7 +13,7 @@ vi.mock("ics", () => ({
   createEvent: vi.fn(),
 }));
 
-vi.mock("@calcom/lib/isRecurringEvent", () => ({
+vi.mock("@kalo/lib/isRecurringEvent", () => ({
   parseRecurringEvent: vi.fn(),
 }));
 

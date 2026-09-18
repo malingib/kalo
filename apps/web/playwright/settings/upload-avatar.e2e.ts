@@ -1,8 +1,8 @@
 import { expect } from "@playwright/test";
 import path from "node:path";
 
-import { CAL_URL } from "@calcom/lib/constants";
-import { prisma } from "@calcom/prisma";
+import { CAL_URL } from "@kalo/lib/constants";
+import { prisma } from "@kalo/prisma";
 
 import { test } from "../lib/fixtures";
 

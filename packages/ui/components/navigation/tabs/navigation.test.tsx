@@ -6,11 +6,11 @@ import HorizontalTabs from "./HorizontalTabs";
 import VerticalTabs from "./VerticalTabs";
 
 // Mock the hooks
-vi.mock("@calcom/lib/hooks/useUrlMatchesCurrentUrl", () => ({
+vi.mock("@kalo/lib/hooks/useUrlMatchesCurrentUrl", () => ({
   useUrlMatchesCurrentUrl: () => false,
 }));
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (str: string) => str,
     isLocaleReady: true,

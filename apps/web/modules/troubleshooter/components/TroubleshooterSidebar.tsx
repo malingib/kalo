@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Skeleton } from "@calcom/ui/components/skeleton";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Skeleton } from "@kalo/ui/components/skeleton";
 import { ArrowLeftIcon } from "@coss/ui/icons";
 
 import { CalendarToggleContainer } from "./CalendarToggleContainer";

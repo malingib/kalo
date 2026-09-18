@@ -1,6 +1,6 @@
 import process from "node:process";
-import { validJson } from "@calcom/lib/jsonUtils";
-import type { AppMeta } from "@calcom/types/App";
+import { validJson } from "@kalo/lib/jsonUtils";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Google Calendar",
@@ -13,10 +13,10 @@ export const metadata = {
   category: "calendar",
   categories: ["calendar"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "google-calendar",
   url: "https://cal.com/",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "googlecalendar",
   isOAuth: true,
   delegationCredential: {

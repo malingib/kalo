@@ -1,4 +1,4 @@
-import { getReplyToHeader } from "@calcom/lib/getReplyToHeader";
+import { getReplyToHeader } from "@kalo/lib/getReplyToHeader";
 
 import generateIcsFile, { GenerateIcsRole } from "../lib/generateIcsFile";
 import renderEmail from "../src/renderEmail";

@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { CalendarService } from "@calcom/types/Calendar";
+import type { CalendarService } from "@kalo/types/Calendar";
 import matchers from "@testing-library/jest-dom/matchers";
 import ResizeObserver from "resize-observer-polyfill";
 import { expect, vi } from "vitest";
@@ -61,15 +61,15 @@ class MockExchangeCalendarService implements CalendarService {
   }
 }
 
-vi.mock("@calcom/exchangecalendar/lib/CalendarService", () => ({
+vi.mock("@kalo/exchangecalendar/lib/CalendarService", () => ({
   default: MockExchangeCalendarService,
 }));
 
-vi.mock("@calcom/exchange2013calendar/lib/CalendarService", () => ({
+vi.mock("@kalo/exchange2013calendar/lib/CalendarService", () => ({
   default: MockExchangeCalendarService,
 }));
 
-vi.mock("@calcom/exchange2016calendar/lib/CalendarService", () => ({
+vi.mock("@kalo/exchange2016calendar/lib/CalendarService", () => ({
   default: MockExchangeCalendarService,
 }));
 
@@ -89,7 +89,7 @@ function createMockPaymentService(_credentials?: unknown) {
       _selectedEventTypeTitle?: string,
       _eventTitle?: string
     ) {
-      const { default: prismaMock } = await import("@calcom/testing/lib/__mocks__/prisma");
+      const { default: prismaMock } = await import("@kalo/testing/lib/__mocks__/prisma");
       const externalId = "mock_payment_external_id";
 
       const paymentCreateData = {
@@ -129,7 +129,7 @@ function createMockPaymentService(_credentials?: unknown) {
       _booking: Record<string, unknown>,
       paymentData: { paymentOption?: string; amount: number; currency: string }
     ) {
-      const { sendAwaitingPaymentEmailAndSMS } = await import("@calcom/emails/email-manager");
+      const { sendAwaitingPaymentEmailAndSMS } = await import("@kalo/emails/email-manager");
       await sendAwaitingPaymentEmailAndSMS({
         ...event,
         paymentInfo: {
@@ -144,31 +144,31 @@ function createMockPaymentService(_credentials?: unknown) {
   };
 }
 
-vi.mock("@calcom/app-store/stripepayment/index", () => ({
+vi.mock("@kalo/app-store/stripepayment/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/paypal/index", () => ({
+vi.mock("@kalo/app-store/paypal/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/alby/index", () => ({
+vi.mock("@kalo/app-store/alby/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/hitpay/index", () => ({
+vi.mock("@kalo/app-store/hitpay/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/btcpayserver/index", () => ({
+vi.mock("@kalo/app-store/btcpayserver/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/mock-payment-app/index", () => ({
+vi.mock("@kalo/app-store/mock-payment-app/index", () => ({
   BuildPaymentService: createMockPaymentService,
 }));
 
-vi.mock("@calcom/app-store/payment.services.generated", () => ({
+vi.mock("@kalo/app-store/payment.services.generated", () => ({
   PaymentServiceMap: {
     stripepayment: Promise.resolve({ BuildPaymentService: createMockPaymentService }),
     paypal: Promise.resolve({ BuildPaymentService: createMockPaymentService }),
@@ -195,7 +195,7 @@ class MockCrmService {
   }
 }
 
-vi.mock("@calcom/app-store/crm.apps.generated", () => ({
+vi.mock("@kalo/app-store/crm.apps.generated", () => ({
   CrmServiceMap: {
     closecom: Promise.resolve({ default: MockCrmService }),
     hubspot: Promise.resolve({ default: MockCrmService }),
@@ -207,7 +207,7 @@ vi.mock("@calcom/app-store/crm.apps.generated", () => ({
 }));
 
 if (!process.env.INTEGRATION_TESTS) {
-  vi.mock("@calcom/app-store/salesforce/lib/graphql/documents/queries", () => ({
+  vi.mock("@kalo/app-store/salesforce/lib/graphql/documents/queries", () => ({
     GetAccountRecordsForRRSkip: {},
   }));
 }

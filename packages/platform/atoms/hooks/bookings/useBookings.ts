@@ -5,9 +5,9 @@ import {
   SUCCESS_STATUS,
   V2_ENDPOINTS,
   VERSION_2024_08_13,
-} from "@calcom/platform-constants";
-import type { GetBookingsOutput_2024_08_13 } from "@calcom/platform-types";
-import type { GetBookingsInput_2024_08_13 } from "@calcom/platform-types";
+} from "@kalo/platform-constants";
+import type { GetBookingsOutput_2024_08_13 } from "@kalo/platform-types";
+import type { GetBookingsInput_2024_08_13 } from "@kalo/platform-types";
 
 import http from "../../lib/http";
 

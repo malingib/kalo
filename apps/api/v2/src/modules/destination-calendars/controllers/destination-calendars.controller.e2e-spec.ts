@@ -1,5 +1,5 @@
-import { APPLE_CALENDAR_ID, APPLE_CALENDAR_TYPE, SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { Credential, PlatformOAuthClient, Team, User } from "@calcom/prisma/client";
+import { APPLE_CALENDAR_ID, APPLE_CALENDAR_TYPE, SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { Credential, PlatformOAuthClient, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
-import { useCalendarStore } from "@calcom/features/calendars/weeklyview/state/store";
+import { useCalendarStore } from "@kalo/features/calendars/weeklyview/state/store";
 import { BlockedTimeCell } from "./BlockedTimeCell";
 
 type Props = {

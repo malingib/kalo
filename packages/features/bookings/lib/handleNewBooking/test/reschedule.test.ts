@@ -1,4 +1,4 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prisma";
+import prismaMock from "@kalo/testing/lib/__mocks__/prisma";
 
 import {
   createBookingScenario,
@@ -19,7 +19,7 @@ import {
   getMockFailingAppStatus,
   getMockPassingAppStatus,
   getDefaultBookingFields,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
 import {
   expectBookingToBeInDatabase,
   expectBookingRescheduledWebhookToHaveBeenFired,
@@ -32,18 +32,18 @@ import {
   expectSuccessfulCalendarEventDeletionInCalendar,
   expectSuccessfulVideoMeetingDeletionInCalendar,
   expectSuccessfulRoundRobinReschedulingEmails,
-} from "@calcom/testing/lib/bookingScenario/expects";
-import { getMockRequestDataForBooking } from "@calcom/testing/lib/bookingScenario/getMockRequestDataForBooking";
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
+} from "@kalo/testing/lib/bookingScenario/expects";
+import { getMockRequestDataForBooking } from "@kalo/testing/lib/bookingScenario/getMockRequestDataForBooking";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
 
 import { describe, expect, beforeEach } from "vitest";
 
-import { appStoreMetadata } from "@calcom/app-store/apps.metadata.generated";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { resetTestSMS } from "@calcom/lib/testSMS";
-import { BookingStatus, SchedulingType } from "@calcom/prisma/enums";
-import { test } from "@calcom/testing/lib/fixtures/fixtures";
+import { appStoreMetadata } from "@kalo/app-store/apps.metadata.generated";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { resetTestSMS } from "@kalo/lib/testSMS";
+import { BookingStatus, SchedulingType } from "@kalo/prisma/enums";
+import { test } from "@kalo/testing/lib/fixtures/fixtures";
 
 import { getNewBookingHandler } from "./getNewBookingHandler";
 
@@ -84,7 +84,7 @@ describe("handleNewBooking", () => {
 
           const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
           const uidOfBookingToBeRescheduled = "n5Wv3eHgconAED2j4gcVhP";
-          const iCalUID = `${uidOfBookingToBeRescheduled}@Cal.diy`;
+          const iCalUID = `${uidOfBookingToBeRescheduled}@Kalo`;
           await createBookingScenario(
             getScenarioData({
               webhooks: [
@@ -313,7 +313,7 @@ describe("handleNewBooking", () => {
 
           const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
           const uidOfBookingToBeRescheduled = "n5Wv3eHgconAED2j4gcVhP";
-          const iCalUID = `${uidOfBookingToBeRescheduled}@Cal.diy`;
+          const iCalUID = `${uidOfBookingToBeRescheduled}@Kalo`;
           await createBookingScenario(
             getScenarioData({
               webhooks: [
@@ -1347,7 +1347,7 @@ describe("handleNewBooking", () => {
             });
             const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
             const uidOfBookingToBeRescheduled = "n5Wv3eHgconAED2j4gcVhP";
-            const iCalUID = `${uidOfBookingToBeRescheduled}@Cal.diy`;
+            const iCalUID = `${uidOfBookingToBeRescheduled}@Kalo`;
 
             const scenarioData = getScenarioData({
               webhooks: [
@@ -1799,7 +1799,7 @@ describe("handleNewBooking", () => {
 
             const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
             const uidOfBookingToBeRescheduled = "n5Wv3eHgconAED2j4gcVhP";
-            const iCalUID = `${uidOfBookingToBeRescheduled}@Cal.diy`;
+            const iCalUID = `${uidOfBookingToBeRescheduled}@Kalo`;
 
             const subscriberUrl = "http://my-webhook.example.com";
             const scenarioData = getScenarioData({
@@ -2168,7 +2168,7 @@ describe("handleNewBooking", () => {
 
           const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
           const uidOfBookingToBeRescheduled = "n5Wv3eHgconAED2j4gcVhP";
-          const iCalUID = `${uidOfBookingToBeRescheduled}@Cal.diy`;
+          const iCalUID = `${uidOfBookingToBeRescheduled}@Kalo`;
 
           // Original booking has a different location (Google Meet)
           await createBookingScenario(

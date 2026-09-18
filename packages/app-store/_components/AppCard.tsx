@@ -2,14 +2,14 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Link from "next/link";
 import posthog from "posthog-js";
 
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { Switch } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { Section } from "@calcom/ui/components/section";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { Switch } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { Section } from "@kalo/ui/components/section";
 
 import type { AppCardApp } from "../types";
 import OmniInstallAppButton from "./OmniInstallAppButton";

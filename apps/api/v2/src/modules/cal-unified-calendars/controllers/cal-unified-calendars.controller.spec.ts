@@ -1,12 +1,12 @@
 /**
  * Virtual mocks are required because UnifiedCalendarService (imported transitively
- * for DI token resolution) has runtime imports from @calcom/platform-libraries and
- * @calcom/platform-libraries/app-store whose transitive dependencies (prisma, DB,
+ * for DI token resolution) has runtime imports from @kalo/platform-libraries and
+ * @kalo/platform-libraries/app-store whose transitive dependencies (prisma, DB,
  * Google APIs) cannot be resolved in Jest.
  * The service is fully mocked via useValue so these packages are never executed.
  */
 jest.mock(
-  "@calcom/platform-libraries/app-store",
+  "@kalo/platform-libraries/app-store",
   () => ({
     DelegationCredentialRepository: {
       findByIdIncludeSensitiveServiceAccountKey: jest.fn().mockResolvedValue(null),
@@ -16,7 +16,7 @@ jest.mock(
   { virtual: true }
 );
 jest.mock(
-  "@calcom/platform-libraries",
+  "@kalo/platform-libraries",
   () => ({
     getBusyCalendarTimes: jest.fn(),
     getConnectedDestinationCalendarsAndEnsureDefaultsInDb: jest.fn(),
@@ -25,7 +25,7 @@ jest.mock(
   { virtual: true }
 );
 
-import { GOOGLE_CALENDAR, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { GOOGLE_CALENDAR, SUCCESS_STATUS } from "@kalo/platform-constants";
 import { BadRequestException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { CalUnifiedCalendarsController } from "./cal-unified-calendars.controller";

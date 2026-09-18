@@ -1,13 +1,13 @@
-import { ErrorCode } from "@calcom/features/auth/lib/ErrorCode";
-import { verifyPassword } from "@calcom/features/auth/lib/verifyPassword";
-import { deleteUser } from "@calcom/features/users/lib/deleteUser";
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import { isPasswordValid } from "@calcom/lib/auth/isPasswordValid";
-import { HttpError } from "@calcom/lib/http-error";
-import { totpAuthenticatorCheck } from "@calcom/lib/totp";
-import { prisma } from "@calcom/prisma";
-import { IdentityProvider } from "@calcom/prisma/enums";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { ErrorCode } from "@kalo/features/auth/lib/ErrorCode";
+import { verifyPassword } from "@kalo/features/auth/lib/verifyPassword";
+import { deleteUser } from "@kalo/features/users/lib/deleteUser";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import { isPasswordValid } from "@kalo/lib/auth/isPasswordValid";
+import { HttpError } from "@kalo/lib/http-error";
+import { totpAuthenticatorCheck } from "@kalo/lib/totp";
+import { prisma } from "@kalo/prisma";
+import { IdentityProvider } from "@kalo/prisma/enums";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import type { TDeleteMeInputSchema } from "./deleteMe.schema";
 

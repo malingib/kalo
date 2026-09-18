@@ -4,7 +4,7 @@
   "slug": "deel",
   "type": "deel_other",
   "logo": "icon.svg",
-  "url": "https://go.cal.com/deel",
+  "url": "https://github.com/malingib/kalo",
   "variant": "other",
   "categories": [
     "other"
@@ -17,7 +17,7 @@
   "__template": "link-as-an-app",
   "dirName": "deel",
   "externalLink": {
-    "url": "https://go.cal.com/deel",
+    "url": "https://github.com/malingib/kalo",
     "newTab": true
   }
 }

@@ -2,40 +2,40 @@ import { cloneDeep, merge } from "lodash";
 import { v5 as uuidv5 } from "uuid";
 import type { z } from "zod";
 
-import { getCalendar } from "@calcom/app-store/_utils/getCalendar";
-import { FAKE_DAILY_CREDENTIAL } from "@calcom/app-store/dailyvideo/lib/VideoApiAdapter";
-import { appKeysSchema as calVideoKeysSchema } from "@calcom/app-store/dailyvideo/zod";
-import { getLocationFromApp, MeetLocationType, MSTeamsLocationType } from "@calcom/app-store/locations";
-import getApps from "@calcom/app-store/utils";
-import { createEvent, updateEvent, deleteEvent } from "@calcom/features/calendars/lib/CalendarManager";
-import { createMeeting, updateMeeting, deleteMeeting } from "@calcom/features/conferencing/lib/videoClient";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import CrmManager from "@calcom/features/crmManager/crmManager";
-import CRMScheduler from "@calcom/features/crmManager/crmScheduler";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { getUid } from "@calcom/lib/CalEventParser";
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import { isDelegationCredential } from "@calcom/lib/delegationCredential";
-import logger from "@calcom/lib/logger";
+import { getCalendar } from "@kalo/app-store/_utils/getCalendar";
+import { FAKE_DAILY_CREDENTIAL } from "@kalo/app-store/dailyvideo/lib/VideoApiAdapter";
+import { appKeysSchema as calVideoKeysSchema } from "@kalo/app-store/dailyvideo/zod";
+import { getLocationFromApp, MeetLocationType, MSTeamsLocationType } from "@kalo/app-store/locations";
+import getApps from "@kalo/app-store/utils";
+import { createEvent, updateEvent, deleteEvent } from "@kalo/features/calendars/lib/CalendarManager";
+import { createMeeting, updateMeeting, deleteMeeting } from "@kalo/features/conferencing/lib/videoClient";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import CrmManager from "@kalo/features/crmManager/crmManager";
+import CRMScheduler from "@kalo/features/crmManager/crmScheduler";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { getUid } from "@kalo/lib/CalEventParser";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import { isDelegationCredential } from "@kalo/lib/delegationCredential";
+import logger from "@kalo/lib/logger";
 import {
   getPiiFreeDestinationCalendar,
   getPiiFreeUser,
   getPiiFreeCredential,
   getPiiFreeCalendarEvent,
-} from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { prisma } from "@calcom/prisma";
-import type { DestinationCalendar, BookingReference } from "@calcom/prisma/client";
-import { createdEventSchema } from "@calcom/prisma/zod-utils";
-import type { AdditionalInformation, CalendarEvent, NewCalendarEventType } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
-import type { Event } from "@calcom/types/Event";
+} from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { prisma } from "@kalo/prisma";
+import type { DestinationCalendar, BookingReference } from "@kalo/prisma/client";
+import { createdEventSchema } from "@kalo/prisma/zod-utils";
+import type { AdditionalInformation, CalendarEvent, NewCalendarEventType } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
+import type { Event } from "@kalo/types/Event";
 import type {
   CreateUpdateResult,
   EventResult,
   PartialBooking,
   PartialReference,
-} from "@calcom/types/EventManager";
+} from "@kalo/types/EventManager";
 
 const log = logger.getSubLogger({ prefix: ["EventManager"] });
 const CALENDSO_ENCRYPTION_KEY = process.env.CALENDSO_ENCRYPTION_KEY || "";
@@ -151,7 +151,7 @@ export default class EventManager {
         // Backwards compatibility until CRM manager is implemented
         (cred) => cred.type.endsWith("_calendar") && !cred.type.includes("other_calendar")
       )
-      // see https://github.com/calcom/cal.diy/issues/11671#issue-1923600672
+      // see https://github.com/calcom/kalo/issues/11671#issue-1923600672
       // This sorting is mostly applicable for fallback which happens when there is no explicit destinationCalendar set.
       // That could be true for really old accounts but not for new
       .sort(latestCredentialFirst)
@@ -281,7 +281,7 @@ export default class EventManager {
    *
    * @param event
    * @param options.skipCalendarEvent - When true, skips calendar event creation but still creates video meetings.
-   *   This is useful for platform customers who manage their own calendar events but still want Cal.diy to create
+   *   This is useful for platform customers who manage their own calendar events but still want Kalo to create
    *   video meetings for third-party video apps like Daily.co.
    */
   public async create(

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { stringOrNumber } from "@calcom/prisma/zod-utils";
-import { stringToDayjsZod } from "@calcom/lib/dayjs";
+import { stringOrNumber } from "@kalo/prisma/zod-utils";
+import { stringToDayjsZod } from "@kalo/lib/dayjs";
 
 export const ZUserInputSchema = z.object({
   username: z.string(),

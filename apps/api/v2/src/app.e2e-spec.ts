@@ -1,5 +1,5 @@
-import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
-import type { PlatformOAuthClient, RateLimit, Team, User } from "@calcom/prisma/client";
+import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
+import type { PlatformOAuthClient, RateLimit, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";

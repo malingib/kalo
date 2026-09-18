@@ -1,7 +1,7 @@
 import type { GetServerSidePropsContext } from "next";
 
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { prisma } from "@calcom/prisma";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { prisma } from "@kalo/prisma";
 
 // change the type
 export async function getServerSideProps(context: GetServerSidePropsContext) {

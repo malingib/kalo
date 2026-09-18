@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
-import prisma from "@calcom/prisma";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
+import prisma from "@kalo/prisma";
 
 import getAppKeysFromSlug from "../../_utils/getAppKeysFromSlug";
 import getInstalledAppPath from "../../_utils/getInstalledAppPath";

@@ -1,35 +1,35 @@
-import { prisma } from "@calcom/prisma/__mocks__/prisma";
+import { prisma } from "@kalo/prisma/__mocks__/prisma";
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import { Handler } from "./connectAndJoin.handler";
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma,
 }));
 
-vi.mock("@calcom/emails/email-manager", () => ({
+vi.mock("@kalo/emails/email-manager", () => ({
   sendScheduledEmailsAndSMS: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("@calcom/features/bookings/lib/handleNewBooking/scheduleNoShowTriggers", () => ({
+vi.mock("@kalo/features/bookings/lib/handleNewBooking/scheduleNoShowTriggers", () => ({
   scheduleNoShowTriggers: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: vi.fn().mockResolvedValue((key: string) => key),
 }));
 
-vi.mock("@calcom/features/eventtypes/di/EventTypeService.container", () => ({
+vi.mock("@kalo/features/eventtypes/di/EventTypeService.container", () => ({
   getEventTypeService: vi.fn(() => ({
     shouldHideBrandingForEventType: vi.fn().mockResolvedValue(false),
   })),
 }));
 
-vi.mock("@calcom/features/bookings/lib/getCalEventResponses", () => ({
+vi.mock("@kalo/features/bookings/lib/getCalEventResponses", () => ({
   getCalEventResponses: vi.fn().mockReturnValue({}),
 }));
 

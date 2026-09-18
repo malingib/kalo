@@ -1,6 +1,6 @@
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import type { EventBusyDetails } from "@calcom/types/Calendar";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import type { EventBusyDetails } from "@kalo/types/Calendar";
 
 import type { IntervalLimitUnit } from "./intervalLimitSchema";
 

@@ -2,15 +2,15 @@ import { calendar_v3 } from "@googleapis/calendar";
 import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { bookTimeSlot, selectSecondAvailableTimeSlotNextMonth } from "@calcom/web/playwright/lib/testUtils";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { bookTimeSlot, selectSecondAvailableTimeSlotNextMonth } from "@kalo/web/playwright/lib/testUtils";
 
 import metadata from "../_metadata";
 import { createGoogleCalendarServiceWithGoogleType } from "../lib/CalendarService";
 
 /**
- * Creates the booking on Cal.diy and makes the GCal call to fetch the event.
+ * Creates the booking on Kalo and makes the GCal call to fetch the event.
  * Ends on the booking success page
  * @param page
  *

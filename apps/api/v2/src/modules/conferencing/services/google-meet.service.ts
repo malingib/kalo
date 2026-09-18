@@ -3,7 +3,7 @@ import { CredentialsRepository } from "@/modules/credentials/credentials.reposit
 import { BadRequestException, Logger } from "@nestjs/common";
 import { Injectable } from "@nestjs/common";
 
-import { GOOGLE_CALENDAR_TYPE, GOOGLE_MEET_TYPE } from "@calcom/platform-constants";
+import { GOOGLE_CALENDAR_TYPE, GOOGLE_MEET_TYPE } from "@kalo/platform-constants";
 
 @Injectable()
 export class GoogleMeetService {

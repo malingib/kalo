@@ -1,7 +1,7 @@
 import type SendmailTransport from "nodemailer/lib/sendmail-transport";
 import type SMTPConnection from "nodemailer/lib/smtp-connection";
 
-import { isENVDev } from "@calcom/lib/env";
+import { isENVDev } from "@kalo/lib/env";
 
 import { getAdditionalEmailHeaders } from "./getAdditionalEmailHeaders";
 

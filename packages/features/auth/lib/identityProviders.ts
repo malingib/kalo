@@ -1,4 +1,4 @@
-import { IdentityProvider } from "@calcom/prisma/enums";
+import { IdentityProvider } from "@kalo/prisma/enums";
 
 /**
  * Maps NextAuth provider names to IdentityProvider enum values.

@@ -6,13 +6,13 @@ vi.mock("next-auth/react", () => ({
   signOut: vi.fn(),
 }));
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string) => key,
   }),
 }));
 
-vi.mock("@calcom/lib/hooks/useUserAgentData", () => ({
+vi.mock("@kalo/lib/hooks/useUserAgentData", () => ({
   useUserAgentData: () => ({
     os: "linux",
     browser: "chrome",
@@ -21,19 +21,19 @@ vi.mock("@calcom/lib/hooks/useUserAgentData", () => ({
 }));
 
 const mockUseMeQuery = vi.fn();
-vi.mock("@calcom/trpc/react/hooks/useMeQuery", () => ({
+vi.mock("@kalo/trpc/react/hooks/useMeQuery", () => ({
   default: () => mockUseMeQuery(),
 }));
 
-vi.mock("@calcom/web/modules/api-keys/support/lib/freshchat/FreshChatProvider", () => ({
+vi.mock("@kalo/web/modules/api-keys/support/lib/freshchat/FreshChatProvider", () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-vi.mock("@calcom/ui/components/avatar", () => ({
+vi.mock("@kalo/ui/components/avatar", () => ({
   Avatar: () => <div data-testid="avatar">Avatar</div>,
 }));
 
-vi.mock("@calcom/ui/components/icon", () => ({
+vi.mock("@kalo/ui/components/icon", () => ({
   Icon: ({ name }: { name: string }) => <span data-testid={`icon-${name}`}>{name}</span>,
 }));
 
@@ -53,7 +53,7 @@ vi.mock("@coss/ui/components/menu", () => ({
   MenuSubPopup: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-vi.mock("@calcom/ui/classNames", () => ({
+vi.mock("@kalo/ui/classNames", () => ({
   default: (...args: string[]) => args.filter(Boolean).join(" "),
 }));
 

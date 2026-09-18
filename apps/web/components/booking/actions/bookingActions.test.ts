@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { BookingStatus, SchedulingType } from "@calcom/prisma/enums";
+import { BookingStatus, SchedulingType } from "@kalo/prisma/enums";
 
 import {
   getPendingActions,

@@ -1,11 +1,11 @@
 import React from "react";
 
-import dayjs from "@calcom/dayjs";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import dayjs from "@kalo/dayjs";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 
-import { useCalendarStore } from "@calcom/features/calendars/weeklyview/state/store";
-import type { BorderColor } from "@calcom/features/calendars/weeklyview/types/common";
+import { useCalendarStore } from "@kalo/features/calendars/weeklyview/state/store";
+import type { BorderColor } from "@kalo/features/calendars/weeklyview/types/common";
 
 type Props = {
   showBorder: boolean;

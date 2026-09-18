@@ -1,6 +1,6 @@
-import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_08_13 } from "@calcom/platform-constants";
-import type { BookingOutput_2024_08_13, CreateBookingInput_2024_08_13 } from "@calcom/platform-types";
-import type { Team, User } from "@calcom/prisma/client";
+import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_08_13 } from "@kalo/platform-constants";
+import type { BookingOutput_2024_08_13, CreateBookingInput_2024_08_13 } from "@kalo/platform-types";
+import type { Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

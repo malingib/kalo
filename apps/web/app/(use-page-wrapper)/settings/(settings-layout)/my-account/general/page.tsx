@@ -3,9 +3,9 @@ import { _generateMetadata } from "app/_utils";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { meRouter } from "@calcom/trpc/server/routers/viewer/me/_router";
-import { getTravelSchedule } from "@calcom/web/app/cache/travelSchedule";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { meRouter } from "@kalo/trpc/server/routers/viewer/me/_router";
+import { getTravelSchedule } from "@kalo/web/app/cache/travelSchedule";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

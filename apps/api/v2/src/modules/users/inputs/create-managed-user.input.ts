@@ -4,7 +4,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
 import { IsOptional, IsTimeZone, IsString, IsEnum, IsIn, IsUrl, IsObject, IsNumber } from "class-validator";
 
-import { ValidateMetadata } from "@calcom/platform-types";
+import { ValidateMetadata } from "@kalo/platform-types";
 
 export type WeekDay = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
 export type TimeFormat = 12 | 24;

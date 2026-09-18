@@ -18,7 +18,7 @@ export type Environment = {
   STRIPE_WEBHOOK_SECRET: string;
   WEB_APP_URL: string;
   IS_E2E: string;
-  CALCOM_LICENSE_KEY: string;
+  KALO_LICENSE_KEY: string;
   GET_LICENSE_KEY_URL: string;
   API_KEY_PREFIX: string;
   DOCS_URL: string;

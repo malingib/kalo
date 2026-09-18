@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { emailSchema } from "@calcom/lib/emailSchema";
+import { emailSchema } from "@kalo/lib/emailSchema";
 
 import type { DataRequirements } from "../service/EnrichmentDataStore";
 import { AuditActionServiceHelper } from "./AuditActionServiceHelper";

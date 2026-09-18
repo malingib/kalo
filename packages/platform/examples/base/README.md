@@ -3,7 +3,7 @@ Example apps using atoms - customizable UI components to integrate scheduling in
 
 ## Running examples apps locally
 
-1. Cal's backend is required to run example apps, so clone `https://github.com/calcom/cal.diy` and follow setup instructions in the readme. Importantly, you need to have Google credentials setup by following [this section](https://github.com/calcom/cal.diy?tab=readme-ov-file#obtaining-the-google-api-credentials) in the docs.
+1. Cal's backend is required to run example apps, so clone `https://github.com/calcom/kalo` and follow setup instructions in the readme. Importantly, you need to have Google credentials setup by following [this section](https://github.com/calcom/kalo?tab=readme-ov-file#obtaining-the-google-api-credentials) in the docs.
 
 2. Open "apps/api/v2/.env" and copy environment variables below, and then copy `NEXTAUTH_SECRET` from the root ".env" of repository cloned in step 1.
 ```jsx
@@ -26,7 +26,7 @@ REDIS_URL="redis://localhost:6379"
 8. In the web app navigate to `http://localhost:3000/settings/organizations/platform/oauth-clients` and create a new oAuth client - give all permissions and set redirect uri to `http://localhost:4321` which points to example app.
 9. Setup environment for the example app you want to run:
     1. First, copy ".env.example" into ".env".
-    2. Open ".env" file and paste client id from step 8 in `NEXT_PUBLIC_X_CAL_ID` and client secret in `X_CAL_SECRET_KEY`. If in step 2 you used the same environment variables, then `NEXT_PUBLIC_CALCOM_API_URL` can stay as is. Otherwise adjust the port to point to the same `API_PORT` as you used in step 2.
+    2. Open ".env" file and paste client id from step 8 in `NEXT_PUBLIC_X_CAL_ID` and client secret in `X_CAL_SECRET_KEY`. If in step 2 you used the same environment variables, then `NEXT_PUBLIC_KALO_API_URL` can stay as is. Otherwise adjust the port to point to the same `API_PORT` as you used in step 2.
 10. Navigate to example app and setup database by running `rm -f prisma/dev.db && yarn prisma db push`.
 11. Start the example app by running `yarn dev` and go to `http://localhost:4321`.
 12. In the Google Cloud Console "API & Services" "Credentials" `https://console.cloud.google.com/apis/credentials` open web project setup in step 1 and add `http://localhost:5555/v2/gcal/oauth/save` to the authorized redirect URIs.

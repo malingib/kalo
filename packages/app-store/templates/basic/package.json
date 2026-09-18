@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/basic",
+  "name": "@kalo/basic",
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   },
   "description": "It is a template for an app that can be installed and provides no other feature."
 }

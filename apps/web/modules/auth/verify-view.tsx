@@ -1,12 +1,12 @@
 "use client";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useRouterQuery } from "@calcom/lib/hooks/useRouterQuery";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useRouterQuery } from "@kalo/lib/hooks/useRouterQuery";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
 import { MailOpenIcon, TriangleAlertIcon } from "@coss/ui/icons";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";

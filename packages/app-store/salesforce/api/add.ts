@@ -1,7 +1,7 @@
 import jsforce from "@jsforce/jsforce-node";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { WEBAPP_URL_FOR_OAUTH } from "@calcom/lib/constants";
+import { WEBAPP_URL_FOR_OAUTH } from "@kalo/lib/constants";
 
 import getAppKeysFromSlug from "../../_utils/getAppKeysFromSlug";
 import { encodeOAuthState } from "../../_utils/oauth/encodeOAuthState";

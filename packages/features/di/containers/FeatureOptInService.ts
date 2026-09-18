@@ -1,4 +1,4 @@
-import type { IFeatureOptInService } from "@calcom/features/feature-opt-in/services/IFeatureOptInService";
+import type { IFeatureOptInService } from "@kalo/features/feature-opt-in/services/IFeatureOptInService";
 
 import { createContainer } from "../di";
 import { moduleLoader as featureOptInServiceModuleLoader } from "../modules/FeatureOptInService";

@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 
-import { availabilityAsString } from "@calcom/lib/availability";
+import { availabilityAsString } from "@kalo/lib/availability";
 
 it("correctly handles 1 day", async () => {
   const availability = {

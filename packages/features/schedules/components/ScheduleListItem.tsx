@@ -3,21 +3,21 @@
 import Link from "next/link";
 import { Fragment, useState } from "react";
 
-import { availabilityAsString } from "@calcom/lib/availability";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { sortAvailabilityStrings } from "@calcom/lib/weekstart";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
+import { availabilityAsString } from "@kalo/lib/availability";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { sortAvailabilityStrings } from "@kalo/lib/weekstart";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { ConfirmationDialogContent } from "@calcom/ui/components/dialog";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/dropdown";
+import { ConfirmationDialogContent } from "@kalo/ui/components/dialog";
+import { showToast } from "@kalo/ui/components/toast";
 import { GlobeIcon } from "@coss/ui/icons";
 
 interface Schedule {

@@ -2,8 +2,8 @@
 
 import type { ChangeEvent } from "react";
 
-import { TextArea } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
+import { TextArea } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
 
 import type { TextLikeComponentPropsRAQB, SelectLikeComponentPropsRAQB } from "./widget-types";
 
@@ -11,8 +11,8 @@ import type { TextLikeComponentPropsRAQB, SelectLikeComponentPropsRAQB } from ".
 import dynamic from "next/dynamic";
 
 const Select = dynamic(
-  async () => (await import("@calcom/ui/components/form")).SelectWithValidation
-) as unknown as typeof import("@calcom/ui/components/form").SelectWithValidation;
+  async () => (await import("@kalo/ui/components/form")).SelectWithValidation
+) as unknown as typeof import("@kalo/ui/components/form").SelectWithValidation;
 
 const TextAreaWidget = (props: TextLikeComponentPropsRAQB) => {
   const { value, setValue, readOnly, placeholder, maxLength, customProps, ...remainingProps } = props;

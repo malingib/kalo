@@ -1,8 +1,8 @@
-import type { FilterSegmentOutput } from "@calcom/features/data-table/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { ConfirmationDialogContent, Dialog } from "@calcom/ui/components/dialog";
-import { showToast } from "@calcom/ui/components/toast";
+import type { FilterSegmentOutput } from "@kalo/features/data-table/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { ConfirmationDialogContent, Dialog } from "@kalo/ui/components/dialog";
+import { showToast } from "@kalo/ui/components/toast";
 import { useDataTable } from "~/data-table/hooks";
 
 export function DeleteSegmentDialog({

@@ -3,9 +3,9 @@ import {
   parseBookingLimit,
   parseRecurringEvent,
   userMetadata,
-} from "@calcom/platform-libraries";
-import { EventTypeMetaDataSchema, parseEventTypeColor } from "@calcom/platform-libraries/event-types";
-import { getBookerBaseUrlSync } from "@calcom/platform-libraries/organizations";
+} from "@kalo/platform-libraries";
+import { EventTypeMetaDataSchema, parseEventTypeColor } from "@kalo/platform-libraries/event-types";
+import { getBookerBaseUrlSync } from "@kalo/platform-libraries/organizations";
 import type {
   BookerLayoutsTransformedSchema,
   EventTypeOutput_2024_06_14,
@@ -14,7 +14,7 @@ import type {
   OutputUnknownBookingField_2024_06_14,
   OutputUnknownLocation_2024_06_14,
   TransformFutureBookingsLimitSchema_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import type {
   CalVideoSettings,
   DestinationCalendar,
@@ -22,7 +22,7 @@ import type {
   Prisma,
   Schedule,
   Team,
-} from "@calcom/prisma/client";
+} from "@kalo/prisma/client";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {

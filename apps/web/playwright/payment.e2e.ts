@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-import { bookTimeSlot, selectFirstAvailableTimeSlotNextMonth } from "@calcom/web/playwright/lib/testUtils";
+import { bookTimeSlot, selectFirstAvailableTimeSlotNextMonth } from "@kalo/web/playwright/lib/testUtils";
 
 import { test } from "./lib/fixtures";
 

@@ -1,6 +1,6 @@
-import { useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import { useIsStandalone } from "@calcom/lib/hooks/useIsStandalone";
-import classNames from "@calcom/ui/classNames";
+import { useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { useIsStandalone } from "@kalo/lib/hooks/useIsStandalone";
+import classNames from "@kalo/ui/classNames";
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import UnconfirmedBookingBadge from "../../bookings/components/UnconfirmedBookingBadge";

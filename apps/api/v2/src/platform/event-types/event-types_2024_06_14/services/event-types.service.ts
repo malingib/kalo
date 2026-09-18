@@ -1,12 +1,12 @@
-import { dynamicEvent } from "@calcom/platform-libraries";
+import { dynamicEvent } from "@kalo/platform-libraries";
 import {
   createEventType,
   EventTypesPublic,
   getEventTypesPublic,
   updateEventType,
-} from "@calcom/platform-libraries/event-types";
-import type { GetEventTypesQuery_2024_06_14, SortOrderType } from "@calcom/platform-types";
-import type { EventType } from "@calcom/prisma/client";
+} from "@kalo/platform-libraries/event-types";
+import type { GetEventTypesQuery_2024_06_14, SortOrderType } from "@kalo/platform-types";
+import type { EventType } from "@kalo/prisma/client";
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { DEFAULT_EVENT_TYPES } from "@/platform/event-types/event-types_2024_06_14/constants/constants";
 import { EventTypesRepository_2024_06_14 } from "@/platform/event-types/event-types_2024_06_14/event-types.repository";

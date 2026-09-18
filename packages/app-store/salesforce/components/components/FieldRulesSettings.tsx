@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { InputField } from "@calcom/ui/components/form";
-import { Select } from "@calcom/ui/components/form";
-import { Section } from "@calcom/ui/components/section";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { InputField } from "@kalo/ui/components/form";
+import { Select } from "@kalo/ui/components/form";
+import { Section } from "@kalo/ui/components/section";
 
 import type { RRSkipFieldRule } from "../../zod";
 import { RRSkipFieldRuleActionEnum } from "../../zod";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import dayjs from "@calcom/dayjs";
-import { DatePicker } from "@calcom/ui/components/form";
+import dayjs from "@kalo/dayjs";
+import { DatePicker } from "@kalo/ui/components/form";
 
 import { getWeekStart } from "../lib/weekUtils";
 

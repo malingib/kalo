@@ -1,7 +1,7 @@
-import DestinationCalendarSelector from "@calcom/features/calendars/components/DestinationCalendarSelector";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterInputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
+import DestinationCalendarSelector from "@kalo/features/calendars/components/DestinationCalendarSelector";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterInputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 
 interface ICreateEventsOnCalendarSelectProps {
   calendar?: RouterInputs["viewer"]["calendars"]["setDestinationCalendar"] | null;

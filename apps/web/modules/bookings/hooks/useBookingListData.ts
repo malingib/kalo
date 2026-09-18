@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
-import dayjs from "@calcom/dayjs";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import dayjs from "@kalo/dayjs";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
 import type {
   RowData,

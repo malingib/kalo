@@ -1,18 +1,18 @@
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { hasFilter } from "@calcom/features/filters/lib/hasFilter";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import logger from "@calcom/lib/logger";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import prisma from "@calcom/prisma";
-import { MembershipRole, SchedulingType } from "@calcom/prisma/enums";
-import { eventTypeMetaDataSchemaWithUntypedApps, teamMetadataSchema } from "@calcom/prisma/zod-utils";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { hasFilter } from "@kalo/features/filters/lib/hasFilter";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import logger from "@kalo/lib/logger";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import prisma from "@kalo/prisma";
+import { MembershipRole, SchedulingType } from "@kalo/prisma/enums";
+import { eventTypeMetaDataSchemaWithUntypedApps, teamMetadataSchema } from "@kalo/prisma/zod-utils";
 import { orderBy } from "lodash";
 
 class PermissionCheckService {

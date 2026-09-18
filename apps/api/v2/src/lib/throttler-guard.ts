@@ -14,7 +14,7 @@ import {
 import { Request, Response } from "express";
 import { z } from "zod";
 
-import { X_CAL_CLIENT_ID } from "@calcom/platform-constants";
+import { X_CAL_CLIENT_ID } from "@kalo/platform-constants";
 
 const rateLimitSchema = z.object({
   name: z.string(),

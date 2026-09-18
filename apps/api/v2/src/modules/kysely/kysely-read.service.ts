@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import { DeduplicateJoinsPlugin, Kysely, ParseJSONResultsPlugin, PostgresDialect } from "kysely";
 import { Pool } from "pg";
 
-import type { DB } from "@calcom/kysely/types";
+import type { DB } from "@kalo/kysely/types";
 
 @Injectable()
 export class KyselyReadService implements OnModuleDestroy {

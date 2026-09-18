@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import process from "node:process";
-import { whatsAppWebhookService } from "@calcom/features/whatsapp-bot/src/webhookService";
+import { whatsAppWebhookService } from "@kalo/features/whatsapp-bot/src/webhookService";
 import type { NextApiRequest, NextApiResponse } from "next";
 import getRawBody from "raw-body";
 

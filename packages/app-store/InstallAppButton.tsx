@@ -1,6 +1,6 @@
 "use client";
 
-import type { App } from "@calcom/types/App";
+import type { App } from "@kalo/types/App";
 
 import { InstallAppButtonWithoutPlanCheck } from "./InstallAppButtonWithoutPlanCheck";
 import type { InstallAppButtonProps } from "./types";

@@ -1,4 +1,4 @@
-import { RecordingWebhookDataFetcher } from "@calcom/features/webhooks/lib/service/data-fetchers/RecordingWebhookDataFetcher";
+import { RecordingWebhookDataFetcher } from "@kalo/features/webhooks/lib/service/data-fetchers/RecordingWebhookDataFetcher";
 import { createModule } from "@evyweb/ioctopus";
 import { SHARED_TOKENS } from "../../shared/shared.tokens";
 import { WEBHOOK_TOKENS } from "../Webhooks.tokens";

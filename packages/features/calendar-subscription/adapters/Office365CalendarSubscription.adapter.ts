@@ -1,5 +1,5 @@
-import logger from "@calcom/lib/logger";
-import type { SelectedCalendar } from "@calcom/prisma/client";
+import logger from "@kalo/lib/logger";
+import type { SelectedCalendar } from "@kalo/prisma/client";
 
 import type {
   CalendarSubscriptionEvent,

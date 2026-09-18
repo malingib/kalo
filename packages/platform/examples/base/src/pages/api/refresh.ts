@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { X_CAL_SECRET_KEY } from "@calcom/platform-constants";
+import { X_CAL_SECRET_KEY } from "@kalo/platform-constants";
 
 import prisma from "../../lib/prismaClient";
 
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       if (process.env.NEXT_PUBLIC_OAUTH2_MODE === "true") {
         const oAuth2Request = await fetch(
-        `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/auth/oauth2/clients/${process.env.NEXT_PUBLIC_OAUTH2_CLIENT_ID}/refresh`,
+        `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/auth/oauth2/clients/${process.env.NEXT_PUBLIC_OAUTH2_CLIENT_ID}/refresh`,
         {
           method: "POST",
           headers: {
@@ -56,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       const response = await fetch(
         // eslint-disable-next-line turbo/no-undeclared-env-vars
-        `${process.env.NEXT_PUBLIC_CALCOM_API_URL ?? ""}/oauth/${
+        `${process.env.NEXT_PUBLIC_KALO_API_URL ?? ""}/oauth/${
           // eslint-disable-next-line turbo/no-undeclared-env-vars
           process.env.NEXT_PUBLIC_X_CAL_ID ?? ""
         }/refresh`,

@@ -1,20 +1,20 @@
-import { getCredentialForSelectedCalendar } from "@calcom/app-store/delegationCredential";
+import { getCredentialForSelectedCalendar } from "@kalo/app-store/delegationCredential";
 import type {
   AdapterFactory,
   CalendarSubscriptionProvider,
-} from "@calcom/features/calendar-subscription/adapters/AdaptersFactory";
+} from "@kalo/features/calendar-subscription/adapters/AdaptersFactory";
 import type {
   CalendarCredential,
   CalendarSubscriptionEvent,
-} from "@calcom/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
-import type { CalendarCacheEventService } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventService";
-import type { CalendarSyncService } from "@calcom/features/calendar-subscription/lib/sync/CalendarSyncService";
-import type { IFeatureRepository } from "@calcom/features/flags/repositories/PrismaFeatureRepository";
-import type { ITeamFeatureRepository } from "@calcom/features/flags/repositories/PrismaTeamFeatureRepository";
-import type { IUserFeatureRepository } from "@calcom/features/flags/repositories/PrismaUserFeatureRepository";
-import type { ISelectedCalendarRepository } from "@calcom/features/selectedCalendar/repositories/SelectedCalendarRepository.interface";
-import logger from "@calcom/lib/logger";
-import type { SelectedCalendar } from "@calcom/prisma/client";
+} from "@kalo/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
+import type { CalendarCacheEventService } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventService";
+import type { CalendarSyncService } from "@kalo/features/calendar-subscription/lib/sync/CalendarSyncService";
+import type { IFeatureRepository } from "@kalo/features/flags/repositories/PrismaFeatureRepository";
+import type { ITeamFeatureRepository } from "@kalo/features/flags/repositories/PrismaTeamFeatureRepository";
+import type { IUserFeatureRepository } from "@kalo/features/flags/repositories/PrismaUserFeatureRepository";
+import type { ISelectedCalendarRepository } from "@kalo/features/selectedCalendar/repositories/SelectedCalendarRepository.interface";
+import logger from "@kalo/lib/logger";
+import type { SelectedCalendar } from "@kalo/prisma/client";
 import { metrics } from "@sentry/nextjs";
 
 // biome-ignore lint/nursery/useExplicitType: logger type is inferred

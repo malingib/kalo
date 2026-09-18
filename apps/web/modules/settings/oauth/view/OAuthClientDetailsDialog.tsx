@@ -3,23 +3,23 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useCopy } from "@calcom/lib/hooks/useCopy";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useCopy } from "@kalo/lib/hooks/useCopy";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
-import { Alert } from "@calcom/ui/components/alert";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
+import { Alert } from "@kalo/ui/components/alert";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
 import {
   ConfirmationDialogContent,
   DialogClose,
   DialogContent,
   DialogFooter,
-} from "@calcom/ui/components/dialog";
+} from "@kalo/ui/components/dialog";
 
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import { Label, TextArea } from "@calcom/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import { Label, TextArea } from "@kalo/ui/components/form";
 
 import type { OAuthClientCreateFormValues } from "../create/OAuthClientCreateModal";
 import { OAuthClientFormFields } from "./OAuthClientFormFields";

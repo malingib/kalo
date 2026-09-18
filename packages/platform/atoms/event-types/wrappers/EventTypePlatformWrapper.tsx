@@ -3,23 +3,23 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState, useEffect, forwardRef, useImperativeHandle, useCallback } from "react";
 
-import { BookerStoreProvider } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import type { ChildrenEventType } from "@calcom/web/modules/event-types/components/ChildrenEventTypeSelect";
-import { EventType as EventTypeComponent } from "@calcom/web/modules/event-types/components/EventType";
-import ManagedEventTypeDialog from "@calcom/features/eventtypes/components/dialogs/ManagedEventDialog";
+import { BookerStoreProvider } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import type { ChildrenEventType } from "@kalo/web/modules/event-types/components/ChildrenEventTypeSelect";
+import { EventType as EventTypeComponent } from "@kalo/web/modules/event-types/components/EventType";
+import ManagedEventTypeDialog from "@kalo/features/eventtypes/components/dialogs/ManagedEventDialog";
 import type {
   EventTypeSetupProps,
   FormValues,
   EventTypePlatformWrapperRef,
-} from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import type { EventAdvancedTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/advanced/EventAdvancedTab";
-import type { EventTeamAssignmentTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/assignment/EventTeamAssignmentTab";
-import type { EventAvailabilityTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/availability/EventAvailabilityTab";
-import type { EventLimitsTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/limits/EventLimitsTab";
-import type { EventRecurringTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/recurring/RecurringEventController";
-import type { EventSetupTabCustomClassNames } from "@calcom/web/modules/event-types/components/tabs/setup/EventSetupTab";
+} from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import type { EventAdvancedTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/advanced/EventAdvancedTab";
+import type { EventTeamAssignmentTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/assignment/EventTeamAssignmentTab";
+import type { EventAvailabilityTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/availability/EventAvailabilityTab";
+import type { EventLimitsTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/limits/EventLimitsTab";
+import type { EventRecurringTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/recurring/RecurringEventController";
+import type { EventSetupTabCustomClassNames } from "@kalo/web/modules/event-types/components/tabs/setup/EventSetupTab";
 
 import { useDeleteEventTypeById } from "../../hooks/event-types/private/useDeleteEventTypeById";
 import { useAtomsContext } from "../../hooks/useAtomsContext";

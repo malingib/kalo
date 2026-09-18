@@ -2,7 +2,7 @@ import type { Params } from "app/_types";
 import { NextResponse, type NextRequest } from "next/server";
 import { describe, expect, it, vi } from "vitest";
 
-import { ErrorCode } from "@calcom/lib/errorCodes";
+import { ErrorCode } from "@kalo/lib/errorCodes";
 
 import { TRPCError } from "@trpc/server";
 

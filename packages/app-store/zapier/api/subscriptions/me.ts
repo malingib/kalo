@@ -1,4 +1,4 @@
-import prisma from "@calcom/prisma";
+import prisma from "@kalo/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { findValidApiKey } from "../../../_utils/findValidApiKey";
 

@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 
 import type { TApiKeys } from "~/api-keys/api-keys/components/ApiKeyListItem";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
 import ApiKeyDialogForm from "~/api-keys/api-keys/components/ApiKeyDialogForm";
 import ApiKeyListItem from "~/api-keys/api-keys/components/ApiKeyListItem";
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent } from "@calcom/ui/components/dialog";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent } from "@kalo/ui/components/dialog";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 
 export const apiKeyModalRef = {
   current: null as null | ((show: boolean) => void),

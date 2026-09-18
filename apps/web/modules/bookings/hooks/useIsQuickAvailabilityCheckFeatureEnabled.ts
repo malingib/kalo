@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-import { isVisitorWithinPercentage } from "@calcom/features/bookings/Booker/utils/isFeatureEnabledForVisitor";
-import { PUBLIC_QUICK_AVAILABILITY_ROLLOUT } from "@calcom/lib/constants";
+import { isVisitorWithinPercentage } from "@kalo/features/bookings/Booker/utils/isFeatureEnabledForVisitor";
+import { PUBLIC_QUICK_AVAILABILITY_ROLLOUT } from "@kalo/lib/constants";
 
 export const useIsQuickAvailabilityCheckFeatureEnabled = () => {
   const isQuickAvailabilityCheckFeatureEnabledRef = useRef(

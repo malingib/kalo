@@ -9,22 +9,22 @@ tags: architecture, boundaries, imports, coupling
 
 **Impact: CRITICAL**
 
-Features communicate through well-defined interfaces. If bookings needs availability data, it imports from `@calcom/features/availability` through exported interfaces, not by reaching into internal implementation details.
+Features communicate through well-defined interfaces. If bookings needs availability data, it imports from `@kalo/features/availability` through exported interfaces, not by reaching into internal implementation details.
 
 **Incorrect (reaching into internals):**
 
 ```typescript
 // Bad - Importing internal implementation details
-import { calculateSlots } from "@calcom/features/availability/services/internal/slotCalculator";
-import { AvailabilityCache } from "@calcom/features/availability/lib/cache";
+import { calculateSlots } from "@kalo/features/availability/services/internal/slotCalculator";
+import { AvailabilityCache } from "@kalo/features/availability/lib/cache";
 ```
 
 **Correct (using public API):**
 
 ```typescript
 // Good - Import through the feature's public API
-import { getAvailability } from "@calcom/features/availability";
-import type { AvailabilityResult } from "@calcom/features/availability";
+import { getAvailability } from "@kalo/features/availability";
+import type { AvailabilityResult } from "@kalo/features/availability";
 ```
 
 **Shared code placement:**
@@ -37,6 +37,6 @@ Domain boundaries are enforced automatically through linting. If `packages/featu
 **Benefits:**
 - Discoverability: Looking for booking logic? It's all in `packages/features/bookings`
 - Easier testing: Test the entire feature as a unit with all pieces in one place
-- Clearer dependencies: When you see `import { getAvailability } from '@calcom/features/availability'`, you know exactly which feature you're depending on
+- Clearer dependencies: When you see `import { getAvailability } from '@kalo/features/availability'`, you know exactly which feature you're depending on
 
-Reference: [Cal.diy Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)

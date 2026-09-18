@@ -3,8 +3,8 @@
 import type { ReactNode } from "react";
 import type { FC } from "react";
 
-import type { CALENDARS } from "@calcom/platform-constants";
-import { Button } from "@calcom/ui/components/button";
+import type { CALENDARS } from "@kalo/platform-constants";
+import { Button } from "@kalo/ui/components/button";
 
 import type { OnCheckErrorType, UseCheckProps } from "../hooks/connect/useCheck";
 import { useCheck } from "../hooks/connect/useCheck";

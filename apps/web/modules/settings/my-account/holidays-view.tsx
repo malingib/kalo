@@ -1,18 +1,18 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { getHolidayEmoji } from "@calcom/lib/holidays/getHolidayEmoji";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { Select, Switch } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { SkeletonContainer, SkeletonText } from "@calcom/ui/components/skeleton";
+import dayjs from "@kalo/dayjs";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { getHolidayEmoji } from "@kalo/lib/holidays/getHolidayEmoji";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { Select, Switch } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { SkeletonContainer, SkeletonText } from "@kalo/ui/components/skeleton";
 import { TriangleAlertIcon } from "@coss/ui/icons";
-import { showToast } from "@calcom/ui/components/toast";
+import { showToast } from "@kalo/ui/components/toast";
 import { memo, useCallback, useMemo } from "react";
 import { OutOfOfficeToggleGroup } from "~/settings/outOfOffice/OutOfOfficeToggleGroup";
 

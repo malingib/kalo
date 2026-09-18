@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import type { BookerEvent } from "@calcom/features/bookings/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { parseRecurringDates } from "@calcom/lib/parse-dates";
-import { getRecurringFreq } from "@calcom/lib/recurringStrings";
-import { getTimeShiftFlags, getFirstShiftFlags } from "@calcom/lib/timeShift";
-import { Alert } from "@calcom/ui/components/alert";
-import { Badge } from "@calcom/ui/components/badge";
-import { Input } from "@calcom/ui/components/form";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import type { BookerEvent } from "@kalo/features/bookings/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { parseRecurringDates } from "@kalo/lib/parse-dates";
+import { getRecurringFreq } from "@kalo/lib/recurringStrings";
+import { getTimeShiftFlags, getFirstShiftFlags } from "@kalo/lib/timeShift";
+import { Alert } from "@kalo/ui/components/alert";
+import { Badge } from "@kalo/ui/components/badge";
+import { Input } from "@kalo/ui/components/form";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 
-import { useBookerTime } from "@calcom/features/bookings/Booker/hooks/useBookerTime";
+import { useBookerTime } from "@kalo/features/bookings/Booker/hooks/useBookerTime";
 
 export const EventOccurences = ({ event }: { event: Pick<BookerEvent, "recurringEvent"> }) => {
   const maxOccurences = event.recurringEvent?.count || null;

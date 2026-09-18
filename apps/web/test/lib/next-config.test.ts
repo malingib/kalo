@@ -68,7 +68,7 @@ describe("next.config.js - Org Rewrite", () => {
       expect(regExp.exec("app.cal.local:3000")).toEqual(null);
     });
 
-    it("Vercel Preview special handling - vercel.app. Cal.diy deployed on vercel apps have different subdomains, so we can't consider them org domains", () => {
+    it("Vercel Preview special handling - vercel.app. Kalo deployed on vercel apps have different subdomains, so we can't consider them org domains", () => {
       const regExp = new RegExp(getRegExpThatMatchesAllOrgDomains({ webAppUrl: "http://app.vercel.app" }));
       // It is not matching on vercel.app but would have matched in any other case
       expect(regExp.exec("acme.vercel.app")).toEqual(null);

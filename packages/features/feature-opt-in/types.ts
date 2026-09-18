@@ -1,5 +1,5 @@
-import type { EffectiveStateReason } from "@calcom/features/feature-opt-in/lib/computeEffectiveState";
-import type { FeatureState } from "@calcom/features/flags/config";
+import type { EffectiveStateReason } from "@kalo/features/feature-opt-in/lib/computeEffectiveState";
+import type { FeatureState } from "@kalo/features/flags/config";
 
 /**
  * Policy that determines how feature opt-in states are evaluated.

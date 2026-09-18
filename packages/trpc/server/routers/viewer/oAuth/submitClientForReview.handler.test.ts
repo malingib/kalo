@@ -2,7 +2,7 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 
 import type { TFunction } from "i18next";
 
-import type { PrismaClient } from "@calcom/prisma";
+import type { PrismaClient } from "@kalo/prisma";
 
 import { submitClientForReviewHandler } from "./submitClientForReview.handler";
 
@@ -15,22 +15,22 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock("@calcom/features/oauth/repositories/OAuthClientRepository", () => ({
+vi.mock("@kalo/features/oauth/repositories/OAuthClientRepository", () => ({
   OAuthClientRepository: class {
     constructor() {}
     create = mocks.createOAuthClient;
   },
 }));
 
-vi.mock("@calcom/emails/oauth-email-service", () => ({
+vi.mock("@kalo/emails/oauth-email-service", () => ({
   sendAdminOAuthClientNotification: mocks.sendAdminOAuthClientNotification,
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: mocks.getTranslation,
 }));
 
-vi.mock("@calcom/features/oauth/utils/generateSecret", () => ({
+vi.mock("@kalo/features/oauth/utils/generateSecret", () => ({
   generateSecret: mocks.generateSecret,
 }));
 

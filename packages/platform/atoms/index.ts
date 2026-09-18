@@ -1,4 +1,4 @@
-export type { UpdateScheduleInput_2024_06_11 as UpdateScheduleBody } from "@calcom/platform-types";
+export type { UpdateScheduleInput_2024_06_11 as UpdateScheduleBody } from "@kalo/platform-types";
 export { AvailabilitySettingsPlatformWrapper as AvailabilitySettings } from "./availability";
 export type { AvailabilitySettingsScheduleType } from "./availability/AvailabilitySettings";
 export type { AvailabilitySettingsFormRef } from "./availability/types";

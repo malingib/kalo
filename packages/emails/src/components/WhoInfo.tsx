@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 
-import isSmsCalEmail from "@calcom/lib/isSmsCalEmail";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import isSmsCalEmail from "@kalo/lib/isSmsCalEmail";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 import { Info } from "./Info";
 

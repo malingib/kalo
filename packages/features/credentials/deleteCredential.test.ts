@@ -1,10 +1,10 @@
-import { addEventTypesToDb, mockNoTranslations } from "@calcom/testing/lib/bookingScenario/bookingScenario";
-import { PrismaAppRepository } from "@calcom/features/apps/repository/PrismaAppRepository";
-import { DestinationCalendarRepository } from "@calcom/features/calendars/repositories/DestinationCalendarRepository";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { prisma } from "@calcom/prisma";
+import { addEventTypesToDb, mockNoTranslations } from "@kalo/testing/lib/bookingScenario/bookingScenario";
+import { PrismaAppRepository } from "@kalo/features/apps/repository/PrismaAppRepository";
+import { DestinationCalendarRepository } from "@kalo/features/calendars/repositories/DestinationCalendarRepository";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { prisma } from "@kalo/prisma";
 import { beforeEach, describe, expect, test } from "vitest";
 const testUser = {
   email: "test@test.com",

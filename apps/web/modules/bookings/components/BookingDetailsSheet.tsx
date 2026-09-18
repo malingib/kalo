@@ -1,27 +1,27 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
-import { useBookingLocation } from "@calcom/features/bookings/hooks";
-import { shouldShowFieldInCustomResponses } from "@calcom/lib/bookings/SystemField";
-import { formatPrice } from "@calcom/lib/currencyConversions";
-import { formatToLocalizedTimezone } from "@calcom/lib/dayjs";
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { getEveryFreqFor } from "@calcom/lib/recurringStrings";
-import { BookingStatus } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { useBookingLocation } from "@kalo/features/bookings/hooks";
+import { shouldShowFieldInCustomResponses } from "@kalo/lib/bookings/SystemField";
+import { formatPrice } from "@kalo/lib/currencyConversions";
+import { formatToLocalizedTimezone } from "@kalo/lib/dayjs";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { getEveryFreqFor } from "@kalo/lib/recurringStrings";
+import { BookingStatus } from "@kalo/prisma/enums";
 import {
   bookingMetadataSchema,
   EventTypeMetaDataSchema,
   eventTypeBookingFields,
-} from "@calcom/prisma/zod-utils";
-import { trpc } from "@calcom/trpc/react";
-import type { RecurringEvent } from "@calcom/types/Calendar";
-import classNames from "@calcom/ui/classNames";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { SegmentedControl } from "@calcom/ui/components/segmented-control";
+} from "@kalo/prisma/zod-utils";
+import { trpc } from "@kalo/trpc/react";
+import type { RecurringEvent } from "@kalo/types/Calendar";
+import classNames from "@kalo/ui/classNames";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { SegmentedControl } from "@kalo/ui/components/segmented-control";
 import {
   Sheet,
   SheetBody,
@@ -29,8 +29,8 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@calcom/ui/components/sheet";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+} from "@kalo/ui/components/sheet";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { ExternalLinkIcon, RepeatIcon } from "@coss/ui/icons";
 import assignmentReasonBadgeTitleMap from "@lib/booking/assignmentReasonBadgeTitleMap";
 import Link from "next/link";

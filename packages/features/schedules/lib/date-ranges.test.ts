@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import {
   buildDateRanges,

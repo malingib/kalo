@@ -1,17 +1,17 @@
-import AppCard from "@calcom/app-store/_components/AppCard";
+import AppCard from "@kalo/app-store/_components/AppCard";
 import WriteToObjectSettings, {
   BookingActionEnum,
-} from "@calcom/app-store/_components/crm/WriteToObjectSettings";
-import { CrmFieldType } from "@calcom/app-store/_lib/crm-enums";
-import useIsAppEnabled from "@calcom/app-store/_utils/useIsAppEnabled";
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
-import type { EventTypeAppCardComponent } from "@calcom/app-store/types";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import { Alert } from "@calcom/ui/components/alert";
-import { Switch } from "@calcom/ui/components/form";
-import { Section } from "@calcom/ui/components/section";
+} from "@kalo/app-store/_components/crm/WriteToObjectSettings";
+import { CrmFieldType } from "@kalo/app-store/_lib/crm-enums";
+import useIsAppEnabled from "@kalo/app-store/_utils/useIsAppEnabled";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
+import type { EventTypeAppCardComponent } from "@kalo/app-store/types";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import { Alert } from "@kalo/ui/components/alert";
+import { Switch } from "@kalo/ui/components/form";
+import { Section } from "@kalo/ui/components/section";
 import { usePathname } from "next/navigation";
 import type { appDataSchema } from "../zod";
 import { WhenToWrite } from "../zod";

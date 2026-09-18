@@ -1,6 +1,6 @@
-import type { CalendarSubscriptionEventItem } from "@calcom/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
-import type { BookingRepository } from "@calcom/lib/server/repository/booking";
-import type { SelectedCalendar } from "@calcom/prisma/client";
+import type { CalendarSubscriptionEventItem } from "@kalo/features/calendar-subscription/lib/CalendarSubscriptionPort.interface";
+import type { BookingRepository } from "@kalo/lib/server/repository/booking";
+import type { SelectedCalendar } from "@kalo/prisma/client";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { CalendarSyncService } from "../CalendarSyncService";
 
@@ -9,17 +9,17 @@ const { mockHandleCancelBooking, mockCreateBooking } = vi.hoisted(() => ({
   mockCreateBooking: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("@calcom/features/bookings/lib/handleCancelBooking", () => ({
+vi.mock("@kalo/features/bookings/lib/handleCancelBooking", () => ({
   default: mockHandleCancelBooking,
 }));
 
-vi.mock("@calcom/features/bookings/di/RegularBookingService.container", () => ({
+vi.mock("@kalo/features/bookings/di/RegularBookingService.container", () => ({
   getRegularBookingService: () => ({
     createBooking: mockCreateBooking,
   }),
 }));
 
-vi.mock("@calcom/lib/idempotencyKey/idempotencyKeyService", () => ({
+vi.mock("@kalo/lib/idempotencyKey/idempotencyKeyService", () => ({
   IdempotencyKeyService: {
     generate: vi.fn(() => "test-idempotency-key"),
   },
@@ -94,7 +94,7 @@ const mockBooking = {
 
 const mockCalComEvent: CalendarSubscriptionEventItem = {
   id: "event-1",
-  iCalUID: "test-booking-uid@cal.com",
+  iCalUID: "test-booking-uid@kalo",
   start: new Date("2023-12-01T10:00:00Z"),
   end: new Date("2023-12-01T11:00:00Z"),
   busy: true,
@@ -135,7 +135,7 @@ const mockNonCalComEvent: CalendarSubscriptionEventItem = {
 const mockCancelledEvent: CalendarSubscriptionEventItem = {
   ...mockCalComEvent,
   id: "event-3",
-  iCalUID: "cancelled-booking-uid@cal.com",
+  iCalUID: "cancelled-booking-uid@kalo",
   status: "cancelled",
 };
 
@@ -156,7 +156,7 @@ describe("CalendarSyncService", () => {
   });
 
   describe("handleEvents", () => {
-    test("should process only Cal.diy events", async () => {
+    test("should process only Kalo events", async () => {
       const events = [mockCalComEvent, mockNonCalComEvent, mockCancelledEvent];
 
       mockBookingRepository.findBookingByUidWithEventType = vi
@@ -175,7 +175,7 @@ describe("CalendarSyncService", () => {
       });
     });
 
-    test("should return early when no Cal.diy events", async () => {
+    test("should return early when no Kalo events", async () => {
       const events = [mockNonCalComEvent];
 
       await service.handleEvents(mockSelectedCalendar, events);
@@ -204,10 +204,10 @@ describe("CalendarSyncService", () => {
       });
     });
 
-    test("should handle default Cal.diy iCalUID", async () => {
+    test("should handle default Kalo iCalUID", async () => {
       const eventWithCalDiyUID: CalendarSubscriptionEventItem = {
         ...mockCalComEvent,
-        iCalUID: "test-booking-uid@Cal.diy",
+        iCalUID: "test-booking-uid@Kalo",
       };
 
       mockBookingRepository.findBookingByUidWithEventType = vi.fn().mockResolvedValue(mockBooking);
@@ -267,7 +267,7 @@ describe("CalendarSyncService", () => {
     test("should return early when booking UID is malformed", async () => {
       const eventWithMalformedUID: CalendarSubscriptionEventItem = {
         ...mockCancelledEvent,
-        iCalUID: "@cal.com",
+        iCalUID: "@kalo",
       };
 
       await service.cancelBooking(eventWithMalformedUID, mockSelectedCalendar.userId);
@@ -476,7 +476,7 @@ describe("CalendarSyncService", () => {
     test("should return early when booking UID is malformed", async () => {
       const eventWithMalformedUID: CalendarSubscriptionEventItem = {
         ...mockCalComEvent,
-        iCalUID: "@cal.com",
+        iCalUID: "@kalo",
       };
 
       await service.rescheduleBooking(eventWithMalformedUID, mockSelectedCalendar.userId);

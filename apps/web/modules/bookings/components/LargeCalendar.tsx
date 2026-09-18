@@ -1,17 +1,17 @@
 import { useMemo, useEffect } from "react";
 
-import dayjs from "@calcom/dayjs";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useAvailableTimeSlots } from "@calcom/features/bookings/Booker/hooks/useAvailableTimeSlots";
-import { useBookerTime } from "@calcom/features/bookings/Booker/hooks/useBookerTime";
-import type { BookerEvent } from "@calcom/features/bookings/types";
-import { Calendar } from "@calcom/web/modules/calendars/weeklyview/components/Calendar";
-import type { CalendarEvent } from "@calcom/features/calendars/weeklyview/types/events";
-import { localStorage } from "@calcom/lib/webstorage";
+import dayjs from "@kalo/dayjs";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useAvailableTimeSlots } from "@kalo/features/bookings/Booker/hooks/useAvailableTimeSlots";
+import { useBookerTime } from "@kalo/features/bookings/Booker/hooks/useBookerTime";
+import type { BookerEvent } from "@kalo/features/bookings/types";
+import { Calendar } from "@kalo/web/modules/calendars/weeklyview/components/Calendar";
+import type { CalendarEvent } from "@kalo/features/calendars/weeklyview/types/events";
+import { localStorage } from "@kalo/lib/webstorage";
 
-import type { useScheduleForEventReturnType } from "@calcom/web/modules/schedules/hooks/useEvent";
-import { getQueryParam } from "@calcom/features/bookings/Booker/utils/query-param";
-import { useOverlayCalendarStore } from "@calcom/features/bookings/Booker/components/OverlayCalendar/store";
+import type { useScheduleForEventReturnType } from "@kalo/web/modules/schedules/hooks/useEvent";
+import { getQueryParam } from "@kalo/features/bookings/Booker/utils/query-param";
+import { useOverlayCalendarStore } from "@kalo/features/bookings/Booker/components/OverlayCalendar/store";
 
 export const LargeCalendar = ({
   extraDays,

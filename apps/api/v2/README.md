@@ -1,4 +1,4 @@
-Cal.diy api v2 is a [Nest.js](https://github.com/nestjs/nest) project.
+Kalo api v2 is a [Nest.js](https://github.com/nestjs/nest) project.
 
 # Local development
 This setup will allow you to develop with api v2 locally. If you want to also test atoms locally with platform's example app,
@@ -25,7 +25,7 @@ id, logo, theme, licenseKey, agreedLicenseAt:-
 ```
 Then in the `apps/api/v2/.env` set the license key environment variable:
 ```
-CALCOM_LICENSE_KEY="00000000-0000-0000-0000-000000000000"
+KALO_LICENSE_KEY="00000000-0000-0000-0000-000000000000"
 ```
 6. (optional) Prisma setup and database seeding - if you need to setup and seed database you can do it:
 ```bash

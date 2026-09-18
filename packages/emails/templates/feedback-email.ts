@@ -1,4 +1,4 @@
-import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
+import { EMAIL_FROM_NAME } from "@kalo/lib/constants";
 
 import renderEmail from "../src/renderEmail";
 import BaseEmail from "./_base-email";

@@ -6,19 +6,19 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { findUniqueDelegationCalendarCredential } from "@calcom/app-store/delegationCredential";
+import { findUniqueDelegationCalendarCredential } from "@kalo/app-store/delegationCredential";
 import {
   createGoogleCalendarServiceWithGoogleType,
   type GoogleCalendar,
-} from "@calcom/app-store/googlecalendar/lib/CalendarService";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { CalendarAppDelegationCredentialInvalidGrantError } from "@calcom/lib/CalendarAppError";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { SelectedCalendarRepository } from "@calcom/features/selectedCalendar/repositories/SelectedCalendarRepository";
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
-import type { Ensure } from "@calcom/types/utils";
+} from "@kalo/app-store/googlecalendar/lib/CalendarService";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { CalendarAppDelegationCredentialInvalidGrantError } from "@kalo/lib/CalendarAppError";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { SelectedCalendarRepository } from "@kalo/features/selectedCalendar/repositories/SelectedCalendarRepository";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
+import type { Ensure } from "@kalo/types/utils";
 
 import { defaultResponderForAppDir } from "../../defaultResponderForAppDir";
 

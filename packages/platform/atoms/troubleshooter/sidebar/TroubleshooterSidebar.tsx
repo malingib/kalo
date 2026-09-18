@@ -1,5 +1,5 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Skeleton } from "@calcom/ui/components/skeleton";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Skeleton } from "@kalo/ui/components/skeleton";
 import { CalendarToggleContainer } from "./CalendarToggleContainer";
 import { EventScheduleItem } from "./EventScheduleItem";
 import { EventTypeSelect } from "./EventTypeSelect";

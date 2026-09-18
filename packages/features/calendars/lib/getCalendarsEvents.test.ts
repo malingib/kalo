@@ -1,19 +1,19 @@
-import "@calcom/testing/lib/__mocks__/prisma";
+import "@kalo/testing/lib/__mocks__/prisma";
 
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import logger from "@calcom/lib/logger";
-import type { SelectedCalendar } from "@calcom/prisma/client";
-import type { EventBusyDate } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService, CredentialPayload } from "@calcom/types/Credential";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import logger from "@kalo/lib/logger";
+import type { SelectedCalendar } from "@kalo/prisma/client";
+import type { EventBusyDate } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService, CredentialPayload } from "@kalo/types/Credential";
 
 import getCalendarsEvents, {
   getCalendarsEventsWithTimezones,
   filterSelectedCalendarsForCredential,
 } from "./getCalendarsEvents";
 
-vi.mock("@calcom/lib/crypto", () => ({
+vi.mock("@kalo/lib/crypto", () => ({
   symmetricDecrypt: vi.fn(),
 }));
 
@@ -24,7 +24,7 @@ const mockGoogleGetAvailabilityWithTimeZones = vi.fn().mockResolvedValue([]);
 const mockOfficeGetAvailability = vi.fn().mockResolvedValue([]);
 const mockOfficeGetAvailabilityWithTimeZones = vi.fn().mockResolvedValue([]);
 
-vi.mock("@calcom/app-store/calendar.services.generated", () => {
+vi.mock("@kalo/app-store/calendar.services.generated", () => {
   return {
     CalendarServiceMap: {
       googlecalendar: Promise.resolve({

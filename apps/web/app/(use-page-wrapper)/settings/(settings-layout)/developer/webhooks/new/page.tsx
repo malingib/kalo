@@ -1,9 +1,9 @@
 import { createRouterCaller } from "app/_trpc/context";
 import { _generateMetadata } from "app/_utils";
 
-import { APP_NAME } from "@calcom/lib/constants";
-import { appsRouter } from "@calcom/trpc/server/routers/viewer/apps/_router";
-import { webhookRouter } from "@calcom/trpc/server/routers/viewer/webhook/_router";
+import { APP_NAME } from "@kalo/lib/constants";
+import { appsRouter } from "@kalo/trpc/server/routers/viewer/apps/_router";
+import { webhookRouter } from "@kalo/trpc/server/routers/viewer/webhook/_router";
 
 import { NewWebhookView } from "~/webhooks/views/webhook-new-view";
 

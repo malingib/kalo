@@ -5,7 +5,7 @@ import {
   SkeletonButton,
   SkeletonContainer,
   SkeletonText,
-} from "@calcom/ui/components/skeleton";
+} from "@kalo/ui/components/skeleton";
 
 export default function Loading() {
   return (

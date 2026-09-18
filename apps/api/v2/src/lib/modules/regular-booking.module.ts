@@ -1,4 +1,4 @@
-import { getWebhookProducer } from "@calcom/platform-libraries/bookings";
+import { getWebhookProducer } from "@kalo/platform-libraries/bookings";
 import { Module, Scope } from "@nestjs/common";
 import { WEBHOOK_PRODUCER } from "./regular-booking.tokens";
 import { Logger } from "@/lib/logger.bridge";

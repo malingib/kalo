@@ -1,4 +1,4 @@
-import { RESCHEDULED_BY_DOCS } from "@calcom/platform-types";
+import { RESCHEDULED_BY_DOCS } from "@kalo/platform-types";
 import { ApiHideProperty, ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
 import {

@@ -5,8 +5,8 @@ import { Catch, HttpStatus, Logger } from "@nestjs/common";
 import { Request } from "express";
 import { ZodError } from "zod";
 
-import { BAD_REQUEST, ERROR_STATUS } from "@calcom/platform-constants";
-import { Response } from "@calcom/platform-types";
+import { BAD_REQUEST, ERROR_STATUS } from "@kalo/platform-constants";
+import { Response } from "@kalo/platform-types";
 
 @Catch(ZodError)
 export class ZodExceptionFilter implements ExceptionFilter {

@@ -3,8 +3,8 @@ import stringify from "qs-stringify";
 import type Stripe from "stripe";
 import { z } from "zod";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
 
 import { getStripeAppKeys } from "../lib/getStripeAppKeys";
 

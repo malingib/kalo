@@ -1,6 +1,6 @@
 # DataTable System Guide
 
-A comprehensive guide to using Cal.diy's DataTable system for building powerful, filterable, and paginated data tables.
+A comprehensive guide to using Kalo's DataTable system for building powerful, filterable, and paginated data tables.
 
 ## Table of Contents
 
@@ -101,8 +101,8 @@ DataTableProvider (Context)
 ### Basic Setup
 
 ```tsx
-// Types and utilities stay in @calcom/features/data-table
-import { ColumnFilterType } from "@calcom/features/data-table";
+// Types and utilities stay in @kalo/features/data-table
+import { ColumnFilterType } from "@kalo/features/data-table";
 
 // Hooks, contexts, and providers are in apps/web/modules/data-table
 // (use ~/data-table/... imports within apps/web)

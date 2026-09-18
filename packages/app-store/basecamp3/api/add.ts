@@ -1,10 +1,10 @@
 import type { NextApiRequest } from "next";
 import { stringify } from "node:querystring";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { defaultHandler } from "@calcom/lib/server/defaultHandler";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import prisma from "@calcom/prisma";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { defaultHandler } from "@kalo/lib/server/defaultHandler";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import prisma from "@kalo/prisma";
 
 import { getBasecampKeys } from "../lib/getBasecampKeys";
 

@@ -1,7 +1,7 @@
-import type { ChildrenEventType } from "@calcom/features/eventtypes/components/ChildrenEventTypeSelect";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { ConfirmationDialogContent, Dialog } from "@calcom/ui/components/dialog";
+import type { ChildrenEventType } from "@kalo/features/eventtypes/components/ChildrenEventTypeSelect";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { ConfirmationDialogContent, Dialog } from "@kalo/ui/components/dialog";
 
 interface ManagedEventDialogProps {
   slugExistsChildrenDialogOpen: ChildrenEventType[];

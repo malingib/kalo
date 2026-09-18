@@ -1,5 +1,5 @@
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import type { LocationCustomClassNames } from "@calcom/features/eventtypes/components/locations/types";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import type { LocationCustomClassNames } from "@kalo/features/eventtypes/components/locations/types";
 import type {
   EventTypeSetupProps,
   FormValues,
@@ -7,15 +7,15 @@ import type {
   LocationFormValues,
   SelectClassNames,
   SettingsToggleClassNames,
-} from "@calcom/features/eventtypes/lib/types";
-import { MAX_EVENT_DURATION_MINUTES, MIN_EVENT_DURATION_MINUTES } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { md } from "@calcom/lib/markdownIt";
-import { slugify } from "@calcom/lib/slugify";
-import turndown from "@calcom/lib/turndownService";
-import { SchedulingType } from "@calcom/prisma/enums";
-import classNames from "@calcom/ui/classNames";
-import { Editor } from "@calcom/ui/components/editor";
+} from "@kalo/features/eventtypes/lib/types";
+import { MAX_EVENT_DURATION_MINUTES, MIN_EVENT_DURATION_MINUTES } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { md } from "@kalo/lib/markdownIt";
+import { slugify } from "@kalo/lib/slugify";
+import turndown from "@kalo/lib/turndownService";
+import { SchedulingType } from "@kalo/prisma/enums";
+import classNames from "@kalo/ui/classNames";
+import { Editor } from "@kalo/ui/components/editor";
 import {
   CheckboxField,
   Label,
@@ -23,11 +23,11 @@ import {
   SettingsToggle,
   TextAreaField,
   TextField,
-} from "@calcom/ui/components/form";
-import { Skeleton } from "@calcom/ui/components/skeleton";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import HostLocations from "@calcom/web/modules/event-types/components/locations/HostLocations";
-import Locations from "@calcom/web/modules/event-types/components/locations/Locations";
+} from "@kalo/ui/components/form";
+import { Skeleton } from "@kalo/ui/components/skeleton";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import HostLocations from "@kalo/web/modules/event-types/components/locations/HostLocations";
+import Locations from "@kalo/web/modules/event-types/components/locations/Locations";
 import { useState } from "react";
 import type { Control, FormState, UseFormGetValues, UseFormSetValue } from "react-hook-form";
 import { Controller, useFormContext } from "react-hook-form";

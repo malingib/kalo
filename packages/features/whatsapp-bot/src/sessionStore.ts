@@ -1,5 +1,5 @@
-import { prisma } from "@calcom/prisma";
-import type { Prisma, PrismaClient } from "@calcom/prisma/client";
+import { prisma } from "@kalo/prisma";
+import type { Prisma, PrismaClient } from "@kalo/prisma/client";
 import type { UserSessionContext } from "./types";
 
 const whatsAppSessionSelect = {

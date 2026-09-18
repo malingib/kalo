@@ -9,9 +9,9 @@ import { ConfigService } from "@nestjs/config";
 import { Reflector } from "@nestjs/core";
 import { getToken } from "next-auth/jwt";
 
-import { X_CAL_CLIENT_ID } from "@calcom/platform-constants";
-import { hasPermissions } from "@calcom/platform-utils";
-import type { PlatformOAuthClient } from "@calcom/prisma/client";
+import { X_CAL_CLIENT_ID } from "@kalo/platform-constants";
+import { hasPermissions } from "@kalo/platform-utils";
+import type { PlatformOAuthClient } from "@kalo/prisma/client";
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {

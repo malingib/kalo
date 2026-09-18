@@ -1,4 +1,4 @@
-import { OAuthClientStatus, OAuthClientType } from "@calcom/prisma/enums";
+import { OAuthClientStatus, OAuthClientType } from "@kalo/prisma/enums";
 import { TestingModule } from "@nestjs/testing";
 import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";

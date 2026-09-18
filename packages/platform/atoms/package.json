@@ -1,13 +1,13 @@
 {
-  "name": "@calcom/atoms",
+  "name": "@kalo/atoms",
   "sideEffects": false,
   "type": "module",
   "description": "Customizable UI components to integrate scheduling into your product.",
-  "authors": "Cal.com, Inc.",
+  "authors": "Kalo, Inc.",
   "version": "2.3.3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/calcom/cal.diy"
+    "url": "https://github.com/calcom/kalo"
   },
   "scripts": {
     "dev": "yarn vite build --watch & npx postcss ./globals.css -o ./globals.min.css --watch",
@@ -18,7 +18,7 @@
     "dev-off": "git checkout -- package.json vite.config.ts"
   },
   "devDependencies": {
-    "@calcom/i18n": "workspace:*",
+    "@kalo/i18n": "workspace:*",
     "@rollup/plugin-node-resolve": "15.0.1",
     "@tailwindcss/cli": "4.1.16",
     "@tailwindcss/postcss": "4.1.15",

@@ -1,25 +1,25 @@
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { PrismaBookingAttendeeRepository } from "@calcom/features/bookings/repositories/PrismaBookingAttendeeRepository";
-import { prisma } from "@calcom/prisma";
-import { BookingStatus, CreationSource } from "@calcom/prisma/enums";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { PrismaBookingAttendeeRepository } from "@kalo/features/bookings/repositories/PrismaBookingAttendeeRepository";
+import { prisma } from "@kalo/prisma";
+import { BookingStatus, CreationSource } from "@kalo/prisma/enums";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockUpdateCalendarAttendees = vi.fn().mockResolvedValue({});
-vi.mock("@calcom/features/bookings/lib/EventManager", () => ({
+vi.mock("@kalo/features/bookings/lib/EventManager", () => ({
   default: class MockEventManager {
     updateCalendarAttendees = mockUpdateCalendarAttendees;
   },
 }));
 
 const mockSendEmail = vi.fn().mockResolvedValue(undefined);
-vi.mock("@calcom/emails/templates/attendee-cancelled-email", () => ({
+vi.mock("@kalo/emails/templates/attendee-cancelled-email", () => ({
   default: class MockAttendeeCancelledEmail {
     constructor() {}
     sendEmail = mockSendEmail;
   },
 }));
 
-vi.mock("@calcom/trpc/server/routers/viewer/bookings/addGuests.handler", async (importOriginal) => {
+vi.mock("@kalo/trpc/server/routers/viewer/bookings/addGuests.handler", async (importOriginal) => {
   const actual = (await importOriginal()) as Record<string, unknown>;
   return {
     ...actual,

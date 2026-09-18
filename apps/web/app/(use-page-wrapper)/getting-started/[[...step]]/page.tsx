@@ -4,11 +4,11 @@ import { _generateMetadata } from "app/_utils";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { APP_NAME } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
-import { meRouter } from "@calcom/trpc/server/routers/viewer/me/_router";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { APP_NAME } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
+import { meRouter } from "@kalo/trpc/server/routers/viewer/me/_router";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

@@ -16,18 +16,18 @@ import {
   getBooker,
   getScenarioData,
   mockCalendar,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
-import { expectBookingToBeInDatabase } from "@calcom/testing/lib/bookingScenario/expects";
-import { getMockRequestDataForDynamicGroupBooking } from "@calcom/testing/lib/bookingScenario/getMockRequestDataForBooking";
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
+import { expectBookingToBeInDatabase } from "@kalo/testing/lib/bookingScenario/expects";
+import { getMockRequestDataForDynamicGroupBooking } from "@kalo/testing/lib/bookingScenario/getMockRequestDataForBooking";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
 
 import type { Request, Response } from "express";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { describe, expect } from "vitest";
 
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { BookingStatus } from "@calcom/prisma/enums";
-import { test } from "@calcom/testing/lib/fixtures/fixtures";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { BookingStatus } from "@kalo/prisma/enums";
+import { test } from "@kalo/testing/lib/fixtures/fixtures";
 
 import { getNewBookingHandler } from "./getNewBookingHandler";
 

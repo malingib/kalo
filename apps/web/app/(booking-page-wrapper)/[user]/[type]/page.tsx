@@ -1,5 +1,5 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { loadTranslations } from "@calcom/i18n/server";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { loadTranslations } from "@kalo/i18n/server";
 import { buildLegacyCtx, decodeParams } from "@lib/buildLegacyCtx";
 import { getServerSideProps } from "@server/lib/[user]/[type]/getServerSideProps";
 import type { PageProps } from "app/_types";

@@ -1,8 +1,8 @@
 import { expect } from "@playwright/test";
 
-import { getEmbedIframe } from "@calcom/embed-core/playwright/lib/testUtils";
+import { getEmbedIframe } from "@kalo/embed-core/playwright/lib/testUtils";
  
-import { test } from "@calcom/web/playwright/lib/fixtures";
+import { test } from "@kalo/web/playwright/lib/fixtures";
 
 test.describe("React Embed", () => {
   test.describe("Inline", () => {

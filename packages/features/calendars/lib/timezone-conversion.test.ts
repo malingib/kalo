@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { convertOffsetToIanaTimezone, normalizeTimezone } from "./timezone-conversion";
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: () => ({
       info: vi.fn(),

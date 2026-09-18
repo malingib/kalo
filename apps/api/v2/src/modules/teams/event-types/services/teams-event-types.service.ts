@@ -24,8 +24,8 @@ type TransformedUpdateTeamEventTypeInput = Partial<BaseTransformedEventType> & {
   id?: number;
 };
 
-import { createEventType, updateEventType } from "@calcom/platform-libraries/event-types";
-import type { SortOrderType } from "@calcom/platform-types";
+import { createEventType, updateEventType } from "@kalo/platform-libraries/event-types";
+import type { SortOrderType } from "@kalo/platform-types";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { TeamsEventTypesRepository } from "@/modules/teams/event-types/teams-event-types.repository";

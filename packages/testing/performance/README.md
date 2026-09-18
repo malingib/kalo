@@ -1,11 +1,11 @@
-# Cal.diy Booking Flow Performance Test Suite
+# Kalo Booking Flow Performance Test Suite
 
-This directory contains performance tests for Cal.diy's booking flow using [Grafana k6](https://k6.io/). The tests are designed to measure the performance of the booking flow under various load conditions, including high-volume scenarios with tens of thousands of requests per minute.
+This directory contains performance tests for Kalo's booking flow using [Grafana k6](https://k6.io/). The tests are designed to measure the performance of the booking flow under various load conditions, including high-volume scenarios with tens of thousands of requests per minute.
 
 ## Prerequisites
 
 - [k6](https://k6.io/docs/getting-started/installation/) installed on your machine
-- Cal.diy running locally or a deployed instance to test against
+- Kalo running locally or a deployed instance to test against
 
 ## Test Structure
 
@@ -63,7 +63,7 @@ This script automatically detects your operating system (Linux or macOS) and set
 #### Prerequisites
 
 - Docker installed and running
-- Cal.diy running locally (default: `http://localhost:3000`)
+- Kalo running locally (default: `http://localhost:3000`)
 
 #### Usage
 
@@ -116,7 +116,7 @@ Supported env vars:
 
 ## Test Scenarios
 
-The test suite focuses specifically on the booking flow, which is the most critical user journey in Cal.diy:
+The test suite focuses specifically on the booking flow, which is the most critical user journey in Kalo:
 
 1. **Booking Page View**: Tests the performance of loading and viewing booking pages
 

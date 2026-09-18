@@ -4,16 +4,16 @@ import {
   currencyOptions,
   currencySymbols,
   isAcceptedCurrencyCode,
-} from "@calcom/app-store/paypal/lib/currencyOptions";
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
+} from "@kalo/app-store/paypal/lib/currencyOptions";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
 import {
   convertToSmallestCurrencyUnit,
   convertFromSmallestToPresentableCurrencyUnit,
-} from "@calcom/lib/currencyConversions";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Alert } from "@calcom/ui/components/alert";
-import { Select } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
+} from "@kalo/lib/currencyConversions";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Alert } from "@kalo/ui/components/alert";
+import { Select } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
 
 import { PaypalPaymentOptions as paymentOptions } from "../zod";
 

@@ -11,7 +11,7 @@ This is the entry point for migrating to `@coss/ui`. It covers shared guidance, 
 
 ## Quick Checklist
 
-- Identify all `@calcom/ui` usages in the scope of the migration.
+- Identify all `@kalo/ui` usages in the scope of the migration.
 - Replace Radix `asChild` with Base UI `render` where needed.
 - Update naming differences (`*Content` → `*Popup`/`*Panel`).
 - Validate dialog, menu, and popover behavior (portals and focus).
@@ -80,7 +80,7 @@ Error: Maximum update depth exceeded. This can happen when a component repeatedl
 
 **Root cause**: Components wrapped in `next/dynamic` have an async mounting lifecycle. When combined with Base UI Dialog's portal mounting, this creates a conflict that triggers infinite re-renders.
 
-For example, `DateRangePicker` from `@calcom/ui/components/form` is lazy-loaded:
+For example, `DateRangePicker` from `@kalo/ui/components/form` is lazy-loaded:
 
 ```ts
 // packages/ui/components/form/date-range-picker/index.ts
@@ -100,10 +100,10 @@ Then import directly:
 
 ```tsx
 // Instead of:
-import { DateRangePicker } from "@calcom/ui/components/form";
+import { DateRangePicker } from "@kalo/ui/components/form";
 
 // Use:
-import { DatePickerWithRange as DateRangePicker } from "@calcom/ui/components/form/date-range-picker/DateRangePicker";
+import { DatePickerWithRange as DateRangePicker } from "@kalo/ui/components/form/date-range-picker/DateRangePicker";
 ```
 
 **Note**: Regular Radix components (like `SettingsToggle`, `DatePicker`, etc.) work fine inside Base UI Dialog as long as they're not lazy-loaded.

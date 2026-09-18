@@ -5,7 +5,7 @@ import { ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
 import { IsEnum, IsIn, IsNumber, IsObject, IsOptional, IsString, IsTimeZone, IsUrl } from "class-validator";
 
-import { ValidateMetadata } from "@calcom/platform-types";
+import { ValidateMetadata } from "@kalo/platform-types";
 
 export class UpdateManagedUserInput {
   @IsString()

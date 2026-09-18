@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-import type { PrismaClient } from "@calcom/prisma";
+import type { PrismaClient } from "@kalo/prisma";
 
 import { generateUniqueAPIKey as generateHashedApiKey } from "../lib/apiKeys";
 
@@ -8,7 +8,7 @@ export class PrismaApiKeyRepository {
   constructor(private prismaClient: PrismaClient) {}
 
   static async withGlobalPrisma() {
-    return new PrismaApiKeyRepository((await import("@calcom/prisma")).prisma);
+    return new PrismaApiKeyRepository((await import("@kalo/prisma")).prisma);
   }
 
   async findByHashedKey(hashedKey: string) {

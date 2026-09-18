@@ -1,14 +1,14 @@
 import { type TFunction } from "i18next";
 import { cookies, headers } from "next/headers";
 
-import { getLocale } from "@calcom/features/auth/lib/getLocale";
-import type { AppImageProps, MeetingImageProps } from "@calcom/lib/OgImages";
-import { constructAppImage, constructGenericImage, constructMeetingImage } from "@calcom/lib/OgImages";
-import { IS_CALCOM, WEBAPP_URL, APP_NAME, SEO_IMG_OGIMG, CAL_URL } from "@calcom/lib/constants";
-import { getCalcomUrl } from "@calcom/lib/getCalcomUrl";
-import { buildCanonical } from "@calcom/lib/next-seo.config";
-import { getTranslation } from "@calcom/i18n/server";
-import { truncateOnWord } from "@calcom/lib/text";
+import { getLocale } from "@kalo/features/auth/lib/getLocale";
+import type { AppImageProps, MeetingImageProps } from "@kalo/lib/OgImages";
+import { constructAppImage, constructGenericImage, constructMeetingImage } from "@kalo/lib/OgImages";
+import { IS_CALCOM, WEBAPP_URL, APP_NAME, SEO_IMG_OGIMG, CAL_URL } from "@kalo/lib/constants";
+import { getCalcomUrl } from "@kalo/lib/getCalcomUrl";
+import { buildCanonical } from "@kalo/lib/next-seo.config";
+import { getTranslation } from "@kalo/i18n/server";
+import { truncateOnWord } from "@kalo/lib/text";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

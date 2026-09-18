@@ -1,20 +1,20 @@
-import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import type { CredentialDataWithTeamName } from "@calcom/app-store/utils";
+import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import type { CredentialDataWithTeamName } from "@kalo/app-store/utils";
 import {
   cleanIntegrationKeys,
   getCalendarCredentials,
   getConnectedCalendars,
-} from "@calcom/features/calendars/lib/CalendarManager";
-import { DestinationCalendarRepository } from "@calcom/features/calendars/repositories/DestinationCalendarRepository";
-import { isDelegationCredential } from "@calcom/lib/delegationCredential";
-import logger from "@calcom/lib/logger";
-import { SelectedCalendarRepository } from "@calcom/features/selectedCalendar/repositories/SelectedCalendarRepository";
-import type { PrismaClient } from "@calcom/prisma";
-import prisma from "@calcom/prisma";
-import type { DestinationCalendar, SelectedCalendar, User } from "@calcom/prisma/client";
-import { AppCategories } from "@calcom/prisma/enums";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import type { IntegrationCalendar } from "@calcom/types/Calendar";
+} from "@kalo/features/calendars/lib/CalendarManager";
+import { DestinationCalendarRepository } from "@kalo/features/calendars/repositories/DestinationCalendarRepository";
+import { isDelegationCredential } from "@kalo/lib/delegationCredential";
+import logger from "@kalo/lib/logger";
+import { SelectedCalendarRepository } from "@kalo/features/selectedCalendar/repositories/SelectedCalendarRepository";
+import type { PrismaClient } from "@kalo/prisma";
+import prisma from "@kalo/prisma";
+import type { DestinationCalendar, SelectedCalendar, User } from "@kalo/prisma/client";
+import { AppCategories } from "@kalo/prisma/enums";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import type { IntegrationCalendar } from "@kalo/types/Calendar";
 
 const log = logger.getSubLogger({ prefix: ["getConnectedDestinationCalendarsAndEnsureDefaultsInDb"] });
 
@@ -437,5 +437,5 @@ export async function getConnectedDestinationCalendarsAndEnsureDefaultsInDb({
   };
 }
 
-// Legacy export for @calcom/platform-libraries
+// Legacy export for @kalo/platform-libraries
 export const getConnectedDestinationCalendars = getConnectedDestinationCalendarsAndEnsureDefaultsInDb;

@@ -1,18 +1,18 @@
-import { getCalendar } from "@calcom/app-store/_utils/getCalendar";
-import { MeetLocationType } from "@calcom/app-store/locations";
-import getApps from "@calcom/app-store/utils";
-import dayjs from "@calcom/dayjs";
+import { getCalendar } from "@kalo/app-store/_utils/getCalendar";
+import { MeetLocationType } from "@kalo/app-store/locations";
+import getApps from "@kalo/app-store/utils";
+import dayjs from "@kalo/dayjs";
 import getCalendarsEvents, {
   getCalendarsEventsWithTimezones,
-} from "@calcom/features/calendars/lib/getCalendarsEvents";
-import { getRichDescription, getUid } from "@calcom/lib/CalEventParser";
-import { CalendarAppDelegationCredentialError } from "@calcom/lib/CalendarAppError";
-import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@calcom/lib/constants";
-import { buildNonDelegationCredentials } from "@calcom/lib/delegationCredential";
-import { formatCalEvent } from "@calcom/lib/formatCalendarEvent";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeCalendarEvent, getPiiFreeCredential } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
+} from "@kalo/features/calendars/lib/getCalendarsEvents";
+import { getRichDescription, getUid } from "@kalo/lib/CalEventParser";
+import { CalendarAppDelegationCredentialError } from "@kalo/lib/CalendarAppError";
+import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@kalo/lib/constants";
+import { buildNonDelegationCredentials } from "@kalo/lib/delegationCredential";
+import { formatCalEvent } from "@kalo/lib/formatCalendarEvent";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeCalendarEvent, getPiiFreeCredential } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
 import type {
   CalendarEvent,
   CalendarFetchMode,
@@ -21,9 +21,9 @@ import type {
   IntegrationCalendar,
   NewCalendarEventType,
   SelectedCalendar,
-} from "@calcom/types/Calendar";
-import type { CredentialForCalendarService, CredentialPayload } from "@calcom/types/Credential";
-import type { EventResult } from "@calcom/types/EventManager";
+} from "@kalo/types/Calendar";
+import type { CredentialForCalendarService, CredentialPayload } from "@kalo/types/Credential";
+import type { EventResult } from "@kalo/types/EventManager";
 import { sortBy } from "lodash";
 
 const log = logger.getSubLogger({ prefix: ["CalendarManager"] });
@@ -410,7 +410,7 @@ export const createEvent = async (
             safeStringify({ calEvent: getPiiFreeCalendarEvent(calEvent) })
           );
           // @TODO: This code will be off till we can investigate an error with it
-          //https://github.com/calcom/cal.diy/issues/3949
+          //https://github.com/calcom/kalo/issues/3949
           // await sendBrokenIntegrationEmail(calEvent, "calendar");
           return undefined;
         })
@@ -492,7 +492,7 @@ export const updateEvent = async (
           })
           .catch(async (e: { calError: string }) => {
             // @TODO: This code will be off till we can investigate an error with it
-            // @see https://github.com/calcom/cal.diy/issues/3949
+            // @see https://github.com/calcom/kalo/issues/3949
             // await sendBrokenIntegrationEmail(calEvent, "calendar");
             log.error(
               "updateEvent failed",

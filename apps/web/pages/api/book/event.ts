@@ -1,17 +1,17 @@
 import process from "node:process";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { getRegularBookingService } from "@calcom/features/bookings/di/RegularBookingService.container";
-import { BotDetectionService } from "@calcom/features/bot-detection";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import getIP from "@calcom/lib/getIP";
-import { checkCfTurnstileToken } from "@calcom/lib/server/checkCfTurnstileToken";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import { piiHasher } from "@calcom/lib/server/PiiHasher";
-import type { TraceContext } from "@calcom/lib/tracing";
-import { prisma } from "@calcom/prisma";
-import { CreationSource } from "@calcom/prisma/enums";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { getRegularBookingService } from "@kalo/features/bookings/di/RegularBookingService.container";
+import { BotDetectionService } from "@kalo/features/bot-detection";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import getIP from "@kalo/lib/getIP";
+import { checkCfTurnstileToken } from "@kalo/lib/server/checkCfTurnstileToken";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import { piiHasher } from "@kalo/lib/server/PiiHasher";
+import type { TraceContext } from "@kalo/lib/tracing";
+import { prisma } from "@kalo/prisma";
+import { CreationSource } from "@kalo/prisma/enums";
 import type { NextApiRequest } from "next";
 
 async function handler(req: NextApiRequest & { userId?: number; traceContext: TraceContext }) {

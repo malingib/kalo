@@ -16,7 +16,7 @@ vi.mock("tsdav", () => ({
   getBasicAuthHeaders: vi.fn().mockReturnValue({}),
 }));
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: () => ({
       debug: vi.fn(),
@@ -26,7 +26,7 @@ vi.mock("@calcom/lib/logger", () => ({
   },
 }));
 
-vi.mock("@calcom/lib/crypto", () => ({
+vi.mock("@kalo/lib/crypto", () => ({
   symmetricDecrypt: vi.fn().mockImplementation((text) => {
     if (typeof text === "object") {
       return JSON.stringify(text);
@@ -40,7 +40,7 @@ vi.mock("./CalEventParser", () => ({
   getRichDescription: vi.fn().mockReturnValue("Test Description"),
 }));
 
-import type { CalendarServiceEvent } from "@calcom/types/Calendar";
+import type { CalendarServiceEvent } from "@kalo/types/Calendar";
 import BaseCalendarService from "./CalendarService";
 
 const createMockEvent = (overrides: Partial<CalendarServiceEvent> = {}): CalendarServiceEvent => ({
@@ -718,7 +718,7 @@ describe("CalendarService - SCHEDULE-AGENT injection", () => {
 
     it("should preserve other iCal properties unchanged", async () => {
       const service = new TestCalendarService();
-      const mockIcsOutput = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cal.diy//NONSGML//EN\r\nBEGIN:VEVENT\r\nATTENDEE;CN=Guest:mailto:guest@example.com\r\nDTSTART:20230101T100000Z\r\nDTEND:20230101T110000Z\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+      const mockIcsOutput = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Kalo//NONSGML//EN\r\nBEGIN:VEVENT\r\nATTENDEE;CN=Guest:mailto:guest@example.com\r\nDTSTART:20230101T100000Z\r\nDTEND:20230101T110000Z\r\nEND:VEVENT\r\nEND:VCALENDAR`;
       vi.mocked(createIcsEvent).mockReturnValue({
         error: null as unknown as Error,
         value: mockIcsOutput,
@@ -732,7 +732,7 @@ describe("CalendarService - SCHEDULE-AGENT injection", () => {
       const iCalString = calledArg.iCalString;
 
       expect(iCalString).toContain("VERSION:2.0");
-      expect(iCalString).toContain("PRODID:-//Cal.diy//NONSGML//EN");
+      expect(iCalString).toContain("PRODID:-//Kalo//NONSGML//EN");
     });
 
     it("should handle empty iCalString gracefully", async () => {

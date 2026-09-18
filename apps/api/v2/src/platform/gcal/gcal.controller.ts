@@ -28,7 +28,7 @@ import { ApiExcludeController } from "@nestjs/swagger";
 import { ApiOperation } from "@nestjs/swagger";
 import { Request } from "express";
 
-import { APPS_READ, GOOGLE_CALENDAR_TYPE, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { APPS_READ, GOOGLE_CALENDAR_TYPE, SUCCESS_STATUS } from "@kalo/platform-constants";
 
 const CALENDAR_SCOPES = [
   "https://www.googleapis.com/auth/calendar.readonly",

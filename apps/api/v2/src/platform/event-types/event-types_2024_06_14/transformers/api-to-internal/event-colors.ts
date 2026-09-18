@@ -1,7 +1,7 @@
 import type {
   CreateEventTypeInput_2024_06_14,
   EventTypeColorsTransformedSchema,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export function transformEventColorsApiToInternal(
   inputEventTypeColors: CreateEventTypeInput_2024_06_14["color"]

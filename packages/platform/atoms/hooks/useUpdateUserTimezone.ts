@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { V2_ENDPOINTS } from "@calcom/platform-constants";
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { ApiResponse, UserResponse } from "@calcom/platform-types";
+import { V2_ENDPOINTS } from "@kalo/platform-constants";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { ApiResponse, UserResponse } from "@kalo/platform-types";
 
 import http from "../lib/http";
 

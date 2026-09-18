@@ -4,16 +4,16 @@ import {
   sendChangeOfEmailVerificationLink,
   sendEmailVerificationCode,
   sendEmailVerificationLink,
-} from "@calcom/emails/auth-email-service";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { sentrySpan } from "@calcom/features/watchlist/lib/telemetry";
-import { checkIfEmailIsBlockedInWatchlistController } from "@calcom/features/watchlist/operations/check-if-email-in-watchlist.controller";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { getTranslation } from "@calcom/i18n/server";
-import { hashEmail } from "@calcom/lib/server/PiiHasher";
-import { prisma } from "@calcom/prisma";
+} from "@kalo/emails/auth-email-service";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { sentrySpan } from "@kalo/features/watchlist/lib/telemetry";
+import { checkIfEmailIsBlockedInWatchlistController } from "@kalo/features/watchlist/operations/check-if-email-in-watchlist.controller";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { getTranslation } from "@kalo/i18n/server";
+import { hashEmail } from "@kalo/lib/server/PiiHasher";
+import { prisma } from "@kalo/prisma";
 import { totp } from "otplib";
 
 const log = logger.getSubLogger({ prefix: [`[[Auth] `] });

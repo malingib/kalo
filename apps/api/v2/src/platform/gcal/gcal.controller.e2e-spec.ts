@@ -1,4 +1,4 @@
-import type { Credential, PlatformOAuthClient, Team, User } from "@calcom/prisma/client";
+import type { Credential, PlatformOAuthClient, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

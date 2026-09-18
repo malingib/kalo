@@ -1,7 +1,7 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import type { User } from "@calcom/prisma/client";
-import type { UserProfile } from "@calcom/types/UserProfile";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import type { User } from "@kalo/prisma/client";
+import type { UserProfile } from "@kalo/types/UserProfile";
 import { useEffect, useState } from "react";
 import { AvatarGroup } from "./AvatarGroup";
 

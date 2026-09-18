@@ -1,7 +1,7 @@
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import logger from "@calcom/lib/logger";
-import { prisma } from "@calcom/prisma";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import logger from "@kalo/lib/logger";
+import { prisma } from "@kalo/prisma";
 
 const log = logger.getSubLogger({ name: "hideBranding" });
 const userRepository = new UserRepository(prisma);

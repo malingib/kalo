@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
 
 import type { EventTypeAppCardApp } from "../types";
 

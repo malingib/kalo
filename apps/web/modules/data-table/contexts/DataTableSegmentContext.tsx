@@ -6,8 +6,8 @@ import type {
   SegmentIdentifier,
   SystemFilterSegment,
   UseSegments,
-} from "@calcom/features/data-table/lib/types";
-import { SYSTEM_SEGMENT_PREFIX } from "@calcom/features/data-table/lib/types";
+} from "@kalo/features/data-table/lib/types";
+import { SYSTEM_SEGMENT_PREFIX } from "@kalo/features/data-table/lib/types";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useSegmentsNoop } from "../hooks/useSegmentsNoop";
 import { useDataTableState } from "./DataTableStateContext";

@@ -5,16 +5,16 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-import { APP_NAME } from "@calcom/lib/constants";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Button } from "@calcom/ui/components/button";
-import { Select } from "@calcom/ui/components/form";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import useMeQuery from "@kalo/trpc/react/hooks/useMeQuery";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Button } from "@kalo/ui/components/button";
+import { Select } from "@kalo/ui/components/form";
 import { InfoIcon, PlusIcon } from "@coss/ui/icons";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 
 export function Authorize() {
   const { t } = useLocale();

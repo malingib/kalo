@@ -3,8 +3,8 @@
 import { useCallback, useState } from "react";
 import Cropper from "react-easy-crop";
 
-import checkIfItFallbackImage from "@calcom/lib/checkIfItFallbackImage";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import checkIfItFallbackImage from "@kalo/lib/checkIfItFallbackImage";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
 import type { ButtonColor, ButtonProps } from "../button";
 import { Button } from "../button";

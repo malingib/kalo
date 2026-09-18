@@ -10,7 +10,7 @@ type MockDependency = {
 };
 
 // Mock the useLocale hook
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string, values?: Record<string, unknown>) => {
       if (key === "app_is_connected") {
@@ -28,7 +28,7 @@ vi.mock("@calcom/lib/hooks/useLocale", () => ({
 }));
 
 // Mock constants
-vi.mock("@calcom/lib/constants", () => ({
+vi.mock("@kalo/lib/constants", () => ({
   WEBAPP_URL: "http://localhost:3000",
 }));
 

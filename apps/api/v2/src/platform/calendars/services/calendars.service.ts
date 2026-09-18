@@ -1,13 +1,13 @@
-import { APPS_TYPE_ID_MAPPING } from "@calcom/platform-constants";
-import type { ConnectedDestinationCalendars } from "@calcom/platform-libraries";
+import { APPS_TYPE_ID_MAPPING } from "@kalo/platform-constants";
+import type { ConnectedDestinationCalendars } from "@kalo/platform-libraries";
 import {
   type EventBusyDate,
   getBusyCalendarTimes,
   getConnectedDestinationCalendarsAndEnsureDefaultsInDb,
-} from "@calcom/platform-libraries";
-import type { Calendar } from "@calcom/platform-types";
-import type { PrismaClient } from "@calcom/prisma";
-import type { Prisma, User } from "@calcom/prisma/client";
+} from "@kalo/platform-libraries";
+import type { Calendar } from "@kalo/platform-types";
+import type { PrismaClient } from "@kalo/prisma";
+import type { Prisma, User } from "@kalo/prisma/client";
 import {
   Injectable,
   InternalServerErrorException,

@@ -1,5 +1,5 @@
-import type { SortOrderType } from "@calcom/platform-types";
-import type { Prisma } from "@calcom/prisma/client";
+import type { SortOrderType } from "@kalo/platform-types";
+import type { Prisma } from "@kalo/prisma/client";
 import { Injectable } from "@nestjs/common";
 import { InputEventTransformed_2024_06_14 } from "@/platform/event-types/event-types_2024_06_14/transformed";
 import { PrismaReadService } from "@/modules/prisma/prisma-read.service";

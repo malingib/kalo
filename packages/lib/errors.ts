@@ -1,4 +1,4 @@
-import { ErrorCode } from "@calcom/lib/errorCodes";
+import { ErrorCode } from "@kalo/lib/errorCodes";
 
 export class ErrorWithCode extends Error {
   code: ErrorCode;
@@ -27,7 +27,7 @@ export class ErrorWithCode extends Error {
 /**
  * Converts unknown error types to Error objects.
  *
- * @deprecated For server-side code, use `getServerErrorFromUnknown` from `@calcom/lib/server/getServerErrorFromUnknown` instead.
+ * @deprecated For server-side code, use `getServerErrorFromUnknown` from `@kalo/lib/server/getServerErrorFromUnknown` instead.
  * This function should only be used in client-side or isomorphic code (React components, shared utilities).
  *
  * Use this function when:

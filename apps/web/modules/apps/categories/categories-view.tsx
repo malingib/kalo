@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
 import { ArrowLeftIcon, ArrowRightIcon } from "@coss/ui/icons";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 import type { getServerSideProps } from "@lib/apps/categories/getServerSideProps";
 

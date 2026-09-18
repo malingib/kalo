@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getDownloadLinkOfCalVideoByRecordingId } from "@calcom/features/conferencing/lib/videoClient";
-import { verifyVideoToken } from "@calcom/lib/videoTokens";
+import { getDownloadLinkOfCalVideoByRecordingId } from "@kalo/features/conferencing/lib/videoClient";
+import { verifyVideoToken } from "@kalo/lib/videoTokens";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

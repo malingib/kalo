@@ -23,8 +23,8 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, UseGua
 import { ApiHeader, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { plainToClass } from "class-transformer";
 
-import { ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
-import { SkipTakePagination } from "@calcom/platform-types";
+import { ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
+import { SkipTakePagination } from "@kalo/platform-types";
 
 @Controller({
   path: "/v2/verified-resources",

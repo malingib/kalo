@@ -1,6 +1,6 @@
 /**
  * Virtual mocks are required here because:
- * - @calcom/platform-libraries/app-store and @calcom/platform-libraries are workspace packages
+ * - @kalo/platform-libraries/app-store and @kalo/platform-libraries are workspace packages
  *   whose transitive dependencies (prisma, DB connections) cannot be resolved in the Jest
  *   unit-test environment. We mock them to isolate GoogleCalendarService logic.
  * - googleapis-common and @googleapis/calendar are mocked to verify JWT creation params
@@ -13,7 +13,7 @@ const MockJWT = jest.fn().mockImplementation(() => ({
 }));
 const MockCalendar = jest.fn().mockImplementation(() => ({ events: {} }));
 jest.mock(
-  "@calcom/platform-libraries/app-store",
+  "@kalo/platform-libraries/app-store",
   () => ({
     DelegationCredentialRepository: {
       findByIdIncludeSensitiveServiceAccountKey: mockDelegationFindById,
@@ -23,7 +23,7 @@ jest.mock(
   { virtual: true }
 );
 jest.mock(
-  "@calcom/platform-libraries",
+  "@kalo/platform-libraries",
   () => ({
     getBusyCalendarTimes: jest.fn(),
     getConnectedDestinationCalendarsAndEnsureDefaultsInDb: jest.fn(),
@@ -40,7 +40,7 @@ jest.mock("@googleapis/calendar", () => ({
   },
 }));
 
-import { GOOGLE_CALENDAR_TYPE } from "@calcom/platform-constants";
+import { GOOGLE_CALENDAR_TYPE } from "@kalo/platform-constants";
 import { BadRequestException, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { GoogleCalendarService } from "./google-calendar.service";

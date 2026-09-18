@@ -1,4 +1,4 @@
-import { getAdminWatchlistOperationsService } from "@calcom/features/di/watchlist/containers/watchlist";
+import { getAdminWatchlistOperationsService } from "@kalo/features/di/watchlist/containers/watchlist";
 
 import type { TrpcSessionUser } from "../../../../types";
 import type { TDismissReportInputSchema } from "./dismissReport.schema";

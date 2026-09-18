@@ -1,4 +1,4 @@
-import type { App } from "@calcom/types/App";
+import type { App } from "@kalo/types/App";
 
 export const metadata = {
   name: "CalDav (Beta)",
@@ -11,10 +11,10 @@ export const metadata = {
   category: "calendar",
   categories: ["calendar"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "caldav-calendar",
   url: "https://cal.com/",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "caldavcalendar",
 } as App;
 

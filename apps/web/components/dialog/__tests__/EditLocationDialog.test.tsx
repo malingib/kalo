@@ -2,13 +2,13 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { vi } from "vitest";
 
-import LocationSelect from "@calcom/features/form/components/LocationSelect";
+import LocationSelect from "@kalo/features/form/components/LocationSelect";
 
 import { QueryCell } from "../../../lib/QueryCell";
 import { EditLocationDialog } from "../EditLocationDialog";
 
 // // Mock the trpc hook
-vi.mock("@calcom/trpc/react", () => ({
+vi.mock("@kalo/trpc/react", () => ({
   trpc: {
     viewer: {
       apps: {
@@ -32,7 +32,7 @@ vi.mock("next/navigation", async (importOriginal) => {
   };
 });
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({ t: (key: string) => key }),
 }));
 
@@ -40,7 +40,7 @@ vi.mock("../../../lib/QueryCell", () => ({
   QueryCell: vi.fn(),
 }));
 
-vi.mock("@calcom/features/form/components/LocationSelect", () => {
+vi.mock("@kalo/features/form/components/LocationSelect", () => {
   return {
     default: vi.fn(),
   };

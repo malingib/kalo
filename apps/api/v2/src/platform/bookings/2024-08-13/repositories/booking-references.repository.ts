@@ -2,7 +2,7 @@ import { BookingReferencesFilterInput_2024_08_13 } from "@/platform/bookings/202
 import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { Injectable } from "@nestjs/common";
 
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 @Injectable()
 export class BookingReferencesRepository_2024_08_13 {

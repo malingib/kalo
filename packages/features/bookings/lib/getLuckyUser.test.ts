@@ -1,12 +1,12 @@
-import CalendarManagerMock from "@calcom/features/calendars/lib/__mocks__/CalendarManager";
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import CalendarManagerMock from "@kalo/features/calendars/lib/__mocks__/CalendarManager";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import { expect, it, describe, vi, beforeAll } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import { getLuckyUserService } from "@calcom/features/di/containers/LuckyUser";
-import { buildUser, buildBooking } from "@calcom/lib/test/builder";
-import { RRResetInterval, RRTimestampBasis } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { getLuckyUserService } from "@kalo/features/di/containers/LuckyUser";
+import { buildUser, buildBooking } from "@kalo/lib/test/builder";
+import { RRResetInterval, RRTimestampBasis } from "@kalo/prisma/enums";
 
 import { getIntervalStartDate, getIntervalEndDate } from "./getLuckyUser";
 

@@ -5,7 +5,7 @@ import { MembershipsService } from "@/modules/memberships/services/memberships.s
 import { TeamsRepository } from "@/modules/teams/teams/teams.repository";
 import { Injectable } from "@nestjs/common";
 
-import type { EventType } from "@calcom/prisma/client";
+import type { EventType } from "@kalo/prisma/client";
 
 @Injectable()
 export class EventTypeAccessService {

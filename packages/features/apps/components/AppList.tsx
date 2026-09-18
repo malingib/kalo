@@ -1,32 +1,32 @@
-import { AppSettings } from "@calcom/app-store/_components/AppSettings";
-import type { ConnectedApps } from "@calcom/app-store/_utils/getConnectedApps";
-import { InstallAppButton } from "@calcom/app-store/InstallAppButton";
-import { type EventLocationType, getLocationFromApp } from "@calcom/app-store/locations";
-import type { AppCardApp } from "@calcom/app-store/types";
-import type { UpdateUsersDefaultConferencingAppParams } from "@calcom/features/apps/components/AppSetDefaultLinkDialog";
-import { AppSetDefaultLinkDialog } from "@calcom/features/apps/components/AppSetDefaultLinkDialog";
+import { AppSettings } from "@kalo/app-store/_components/AppSettings";
+import type { ConnectedApps } from "@kalo/app-store/_utils/getConnectedApps";
+import { InstallAppButton } from "@kalo/app-store/InstallAppButton";
+import { type EventLocationType, getLocationFromApp } from "@kalo/app-store/locations";
+import type { AppCardApp } from "@kalo/app-store/types";
+import type { UpdateUsersDefaultConferencingAppParams } from "@kalo/features/apps/components/AppSetDefaultLinkDialog";
+import { AppSetDefaultLinkDialog } from "@kalo/features/apps/components/AppSetDefaultLinkDialog";
 import type {
   BulkUpdatParams,
   EventTypes,
-} from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import { BulkEditDefaultForEventsModal } from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import { isDelegationCredential } from "@calcom/lib/delegationCredential";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { AppCategories } from "@calcom/prisma/enums";
-import type { DefaultConferencingApp } from "@calcom/prisma/zod-utils";
-import type { App } from "@calcom/types/App";
-import { Alert } from "@calcom/ui/components/alert";
-import type { AppListCardProps } from "@calcom/ui/components/app-list-card";
-import { Button } from "@calcom/ui/components/button";
+} from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import { BulkEditDefaultForEventsModal } from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import { isDelegationCredential } from "@kalo/lib/delegationCredential";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { AppCategories } from "@kalo/prisma/enums";
+import type { DefaultConferencingApp } from "@kalo/prisma/zod-utils";
+import type { App } from "@kalo/types/App";
+import { Alert } from "@kalo/ui/components/alert";
+import type { AppListCardProps } from "@kalo/ui/components/app-list-card";
+import { Button } from "@kalo/ui/components/button";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { List } from "@calcom/ui/components/list";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/dropdown";
+import { List } from "@kalo/ui/components/list";
+import { showToast } from "@kalo/ui/components/toast";
 import type { ComponentType, ReactNode } from "react";
 import { useCallback, useState } from "react";
 

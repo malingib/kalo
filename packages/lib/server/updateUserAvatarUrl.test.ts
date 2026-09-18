@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockUpdateMany = vi.fn();
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {
     user: {
       updateMany: (...args: unknown[]) => mockUpdateMany(...args),

@@ -1,6 +1,6 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { Icon } from "@calcom/ui/components/icon";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { Icon } from "@kalo/ui/components/icon";
 
 export default function AppNotInstalledMessage({ appName }: { appName: string }) {
   const { t } = useLocale();

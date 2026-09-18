@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@calcom/prisma";
+import type { PrismaClient } from "@kalo/prisma";
 
 export async function maybeGetBookingUidFromSeat(prisma: PrismaClient, uid: string) {
   // Look bookingUid in bookingSeat

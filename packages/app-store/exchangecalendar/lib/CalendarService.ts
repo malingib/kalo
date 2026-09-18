@@ -26,8 +26,8 @@ import {
   WellKnownFolderName,
 } from "ews-javascript-api";
 
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import logger from "@calcom/lib/logger";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import logger from "@kalo/lib/logger";
 import type {
   Calendar,
   CalendarEvent,
@@ -36,8 +36,8 @@ import type {
   IntegrationCalendar,
   NewCalendarEventType,
   Person,
-} from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
+} from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
 
 import { ExchangeAuthentication } from "../enums";
 

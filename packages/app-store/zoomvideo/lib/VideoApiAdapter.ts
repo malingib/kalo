@@ -1,22 +1,22 @@
 import { z } from "zod";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 import {
   APP_CREDENTIAL_SHARING_ENABLED,
   CREDENTIAL_SYNC_ENDPOINT,
   CREDENTIAL_SYNC_SECRET,
   CREDENTIAL_SYNC_SECRET_HEADER_NAME,
-} from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeCalendarEvent } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { Frequency } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { PartialReference } from "@calcom/types/EventManager";
-import type { VideoApiAdapter, VideoCallData } from "@calcom/types/VideoApiAdapter";
+} from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeCalendarEvent } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { Frequency } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { PartialReference } from "@kalo/types/EventManager";
+import type { VideoApiAdapter, VideoCallData } from "@kalo/types/VideoApiAdapter";
 
 import { invalidateCredential } from "../../_utils/invalidateCredential";
 import { OAuthManager } from "../../_utils/oauth/OAuthManager";

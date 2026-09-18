@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getServerErrorFromUnknown } from "@calcom/lib/server/getServerErrorFromUnknown";
-import prisma from "@calcom/prisma";
+import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUnknown";
+import prisma from "@kalo/prisma";
 
 import config from "../config.json";
 

@@ -1,8 +1,8 @@
 import {
   RegularBookingService as BaseRegularBookingService,
   type IWebhookProducerService,
-} from "@calcom/platform-libraries/bookings";
-import type { PrismaClient } from "@calcom/prisma";
+} from "@kalo/platform-libraries/bookings";
+import type { PrismaClient } from "@kalo/prisma";
 import { Inject, Injectable } from "@nestjs/common";
 import { WEBHOOK_PRODUCER } from "@/lib/modules/regular-booking.tokens";
 import { PrismaBookingRepository } from "@/lib/repositories/prisma-booking.repository";

@@ -3,9 +3,9 @@ import { ApiError } from "next/dist/server/api-utils";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { HttpError } from "@calcom/lib/http-error";
-import { getServerErrorFromUnknown } from "@calcom/lib/server/getServerErrorFromUnknown";
-import { performance } from "@calcom/lib/server/perfObserver";
+import { HttpError } from "@kalo/lib/http-error";
+import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUnknown";
+import { performance } from "@kalo/lib/server/perfObserver";
 
 import { TRPCError } from "@trpc/server";
 import { getHTTPStatusCodeFromError } from "@trpc/server/http";

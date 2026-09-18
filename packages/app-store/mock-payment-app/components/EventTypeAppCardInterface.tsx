@@ -1,19 +1,19 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState, useMemo } from "react";
 
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
-import AppCard from "@calcom/app-store/_components/AppCard";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
+import AppCard from "@kalo/app-store/_components/AppCard";
 import {
   currencyOptions,
   currencySymbols,
   isAcceptedCurrencyCode,
-} from "@calcom/app-store/paypal/lib/currencyOptions";
-import type { EventTypeAppCardComponent } from "@calcom/app-store/types";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Select } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Alert } from "@calcom/ui/components/alert";
+} from "@kalo/app-store/paypal/lib/currencyOptions";
+import type { EventTypeAppCardComponent } from "@kalo/app-store/types";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Select } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { Alert } from "@kalo/ui/components/alert";
 
 import type { appDataSchema } from "../zod";
 import { paymentOptions } from "../zod";

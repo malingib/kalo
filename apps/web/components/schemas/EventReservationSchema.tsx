@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { JsonLd } from "react-schemaorg";
 import type { EventReservation, Person, ReservationStatusType } from "schema-dts";
 
-import type { Attendee, Booking, User } from "@calcom/prisma/client";
+import type { Attendee, Booking, User } from "@kalo/prisma/client";
 
 type EventSchemaUser = Pick<User, "name" | "email">;
 type EventSchemaAttendee = Pick<Attendee, "name" | "email">;

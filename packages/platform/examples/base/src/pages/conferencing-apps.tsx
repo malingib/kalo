@@ -1,4 +1,4 @@
-import { type ConferencingAppsCustomClassNames, ConferencingAppsSettings } from "@calcom/atoms";
+import { type ConferencingAppsCustomClassNames, ConferencingAppsSettings } from "@kalo/atoms";
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/Navbar";

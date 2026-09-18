@@ -1,18 +1,18 @@
-import { checkAdminOrOwner } from "@calcom/features/auth/lib/checkAdminOrOwner";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { FilterSegmentScope } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
+import { checkAdminOrOwner } from "@kalo/features/auth/lib/checkAdminOrOwner";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { FilterSegmentScope } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTrigger,
-} from "@calcom/ui/components/dialog";
-import { Form, Input, Label, Select, Switch } from "@calcom/ui/components/form";
-import { RadioField, RadioGroup } from "@calcom/ui/components/radio";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/dialog";
+import { Form, Input, Label, Select, Switch } from "@kalo/ui/components/form";
+import { RadioField, RadioGroup } from "@kalo/ui/components/radio";
+import { showToast } from "@kalo/ui/components/toast";
 import { useSession } from "next-auth/react";
 import posthog from "posthog-js";
 import { useEffect, useState } from "react";

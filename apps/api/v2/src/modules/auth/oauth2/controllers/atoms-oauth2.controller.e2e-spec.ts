@@ -1,4 +1,4 @@
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test, TestingModule } from "@nestjs/testing";

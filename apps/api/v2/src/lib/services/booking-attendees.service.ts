@@ -1,7 +1,7 @@
 import { PrismaBookingRepository } from "@/lib/repositories/prisma-booking.repository";
 import { Injectable } from "@nestjs/common";
 
-import { BookingAttendeesService as BaseBookingAttendeesService } from "@calcom/platform-libraries/bookings";
+import { BookingAttendeesService as BaseBookingAttendeesService } from "@kalo/platform-libraries/bookings";
 
 import { BookingAttendeesRemoveService } from "./booking-attendees-remove.service";
 

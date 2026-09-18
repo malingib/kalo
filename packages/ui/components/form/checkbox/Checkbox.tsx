@@ -1,4 +1,4 @@
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 import { CheckIcon } from "@coss/ui/icons";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { useId } from "@radix-ui/react-id";

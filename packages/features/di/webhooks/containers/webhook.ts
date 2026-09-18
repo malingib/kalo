@@ -1,14 +1,14 @@
-import type { WebhookFeature } from "@calcom/features/webhooks/lib/facade/WebhookFeature";
-import type { IWebhookRepository } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
+import type { WebhookFeature } from "@kalo/features/webhooks/lib/facade/WebhookFeature";
+import type { IWebhookRepository } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
 import type {
   IBookingWebhookService,
   IOOOWebhookService,
   IRecordingWebhookService,
   IWebhookService,
-} from "@calcom/features/webhooks/lib/interface/services";
-import type { IWebhookProducerService } from "@calcom/features/webhooks/lib/interface/WebhookProducerService";
-import type { IWebhookNotifier } from "@calcom/features/webhooks/lib/interface/webhook";
-import type { WebhookTaskConsumer } from "@calcom/features/webhooks/lib/service/WebhookTaskConsumer";
+} from "@kalo/features/webhooks/lib/interface/services";
+import type { IWebhookProducerService } from "@kalo/features/webhooks/lib/interface/WebhookProducerService";
+import type { IWebhookNotifier } from "@kalo/features/webhooks/lib/interface/webhook";
+import type { WebhookTaskConsumer } from "@kalo/features/webhooks/lib/service/WebhookTaskConsumer";
 import { type Container, createContainer } from "@evyweb/ioctopus";
 import { moduleLoader as bookingRepositoryModuleLoader } from "../../modules/Booking";
 import { moduleLoader as prismaModuleLoader } from "../../modules/Prisma";
@@ -75,7 +75,7 @@ export function getWebhookTaskConsumer(): WebhookTaskConsumer {
  *
  * Usage:
  * ```typescript
- * import { getWebhookFeature } from "@calcom/features/di/webhooks/containers/webhook";
+ * import { getWebhookFeature } from "@kalo/features/di/webhooks/containers/webhook";
  *
  * const webhooks = getWebhookFeature();
  *
@@ -112,7 +112,7 @@ export function getWebhookFeature(): WebhookFeature {
  *
  * Usage:
  * ```typescript
- * import { getWebhookProducer } from "@calcom/features/di/webhooks";
+ * import { getWebhookProducer } from "@kalo/features/di/webhooks";
  *
  * const producer = getWebhookProducer();
  * await producer.queueBookingCreatedWebhook({

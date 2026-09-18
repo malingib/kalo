@@ -1,4 +1,4 @@
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 /**
  * Converts a timestamp to maintain the same local time in a different timezone.

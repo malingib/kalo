@@ -1,10 +1,10 @@
-import dayjs from "@calcom/dayjs";
-import { checkDurationLimit, checkDurationLimits } from "@calcom/features/bookings/lib/checkDurationLimits";
-import { validateIntervalLimitOrder } from "@calcom/lib/intervalLimits/validateIntervalLimitOrder";
+import dayjs from "@kalo/dayjs";
+import { checkDurationLimit, checkDurationLimits } from "@kalo/features/bookings/lib/checkDurationLimits";
+import { validateIntervalLimitOrder } from "@kalo/lib/intervalLimits/validateIntervalLimitOrder";
 import { describe, expect, it, vi } from "vitest";
 
 const mockGetTotalBookingDuration = vi.fn();
-vi.mock("@calcom/features/bookings/repositories/BookingRepository", () => ({
+vi.mock("@kalo/features/bookings/repositories/BookingRepository", () => ({
   BookingRepository: vi.fn().mockImplementation(function () {
     return {
       getTotalBookingDuration: mockGetTotalBookingDuration,
@@ -12,7 +12,7 @@ vi.mock("@calcom/features/bookings/repositories/BookingRepository", () => ({
   }),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));

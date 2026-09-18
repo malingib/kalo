@@ -2,11 +2,11 @@ import { SoapFaultDetails } from "ews-javascript-api";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
-import { symmetricEncrypt } from "@calcom/lib/crypto";
-import { emailSchema } from "@calcom/lib/emailSchema";
-import logger from "@calcom/lib/logger";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import prisma from "@calcom/prisma";
+import { symmetricEncrypt } from "@kalo/lib/crypto";
+import { emailSchema } from "@kalo/lib/emailSchema";
+import logger from "@kalo/lib/logger";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import prisma from "@kalo/prisma";
 
 import checkSession from "../../_utils/auth";
 import { ExchangeAuthentication, ExchangeVersion } from "../enums";

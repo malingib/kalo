@@ -1,6 +1,6 @@
-import { EventTypeHostService } from "@calcom/features/host/services/EventTypeHostService";
-import type { PaginatedAvailabilityHostsResponse } from "@calcom/features/host/services/IEventTypeHostService";
-import type { PrismaClient } from "@calcom/prisma/client";
+import { EventTypeHostService } from "@kalo/features/host/services/EventTypeHostService";
+import type { PaginatedAvailabilityHostsResponse } from "@kalo/features/host/services/IEventTypeHostService";
+import type { PrismaClient } from "@kalo/prisma/client";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TGetHostsForAvailabilityInputSchema } from "./getHostsForAvailability.schema";
@@ -14,7 +14,7 @@ type GetHostsForAvailabilityInput = {
 };
 
 export type { PaginatedAvailabilityHostsResponse as GetHostsForAvailabilityResponse };
-export type { AvailabilityHost } from "@calcom/features/host/services/IEventTypeHostService";
+export type { AvailabilityHost } from "@kalo/features/host/services/IEventTypeHostService";
 
 export const getHostsForAvailabilityHandler = async ({
   ctx,

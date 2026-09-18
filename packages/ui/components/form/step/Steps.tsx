@@ -1,4 +1,4 @@
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 type StepWithNav = {
   maxSteps: number;

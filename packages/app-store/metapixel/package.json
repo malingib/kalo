@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/metapixel",
+  "name": "@kalo/metapixel",
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   },
   "description": "Add Meta Pixel to your bookings page to measure, optimize and build audiences for your ad campaigns."
 }

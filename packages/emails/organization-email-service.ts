@@ -1,4 +1,4 @@
-import type BaseEmail from "@calcom/emails/templates/_base-email";
+import type BaseEmail from "@kalo/emails/templates/_base-email";
 
 import type { TeamInvite } from "./templates/team-invite-email";
 import TeamInviteEmail from "./templates/team-invite-email";

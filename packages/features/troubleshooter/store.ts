@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { create } from "zustand";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { updateQueryParam, getQueryParam, removeQueryParam } from "../bookings/Booker/utils/query-param";
 

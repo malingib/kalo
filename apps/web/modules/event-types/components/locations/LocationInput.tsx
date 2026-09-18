@@ -1,13 +1,13 @@
 import { useFormContext, Controller } from "react-hook-form";
 
-import type { EventLocationType } from "@calcom/app-store/locations";
-import PhoneInput from "@calcom/web/components/phone-input";
-import type { FormValues } from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { TextField } from "@calcom/ui/components/form";
+import type { EventLocationType } from "@kalo/app-store/locations";
+import PhoneInput from "@kalo/web/components/phone-input";
+import type { FormValues } from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { TextField } from "@kalo/ui/components/form";
 
-import type { LocationInputCustomClassNames } from "@calcom/features/eventtypes/components/locations/types";
+import type { LocationInputCustomClassNames } from "@kalo/features/eventtypes/components/locations/types";
 
 const LocationInput = (props: {
   eventLocationType: EventLocationType;

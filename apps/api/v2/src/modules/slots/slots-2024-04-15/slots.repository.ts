@@ -3,8 +3,8 @@ import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { Injectable } from "@nestjs/common";
 import { DateTime } from "luxon";
 
-import { MINUTES_TO_BOOK } from "@calcom/platform-libraries";
-import { ReserveSlotInput_2024_04_15 } from "@calcom/platform-types";
+import { MINUTES_TO_BOOK } from "@kalo/platform-libraries";
+import { ReserveSlotInput_2024_04_15 } from "@kalo/platform-types";
 
 @Injectable()
 export class SlotsRepository_2024_04_15 {

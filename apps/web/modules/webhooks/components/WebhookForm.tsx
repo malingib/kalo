@@ -3,21 +3,21 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import SectionBottomActions from "@calcom/features/settings/SectionBottomActions";
-import customTemplate, { hasTemplateIntegration } from "@calcom/features/webhooks/lib/integrationTemplate";
-import { WebhookVersion } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { TimeUnit, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { Select } from "@calcom/ui/components/form";
-import { TextArea } from "@calcom/ui/components/form";
-import { ToggleGroup } from "@calcom/ui/components/form";
-import { Form } from "@calcom/ui/components/form";
-import { Label } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Switch } from "@calcom/ui/components/form";
+import SectionBottomActions from "@kalo/features/settings/SectionBottomActions";
+import customTemplate, { hasTemplateIntegration } from "@kalo/features/webhooks/lib/integrationTemplate";
+import { WebhookVersion } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { TimeUnit, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { Select } from "@kalo/ui/components/form";
+import { TextArea } from "@kalo/ui/components/form";
+import { ToggleGroup } from "@kalo/ui/components/form";
+import { Form } from "@kalo/ui/components/form";
+import { Label } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { Switch } from "@kalo/ui/components/form";
 
 
 import WebhookTestDisclosure from "./WebhookTestDisclosure";

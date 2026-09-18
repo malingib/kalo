@@ -3,7 +3,7 @@ import { config as dotenvConfig } from "dotenv";
 import type { NextConfig } from "next";
 import type { RouteHas } from "next/dist/lib/load-custom-routes";
 import { withAxiom } from "next-axiom";
-import i18nConfig from "@calcom/i18n/next-i18next.config";
+import i18nConfig from "@kalo/i18n/next-i18next.config";
 import packageJson from "./package.json";
 import {
   nextJsOrgRewriteConfig,
@@ -56,9 +56,9 @@ const isOrganizationsEnabled =
 // Type-safe way to assign to process.env (which is typed as readonly in environment.d.ts)
 const env = process.env as Record<string, string | undefined>;
 
-env.NEXT_PUBLIC_CALCOM_VERSION = version;
+env.NEXT_PUBLIC_KALO_VERSION = version;
 
-if (process.env.NODE_ENV === "production" || process.env.CALCOM_ENV === "production") {
+if (process.env.NODE_ENV === "production" || process.env.KALO_ENV === "production") {
   env.TRIGGER_VERSION = TRIGGER_VERSION;
 }
 
@@ -76,7 +76,7 @@ if (!process.env.NEXT_PUBLIC_WEBSITE_URL) {
 
 if (
   process.env.CSP_POLICY === "strict" &&
-  (process.env.CALCOM_ENV === "production" || process.env.NODE_ENV === "production")
+  (process.env.KALO_ENV === "production" || process.env.NODE_ENV === "production")
 ) {
   throw new Error(
     "Strict CSP policy(for style-src) is not yet supported in production. You can experiment with it in Dev Mode"
@@ -234,18 +234,18 @@ const nextConfig = (phase: string): NextConfig => {
       "jose",
     ],
     experimental: {
-      optimizePackageImports: ["@calcom/ui"],
+      optimizePackageImports: ["@kalo/ui"],
     },
     productionBrowserSourceMaps: true,
     transpilePackages: [
-      "@calcom/app-store",
-      "@calcom/dayjs",
-      "@calcom/emails",
-      "@calcom/embed-core",
-      "@calcom/features",
-      "@calcom/lib",
-      "@calcom/prisma",
-      "@calcom/trpc",
+      "@kalo/app-store",
+      "@kalo/dayjs",
+      "@kalo/emails",
+      "@kalo/embed-core",
+      "@kalo/features",
+      "@kalo/lib",
+      "@kalo/prisma",
+      "@kalo/trpc",
       "@coss/ui",
     ],
     modularizeImports: {

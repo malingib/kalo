@@ -1,12 +1,12 @@
-import dayjs from "@calcom/dayjs";
-import { useAvailableTimeSlots } from "@calcom/features/bookings/Booker/hooks/useAvailableTimeSlots";
-import { useTimePreferences } from "@calcom/features/bookings/lib/timePreferences";
+import dayjs from "@kalo/dayjs";
+import { useAvailableTimeSlots } from "@kalo/features/bookings/Booker/hooks/useAvailableTimeSlots";
+import { useTimePreferences } from "@kalo/features/bookings/lib/timePreferences";
 import { useSchedule } from "~/schedules/hooks/useSchedule";
-import { useTroubleshooterStore } from "@calcom/features/troubleshooter/store";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookingStatus } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { Calendar } from "@calcom/web/modules/calendars/weeklyview/components/Calendar";
+import { useTroubleshooterStore } from "@kalo/features/troubleshooter/store";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookingStatus } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { Calendar } from "@kalo/web/modules/calendars/weeklyview/components/Calendar";
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 

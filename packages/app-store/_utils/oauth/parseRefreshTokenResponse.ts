@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { APP_CREDENTIAL_SHARING_ENABLED } from "@calcom/lib/constants";
+import { APP_CREDENTIAL_SHARING_ENABLED } from "@kalo/lib/constants";
 
 export const minimumTokenResponseSchema = z
   .object({
@@ -25,8 +25,8 @@ export type ParseRefreshTokenResponse<S extends z.ZodTypeAny> =
 const parseRefreshTokenResponse = (response: any, schema: z.ZodTypeAny) => {
   let refreshTokenResponse;
   const credentialSyncingEnabled =
-    APP_CREDENTIAL_SHARING_ENABLED && process.env.CALCOM_CREDENTIAL_SYNC_ENDPOINT;
-  if (APP_CREDENTIAL_SHARING_ENABLED && process.env.CALCOM_CREDENTIAL_SYNC_ENDPOINT) {
+    APP_CREDENTIAL_SHARING_ENABLED && process.env.KALO_CREDENTIAL_SYNC_ENDPOINT;
+  if (APP_CREDENTIAL_SHARING_ENABLED && process.env.KALO_CREDENTIAL_SYNC_ENDPOINT) {
     refreshTokenResponse = minimumTokenResponseSchema.safeParse(response);
   } else {
     refreshTokenResponse = schema.safeParse(response);

@@ -1,7 +1,7 @@
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { CRM } from "@calcom/types/CrmService";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { CRM } from "@kalo/types/CrmService";
 import type { TFunction } from "i18next";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { z } from "zod";
@@ -133,7 +133,7 @@ vi.mock("../../_utils/getAppKeysFromSlug", () => ({
   default: mockGetAppKeysFromSlug,
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {
     credential: {
       update: vi.fn(),
@@ -141,19 +141,19 @@ vi.mock("@calcom/prisma", () => ({
   },
 }));
 
-vi.mock("@calcom/features/bookings/repositories/PrismaTrackingRepository", () => ({
+vi.mock("@kalo/features/bookings/repositories/PrismaTrackingRepository", () => ({
   PrismaTrackingRepository: class {
     findByBookingUid = mockTrackingRepository.findByBookingUid;
   },
 }));
 
-vi.mock("@calcom/features/bookings/repositories/BookingRepository", () => ({
+vi.mock("@kalo/features/bookings/repositories/BookingRepository", () => ({
   BookingRepository: class {
     findBookingByUid = mockBookingRepository.findBookingByUid;
   },
 }));
 
-vi.mock("@calcom/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain", () => ({
+vi.mock("@kalo/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain", () => ({
   checkIfFreeEmailDomain: mockCheckIfFreeEmailDomain,
 }));
 
@@ -553,7 +553,7 @@ describe("HubspotCalendarService", () => {
         onBookingWriteToEventObjectFields: {
           custom_source: {
             fieldType: CrmFieldType.TEXT,
-            value: "Cal.diy Booking",
+            value: "Kalo Booking",
             whenToWrite: WhenToWrite.EVERY_BOOKING,
           },
         },
@@ -571,7 +571,7 @@ describe("HubspotCalendarService", () => {
       await service.createEvent(event, contacts);
 
       const createCall = mockHubspotClient.crm.objects.meetings.basicApi.create.mock.calls[0][0];
-      expect(createCall.properties.custom_source).toBe("Cal.diy Booking");
+      expect(createCall.properties.custom_source).toBe("Kalo Booking");
     });
 
     it("should include custom text field with booking response placeholder", async () => {

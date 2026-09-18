@@ -1,11 +1,11 @@
 import { shallow } from "zustand/shallow";
 
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useSchedule } from "@calcom/web/modules/schedules/hooks/useSchedule";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { trpc } from "@calcom/trpc/react";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useSchedule } from "@kalo/web/modules/schedules/hooks/useSchedule";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { trpc } from "@kalo/trpc/react";
 
-import { useBookerTime } from "@calcom/features/bookings/Booker/hooks/useBookerTime";
+import { useBookerTime } from "@kalo/features/bookings/Booker/hooks/useBookerTime";
 
 export type useEventReturnType = ReturnType<typeof useEvent>;
 export type useScheduleForEventReturnType = ReturnType<typeof useScheduleForEvent>;

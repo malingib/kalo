@@ -2,13 +2,13 @@ import { ApiProperty, ApiExtraModels, getSchemaPath } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, ValidateNested } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 import {
   BookingOutput_2024_08_13,
   GetRecurringSeatedBookingOutput_2024_08_13,
   GetSeatedBookingOutput_2024_08_13,
   RecurringBookingOutput_2024_08_13,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 @ApiExtraModels(
   BookingOutput_2024_08_13,

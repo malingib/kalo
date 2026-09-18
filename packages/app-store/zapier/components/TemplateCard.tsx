@@ -1,4 +1,4 @@
-import { Button } from "@calcom/ui/components/button";
+import { Button } from "@kalo/ui/components/button";
 
 import type { Template } from "./types";
 

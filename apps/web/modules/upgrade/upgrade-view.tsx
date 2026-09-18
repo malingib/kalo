@@ -2,12 +2,12 @@
 
 import { useRouter } from "next/navigation";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { showToast } from "@calcom/ui/components/toast";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { showToast } from "@kalo/ui/components/toast";
 
 import Shell from "~/shell/Shell";
 

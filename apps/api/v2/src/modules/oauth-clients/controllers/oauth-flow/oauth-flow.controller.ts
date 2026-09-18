@@ -1,4 +1,4 @@
-import { SUCCESS_STATUS, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
 import {
   BadRequestException,
   Body,

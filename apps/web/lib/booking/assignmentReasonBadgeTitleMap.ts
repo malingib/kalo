@@ -1,4 +1,4 @@
-import { AssignmentReasonEnum } from "@calcom/prisma/enums";
+import { AssignmentReasonEnum } from "@kalo/prisma/enums";
 
 const assignmentReasonBadgeTitleMap = (assignmentReason: AssignmentReasonEnum) => {
   switch (assignmentReason) {

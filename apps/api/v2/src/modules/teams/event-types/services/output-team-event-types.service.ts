@@ -1,6 +1,6 @@
-import { SchedulingType } from "@calcom/platform-libraries";
-import { EventTypeMetadata } from "@calcom/platform-libraries/event-types";
-import type { HostPriority, TeamEventTypeResponseHost } from "@calcom/platform-types";
+import { SchedulingType } from "@kalo/platform-libraries";
+import { EventTypeMetadata } from "@kalo/platform-libraries/event-types";
+import type { HostPriority, TeamEventTypeResponseHost } from "@kalo/platform-types";
 import type {
   CalVideoSettings,
   DestinationCalendar,
@@ -9,7 +9,7 @@ import type {
   Schedule,
   Team,
   User,
-} from "@calcom/prisma/client";
+} from "@kalo/prisma/client";
 import { Injectable } from "@nestjs/common";
 import { OutputEventTypesService_2024_06_14 } from "@/platform/event-types/event-types_2024_06_14/services/output-event-types.service";
 import { TeamsEventTypesRepository } from "@/modules/teams/event-types/teams-event-types.repository";

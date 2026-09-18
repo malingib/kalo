@@ -7,11 +7,11 @@ import type { ErrorProps } from "next/error";
 import NextError from "next/error";
 import React from "react";
 
-import "@calcom/embed-core/src/embed-iframe";
-import { getErrorFromUnknown } from "@calcom/lib/errors";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { redactError } from "@calcom/lib/redactError";
+import "@kalo/embed-core/src/embed-iframe";
+import { getErrorFromUnknown } from "@kalo/lib/errors";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { redactError } from "@kalo/lib/redactError";
 
 import { ErrorPage } from "@components/error/error-page";
 

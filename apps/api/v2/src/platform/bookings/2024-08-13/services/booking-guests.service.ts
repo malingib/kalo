@@ -4,8 +4,8 @@ import { PlatformBookingsService } from "@/platform/bookings/shared/platform-boo
 import { ApiAuthGuardUser } from "@/modules/auth/strategies/api-auth/api-auth.strategy";
 import { Injectable, Logger, HttpException, NotFoundException, BadRequestException } from "@nestjs/common";
 
-import { addGuestsHandler } from "@calcom/platform-libraries/bookings";
-import type { AddGuestsInput_2024_08_13 } from "@calcom/platform-types";
+import { addGuestsHandler } from "@kalo/platform-libraries/bookings";
+import type { AddGuestsInput_2024_08_13 } from "@kalo/platform-types";
 
 const MAX_TOTAL_GUESTS_PER_BOOKING = 30;
 

@@ -1,8 +1,8 @@
 import type { TFunction } from "i18next";
 
-import { guessEventLocationType } from "@calcom/app-store/locations";
-import { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import { guessEventLocationType } from "@kalo/app-store/locations";
+import { getVideoCallUrlFromCalEvent } from "@kalo/lib/CalEventParser";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 import { Info } from "./Info";
 

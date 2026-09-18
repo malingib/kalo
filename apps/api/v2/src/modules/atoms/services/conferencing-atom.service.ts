@@ -3,8 +3,8 @@ import { UserWithProfile } from "@/modules/users/users.repository";
 import { Logger } from "@nestjs/common";
 import { Injectable } from "@nestjs/common";
 
-import { getConnectedApps, ConnectedApps } from "@calcom/platform-libraries/app-store";
-import type { PrismaClient } from "@calcom/prisma";
+import { getConnectedApps, ConnectedApps } from "@kalo/platform-libraries/app-store";
+import type { PrismaClient } from "@kalo/prisma";
 
 @Injectable()
 export class ConferencingAtomsService {

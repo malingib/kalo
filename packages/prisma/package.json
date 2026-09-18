@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/prisma",
+  "name": "@kalo/prisma",
   "version": "0.0.0",
   "private": true,
   "bin": {

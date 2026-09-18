@@ -7,8 +7,8 @@ import { NextResponse } from "next/server";
 import getRawBody from "raw-body";
 import z from "zod";
 
-import { emailSchema } from "@calcom/lib/emailSchema";
-import { default as webPrisma } from "@calcom/prisma";
+import { emailSchema } from "@kalo/lib/emailSchema";
+import { default as webPrisma } from "@kalo/prisma";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

@@ -1,11 +1,11 @@
-import dayjs from "@calcom/dayjs";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { getErrorFromUnknown } from "@calcom/lib/errors";
-import { HttpError } from "@calcom/lib/http-error";
-import { ascendingLimitKeys, intervalLimitKeyToUnit } from "@calcom/lib/intervalLimits/intervalLimit";
-import type { IntervalLimit, IntervalLimitKey } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import { parseDurationLimit } from "@calcom/lib/intervalLimits/isDurationLimits";
-import prisma from "@calcom/prisma";
+import dayjs from "@kalo/dayjs";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { getErrorFromUnknown } from "@kalo/lib/errors";
+import { HttpError } from "@kalo/lib/http-error";
+import { ascendingLimitKeys, intervalLimitKeyToUnit } from "@kalo/lib/intervalLimits/intervalLimit";
+import type { IntervalLimit, IntervalLimitKey } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import { parseDurationLimit } from "@kalo/lib/intervalLimits/isDurationLimits";
+import prisma from "@kalo/prisma";
 
 export async function checkDurationLimits(
   durationLimits: IntervalLimit,

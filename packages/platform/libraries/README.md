@@ -1,13 +1,13 @@
 # How to work with platform libraries in Dev
 
 We version this package using NPM:
-https://www.npmjs.com/package/@calcom/platform-libraries?activeTab=code
+https://www.npmjs.com/package/@kalo/platform-libraries?activeTab=code
 
 Here is the workflow:
 1. If you change platform libraries for the first time, then run `yarn local` to build them locally for the first time. This will also make v2 api point to the local libraries.
 2. If you change them for the second time, then run `yarn build:dev` to re-build them.
 3. Once you are happy with platform libraries:
-- run `yarn publish-npm` - it will check "@calcom/platform-libraries" version in npm and update it's package.json to the next version and then it will publish the package to npm, update the version of "@calcom/platform-libraries" in the api v2 package.json, reset "@calcom/platform-libraries" to 0.0.0 and run yarn install.
+- run `yarn publish-npm` - it will check "@kalo/platform-libraries" version in npm and update it's package.json to the next version and then it will publish the package to npm, update the version of "@kalo/platform-libraries" in the api v2 package.json, reset "@kalo/platform-libraries" to 0.0.0 and run yarn install.
 
 # Before Merging to main
 

@@ -1,6 +1,6 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prisma";
+import prismaMock from "@kalo/testing/lib/__mocks__/prisma";
 
-import { getGoogleMeetCredential, TestData } from "@calcom/testing/lib/bookingScenario/bookingScenario";
+import { getGoogleMeetCredential, TestData } from "@kalo/testing/lib/bookingScenario/bookingScenario";
 
 import { describe, expect, it } from "vitest";
 

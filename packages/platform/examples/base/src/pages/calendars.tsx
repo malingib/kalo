@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Inter } from "next/font/google";
 
-import { CalendarSettings } from "@calcom/atoms";
+import { CalendarSettings } from "@kalo/atoms";
 
 const inter = Inter({ subsets: ["latin"] });
 

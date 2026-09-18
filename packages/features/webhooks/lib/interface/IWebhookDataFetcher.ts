@@ -1,4 +1,4 @@
-import type { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import type { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type { WebhookTaskPayload } from "../types/webhookTask";
 
 export interface SubscriberContext {

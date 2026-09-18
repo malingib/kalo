@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 import { ArrowRightIcon } from "@coss/ui/icons";
 
 import { Slider } from "./Slider";

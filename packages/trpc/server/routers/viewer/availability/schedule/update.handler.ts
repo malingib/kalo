@@ -1,6 +1,6 @@
-import { updateSchedule } from "@calcom/features/schedules/services/ScheduleService";
-import { prisma } from "@calcom/prisma";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { updateSchedule } from "@kalo/features/schedules/services/ScheduleService";
+import { prisma } from "@kalo/prisma";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import type { TUpdateInputSchema } from "./update.schema";
 

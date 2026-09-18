@@ -1,4 +1,4 @@
-import { UserCalendarSwitch } from "@calcom/web/modules/calendars/components/CalendarSwitch";
+import { UserCalendarSwitch } from "@kalo/web/modules/calendars/components/CalendarSwitch";
 
 interface IConnectedCalendarItem {
   name: string;

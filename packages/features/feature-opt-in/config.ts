@@ -1,4 +1,4 @@
-import type { FeatureId } from "@calcom/features/flags/config";
+import type { FeatureId } from "@kalo/features/flags/config";
 import type { OptInFeaturePolicy, OptInFeatureScope } from "./types";
 
 export type OptInFeatureDisplayLocation = "settings" | "banner";

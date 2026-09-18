@@ -1,8 +1,8 @@
 "use client";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 import { ArrowRightIcon, CheckIcon, CircleXIcon } from "@coss/ui/icons";
 import Link from "next/link";
 

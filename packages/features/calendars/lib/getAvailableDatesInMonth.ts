@@ -1,5 +1,5 @@
-import dayjs from "@calcom/dayjs";
-import { daysInMonth, yyyymmdd } from "@calcom/lib/dayjs";
+import dayjs from "@kalo/dayjs";
+import { daysInMonth, yyyymmdd } from "@kalo/lib/dayjs";
 
 // calculate the available dates in the month:
 // *) Intersect with included dates.

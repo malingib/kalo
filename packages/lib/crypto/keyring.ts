@@ -49,7 +49,7 @@ const envKeyringPrefix = (ring: KeyringName): string => {
   if (ring !== ring.toUpperCase()) {
     throw new Error(`Keyring name must be ALL CAPS. Got: ${ring}`);
   }
-  return `CALCOM_KEYRING_${ring}_`;
+  return `KALO_KEYRING_${ring}_`;
 };
 
 const getCurrentKid = (ring: KeyringName): string => {
@@ -61,7 +61,7 @@ const getCurrentKid = (ring: KeyringName): string => {
 
 export function getKeyMaterial(ring: KeyringName, kid: string): Buffer {
   const prefix = envKeyringPrefix(ring);
-  const raw = process.env[`${prefix}${kid.toUpperCase()}`]; // e.g. CALCOM_KEYRING_CREDENTIALS_K1
+  const raw = process.env[`${prefix}${kid.toUpperCase()}`]; // e.g. KALO_KEYRING_CREDENTIALS_K1
   if (!raw) throw new Error(`Unknown kid for ring=${ring}: missing env var ${prefix}${kid.toUpperCase()}`);
 
   const key = Buffer.from(raw, "base64url");

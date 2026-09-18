@@ -1,13 +1,13 @@
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
 import type {
   IFromUser,
   IOutOfOfficeData,
   IToUser,
-} from "@calcom/features/availability/lib/getUserAvailability";
-import type { DateRange } from "@calcom/features/schedules/lib/date-ranges";
-import { getTimeZone } from "@calcom/lib/dayjs";
-import { withReporting } from "@calcom/lib/sentryWrapper";
+} from "@kalo/features/availability/lib/getUserAvailability";
+import type { DateRange } from "@kalo/features/schedules/lib/date-ranges";
+import { getTimeZone } from "@kalo/lib/dayjs";
+import { withReporting } from "@kalo/lib/sentryWrapper";
 
 export type GetSlots = {
   inviteeDate: Dayjs;

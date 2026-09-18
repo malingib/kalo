@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
 
 import getInstalledAppPath from "../../_utils/getInstalledAppPath";
 import { decodeOAuthState } from "../../_utils/oauth/decodeOAuthState";

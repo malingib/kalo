@@ -1,7 +1,7 @@
 import type z from "zod";
 
-import type { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { fieldSchema } from "@calcom/prisma/zod-utils";
+import type { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { fieldSchema } from "@kalo/prisma/zod-utils";
 
 import { fieldTypesConfigMap } from "../fieldTypes";
 

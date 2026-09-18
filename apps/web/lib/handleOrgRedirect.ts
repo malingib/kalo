@@ -1,10 +1,10 @@
 import type { ParsedUrlQuery } from "node:querystring";
 import { stringify } from "node:querystring";
 
-import { SINGLE_ORG_SLUG } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { RedirectType } from "@calcom/prisma/client";
+import { SINGLE_ORG_SLUG } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { RedirectType } from "@kalo/prisma/client";
 
 const log = logger.getSubLogger({ prefix: ["lib", "handleOrgRedirect"] });
 type NextJsRedirect = {
@@ -35,7 +35,7 @@ const getTemporaryOrgRedirect = async ({
   currentQuery: ParsedUrlQuery;
   useRelativePath?: boolean;
 }): Promise<NextJsRedirect | null> => {
-  const prisma = (await import("@calcom/prisma")).default;
+  const prisma = (await import("@kalo/prisma")).default;
   log.debug(
     `Looking for redirect for`,
     safeStringify({

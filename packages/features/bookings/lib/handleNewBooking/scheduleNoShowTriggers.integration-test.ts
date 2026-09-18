@@ -1,20 +1,20 @@
 import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
 
-import { DailyLocationType } from "@calcom/app-store/constants";
-import { getMeetingSessionsFromRoomName } from "@calcom/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName";
-import { triggerHostNoShow } from "@calcom/features/tasker/tasks/triggerNoShow/triggerHostNoShow";
-import { sendGenericWebhookPayload } from "@calcom/features/webhooks/lib/sendPayload";
-import { prisma } from "@calcom/prisma";
-import type { Booking, User, Webhook } from "@calcom/prisma/client";
-import { TimeUnit, WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { DailyLocationType } from "@kalo/app-store/constants";
+import { getMeetingSessionsFromRoomName } from "@kalo/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName";
+import { triggerHostNoShow } from "@kalo/features/tasker/tasks/triggerNoShow/triggerHostNoShow";
+import { sendGenericWebhookPayload } from "@kalo/features/webhooks/lib/sendPayload";
+import { prisma } from "@kalo/prisma";
+import type { Booking, User, Webhook } from "@kalo/prisma/client";
+import { TimeUnit, WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 import { scheduleNoShowTriggers } from "./scheduleNoShowTriggers";
 
-vi.mock("@calcom/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName", () => ({
+vi.mock("@kalo/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName", () => ({
   getMeetingSessionsFromRoomName: vi.fn(),
 }));
 
-vi.mock("@calcom/features/webhooks/lib/sendPayload", () => ({
+vi.mock("@kalo/features/webhooks/lib/sendPayload", () => ({
   sendGenericWebhookPayload: vi.fn().mockResolvedValue({}),
 }));
 

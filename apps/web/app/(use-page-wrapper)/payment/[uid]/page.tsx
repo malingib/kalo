@@ -1,4 +1,4 @@
-import { APP_NAME } from "@calcom/lib/constants";
+import { APP_NAME } from "@kalo/lib/constants";
 import { buildLegacyCtx } from "@lib/buildLegacyCtx";
 import type { PageProps } from "app/_types";
 import { _generateMetadata } from "app/_utils";

@@ -1,9 +1,9 @@
-import { appStoreMetadata } from "@calcom/app-store/appStoreMetaData";
-import { enrichUsersWithDelegationCredentials } from "@calcom/app-store/delegationCredential";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { HostRepository } from "@calcom/features/host/repositories/HostRepository";
-import type { PrismaClient, Prisma } from "@calcom/prisma/client";
-import { userMetadata } from "@calcom/prisma/zod-utils";
+import { appStoreMetadata } from "@kalo/app-store/appStoreMetaData";
+import { enrichUsersWithDelegationCredentials } from "@kalo/app-store/delegationCredential";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { HostRepository } from "@kalo/features/host/repositories/HostRepository";
+import type { PrismaClient, Prisma } from "@kalo/prisma/client";
+import { userMetadata } from "@kalo/prisma/zod-utils";
 
 import { TRPCError } from "@trpc/server";
 

@@ -1,4 +1,4 @@
-import { handleMarkHostNoShow } from "@calcom/features/handleMarkNoShow";
+import { handleMarkHostNoShow } from "@kalo/features/handleMarkNoShow";
 
 import type { TNoShowInputSchema } from "./markHostAsNoShow.schema";
 

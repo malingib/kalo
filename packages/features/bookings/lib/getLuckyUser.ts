@@ -1,16 +1,16 @@
-import dayjs from "@calcom/dayjs";
-import type { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { getBusyCalendarTimes } from "@calcom/features/calendars/lib/CalendarManager";
-import type { HostRepository } from "@calcom/features/host/repositories/HostRepository";
-import type { PrismaOOORepository } from "@calcom/features/ooo/repositories/PrismaOOORepository";
-import { mergeOverlappingRanges } from "@calcom/features/schedules/lib/date-ranges";
-import type { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { Booking, SelectedCalendar, User } from "@calcom/prisma/client";
-import { RRResetInterval, RRTimestampBasis } from "@calcom/prisma/enums";
-import type { EventBusyDate } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import dayjs from "@kalo/dayjs";
+import type { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { getBusyCalendarTimes } from "@kalo/features/calendars/lib/CalendarManager";
+import type { HostRepository } from "@kalo/features/host/repositories/HostRepository";
+import type { PrismaOOORepository } from "@kalo/features/ooo/repositories/PrismaOOORepository";
+import { mergeOverlappingRanges } from "@kalo/features/schedules/lib/date-ranges";
+import type { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { Booking, SelectedCalendar, User } from "@kalo/prisma/client";
+import { RRResetInterval, RRTimestampBasis } from "@kalo/prisma/enums";
+import type { EventBusyDate } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 
 const log = logger.getSubLogger({ prefix: ["getLuckyUser"] });
 

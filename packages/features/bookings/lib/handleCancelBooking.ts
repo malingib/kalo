@@ -1,42 +1,42 @@
-import { DailyLocationType } from "@calcom/app-store/constants";
-import { FAKE_DAILY_CREDENTIAL } from "@calcom/app-store/dailyvideo/lib/VideoApiAdapter";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import dayjs from "@calcom/dayjs";
-import { sendCancelledEmailsAndSMS } from "@calcom/emails/email-manager";
-import { BookingReferenceRepository } from "@calcom/features/bookingReference/repositories/BookingReferenceRepository";
-import EventManager from "@calcom/features/bookings/lib/EventManager";
-import { getCalEventResponses } from "@calcom/features/bookings/lib/getCalEventResponses";
-import { processNoShowFeeOnCancellation } from "@calcom/features/bookings/lib/payment/processNoShowFeeOnCancellation";
-import { processPaymentRefund } from "@calcom/features/bookings/lib/payment/processPaymentRefund";
+import { DailyLocationType } from "@kalo/app-store/constants";
+import { FAKE_DAILY_CREDENTIAL } from "@kalo/app-store/dailyvideo/lib/VideoApiAdapter";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import dayjs from "@kalo/dayjs";
+import { sendCancelledEmailsAndSMS } from "@kalo/emails/email-manager";
+import { BookingReferenceRepository } from "@kalo/features/bookingReference/repositories/BookingReferenceRepository";
+import EventManager from "@kalo/features/bookings/lib/EventManager";
+import { getCalEventResponses } from "@kalo/features/bookings/lib/getCalEventResponses";
+import { processNoShowFeeOnCancellation } from "@kalo/features/bookings/lib/payment/processNoShowFeeOnCancellation";
+import { processPaymentRefund } from "@kalo/features/bookings/lib/payment/processPaymentRefund";
 import {
   type EventTypeBrandingData,
   getEventTypeService,
-} from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import type { GetSubscriberOptions } from "@calcom/features/webhooks/lib/getWebhooks";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
+} from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import type { GetSubscriberOptions } from "@kalo/features/webhooks/lib/getWebhooks";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
 import {
   cancelNoShowTasksForBooking,
   deleteWebhookScheduledTriggers,
-} from "@calcom/features/webhooks/lib/scheduleTrigger";
-import sendPayload from "@calcom/features/webhooks/lib/sendOrSchedulePayload";
-import type { EventTypeInfo } from "@calcom/features/webhooks/lib/sendPayload";
-import { HttpError } from "@calcom/lib/http-error";
-import { isPrismaObjOrUndefined } from "@calcom/lib/isPrismaObj";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { getTranslation } from "@calcom/i18n/server";
-import { getTimeFormatStringFromUserTimeFormat } from "@calcom/lib/timeFormat";
+} from "@kalo/features/webhooks/lib/scheduleTrigger";
+import sendPayload from "@kalo/features/webhooks/lib/sendOrSchedulePayload";
+import type { EventTypeInfo } from "@kalo/features/webhooks/lib/sendPayload";
+import { HttpError } from "@kalo/lib/http-error";
+import { isPrismaObjOrUndefined } from "@kalo/lib/isPrismaObj";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { getTranslation } from "@kalo/i18n/server";
+import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
 // TODO: Prisma import would be used from DI in a followup PR when we remove `handler` export
-import prisma from "@calcom/prisma";
-import type { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { BookingStatus } from "@calcom/prisma/enums";
+import prisma from "@kalo/prisma";
+import type { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { BookingStatus } from "@kalo/prisma/enums";
 
 import { isCancellationReasonRequired } from "./cancellationReason";
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import { bookingCancelInput } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import { bookingCancelInput } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 import type { z } from "zod";
 import { BookingRepository } from "../repositories/BookingRepository";
 import { PrismaBookingAttendeeRepository } from "../repositories/PrismaBookingAttendeeRepository";
@@ -49,7 +49,7 @@ import { getAllCredentialsIncludeServiceAccountKey } from "./getAllCredentialsFo
 import { getBookingToDelete } from "./getBookingToDelete";
 import cancelAttendeeSeat from "./handleSeats/cancel/cancelAttendeeSeat";
 import type { IBookingCancelService } from "./interfaces/IBookingCancelService";
-import { isPrismaError } from "@calcom/lib/server/getServerErrorFromUnknown";
+import { isPrismaError } from "@kalo/lib/server/getServerErrorFromUnknown";
 
 const log = logger.getSubLogger({ prefix: ["handleCancelBooking"] });
 
@@ -442,7 +442,7 @@ async function handler(input: CancelBookingInput, dependencies?: Dependencies) {
   );
 
   // Skip calendar event deletion when cancellation comes from a calendar subscription webhook
-  // to avoid infinite loops (Google/Office365 → Cal.diy → Google/Office365 → ...)
+  // to avoid infinite loops (Google/Office365 → Kalo → Google/Office365 → ...)
   if (!skipCalendarSyncTaskCancellation) {
     try {
       const bookingToDeleteEventTypeMetadataParsed = eventTypeMetaDataSchemaWithTypedApps.safeParse(

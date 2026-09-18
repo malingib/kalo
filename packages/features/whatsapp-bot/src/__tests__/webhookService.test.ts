@@ -1,5 +1,5 @@
-import type { PrismaClient } from "@calcom/prisma";
-import { BookingStatus } from "@calcom/prisma/enums";
+import type { PrismaClient } from "@kalo/prisma";
+import { BookingStatus } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MPesaStkPushResponse } from "../../mpesa/darajaClient";
 import { WhatsAppSessionRepository } from "../sessionStore";

@@ -1,11 +1,11 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Badge } from "@calcom/ui/components/badge";
-import { SettingsToggle } from "@calcom/ui/components/form";
-import { SkeletonButton, SkeletonContainer, SkeletonText } from "@calcom/ui/components/skeleton";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Badge } from "@kalo/ui/components/badge";
+import { SettingsToggle } from "@kalo/ui/components/form";
+import { SkeletonButton, SkeletonContainer, SkeletonText } from "@kalo/ui/components/skeleton";
 import DisableTwoFactorModal from "@components/settings/DisableTwoFactorModal";
 import EnableTwoFactorModal from "@components/settings/EnableTwoFactorModal";
 import { signOut, useSession } from "next-auth/react";

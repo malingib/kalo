@@ -15,11 +15,11 @@ import localFont from "next/font/local";
 import Head from "next/head";
 import Script from "next/script";
 
-import "@calcom/embed-core/src/embed-iframe";
-import { IS_CALCOM, WEBAPP_URL } from "@calcom/lib/constants";
-import { getCalcomUrl } from "@calcom/lib/getCalcomUrl";
-import { buildCanonical } from "@calcom/lib/next-seo.config";
-import { IconSprites } from "@calcom/ui/components/icon";
+import "@kalo/embed-core/src/embed-iframe";
+import { IS_CALCOM, WEBAPP_URL } from "@kalo/lib/constants";
+import { getCalcomUrl } from "@kalo/lib/getCalcomUrl";
+import { buildCanonical } from "@kalo/lib/next-seo.config";
+import { IconSprites } from "@kalo/ui/components/icon";
 
 import type { AppProps } from "@lib/app-providers";
 import AppProviders from "@lib/app-providers";

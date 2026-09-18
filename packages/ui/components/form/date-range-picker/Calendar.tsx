@@ -1,7 +1,7 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
-import cn from "@calcom/ui/classNames";
+import dayjs from "@kalo/dayjs";
+import cn from "@kalo/ui/classNames";
 import { ChevronLeftIcon, ChevronRightIcon } from "@coss/ui/icons";
 import type * as React from "react";
 import { DayPicker } from "react-day-picker";

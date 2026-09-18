@@ -1,4 +1,4 @@
-import type BaseEmail from "@calcom/emails/templates/_base-email";
+import type BaseEmail from "@kalo/emails/templates/_base-email";
 
 import type { IBookingRedirect } from "./templates/booking-redirect-notification";
 import BookingRedirectEmailNotification from "./templates/booking-redirect-notification";

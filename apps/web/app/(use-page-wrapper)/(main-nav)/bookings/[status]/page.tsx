@@ -1,6 +1,6 @@
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { prisma } from "@calcom/prisma";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { prisma } from "@kalo/prisma";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import type { PageProps } from "app/_types";
 import { _generateMetadata, getTranslate } from "app/_utils";
@@ -39,7 +39,7 @@ const Page = async ({ params }: PageProps) => {
   const userId = session.user.id;
   const featuresRepository = new FeaturesRepository(prisma);
 
-  // No teams in cal.diy, so canReadOthersBookings is always false.
+  // No teams in kalo, so canReadOthersBookings is always false.
   const canReadOthersBookings = false;
 
   const [bookingAuditEnabled, bookingsV3Enabled] = await Promise.all([

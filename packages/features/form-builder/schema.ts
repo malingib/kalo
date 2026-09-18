@@ -1,4 +1,4 @@
-import { fieldSchema, fieldTypeEnum, variantsConfigSchema } from "@calcom/prisma/zod-utils";
+import { fieldSchema, fieldTypeEnum, variantsConfigSchema } from "@kalo/prisma/zod-utils";
 import { z } from "zod";
 import { fieldTypesConfigMap } from "./fieldTypes";
 import { preprocessNameFieldDataWithVariant } from "./utils";

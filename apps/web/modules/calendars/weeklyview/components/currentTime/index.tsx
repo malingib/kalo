@@ -1,6 +1,6 @@
-import dayjs from "@calcom/dayjs";
-import { useTimePreferences } from "@calcom/features/bookings/lib";
-import { useCalendarStore } from "@calcom/features/calendars/weeklyview/state/store";
+import dayjs from "@kalo/dayjs";
+import { useTimePreferences } from "@kalo/features/bookings/lib";
+import { useCalendarStore } from "@kalo/features/calendars/weeklyview/state/store";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function calculateMinutesFromStart(startHour: number, currentHour: number, currentMinute: number) {

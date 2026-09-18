@@ -41,9 +41,9 @@ jobs:
       - uses: ./.github/actions/yarn-install
       - name: Generate Prisma schemas
         working-directory: apps/api/v2
-        run: yarn workspace @calcom/api-v2 run generate-schemas
+        run: yarn workspace @kalo/api-v2 run generate-schemas
       - name: Build API v2 with Turbo
         run: |
           export NODE_OPTIONS="--max_old_space_size=8192"
-          yarn turbo run build --filter=@calcom/api-v2
+          yarn turbo run build --filter=@kalo/api-v2
         shell: bash

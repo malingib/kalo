@@ -1,13 +1,13 @@
 "use client";
 
-import { FULL_NAME_LENGTH_MAX_LIMIT } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { UserAvatar } from "@calcom/ui/components/avatar";
-import { Button } from "@calcom/ui/components/button";
-import { Label, TextArea, TextField } from "@calcom/ui/components/form";
-import { ImageUploader } from "@calcom/ui/components/image-uploader";
-import { showToast } from "@calcom/ui/components/toast";
+import { FULL_NAME_LENGTH_MAX_LIMIT } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { UserAvatar } from "@kalo/ui/components/avatar";
+import { Button } from "@kalo/ui/components/button";
+import { Label, TextArea, TextField } from "@kalo/ui/components/form";
+import { ImageUploader } from "@kalo/ui/components/image-uploader";
+import { showToast } from "@kalo/ui/components/toast";
 import { UsernameAvailabilityField } from "@components/ui/UsernameAvailability";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";

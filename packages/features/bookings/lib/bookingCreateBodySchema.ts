@@ -1,9 +1,9 @@
 // `responses` is merged with it during handleNewBooking call because `responses` schema is dynamic and depends on eventType
 import z from "zod";
 
-import { timeZoneSchema } from "@calcom/lib/dayjs/timeZone.schema";
+import { timeZoneSchema } from "@kalo/lib/dayjs/timeZone.schema";
 
-import { CreationSource } from "@calcom/prisma/enums";
+import { CreationSource } from "@kalo/prisma/enums";
 
 export const bookingCreateBodySchema = z.object({
   end: z.string().optional(),

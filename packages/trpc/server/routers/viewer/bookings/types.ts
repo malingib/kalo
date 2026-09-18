@@ -1,4 +1,4 @@
-import type { User } from "@calcom/prisma/client";
+import type { User } from "@kalo/prisma/client";
 import { z } from "zod";
 
 export type PersonAttendeeCommonFields = Pick<

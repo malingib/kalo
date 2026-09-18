@@ -1,6 +1,6 @@
-import { getUsersCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import getApps, { sanitizeAppForViewer } from "@calcom/app-store/utils";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getUsersCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import getApps, { sanitizeAppForViewer } from "@kalo/app-store/utils";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import { TRPCError } from "@trpc/server";
 

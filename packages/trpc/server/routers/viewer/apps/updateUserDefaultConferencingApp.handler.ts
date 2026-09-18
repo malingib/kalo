@@ -1,10 +1,10 @@
 import z from "zod";
 
-import { getUsersCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import getApps from "@calcom/app-store/utils";
-import { prisma } from "@calcom/prisma";
-import { userMetadata } from "@calcom/prisma/zod-utils";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getUsersCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import getApps from "@kalo/app-store/utils";
+import { prisma } from "@kalo/prisma";
+import { userMetadata } from "@kalo/prisma/zod-utils";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import { TRPCError } from "@trpc/server";
 

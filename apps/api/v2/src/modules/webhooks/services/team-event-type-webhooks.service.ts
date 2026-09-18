@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { BadRequestException, ConflictException, Injectable } from "@nestjs/common";
 import type { PipedInputWebhookType } from "@/modules/webhooks/pipes/WebhookInputPipe";
 import { validateWebhookUrl } from "@/modules/webhooks/utils/validate-webhook-url";

@@ -4,13 +4,13 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { UIEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import type { UserAdminTeams } from "@calcom/features/users/repositories/UserRepository";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { AppCategories } from "@calcom/prisma/client";
-import type { AppFrontendPayload as App } from "@calcom/types/App";
-import type { CredentialFrontendPayload as Credential } from "@calcom/types/Credential";
-import classNames from "@calcom/ui/classNames";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import type { UserAdminTeams } from "@kalo/features/users/repositories/UserRepository";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { AppCategories } from "@kalo/prisma/client";
+import type { AppFrontendPayload as App } from "@kalo/types/App";
+import type { CredentialFrontendPayload as Credential } from "@kalo/types/Credential";
+import classNames from "@kalo/ui/classNames";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 import { ChevronLeftIcon, ChevronRightIcon } from "@coss/ui/icons";
 
 import { AppCard } from "./AppCard";

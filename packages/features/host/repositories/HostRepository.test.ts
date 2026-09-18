@@ -1,10 +1,10 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
-import { PrismaClient } from "@calcom/prisma";
+import { PrismaClient } from "@kalo/prisma";
 
 import { HostRepository } from "./HostRepository";
 
-vi.mock("@calcom/prisma", () => {
+vi.mock("@kalo/prisma", () => {
   const mockPrisma = {
     host: {
       updateMany: vi.fn(),

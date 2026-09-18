@@ -3,18 +3,18 @@ import {
   type FilterableColumn,
   type FilterValue,
   ZFilterValue,
-} from "@calcom/features/data-table/lib/types";
+} from "@kalo/features/data-table/lib/types";
 import {
   isMultiSelectFilterValue,
   isNumberFilterValue,
   isSingleSelectFilterValue,
   isTextFilterValue,
-} from "@calcom/features/data-table/lib/utils";
-import type { FilterType } from "@calcom/types/data-table";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import type { IconName } from "@calcom/ui/components/icon";
-import { Popover, PopoverContent, PopoverTrigger } from "@calcom/ui/components/popover";
+} from "@kalo/features/data-table/lib/utils";
+import type { FilterType } from "@kalo/types/data-table";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import type { IconName } from "@kalo/ui/components/icon";
+import { Popover, PopoverContent, PopoverTrigger } from "@kalo/ui/components/popover";
 import startCase from "lodash/startCase";
 import { useFilterValue } from "~/data-table/hooks";
 import { FilterOptions } from "./FilterOptions";

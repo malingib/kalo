@@ -1,5 +1,5 @@
-import tasker from "@calcom/features/tasker";
-import { tasksConfig } from "@calcom/features/tasker/tasks";
+import tasker from "@kalo/features/tasker";
+import { tasksConfig } from "@kalo/features/tasker/tasks";
 
 class CRMScheduler {
   static async createEvent({ bookingUid }: { bookingUid: string }) {

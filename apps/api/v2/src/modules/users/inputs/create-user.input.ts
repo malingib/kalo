@@ -13,7 +13,7 @@ import {
   IsObject,
 } from "class-validator";
 
-import { ValidateMetadata } from "@calcom/platform-types";
+import { ValidateMetadata } from "@kalo/platform-types";
 
 import { AvatarValidator } from "../validators/avatarValidator";
 import { LocaleValidator } from "../validators/localeValidator";

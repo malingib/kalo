@@ -1,14 +1,14 @@
-import type { IEventTypesRepository } from "@calcom/features/eventtypes/eventtypes.repository.interface";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { UsersRepository } from "@calcom/features/users/users.repository";
-import type { IUsersRepository } from "@calcom/features/users/users.repository.interface";
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import type { PrismaClient } from "@calcom/prisma";
-import { prisma as defaultPrisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import type { TimeUnit, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { MembershipRole, UserPermissionRole } from "@calcom/prisma/enums";
+import type { IEventTypesRepository } from "@kalo/features/eventtypes/eventtypes.repository.interface";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { UsersRepository } from "@kalo/features/users/users.repository";
+import type { IUsersRepository } from "@kalo/features/users/users.repository.interface";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import type { PrismaClient } from "@kalo/prisma";
+import { prisma as defaultPrisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import type { TimeUnit, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { MembershipRole, UserPermissionRole } from "@kalo/prisma/enums";
 import type { Webhook, WebhookGroup, WebhookSubscriber } from "../dto/types";
 import { WebhookOutputMapper } from "../infrastructure/mappers/WebhookOutputMapper";
 import type {
@@ -63,7 +63,7 @@ export class WebhookRepository implements IWebhookRepository {
    *
    * @deprecated Use DI container instead:
    * ```typescript
-   * import { getWebhookFeature } from "@calcom/features/di/webhooks/containers/webhook";
+   * import { getWebhookFeature } from "@kalo/features/di/webhooks/containers/webhook";
    * const { repository } = getWebhookFeature();
    * ```
    *

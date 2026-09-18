@@ -1,17 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { buildCalEventFromBooking } from "../buildCalEventFromBooking";
 import { parseRecurringEvent } from "../isRecurringEvent";
-import { getTranslation } from "@calcom/i18n/server";
+import { getTranslation } from "@kalo/i18n/server";
 
 // Mock dependencies
 vi.mock("../isRecurringEvent", () => ({
   parseRecurringEvent: vi.fn(),
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: vi.fn(),
 }));
 

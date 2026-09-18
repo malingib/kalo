@@ -1,23 +1,23 @@
 import { useState } from "react";
 
-import dayjs from "@calcom/dayjs";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog } from "@calcom/ui/components/dialog";
-import { ConfirmationDialogContent } from "@calcom/ui/components/dialog";
+import dayjs from "@kalo/dayjs";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog } from "@kalo/ui/components/dialog";
+import { ConfirmationDialogContent } from "@kalo/ui/components/dialog";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { showToast } from "@calcom/ui/components/toast";
-import { revalidateApiKeysList } from "@calcom/web/app/(use-page-wrapper)/settings/(settings-layout)/developer/api-keys/actions";
+} from "@kalo/ui/components/dropdown";
+import { showToast } from "@kalo/ui/components/toast";
+import { revalidateApiKeysList } from "@kalo/web/app/(use-page-wrapper)/settings/(settings-layout)/developer/api-keys/actions";
 
 export type TApiKeys = RouterOutputs["viewer"]["apiKeys"]["list"][number];
 

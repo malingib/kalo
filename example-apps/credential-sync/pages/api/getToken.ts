@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CALCOM_CREDENTIAL_SYNC_HEADER_NAME, CALCOM_CREDENTIAL_SYNC_SECRET } from "../../constants";
+import { KALO_CREDENTIAL_SYNC_HEADER_NAME, KALO_CREDENTIAL_SYNC_SECRET } from "../../constants";
 import { generateGoogleCalendarAccessToken, generateZoomAccessToken } from "../../lib/integrations";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const secret = req.headers[CALCOM_CREDENTIAL_SYNC_HEADER_NAME];
+  const secret = req.headers[KALO_CREDENTIAL_SYNC_HEADER_NAME];
   console.log("getToken hit");
   try {
     if (!secret) {
       return res.status(403).json({ message: "secret header not set" });
     }
-    if (secret !== CALCOM_CREDENTIAL_SYNC_SECRET) {
+    if (secret !== KALO_CREDENTIAL_SYNC_SECRET) {
       return res.status(403).json({ message: "Invalid secret" });
     }
 

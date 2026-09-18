@@ -1,7 +1,7 @@
 import type { NextApiRequest } from "next";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
 
 import type {
   NewCanvas,
@@ -24,13 +24,13 @@ export async function handleLinkStep(req: NextApiRequest): Promise<NewCanvas | s
   const input: InputComponent = {
     type: "input",
     id: "submit_booking_url",
-    label: "Enter your Cal.diy link",
+    label: "Enter your Kalo link",
     placeholder: "https://cal.com/valentinchmara/30min",
     save_state: "unsaved",
     action: {
       type: "submit",
     },
-    aria_label: "Enter your Cal.diy link",
+    aria_label: "Enter your Kalo link",
   };
 
   const defaultCanvasData: NewCanvas = {
@@ -117,7 +117,7 @@ export async function handleLinkStep(req: NextApiRequest): Promise<NewCanvas | s
 
   const text: TextComponent = {
     type: "text",
-    text: "Or choose another Cal.diy link:",
+    text: "Or choose another Kalo link:",
     style: "muted",
     align: "left",
   };

@@ -1,5 +1,5 @@
-import { SchedulingType } from "@calcom/prisma/enums";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { SchedulingType } from "@kalo/prisma/enums";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 import { BaseScheduledEmail } from "./BaseScheduledEmail";
 

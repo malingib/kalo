@@ -2,8 +2,8 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import { trpc } from "@calcom/trpc/react";
-import { showToast } from "@calcom/ui/components/toast";
+import { trpc } from "@kalo/trpc/react";
+import { showToast } from "@kalo/ui/components/toast";
 
 interface WebPushContextProps {
   permission: NotificationPermission;

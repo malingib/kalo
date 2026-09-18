@@ -1,4 +1,4 @@
-import { LuckyUserService as BaseLuckyUserService } from "@calcom/platform-libraries/bookings";
+import { LuckyUserService as BaseLuckyUserService } from "@kalo/platform-libraries/bookings";
 import { Injectable } from "@nestjs/common";
 import { PrismaBookingRepository } from "@/lib/repositories/prisma-booking.repository";
 import { PrismaHostRepository } from "@/lib/repositories/prisma-host.repository";

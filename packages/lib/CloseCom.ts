@@ -1,5 +1,5 @@
-import logger from "@calcom/lib/logger";
-import prisma from "@calcom/prisma";
+import logger from "@kalo/lib/logger";
+import prisma from "@kalo/prisma";
 
 export type CloseComLead = {
   companyName?: string | null | undefined;

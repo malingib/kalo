@@ -1,9 +1,9 @@
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import type { PrismaClient } from "@calcom/prisma";
-import { MembershipRole } from "@calcom/prisma/enums";
-import { teamMetadataSchema } from "@calcom/prisma/zod-utils";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import type { PrismaClient } from "@kalo/prisma";
+import { MembershipRole } from "@kalo/prisma/enums";
+import { teamMetadataSchema } from "@kalo/prisma/zod-utils";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 import { TRPCError } from "@trpc/server";
 import type { TTeamsAndUserProfilesQueryInputSchema } from "./teamsAndUserProfilesQuery.schema";
 

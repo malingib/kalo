@@ -1,7 +1,7 @@
 import dns from "node:dns/promises";
 import ipaddr from "ipaddr.js";
-import { IS_SELF_HOSTED } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
+import { IS_SELF_HOSTED } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
 
 const log: ReturnType<typeof logger.getSubLogger> = logger.getSubLogger({ prefix: ["ssrf-protection"] });
 
@@ -33,7 +33,7 @@ const CLOUD_METADATA_ENDPOINTS: string[] = [
 
 const LOOPBACK_HOSTNAMES: string[] = ["localhost", "127.0.0.1", "::1", "[::1]", "0.0.0.0"];
 
-// Hostnames blocked on Cal.diy SaaS (includes metadata + loopback)
+// Hostnames blocked on Kalo SaaS (includes metadata + loopback)
 const BLOCKED_HOSTNAMES: string[] = [...CLOUD_METADATA_ENDPOINTS, ...LOOPBACK_HOSTNAMES];
 
 const CAL_AVATAR_PATH_REGEX = /^\/api\/avatar\/.+\.png$/;

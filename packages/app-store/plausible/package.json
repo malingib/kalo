@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/plausible",
+  "name": "@kalo/plausible",
   "version": "0.0.0",
   "main": "./index.ts",
   "description": "Simple, privacy-friendly Google Analytics alternative.",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   }
 }

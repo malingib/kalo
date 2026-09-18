@@ -1,8 +1,8 @@
 import type {
   UpdateBookingInputLocation_2024_08_13,
   UpdateBookingLocationInput_2024_08_13,
-} from "@calcom/platform-types";
-import type { Prisma } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { Prisma } from "@kalo/prisma/client";
 import {
   BadRequestException,
   ForbiddenException,

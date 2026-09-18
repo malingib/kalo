@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 
-import type { App } from "@calcom/types/App";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import type { App } from "@kalo/types/App";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 
 import { sanitizeAppForViewer } from "./utils";
 import type { CredentialDataWithTeamName, LocationOption } from "./utils";

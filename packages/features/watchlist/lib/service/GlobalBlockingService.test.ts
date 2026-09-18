@@ -1,6 +1,6 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
-import { WatchlistType, WatchlistAction, WatchlistSource } from "@calcom/prisma/enums";
+import { WatchlistType, WatchlistAction, WatchlistSource } from "@kalo/prisma/enums";
 
 import type { IGlobalWatchlistRepository } from "../interface/IWatchlistRepositories";
 import { GlobalBlockingService } from "./GlobalBlockingService";
@@ -223,7 +223,7 @@ describe("GlobalBlockingService", () => {
 
       vi.mocked(mockGlobalRepo.findBlockingEntriesForEmailsAndDomains).mockResolvedValue([wildcardEntry]);
 
-      const result = await service.isBlocked("user@cal.com");
+      const result = await service.isBlocked("user@kalo");
 
       expect(result.isBlocked).toBe(false);
     });

@@ -9,9 +9,9 @@ import {
 } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { TextField } from "@calcom/ui/components/form";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { TextField } from "@kalo/ui/components/form";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "@coss/ui/icons";
 
 export interface Option {

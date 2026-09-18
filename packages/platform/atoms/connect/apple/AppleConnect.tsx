@@ -12,11 +12,11 @@ import type { FC } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { Form } from "@calcom/ui/components/form";
-import { PasswordField } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { Form } from "@kalo/ui/components/form";
+import { PasswordField } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
 
 import { SUCCESS_STATUS } from "../../../constants/api";
 import { useCheck } from "../../hooks/connect/useCheck";
@@ -125,7 +125,7 @@ export const AppleConnect: FC<Partial<Omit<OAuthConnectProps, "redir">>> = ({
           <DialogHeader>
             <DialogTitle>Connect to Apple Server</DialogTitle>
             <DialogDescription>
-              Generate an app specific password to use with Cal.diy at{" "}
+              Generate an app specific password to use with Kalo at{" "}
               <span className="font-bold">https://appleid.apple.com/account/manage</span>. Your credentials
               will be stored and encrypted.
             </DialogDescription>

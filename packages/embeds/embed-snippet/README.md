@@ -1,6 +1,6 @@
 # embed-snippet
 
-Vanilla JS embed snippet that is responsible to fetch @calcom/embed-core and thus show Cal Link as an embed on a page.
+Vanilla JS embed snippet that is responsible to fetch @kalo/embed-core and thus show Cal Link as an embed on a page.
 
 ## Development
 

@@ -1,4 +1,4 @@
-import type { FeatureId, FeatureState } from "@calcom/features/flags/config";
+import type { FeatureId, FeatureState } from "@kalo/features/flags/config";
 
 import type { EffectiveStateReason } from "../lib/computeEffectiveState";
 import type { OptInFeatureScope } from "../types";

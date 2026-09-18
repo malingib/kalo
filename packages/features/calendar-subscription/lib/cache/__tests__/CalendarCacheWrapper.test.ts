@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
-import type { ICalendarCacheEventRepository } from "@calcom/features/calendar-subscription/lib/cache/CalendarCacheEventRepository.interface";
+import type { ICalendarCacheEventRepository } from "@kalo/features/calendar-subscription/lib/cache/CalendarCacheEventRepository.interface";
 import type {
   Calendar,
   CalendarEvent,
@@ -8,7 +8,7 @@ import type {
   EventBusyDate,
   IntegrationCalendar,
   NewCalendarEventType,
-} from "@calcom/types/Calendar";
+} from "@kalo/types/Calendar";
 
 import { CalendarCacheWrapper } from "../CalendarCacheWrapper";
 

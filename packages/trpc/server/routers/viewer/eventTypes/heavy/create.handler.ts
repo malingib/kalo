@@ -1,10 +1,10 @@
-import { getDefaultLocations } from "@calcom/app-store/_utils/getDefaultLocations";
-import { DailyLocationType } from "@calcom/app-store/constants";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import type { PrismaClient } from "@calcom/prisma";
-import { Prisma } from "@calcom/prisma/client";
-import { MembershipRole, SchedulingType } from "@calcom/prisma/enums";
-import type { eventTypeLocations } from "@calcom/prisma/zod-utils";
+import { getDefaultLocations } from "@kalo/app-store/_utils/getDefaultLocations";
+import { DailyLocationType } from "@kalo/app-store/constants";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import type { PrismaClient } from "@kalo/prisma";
+import { Prisma } from "@kalo/prisma/client";
+import { MembershipRole, SchedulingType } from "@kalo/prisma/enums";
+import type { eventTypeLocations } from "@kalo/prisma/zod-utils";
 import { TRPCError } from "@trpc/server";
 import type { z } from "zod";
 import type { TrpcSessionUser } from "../../../../types";

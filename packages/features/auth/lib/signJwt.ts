@@ -1,6 +1,6 @@
 import { SignJWT } from "jose";
 
-import { WEBSITE_URL } from "@calcom/lib/constants";
+import { WEBSITE_URL } from "@kalo/lib/constants";
 
 const signJwt = async (payload: { email: string }) => {
   const secret = new TextEncoder().encode(process.env.CALENDSO_ENCRYPTION_KEY);

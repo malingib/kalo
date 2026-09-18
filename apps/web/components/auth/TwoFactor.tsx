@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import useDigitInput from "react-digit-input";
 import { useFormContext } from "react-hook-form";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Input, Label } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Input, Label } from "@kalo/ui/components/form";
 
 export default function TwoFactor({ center = true, autoFocus = true }) {
   const [value, onChange] = useState("");

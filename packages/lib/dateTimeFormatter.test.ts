@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import "@calcom/dayjs/locales";
+import "@kalo/dayjs/locales";
 
 import { formatDateTime, formatDateTimeRange, formatWeekday, getWeekdayNames } from "./dateTimeFormatter";
 

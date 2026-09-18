@@ -5,7 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
-import { signupSchema as apiSignupSchema } from "@calcom/prisma/zod-utils";
+import { signupSchema as apiSignupSchema } from "@kalo/prisma/zod-utils";
 
 const signupSchema = apiSignupSchema.extend({
   apiError: z.string().optional(),

@@ -1,4 +1,4 @@
-import i18nConfig from "@calcom/i18n/next-i18next.config";
+import i18nConfig from "@kalo/i18n/next-i18next.config";
 import type { I18nInputSchema } from "./i18n.schema";
 
 type I18nOptions = {

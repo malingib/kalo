@@ -2,10 +2,10 @@
  * TODO: Consolidate this file with BookingLocationService and add tests
  */
 
-import { appStoreMetadata } from "@calcom/app-store/bookerAppsMetaData";
-import logger from "@calcom/lib/logger";
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { Ensure, Optional } from "@calcom/types/utils";
+import { appStoreMetadata } from "@kalo/app-store/bookerAppsMetaData";
+import logger from "@kalo/lib/logger";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { Ensure, Optional } from "@kalo/types/utils";
 import type { TFunction } from "i18next";
 import { isValidPhoneNumber } from "libphonenumber-js/max";
 import { z } from "zod";

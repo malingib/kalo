@@ -1,5 +1,5 @@
-import logger from "@calcom/lib/logger";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import logger from "@kalo/lib/logger";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type {
   AfterGuestsNoShowDTO,
   AfterHostsNoShowDTO,

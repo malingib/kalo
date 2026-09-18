@@ -5,7 +5,7 @@ import { IsEnum, ValidatorConstraint, registerDecorator } from "class-validator"
 import {
   BookerLayoutsInputEnum_2024_06_14,
   type BookerLayoutsOutputEnum_2024_06_14,
-} from "@calcom/platform-enums";
+} from "@kalo/platform-enums";
 
 export type BookerLayoutsTransformedSchema = {
   defaultLayout: BookerLayoutsOutputEnum_2024_06_14;

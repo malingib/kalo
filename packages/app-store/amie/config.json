@@ -4,13 +4,13 @@
   "slug": "amie",
   "type": "amie_other",
   "logo": "icon.svg",
-  "url": "https://cal.com",
+  "url": "https://github.com/malingib/kalo",
   "variant": "other",
   "categories": [
     "calendar"
   ],
-  "publisher": "Cal.com, Inc.",
-  "email": "support@cal.com",
+  "publisher": "Kalo, Inc.",
+  "email": "support@kalo",
   "description": "The joyful productivity app\r\r",
   "__createdUsingCli": true,
   "dependencies": [

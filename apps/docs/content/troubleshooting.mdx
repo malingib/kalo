@@ -3,7 +3,7 @@ title: "Troubleshooting"
 icon: "triangle-exclamation"
 ---
 
-This guide covers the most common issues encountered when self-hosting Cal.diy, along with their solutions.
+This guide covers the most common issues encountered when self-hosting Kalo, along with their solutions.
 
 ## Onboarding / Setup Issues
 
@@ -29,7 +29,7 @@ NEXT_PUBLIC_STRIPE_PUBLIC_KEY=pk_test_...
 
 > **Note:** Replace these with your actual Stripe API keys from the [Stripe Dashboard](https://dashboard.stripe.com/apikeys). If you don't need payment features, you can safely leave these empty — the app will function without them, but Stripe-related features will be disabled.
 
-Related issue: [#25993](https://github.com/calcom/cal.diy/issues/25993)
+Related issue: [#25993](https://github.com/malingib/kalo/issues/25993)
 
 ---
 
@@ -37,9 +37,9 @@ Related issue: [#25993](https://github.com/calcom/cal.diy/issues/25993)
 
 ### Redirect to `localhost:3000` After Deployment
 
-**Symptom:** After deploying Cal.diy to a server or domain, login redirects or internal links point back to `http://localhost:3000` instead of your actual domain.
+**Symptom:** After deploying Kalo to a server or domain, login redirects or internal links point back to `http://localhost:3000` instead of your actual domain.
 
-**Cause:** The environment variables `NEXTAUTH_URL` and `NEXT_PUBLIC_WEBAPP_URL` are not set to your production domain. These variables tell Cal.diy and NextAuth where the app is hosted.
+**Cause:** The environment variables `NEXTAUTH_URL` and `NEXT_PUBLIC_WEBAPP_URL` are not set to your production domain. These variables tell Kalo and NextAuth where the app is hosted.
 
 **Solution:** Update your `.env` file to use your actual domain:
 
@@ -52,94 +52,16 @@ NEXTAUTH_URL=https://cal.yourdomain.com
 **Important notes:**
 - Do **not** include a trailing slash.
 - `NEXTAUTH_URL` is optional if `NEXT_PUBLIC_WEBAPP_URL` is set — NextAuth will infer the base URL from the incoming request's `Host` header when `NEXTAUTH_URL` is not explicitly configured.
-- For Docker deployments, these must be set **before** building the image, as `NEXT_PUBLIC_WEBAPP_URL` is a build-time variable (it is inlined by Next.js during the build). Rebuild the image after changing it.
+- For production builds, `NEXT_PUBLIC_WEBAPP_URL` is a build-time variable (it is inlined by Next.js during the build). Rebuild after changing it.
 - For Vercel deployments, you do **not** need to set `NEXTAUTH_URL` — Vercel automatically infers it from the deployment URL via the `VERCEL_URL` environment variable.
 
-Related issue: [#21921](https://github.com/calcom/cal.diy/issues/21921)
+Related issue: [#21921](https://github.com/malingib/kalo/issues/21921)
 
 ---
 
-## Docker-Specific Issues
+## SSL / HTTPS Issues Behind a Reverse Proxy
 
-### API v2 Service Not Starting
-
-**Symptom:** After running `docker compose up -d`, the `calcom-api` service fails to start or immediately exits. The web app works, but API v2 endpoints (`/api/v2/...`) return connection errors.
-
-**Cause:** The API v2 service requires several environment variables that are not in the root `.env.example`. If any required variable is missing, the service will throw a `Missing environment variable` error and exit on startup.
-
-**Solution:** Add the following variables to your root `.env` file (the `docker-compose.yml` passes these to the `calcom-api` service):
-
-```env
-# Required for API v2 (service will not start without these)
-REDIS_URL=redis://redis:6379
-JWT_SECRET=your_random_jwt_secret_here
-NEXTAUTH_SECRET=your_nextauth_secret_here
-CALENDSO_ENCRYPTION_KEY=your_32_character_encryption_key
-STRIPE_API_KEY=sk_test_your_stripe_key
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
-
-# Optional (have sensible defaults)
-WEB_APP_URL=https://cal.yourdomain.com
-REDIS_PORT=6379
-LOG_LEVEL=warn
-```
-
-> **Note:** `STRIPE_API_KEY` is the API v2 equivalent of `STRIPE_PRIVATE_KEY` used by the web app. Both are Stripe secret keys but are consumed by different services. If you don't need Stripe functionality in the API, you can set a placeholder value (e.g., `sk_test_placeholder`), but the variable must be present.
-
-You can generate secure secrets with:
-
-```bash
-openssl rand -base64 32
-```
-
-Then restart the stack:
-
-```bash
-docker compose down && docker compose up -d
-```
-
-Check the API v2 service logs for further details if it still fails:
-
-```bash
-docker compose logs calcom-api
-```
-
-> **Tip:** The API v2 service has its own `.env.example` at `apps/api/v2/.env.example` with a complete list of all supported variables. Refer to it for the full configuration reference.
-
----
-
-### `CLIENT_FETCH_ERROR` in Logs
-
-**Symptom:** The following error appears in Docker logs, and login/session fails:
-
-```
-[next-auth][error][CLIENT_FETCH_ERROR]
-request to http://<your-domain>/api/auth/session failed, reason: getaddrinfo ENOTFOUND
-```
-
-**Cause:** The Docker container cannot resolve the external hostname set in `NEXTAUTH_URL` from within the container's network.
-
-**Solution:** Add your domain to the container's `/etc/hosts` so it resolves to itself:
-
-```yaml
-# docker-compose.yml
-services:
-  calcom:
-    extra_hosts:
-      - "cal.yourdomain.com:127.0.0.1"
-```
-
-This allows the container to resolve your public domain internally while keeping `NEXTAUTH_URL` set to your public URL (required for OAuth callbacks to work).
-
-> **Important:** This approach works when `NEXTAUTH_URL` uses HTTP (e.g., `http://cal.yourdomain.com:3000`). If your `NEXTAUTH_URL` uses HTTPS, the container will attempt to connect to `127.0.0.1:443`, while the app listens on port 3000 — this will fail. In that case, ensure your reverse proxy is also running inside the Docker network, or see the SSL section below.
-
-> **Why not use `localhost`?** Setting `NEXTAUTH_URL` to `localhost` would fix this DNS error, but **breaks OAuth** — external providers like Google would redirect to `localhost` instead of your domain.
-
----
-
-### SSL / HTTPS Issues Behind a Reverse Proxy
-
-**Symptom:** Requests fail with SSL certificate errors when Cal.diy is behind a load balancer or reverse proxy that handles HTTPS termination.
+**Symptom:** Requests fail with SSL certificate errors when Kalo is behind a load balancer or reverse proxy that handles HTTPS termination.
 
 **Solution (choose one):**
 
@@ -195,10 +117,10 @@ NODE_TLS_REJECT_UNAUTHORIZED=0
 
 ```bash
 # For development
-yarn workspace @calcom/prisma db-migrate
+yarn workspace @kalo/prisma db-migrate
 
-# For production / Docker
-yarn workspace @calcom/prisma db-deploy
+# For production
+yarn workspace @kalo/prisma db-deploy
 ```
 
 2. Verify the database is accessible and the `DATABASE_URL` in your `.env` is correct.
@@ -213,6 +135,6 @@ yarn workspace @calcom/prisma db-deploy
 
 If your issue is not listed here:
 
-1. Search the [Cal.diy GitHub Issues](https://github.com/calcom/cal.diy/issues) — many common problems have documented solutions in issue threads.
-2. Check the [Cal.com Community](https://community.cal.com) forum.
-3. Review the [Docker configuration](./docker) and [Installation guide](./installation) for any steps you may have missed.
+1. Search the [Kalo GitHub Issues](https://github.com/malingib/kalo/issues) — many common problems have documented solutions in issue threads.
+2. Check the [Kalo Community](https://github.com/malingib/kalo/issues) forum.
+3. Review the [Installation guide](./installation) for any steps you may have missed.

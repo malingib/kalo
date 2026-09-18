@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import EmbedSnippet from "@calcom/embed-snippet";
+import EmbedSnippet from "@kalo/embed-snippet";
 
 export default function useEmbed(embedJsUrl?: string) {
   const [globalCal, setGlobalCal] = useState<ReturnType<typeof EmbedSnippet>>();

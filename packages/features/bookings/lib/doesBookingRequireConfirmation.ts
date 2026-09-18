@@ -1,7 +1,7 @@
 import type { z } from "zod";
 
-import dayjs from "@calcom/dayjs";
-import type { EventTypeMetaDataSchema } from "@calcom/prisma/zod-utils";
+import dayjs from "@kalo/dayjs";
+import type { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 /**
  * Determines if a booking actually requires confirmation(considering requiresConfirmationThreshold)

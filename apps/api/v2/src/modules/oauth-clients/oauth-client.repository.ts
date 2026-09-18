@@ -2,7 +2,7 @@ import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { Injectable } from "@nestjs/common";
 
-import type { PlatformOAuthClient, Prisma } from "@calcom/prisma/client";
+import type { PlatformOAuthClient, Prisma } from "@kalo/prisma/client";
 
 @Injectable()
 export class OAuthClientRepository {

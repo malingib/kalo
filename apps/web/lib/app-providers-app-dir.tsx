@@ -1,5 +1,5 @@
-import { FeatureProvider } from "@calcom/features/flags/context/provider";
-import { useFlags } from "@calcom/web/modules/feature-flags/hooks/useFlags";
+import { FeatureProvider } from "@kalo/features/flags/context/provider";
+import { useFlags } from "@kalo/web/modules/feature-flags/hooks/useFlags";
 import type { PageWrapperProps } from "@components/PageWrapperAppDir";
 import useIsBookingPage from "@lib/hooks/useIsBookingPage";
 import useIsThemeSupported from "@lib/hooks/useIsThemeSupported";

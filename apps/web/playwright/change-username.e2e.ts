@@ -1,4 +1,4 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 import { expect } from "@playwright/test";
 import { test } from "./lib/fixtures";
 import { IS_STRIPE_ENABLED, submitAndWaitForResponse } from "./lib/testUtils";

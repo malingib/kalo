@@ -24,7 +24,7 @@ import type {
   TextAreaFieldOutput_2024_06_14,
   TextFieldOutput_2024_06_14,
   UrlFieldOutput_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export function transformBookingFieldsInternalToApi(
   databaseBookingFields: (SystemField | CustomField)[]

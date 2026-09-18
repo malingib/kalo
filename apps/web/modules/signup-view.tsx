@@ -1,15 +1,15 @@
 "use client";
 
-import getStripe from "@calcom/app-store/stripepayment/lib/client";
-import { getPremiumPlanPriceValue } from "@calcom/app-store/stripepayment/lib/utils";
+import getStripe from "@kalo/app-store/stripepayment/lib/client";
+import { getPremiumPlanPriceValue } from "@kalo/app-store/stripepayment/lib/utils";
 import {
   fetchSignup,
   hasCheckoutSession,
   isAccountUnderReview,
   isUserAlreadyExistsError,
-} from "@calcom/features/auth/signup/lib/fetchSignup";
-import { getOrgUsernameFromEmail } from "@calcom/features/auth/signup/utils/getOrgUsernameFromEmail";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
+} from "@kalo/features/auth/signup/lib/fetchSignup";
+import { getOrgUsernameFromEmail } from "@kalo/features/auth/signup/utils/getOrgUsernameFromEmail";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
 import {
   APP_NAME,
   CLOUDFLARE_SITE_ID,
@@ -19,23 +19,23 @@ import {
   WEBSITE_PRIVACY_POLICY_URL,
   WEBSITE_TERMS_URL,
   WEBSITE_URL,
-} from "@calcom/lib/constants";
-import { isENVDev } from "@calcom/lib/env";
-import { fetchUsername } from "@calcom/lib/fetchUsername";
-import { pushGTMEvent } from "@calcom/lib/gtm";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useDebounce } from "@calcom/lib/hooks/useDebounce";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { INVALID_CLOUDFLARE_TOKEN_ERROR } from "@calcom/lib/server/checkCfTurnstileToken";
-import { IS_EUROPE } from "@calcom/lib/timezoneConstants";
-import { signupSchema as apiSignupSchema } from "@calcom/prisma/zod-utils";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { CheckboxField, Form, PasswordField, SelectField, TextField } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/lib/constants";
+import { isENVDev } from "@kalo/lib/env";
+import { fetchUsername } from "@kalo/lib/fetchUsername";
+import { pushGTMEvent } from "@kalo/lib/gtm";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useDebounce } from "@kalo/lib/hooks/useDebounce";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { INVALID_CLOUDFLARE_TOKEN_ERROR } from "@kalo/lib/server/checkCfTurnstileToken";
+import { IS_EUROPE } from "@kalo/lib/timezoneConstants";
+import { signupSchema as apiSignupSchema } from "@kalo/prisma/zod-utils";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { CheckboxField, Form, PasswordField, SelectField, TextField } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon, ShieldCheckIcon, StarIcon } from "@coss/ui/icons";
 import { Analytics as DubAnalytics } from "@dub/analytics/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,7 +57,7 @@ const signupSchema = apiSignupSchema.extend({
   cfToken: z.string().optional(),
 });
 
-const TurnstileCaptcha = dynamic(() => import("@calcom/web/modules/auth/components/Turnstile"), {
+const TurnstileCaptcha = dynamic(() => import("@kalo/web/modules/auth/components/Turnstile"), {
   ssr: false,
 });
 
@@ -779,7 +779,7 @@ export default function Signup({
                     <img
                       src="/product-cards/product-of-the-day.svg"
                       className="h-[34px] w-full dark:invert"
-                      alt="Cal.diy was Product of the Day at ProductHunt"
+                      alt="Kalo was Product of the Day at ProductHunt"
                     />
                   </div>
                   <div>
@@ -787,7 +787,7 @@ export default function Signup({
                     <img
                       src="/product-cards/product-of-the-week.svg"
                       className="h-[34px] w-full dark:invert"
-                      alt="Cal.diy was Product of the Week at ProductHunt"
+                      alt="Kalo was Product of the Week at ProductHunt"
                     />
                   </div>
                   <div>
@@ -795,7 +795,7 @@ export default function Signup({
                     <img
                       src="/product-cards/product-of-the-month.svg"
                       className="h-[34px] w-full dark:invert"
-                      alt="Cal.diy was Product of the Month at ProductHunt"
+                      alt="Kalo was Product of the Month at ProductHunt"
                     />
                   </div>
                 </div>

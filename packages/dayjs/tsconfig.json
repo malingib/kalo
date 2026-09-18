@@ -1,4 +1,4 @@
 {
-  "extends": "@calcom/tsconfig/base.json",
+  "extends": "@kalo/tsconfig/base.json",
   "include": [".", "../types/business-days-plugin.d.ts"]
 }

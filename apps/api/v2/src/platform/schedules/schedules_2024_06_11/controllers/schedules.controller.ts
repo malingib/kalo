@@ -20,7 +20,7 @@ import {
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags as DocsTags } from "@nestjs/swagger";
 
-import { SCHEDULE_READ, SCHEDULE_WRITE, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { SCHEDULE_READ, SCHEDULE_WRITE, SUCCESS_STATUS } from "@kalo/platform-constants";
 import {
   CreateScheduleOutput_2024_06_11,
   CreateScheduleInput_2024_06_11,
@@ -30,7 +30,7 @@ import {
   GetDefaultScheduleOutput_2024_06_11,
   DeleteScheduleOutput_2024_06_11,
   GetSchedulesOutput_2024_06_11,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 @Controller({
   path: "/v2/schedules",

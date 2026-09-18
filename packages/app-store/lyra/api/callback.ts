@@ -1,6 +1,6 @@
-import { WEBAPP_URL_FOR_OAUTH } from "@calcom/lib/constants";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
-import prisma from "@calcom/prisma";
+import { WEBAPP_URL_FOR_OAUTH } from "@kalo/lib/constants";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
+import prisma from "@kalo/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import getInstalledAppPath from "../../_utils/getInstalledAppPath";
 import createOAuthAppCredential from "../../_utils/oauth/createOAuthAppCredential";
@@ -63,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Convert expires_in (seconds) to expiry_date (absolute ms timestamp)
-  // This follows Cal.diy's universal OAuth token schema
+  // This follows Kalo's universal OAuth token schema
   responseBody.expiry_date = Math.round(Date.now() + responseBody.expires_in * 1000);
   delete responseBody.expires_in;
 

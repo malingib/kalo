@@ -26,7 +26,7 @@ import tailwindCss from "./tailwindCss";
 import type { EmbedPageType, ModalPrerenderOptions, PrefillAndIframeAttrsConfig, UiConfig } from "./types";
 import { getMaxHeightForModal } from "./ui-utils";
 
-// Exporting for consumption by @calcom/embed-core user
+// Exporting for consumption by @kalo/embed-core user
 export type { EmbedEvent } from "./sdk-action-manager";
 export type { PrefillAndIframeAttrsConfig } from "./types";
 

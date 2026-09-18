@@ -1,6 +1,6 @@
-import { getUTCOffsetByTimezone } from "@calcom/lib/dayjs";
-import { BookingStatus, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { CalEventResponses } from "@calcom/types/Calendar";
+import { getUTCOffsetByTimezone } from "@kalo/lib/dayjs";
+import { BookingStatus, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { CalEventResponses } from "@kalo/types/Calendar";
 import type { BookingWebhookEventDTO } from "../../../dto/types";
 import {
   BaseBookingPayloadBuilder,

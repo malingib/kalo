@@ -1,11 +1,11 @@
 import type { Logger } from "tslog";
 
-import { getUTCOffsetByTimezone } from "@calcom/lib/dayjs";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { HttpError } from "@calcom/lib/http-error";
-import isOutOfBounds, { BookingDateInPastError } from "@calcom/lib/isOutOfBounds";
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import type { EventType } from "@calcom/prisma/client";
+import { getUTCOffsetByTimezone } from "@kalo/lib/dayjs";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { HttpError } from "@kalo/lib/http-error";
+import isOutOfBounds, { BookingDateInPastError } from "@kalo/lib/isOutOfBounds";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import type { EventType } from "@kalo/prisma/client";
 
 type ValidateBookingTimeEventType = Pick<
   EventType,

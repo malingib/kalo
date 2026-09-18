@@ -1,8 +1,8 @@
 import { stringify } from "node:querystring";
-import { WEBAPP_URL_FOR_OAUTH } from "@calcom/lib/constants";
-import { defaultHandler } from "@calcom/lib/server/defaultHandler";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import prisma from "@calcom/prisma";
+import { WEBAPP_URL_FOR_OAUTH } from "@kalo/lib/constants";
+import { defaultHandler } from "@kalo/lib/server/defaultHandler";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import prisma from "@kalo/prisma";
 import type { NextApiRequest } from "next";
 import { encodeOAuthState } from "../../_utils/oauth/encodeOAuthState";
 import { getLyraAppKeys, LYRA_API_URL } from "../lib";

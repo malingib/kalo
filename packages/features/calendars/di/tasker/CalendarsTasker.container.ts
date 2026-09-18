@@ -1,5 +1,5 @@
-import { createContainer } from "@calcom/features/di/di";
-import { CalendarsTasker } from "@calcom/features/calendars/lib/tasker/CalendarsTasker";
+import { createContainer } from "@kalo/features/di/di";
+import { CalendarsTasker } from "@kalo/features/calendars/lib/tasker/CalendarsTasker";
 
 import { moduleLoader as taskerModuleLoader } from "./CalendarsTasker.module";
 

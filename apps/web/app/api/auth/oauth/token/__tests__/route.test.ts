@@ -1,12 +1,12 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import jwt from "jsonwebtoken";
 // Import mocked dependencies after mocks are set up
 import { NextRequest } from "next/server";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
-import { generateSecret } from "@calcom/features/oauth/utils/generateSecret";
-import { verifyCodeChallenge } from "@calcom/lib/pkce";
+import { generateSecret } from "@kalo/features/oauth/utils/generateSecret";
+import { verifyCodeChallenge } from "@kalo/lib/pkce";
 
 import { POST } from "../route";
 
@@ -51,11 +51,11 @@ vi.mock("next/server", () => ({
 }));
 
 // Mock dependencies
-vi.mock("@calcom/lib/pkce", () => ({
+vi.mock("@kalo/lib/pkce", () => ({
   verifyCodeChallenge: vi.fn(),
 }));
 
-vi.mock("@calcom/features/oauth/utils/generateSecret", () => ({
+vi.mock("@kalo/features/oauth/utils/generateSecret", () => ({
   generateSecret: vi.fn(),
 }));
 
@@ -65,7 +65,7 @@ vi.mock("jsonwebtoken", () => ({
   },
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: prismaMock,
 }));
 

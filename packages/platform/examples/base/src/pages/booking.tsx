@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import { Booker, useEventTypes, useTeamEventTypes, useTeams } from "@calcom/atoms";
+import { Booker, useEventTypes, useTeamEventTypes, useTeams } from "@kalo/atoms";
 
 const inter = Inter({ subsets: ["latin"] });
 

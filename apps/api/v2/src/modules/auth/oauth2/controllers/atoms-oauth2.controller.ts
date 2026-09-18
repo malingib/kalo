@@ -1,5 +1,5 @@
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import { ErrorWithCode, getHttpStatusCode } from "@calcom/platform-libraries/errors";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import { ErrorWithCode, getHttpStatusCode } from "@kalo/platform-libraries/errors";
 import {
   Controller,
   Get,

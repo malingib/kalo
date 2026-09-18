@@ -1,5 +1,5 @@
-import { getBookingUrl, getCancelLink, getRescheduleLink } from "@calcom/lib/CalEventParser";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { getBookingUrl, getCancelLink, getRescheduleLink } from "@kalo/lib/CalEventParser";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 export function ManageLink(props: { calEvent: CalendarEvent; attendee: Person }) {
   // Only the original attendee can make changes to the event

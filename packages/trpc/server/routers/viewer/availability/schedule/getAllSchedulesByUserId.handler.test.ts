@@ -1,23 +1,23 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
-import type { Schedule } from "@calcom/prisma/client";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
+import type { Schedule } from "@kalo/prisma/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TrpcSessionUser } from "../../../../types";
 import { getAllSchedulesByUserIdHandler } from "./getAllSchedulesByUserId.handler";
 
 const DEFAULT_SCHEDULE_ID = 1;
 
-vi.mock("@calcom/lib/hasEditPermissionForUser", () => ({
+vi.mock("@kalo/lib/hasEditPermissionForUser", () => ({
   hasReadPermissionsForUserId: vi.fn(),
 }));
 
-vi.mock("@calcom/features/schedules/repositories/ScheduleRepository", () => ({
+vi.mock("@kalo/features/schedules/repositories/ScheduleRepository", () => ({
   ScheduleRepository: vi.fn().mockImplementation(function () {
     return {
       getDefaultScheduleId: vi.fn().mockResolvedValue(DEFAULT_SCHEDULE_ID),
     };
   }),
 }));
-import { hasReadPermissionsForUserId } from "@calcom/lib/hasEditPermissionForUser";
+import { hasReadPermissionsForUserId } from "@kalo/lib/hasEditPermissionForUser";
 
 const mockHasReadPermissions = vi.mocked(hasReadPermissionsForUserId);
 

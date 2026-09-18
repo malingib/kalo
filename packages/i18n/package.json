@@ -1,11 +1,11 @@
 {
-  "name": "@calcom/i18n",
+  "name": "@kalo/i18n",
   "sideEffects": false,
   "private": true,
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
-  "description": "Internationalization (i18n) utilities and translations for Cal.diy",
+  "description": "Internationalization (i18n) utilities and translations for Kalo",
   "exports": {
     "./server": "./server.ts",
     "./next-i18next.config": "./next-i18next.config.js",
@@ -15,7 +15,7 @@
     "i18next": "23.2.3"
   },
   "devDependencies": {
-    "@calcom/tsconfig": "workspace:*",
+    "@kalo/tsconfig": "workspace:*",
     "typescript": "5.9.3"
   }
 }

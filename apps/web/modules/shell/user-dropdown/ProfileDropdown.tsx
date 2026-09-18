@@ -1,8 +1,8 @@
-import { ENABLE_PROFILE_SWITCHER } from "@calcom/lib/constants";
-import { useRefreshData } from "@calcom/lib/hooks/useRefreshData";
-import { trpc } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Avatar } from "@calcom/ui/components/avatar";
+import { ENABLE_PROFILE_SWITCHER } from "@kalo/lib/constants";
+import { useRefreshData } from "@kalo/lib/hooks/useRefreshData";
+import { trpc } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Avatar } from "@kalo/ui/components/avatar";
 import {
   Dropdown,
   DropdownItem,
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
+} from "@kalo/ui/components/dropdown";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "@coss/ui/icons";
 import { useSession } from "next-auth/react";
 import { useState } from "react";

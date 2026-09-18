@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { WatchlistType } from "@calcom/prisma/enums";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
-import { ToggleGroup } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { WatchlistType } from "@kalo/prisma/enums";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
+import { ToggleGroup } from "@kalo/ui/components/form";
 import { ExternalLinkIcon, GlobeIcon, MailIcon } from "@coss/ui/icons";
 
-import type { GroupedBookingReport, BlocklistScope } from "@calcom/features/blocklist/types";
+import type { GroupedBookingReport, BlocklistScope } from "@kalo/features/blocklist/types";
 
 interface FormData {
   blockType: WatchlistType;

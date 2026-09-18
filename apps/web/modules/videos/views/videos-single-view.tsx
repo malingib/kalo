@@ -1,22 +1,22 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 import {
   RECORDING_DEFAULT_ICON,
   TRANSCRIPTION_STOPPED_ICON,
   WEBAPP_URL,
   WEBSITE_URL,
-} from "@calcom/lib/constants";
-import { formatToLocalizedDate, formatToLocalizedTime } from "@calcom/lib/dayjs";
-import { emailRegex } from "@calcom/lib/emailSchema";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog, DialogContent } from "@calcom/ui/components/dialog";
-import { Input } from "@calcom/ui/components/form";
+} from "@kalo/lib/constants";
+import { formatToLocalizedDate, formatToLocalizedTime } from "@kalo/lib/dayjs";
+import { emailRegex } from "@kalo/lib/emailSchema";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog, DialogContent } from "@kalo/ui/components/dialog";
+import { Input } from "@kalo/ui/components/form";
 import { CalendarDaysIcon, ChevronRightIcon } from "@coss/ui/icons";
 import type { DailyCall } from "@daily-co/daily-js";
 import DailyIframe from "@daily-co/daily-js";

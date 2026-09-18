@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import type { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { FormProvider } from "react-hook-form";
 
-import { getErrorFromUnknown } from "@calcom/lib/errors";
+import { getErrorFromUnknown } from "@kalo/lib/errors";
 
 import { showToast } from "../../toast";
 

@@ -8,8 +8,8 @@
   "category": "calendar",
   "categories": ["calendar"],
   "logo": "icon.svg",
-  "publisher": "Cal.diy",
-  "url": "https://cal.com/",
-  "email": "help@cal.com",
+  "publisher": "Kalo",
+  "url": "https://github.com/malingib/kalo",
+  "email": "help@kalo",
   "isAuth": true
 }

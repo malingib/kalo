@@ -1,4 +1,4 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
 import type { ButtonProps } from "../button/Button";
 import { Button } from "../button/Button";

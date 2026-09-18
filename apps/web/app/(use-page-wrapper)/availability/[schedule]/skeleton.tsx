@@ -1,6 +1,6 @@
 "use client";
 
-import { SkeletonText, SkeletonContainer, SkeletonButton } from "@calcom/ui/components/skeleton";
+import { SkeletonText, SkeletonContainer, SkeletonButton } from "@kalo/ui/components/skeleton";
 
 import Shell from "~/shell/Shell";
 

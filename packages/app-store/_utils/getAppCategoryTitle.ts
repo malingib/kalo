@@ -1,4 +1,4 @@
-import type { AppCategories } from "@calcom/prisma/enums";
+import type { AppCategories } from "@kalo/prisma/enums";
 
 /**
  * Handles if the app category should be full capitalized ex. CRM

@@ -21,16 +21,16 @@
     "BUILD_ID",
     "CAL_AI_CALL_RATE_PER_MINUTE",
     "CAL_SIGNATURE_TOKEN",
-    "CALCOM_PRIVATE_API_ROUTE",
-    "CALCOM_APP_CREDENTIAL_ENCRYPTION_KEY",
-    "CALCOM_CREDENTIAL_SYNC_ENDPOINT",
-    "CALCOM_CREDENTIAL_SYNC_SECRET",
-    "CALCOM_ENV",
-    "CALCOM_LICENSE_KEY",
-    "CALCOM_QA_EMAIL",
-    "CALCOM_QA_PASSWORD",
-    "CALCOM_TELEMETRY_DISABLED",
-    "CALCOM_CREDENTIAL_SYNC_HEADER_NAME",
+    "KALO_PRIVATE_API_ROUTE",
+    "KALO_APP_CREDENTIAL_ENCRYPTION_KEY",
+    "KALO_CREDENTIAL_SYNC_ENDPOINT",
+    "KALO_CREDENTIAL_SYNC_SECRET",
+    "KALO_ENV",
+    "KALO_LICENSE_KEY",
+    "KALO_QA_EMAIL",
+    "KALO_QA_PASSWORD",
+    "KALO_TELEMETRY_DISABLED",
+    "KALO_CREDENTIAL_SYNC_HEADER_NAME",
     "CALENDSO_ENCRYPTION_KEY",
     "CI",
     "CLOSECOM_CLIENT_ID",
@@ -53,10 +53,10 @@
     "NEXT_PUBLIC_VERCEL_USE_BOTID_IN_BOOKER",
     "E2E_TEST_APPLE_CALENDAR_EMAIL",
     "E2E_TEST_APPLE_CALENDAR_PASSWORD",
-    "E2E_TEST_CALCOM_QA_EMAIL",
-    "E2E_TEST_CALCOM_QA_PASSWORD",
-    "E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS",
-    "E2E_TEST_CALCOM_GCAL_KEYS",
+    "E2E_TEST_KALO_QA_EMAIL",
+    "E2E_TEST_KALO_QA_PASSWORD",
+    "E2E_TEST_KALO_QA_GCAL_CREDENTIALS",
+    "E2E_TEST_KALO_GCAL_KEYS",
     "E2E_TEST_MAILHOG_ENABLED",
     "E2E_TEST_OIDC_CLIENT_ID",
     "E2E_TEST_OIDC_CLIENT_SECRET",
@@ -98,7 +98,7 @@
     "MS_GRAPH_CLIENT_ID",
     "MS_GRAPH_CLIENT_SECRET",
     "NEXT_PUBLIC_APP_NAME",
-    "NEXT_PUBLIC_CALCOM_VERSION",
+    "NEXT_PUBLIC_KALO_VERSION",
     "NEXT_PUBLIC_COMPANY_NAME",
     "NEXT_PUBLIC_LOGGER_LEVEL",
     "NEXT_PUBLIC_DISABLE_SIGNUP",
@@ -249,9 +249,9 @@
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "ZOOM_REFRESH_TOKEN",
-    "CALCOM_ADMIN_API_KEY",
+    "KALO_ADMIN_API_KEY",
     "NEXT_PUBLIC_SINGLE_ORG_MODE_ENABLED",
-    "CALCOM_SERVICE_ACCOUNT_ENCRYPTION_KEY",
+    "KALO_SERVICE_ACCOUNT_ENCRYPTION_KEY",
     "OUTLOOK_LOGIN_ENABLED",
     "CAL_VIDEO_RECORDING_TOKEN_SECRET",
     "ORGANIZER_EMAIL_EXEMPT_DOMAINS",
@@ -315,39 +315,39 @@
     "B2_BUCKET_NAME"
   ],
   "tasks": {
-    "@calcom/web#copy-app-store-static": {
+    "@kalo/web#copy-app-store-static": {
       "inputs": ["../../packages/app-store/**/static/**/*"],
       "outputLogs": "new-only",
       "outputs": ["public/app-store/**"]
     },
-    "@calcom/prisma#build": {
+    "@kalo/prisma#build": {
       "cache": false,
       "dependsOn": ["post-install"]
     },
-    "@calcom/prisma#db-migrate": {
+    "@kalo/prisma#db-migrate": {
       "cache": false,
-      "dependsOn": ["@calcom/prisma#db-up"],
+      "dependsOn": ["@kalo/prisma#db-up"],
       "inputs": ["./schema.prisma", "./migrations/**/*.sql"]
     },
-    "@calcom/prisma#db-seed": {
+    "@kalo/prisma#db-seed": {
       "cache": false,
-      "dependsOn": ["@calcom/prisma#db-deploy"]
+      "dependsOn": ["@kalo/prisma#db-deploy"]
     },
-    "@calcom/prisma#db-up": {
+    "@kalo/prisma#db-up": {
       "cache": false
     },
-    "@calcom/prisma#dx": {
+    "@kalo/prisma#dx": {
       "cache": false,
-      "dependsOn": ["@calcom/prisma#db-up"]
+      "dependsOn": ["@kalo/prisma#db-up"]
     },
-    "@calcom/app-store#build:types": {
+    "@kalo/app-store#build:types": {
       "outputs": ["types/**"]
     },
-    "@calcom/trpc#build": {
-      "dependsOn": ["@calcom/prisma#post-install"],
+    "@kalo/trpc#build": {
+      "dependsOn": ["@kalo/prisma#post-install"],
       "outputs": ["./types"]
     },
-    "@calcom/web#build": {
+    "@kalo/web#build": {
       "dependsOn": ["^build", "copy-app-store-static"],
       "outputs": [".next/**"],
       "env": [
@@ -392,18 +392,18 @@
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env.production"]
     },
-    "@calcom/web#dx": {
+    "@kalo/web#dx": {
       "cache": false,
-      "dependsOn": ["@calcom/prisma#dx"]
+      "dependsOn": ["@kalo/prisma#dx"]
     },
-    "@calcom/web#start": {
+    "@kalo/web#start": {
       "cache": false,
       "dependsOn": []
     },
-    "@calcom/atoms#build-npm": {
+    "@kalo/atoms#build-npm": {
       "outputs": ["dist/**", "globals.min.css"]
     },
-    "@calcom/api-v2#build": {
+    "@kalo/api-v2#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
       "env": [
@@ -420,7 +420,7 @@
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env.production"]
     },
-    "@calcom/ai#build": {
+    "@kalo/ai#build": {
       "env": [
         "FRONTEND_URL",
         "BACKEND_URL",
@@ -434,7 +434,7 @@
         "DATABASE_URL"
       ]
     },
-    "@calcom/website#build": {
+    "@kalo/website#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**"],
       "env": [
@@ -472,13 +472,13 @@
     "db-seed": {},
     "deploy": {
       "cache": false,
-      "dependsOn": ["@calcom/web#build"]
+      "dependsOn": ["@kalo/web#build"]
     },
     "clean": {
       "cache": false,
       "outputs": ["dist/**", "build/**"]
     },
-    "@calcom/web#dev": {
+    "@kalo/web#dev": {
       "dependsOn": ["//#env-check:common", "//#env-check:app-store"],
       "cache": false
     },
@@ -534,7 +534,7 @@
       "inputs": ["./schema.prisma", "./prisma/schema.prisma"],
       "env": ["PRISMA_GENERATE_DATAPROXY"]
     },
-    "@calcom/prisma#post-install": {
+    "@kalo/prisma#post-install": {
       "cache": false,
       "outputs": ["dist/**", "build/**"]
     },
@@ -551,17 +551,17 @@
     },
     "type-check": {
       "cache": false,
-      "dependsOn": ["@calcom/trpc#build"]
+      "dependsOn": ["@kalo/trpc#build"]
     },
     "type-check:ci": {
       "cache": false,
-      "dependsOn": ["@calcom/trpc#build"]
+      "dependsOn": ["@kalo/trpc#build"]
     },
-    "@calcom/prisma#db-reset": {
+    "@kalo/prisma#db-reset": {
       "cache": false,
       "outputs": ["dist/**", "build/**"]
     },
-    "@calcom/app-store-cli#build": {
+    "@kalo/app-store-cli#build": {
       "inputs": [
         "../../packages/app-store/**/package.json",
         "../../packages/app-store/**/config.json",
@@ -573,11 +573,11 @@
       ],
       "outputs": ["../../packages/app-store/*.generated.ts", "../../packages/app-store/*.generated.tsx"]
     },
-    "@calcom/embed-react#type-check": {
-      "dependsOn": ["@calcom/embed-core#build", "@calcom/embed-snippet#build"],
+    "@kalo/embed-react#type-check": {
+      "dependsOn": ["@kalo/embed-core#build", "@kalo/embed-snippet#build"],
       "outputs": ["dist/**", "build/**"]
     },
-    "@calcom/embed-core#build": {
+    "@kalo/embed-core#build": {
       "cache": false,
       "outputs": ["../../../apps/web/public/embed/**"],
       "env": [
@@ -590,8 +590,8 @@
     "embed-tests-update-snapshots:ci": {
       "cache": false,
       "dependsOn": [
-        "@calcom/prisma#db-seed",
-        "@calcom/web#build",
+        "@kalo/prisma#db-seed",
+        "@kalo/web#build",
         "^build",
         "^embed-tests-update-snapshots:ci"
       ],

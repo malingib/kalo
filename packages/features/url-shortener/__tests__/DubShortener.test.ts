@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: () => ({
       debug: vi.fn(),
@@ -11,7 +11,7 @@ vi.mock("@calcom/lib/logger", () => ({
 }));
 
 const mockCreateMany = vi.fn();
-vi.mock("@calcom/features/auth/lib/dub", () => ({
+vi.mock("@kalo/features/auth/lib/dub", () => ({
   dub: {
     links: {
       createMany: (...args: unknown[]) => mockCreateMany(...args),

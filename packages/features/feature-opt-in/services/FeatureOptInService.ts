@@ -1,14 +1,14 @@
-import type { FeatureId, FeatureState } from "@calcom/features/flags/config";
-import type { IFeatureRepository } from "@calcom/features/flags/repositories/PrismaFeatureRepository";
-import type { ITeamFeatureRepository } from "@calcom/features/flags/repositories/PrismaTeamFeatureRepository";
-import type { IUserFeatureRepository } from "@calcom/features/flags/repositories/PrismaUserFeatureRepository";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import type { TeamFeaturesDto } from "@calcom/lib/dto/TeamFeaturesDto";
-import type { UserFeaturesDto } from "@calcom/lib/dto/UserFeaturesDto";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { prisma } from "@calcom/prisma";
-import { MembershipRole } from "@calcom/prisma/enums";
+import type { FeatureId, FeatureState } from "@kalo/features/flags/config";
+import type { IFeatureRepository } from "@kalo/features/flags/repositories/PrismaFeatureRepository";
+import type { ITeamFeatureRepository } from "@kalo/features/flags/repositories/PrismaTeamFeatureRepository";
+import type { IUserFeatureRepository } from "@kalo/features/flags/repositories/PrismaUserFeatureRepository";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import type { TeamFeaturesDto } from "@kalo/lib/dto/TeamFeaturesDto";
+import type { UserFeaturesDto } from "@kalo/lib/dto/UserFeaturesDto";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { prisma } from "@kalo/prisma";
+import { MembershipRole } from "@kalo/prisma/enums";
 import {
   getOptInFeatureConfig,
   getOptInFeaturesForScope,

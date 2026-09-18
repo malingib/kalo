@@ -1,16 +1,16 @@
 import process from "node:process";
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { getAggregatedAvailability } from "@calcom/features/availability/lib/getAggregatedAvailability/getAggregatedAvailability";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { getAggregatedAvailability } from "@kalo/features/availability/lib/getAggregatedAvailability/getAggregatedAvailability";
 import type {
   CurrentSeats,
   EventType,
   GetAvailabilityUser,
   UserAvailabilityService,
-} from "@calcom/features/availability/lib/getUserAvailability";
-import type { IGetAvailableSlots } from "@calcom/features/bookings/Booker/hooks/useAvailableTimeSlots";
-import type { CheckBookingLimitsService } from "@calcom/features/bookings/lib/checkBookingLimits";
-import { checkForConflicts } from "@calcom/features/bookings/lib/conflictChecker/checkForConflicts";
+} from "@kalo/features/availability/lib/getUserAvailability";
+import type { IGetAvailableSlots } from "@kalo/features/bookings/Booker/hooks/useAvailableTimeSlots";
+import type { CheckBookingLimitsService } from "@kalo/features/bookings/lib/checkBookingLimits";
+import { checkForConflicts } from "@kalo/features/bookings/lib/conflictChecker/checkForConflicts";
 
 type QualifiedHostsService = {
   findQualifiedHostsWithDelegationCredentials: (...args: unknown[]) => Promise<{
@@ -32,43 +32,43 @@ type QualifiedHostsService = {
   }>;
 };
 
-import { isEventTypeLoggingEnabled } from "@calcom/features/bookings/lib/isEventTypeLoggingEnabled";
-import type { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import type { BusyTimesService } from "@calcom/features/busyTimes/services/getBusyTimes";
-import type { getBusyTimesService } from "@calcom/features/di/containers/BusyTimes";
-import { getDefaultEvent } from "@calcom/features/eventtypes/lib/defaultEvents";
-import type { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import type { PrismaOOORepository } from "@calcom/features/ooo/repositories/PrismaOOORepository";
-import type { IRedisService } from "@calcom/features/redis/IRedisService";
-import { buildDateRanges } from "@calcom/features/schedules/lib/date-ranges";
-import getSlots from "@calcom/features/schedules/lib/slots";
-import type { ScheduleRepository } from "@calcom/features/schedules/repositories/ScheduleRepository";
-import type { ISelectedSlotRepository } from "@calcom/features/selectedSlots/repositories/ISelectedSlotRepository";
-import type { NoSlotsNotificationService } from "@calcom/features/slots/handleNotificationWhenNoSlots";
-import type { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { withSelectedCalendars } from "@calcom/features/users/repositories/UserRepository";
-import { filterBlockedHosts } from "@calcom/features/watchlist/operations/filter-blocked-hosts.controller";
-import { shouldIgnoreContactOwner } from "@calcom/lib/bookings/routing/utils";
-import { RESERVED_SUBDOMAINS } from "@calcom/lib/constants";
-import { getUTCOffsetByTimezone } from "@calcom/lib/dayjs";
-import { descendingLimitKeys, intervalLimitKeyToUnit } from "@calcom/lib/intervalLimits/intervalLimit";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import { parseBookingLimit } from "@calcom/lib/intervalLimits/isBookingLimits";
-import { parseDurationLimit } from "@calcom/lib/intervalLimits/isDurationLimits";
-import LimitManager, { LimitSources } from "@calcom/lib/intervalLimits/limitManager";
-import { isBookingWithinPeriod } from "@calcom/lib/intervalLimits/utils";
+import { isEventTypeLoggingEnabled } from "@kalo/features/bookings/lib/isEventTypeLoggingEnabled";
+import type { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import type { BusyTimesService } from "@kalo/features/busyTimes/services/getBusyTimes";
+import type { getBusyTimesService } from "@kalo/features/di/containers/BusyTimes";
+import { getDefaultEvent } from "@kalo/features/eventtypes/lib/defaultEvents";
+import type { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import type { PrismaOOORepository } from "@kalo/features/ooo/repositories/PrismaOOORepository";
+import type { IRedisService } from "@kalo/features/redis/IRedisService";
+import { buildDateRanges } from "@kalo/features/schedules/lib/date-ranges";
+import getSlots from "@kalo/features/schedules/lib/slots";
+import type { ScheduleRepository } from "@kalo/features/schedules/repositories/ScheduleRepository";
+import type { ISelectedSlotRepository } from "@kalo/features/selectedSlots/repositories/ISelectedSlotRepository";
+import type { NoSlotsNotificationService } from "@kalo/features/slots/handleNotificationWhenNoSlots";
+import type { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { withSelectedCalendars } from "@kalo/features/users/repositories/UserRepository";
+import { filterBlockedHosts } from "@kalo/features/watchlist/operations/filter-blocked-hosts.controller";
+import { shouldIgnoreContactOwner } from "@kalo/lib/bookings/routing/utils";
+import { RESERVED_SUBDOMAINS } from "@kalo/lib/constants";
+import { getUTCOffsetByTimezone } from "@kalo/lib/dayjs";
+import { descendingLimitKeys, intervalLimitKeyToUnit } from "@kalo/lib/intervalLimits/intervalLimit";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import { parseBookingLimit } from "@kalo/lib/intervalLimits/isBookingLimits";
+import { parseDurationLimit } from "@kalo/lib/intervalLimits/isDurationLimits";
+import LimitManager, { LimitSources } from "@kalo/lib/intervalLimits/limitManager";
+import { isBookingWithinPeriod } from "@kalo/lib/intervalLimits/utils";
 import {
   BookingDateInPastError,
   calculatePeriodLimits,
   isTimeOutOfBounds,
   isTimeViolatingFutureLimit,
-} from "@calcom/lib/isOutOfBounds";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import { PeriodType } from "@calcom/prisma/enums";
-import type { CalendarFetchMode, EventBusyDate, EventBusyDetails } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+} from "@kalo/lib/isOutOfBounds";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import { PeriodType } from "@kalo/prisma/enums";
+import type { CalendarFetchMode, EventBusyDate, EventBusyDetails } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 import { TRPCError } from "@trpc/server";
 import type { Logger } from "tslog";
 import { v4 as uuid } from "uuid";

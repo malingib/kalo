@@ -1,7 +1,7 @@
 import * as crypto from "node:crypto";
 import { z } from "zod";
 
-import { CALCOM_PRIVATE_API_ROUTE } from "@calcom/lib/constants";
+import { KALO_PRIVATE_API_ROUTE } from "@kalo/lib/constants";
 
 import { TRPCError } from "@trpc/server";
 
@@ -51,7 +51,7 @@ const fetchWithSignature = async (
 };
 
 const createCoupon = async ({ input, ctx }: CreateCouponOptions) => {
-  const privateApiUrl = CALCOM_PRIVATE_API_ROUTE;
+  const privateApiUrl = KALO_PRIVATE_API_ROUTE;
   const signatureToken = process.env.CAL_SIGNATURE_TOKEN;
 
   if (!privateApiUrl || !signatureToken) {

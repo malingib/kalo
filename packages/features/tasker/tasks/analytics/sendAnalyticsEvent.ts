@@ -1,6 +1,6 @@
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
 
 import AnalyticsManager from "./analyticsManager";
 import { sendAnalyticsEventSchema } from "./schema";

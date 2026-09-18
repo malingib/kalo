@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import { IS_PRODUCTION } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import { showToast } from "@calcom/ui/components/toast";
+import { IS_PRODUCTION } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import { showToast } from "@kalo/ui/components/toast";
 
 import type { AppDataProps } from "@lib/apps/[slug]/getStaticProps";
 import useRouterQuery from "@lib/hooks/useRouterQuery";

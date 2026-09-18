@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsArray, IsEnum, IsString, IsNumber, IsOptional, IsDate, IsBoolean, IsUrl } from "class-validator";
 
-import { PERMISSION_MAP } from "@calcom/platform-constants";
+import { PERMISSION_MAP } from "@kalo/platform-constants";
 
 import { ARE_CALENDAR_EVENTS_ENABLED_DOCS } from "../inputs";
 

@@ -2,7 +2,7 @@ import { MembershipsRepository } from "@/modules/memberships/memberships.reposit
 import { Injectable } from "@nestjs/common";
 import { intersectionBy } from "lodash";
 
-import type { Membership } from "@calcom/prisma/client";
+import type { Membership } from "@kalo/prisma/client";
 
 @Injectable()
 export class MembershipsService {

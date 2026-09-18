@@ -1,4 +1,4 @@
-import { getCookie } from "@calcom/lib/cookie";
+import { getCookie } from "@kalo/lib/cookie";
 
 /**
  * NOTE: Feature can be easily rolled back by setting percentage to 0

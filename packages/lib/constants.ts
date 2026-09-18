@@ -13,11 +13,11 @@ const VERCEL_URL = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.N
 const RAILWAY_STATIC_URL = process.env.RAILWAY_STATIC_URL ? `https://${process.env.RAILWAY_STATIC_URL}` : "";
 const HEROKU_URL = process.env.HEROKU_APP_NAME ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com` : "";
 const RENDER_URL = process.env.RENDER_EXTERNAL_URL ? `https://${process.env.RENDER_EXTERNAL_URL}` : "";
-export const CALCOM_ENV = process.env.CALCOM_ENV || process.env.NODE_ENV;
-export const IS_PRODUCTION = CALCOM_ENV === "production";
+export const KALO_ENV = process.env.KALO_ENV || process.env.NODE_ENV;
+export const IS_PRODUCTION = KALO_ENV === "production";
 export const IS_PRODUCTION_BUILD = process.env.NODE_ENV === "production";
 export const ORGANIZER_EMAIL_EXEMPT_DOMAINS = process.env.ORGANIZER_EMAIL_EXEMPT_DOMAINS || "";
-const IS_DEV = CALCOM_ENV === "development";
+const IS_DEV = KALO_ENV === "development";
 export const SINGLE_ORG_SLUG = process.env.NEXT_PUBLIC_SINGLE_ORG_SLUG;
 /** https://app.cal.com */
 export const WEBAPP_URL =
@@ -110,7 +110,7 @@ export const ANDROID_CHROME_ICON_192 = "/android-chrome-192x192.png";
 export const ANDROID_CHROME_ICON_256 = "/android-chrome-256x256.png";
 export const ROADMAP = "https://cal.com/roadmap";
 export const DESKTOP_APP_LINK = "https://cal.com/download";
-export const JOIN_COMMUNITY = "https://github.com/calcom/cal.diy/discussions";
+export const JOIN_COMMUNITY = "https://github.com/calcom/kalo/discussions";
 export const POWERED_BY_URL = "https://go.cal.com/booking";
 export const DOCS_URL = "https://cal.com/docs";
 export const DEVELOPER_DOCS = "https://developer.cal.com";
@@ -146,18 +146,18 @@ export const ORGANIZATION_SELF_SERVE_PRICE = parseFloat(
 
 // Needed for emails in E2E
 export const IS_MAILHOG_ENABLED = process.env.E2E_TEST_MAILHOG_ENABLED === "1";
-export const CALCOM_VERSION = process.env.NEXT_PUBLIC_CALCOM_VERSION as string;
+export const KALO_VERSION = process.env.NEXT_PUBLIC_KALO_VERSION as string;
 
 export const APP_CREDENTIAL_SHARING_ENABLED =
-  !!process.env.CALCOM_CREDENTIAL_SYNC_SECRET && !!process.env.CALCOM_APP_CREDENTIAL_ENCRYPTION_KEY;
-export const CREDENTIAL_SYNC_SECRET = process.env.CALCOM_CREDENTIAL_SYNC_SECRET;
+  !!process.env.KALO_CREDENTIAL_SYNC_SECRET && !!process.env.KALO_APP_CREDENTIAL_ENCRYPTION_KEY;
+export const CREDENTIAL_SYNC_SECRET = process.env.KALO_CREDENTIAL_SYNC_SECRET;
 export const CREDENTIAL_SYNC_SECRET_HEADER_NAME =
-  process.env.CALCOM_CREDENTIAL_SYNC_HEADER_NAME || "calcom-credential-sync-secret";
+  process.env.KALO_CREDENTIAL_SYNC_HEADER_NAME || "calcom-credential-sync-secret";
 
-export const CREDENTIAL_SYNC_ENDPOINT = process.env.CALCOM_CREDENTIAL_SYNC_ENDPOINT;
+export const CREDENTIAL_SYNC_ENDPOINT = process.env.KALO_CREDENTIAL_SYNC_ENDPOINT;
 
 // Service Account Encryption Key for encrypting/decrypting service account keys
-export const SERVICE_ACCOUNT_ENCRYPTION_KEY = process.env.CALCOM_SERVICE_ACCOUNT_ENCRYPTION_KEY;
+export const SERVICE_ACCOUNT_ENCRYPTION_KEY = process.env.KALO_SERVICE_ACCOUNT_ENCRYPTION_KEY;
 
 export const DEFAULT_LIGHT_BRAND_COLOR = "#292929";
 export const DEFAULT_DARK_BRAND_COLOR = "#fafafa";
@@ -186,7 +186,7 @@ export const ORG_SELF_SERVE_ENABLED = process.env.NEXT_PUBLIC_ORG_SELF_SERVE_ENA
 export const ORG_MINIMUM_PUBLISHED_TEAMS_SELF_SERVE = 0;
 export const ORG_MINIMUM_PUBLISHED_TEAMS_SELF_SERVE_HELPER_DIALOGUE = 1;
 
-export const CALCOM_PRIVATE_API_ROUTE = process.env.CALCOM_PRIVATE_API_ROUTE || "https://goblin.cal.com";
+export const KALO_PRIVATE_API_ROUTE = process.env.KALO_PRIVATE_API_ROUTE || "https://goblin.cal.com";
 export const WEBSITE_PRIVACY_POLICY_URL =
   process.env.NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL || "https://cal.com/privacy";
 export const WEBSITE_TERMS_URL = process.env.NEXT_PUBLIC_WEBSITE_TERMS_URL || "https://cal.com/terms";

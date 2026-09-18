@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Outlook Calendar",
@@ -10,11 +10,11 @@ export const metadata = {
   category: "calendar",
   categories: ["calendar"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "office365-calendar",
   dirName: "office365calendar",
   url: "https://cal.com/",
-  email: "help@cal.com",
+  email: "help@kalo",
   isOAuth: true,
 } as AppMeta;
 

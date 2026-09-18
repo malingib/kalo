@@ -9,7 +9,7 @@ import { TokensRepository } from "@/modules/tokens/tokens.repository";
 import { BadRequestException, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { DateTime } from "luxon";
 
-import { INVALID_ACCESS_TOKEN } from "@calcom/platform-constants";
+import { INVALID_ACCESS_TOKEN } from "@kalo/platform-constants";
 
 @Injectable()
 export class OAuthFlowService {

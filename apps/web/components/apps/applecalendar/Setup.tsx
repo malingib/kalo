@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster } from "sonner";
 
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { PasswordField } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Form } from "@calcom/ui/components/form";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { PasswordField } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { Form } from "@kalo/ui/components/form";
 
 export default function AppleCalendarSetup() {
   const { t } = useLocale();

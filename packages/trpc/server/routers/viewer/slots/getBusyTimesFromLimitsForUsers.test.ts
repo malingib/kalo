@@ -1,5 +1,5 @@
-import dayjs from "@calcom/dayjs";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
+import dayjs from "@kalo/dayjs";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { IAvailableSlotsService } from "./util";
 import { AvailableSlotsService } from "./util";

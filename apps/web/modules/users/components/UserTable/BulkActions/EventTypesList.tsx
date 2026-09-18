@@ -1,9 +1,9 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
 import {
   Command,
   CommandEmpty,
@@ -11,9 +11,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@calcom/ui/components/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@calcom/ui/components/popover";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/ui/components/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@kalo/ui/components/popover";
+import { showToast } from "@kalo/ui/components/toast";
 import { CheckIcon } from "@coss/ui/icons";
 import type { Table } from "@tanstack/react-table";
 import type { Dispatch, SetStateAction } from "react";

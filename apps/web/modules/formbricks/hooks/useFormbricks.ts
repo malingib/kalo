@@ -2,7 +2,7 @@ import formbricks from "@formbricks/js";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
-import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
+import useMeQuery from "@kalo/trpc/react/hooks/useMeQuery";
 
 const initFormbricks = async ({
   userId,

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import type { GetScheduleOptions } from "@calcom/platform-libraries/slots";
+import type { GetScheduleOptions } from "@kalo/platform-libraries/slots";
 import { Injectable, Logger, OnModuleDestroy } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TimeSlots } from "./slots-output.service";

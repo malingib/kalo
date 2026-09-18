@@ -3,7 +3,7 @@ import { ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { ArrayNotEmpty, isEmail, IsOptional } from "class-validator";
 
-import { Pagination } from "@calcom/platform-types";
+import { Pagination } from "@kalo/platform-types";
 
 export class GetManagedUsersInput extends Pagination {
   @IsOptional()

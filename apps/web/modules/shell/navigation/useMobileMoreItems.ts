@@ -1,4 +1,4 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 import { useSession } from "next-auth/react";
 import { useBottomNavItems } from "../useBottomNavItems";
 import type { NavigationItemType } from "./NavigationItem";

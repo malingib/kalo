@@ -1,6 +1,6 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
-import { TRANSLATION_DI_TOKENS } from "@calcom/features/translation/di/tokens";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as prismaModuleLoader } from "@kalo/features/di/modules/Prisma";
+import { TRANSLATION_DI_TOKENS } from "@kalo/features/translation/di/tokens";
 
 import { EventTypeTranslationRepository } from "../repositories/EventTypeTranslationRepository";
 

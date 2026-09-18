@@ -1,10 +1,10 @@
 import type { NextApiRequest } from "next";
 
-import { symmetricEncrypt } from "@calcom/lib/crypto";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import prisma from "@calcom/prisma";
+import { symmetricEncrypt } from "@kalo/lib/crypto";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import prisma from "@kalo/prisma";
 
 import checkSession from "../../_utils/auth";
 import getInstalledAppPath from "../../_utils/getInstalledAppPath";

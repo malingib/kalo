@@ -1,4 +1,4 @@
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 export function Divider({ className, ...props }: JSX.IntrinsicElements["hr"]) {
   className = classNames("border-subtle my-1", className);

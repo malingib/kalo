@@ -1,5 +1,5 @@
-import { type TextFilterOperator, textFilterOperators } from "@calcom/features/data-table/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { type TextFilterOperator, textFilterOperators } from "@kalo/features/data-table/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 import type { NumberFilterOperatorOption, TextFilterOperatorOption } from "./types";
 
 export const numberFilterOperatorOptions: NumberFilterOperatorOption[] = [

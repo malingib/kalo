@@ -5,8 +5,8 @@ import {
   GOOGLE_CALENDAR_TYPE,
   OFFICE_365_CALENDAR,
   OFFICE_365_CALENDAR_TYPE,
-} from "@calcom/platform-constants";
-import type { ConnectedDestinationCalendars } from "@calcom/platform-libraries";
+} from "@kalo/platform-constants";
+import type { ConnectedDestinationCalendars } from "@kalo/platform-libraries";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { CalendarsService } from "@/platform/calendars/services/calendars.service";
 import type { CreateUnifiedCalendarEventInput } from "@/modules/cal-unified-calendars/inputs/create-unified-calendar-event.input";

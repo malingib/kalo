@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 import { cloneDeep } from "lodash";
 
 // format CalEvent to remove platformClientId from email addresses

@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Jitsi Video",
@@ -9,12 +9,12 @@ export const metadata = {
   variant: "conferencing",
   categories: ["conferencing"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   url: "https://jitsi.org/",
   slug: "jitsi",
   title: "Jitsi Meet",
   isGlobal: false,
-  email: "help@cal.com",
+  email: "help@kalo",
   appData: {
     location: {
       linkType: "dynamic",

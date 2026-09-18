@@ -1,7 +1,7 @@
-import { BookingEmailAndSmsTaskService } from "@calcom/features/bookings/lib/tasker/BookingEmailAndSmsTaskService";
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as bookingRepositoryModuleLoader } from "@calcom/features/di/modules/Booking";
-import { moduleLoader as loggerServiceModule } from "@calcom/features/di/shared/services/logger.service";
+import { BookingEmailAndSmsTaskService } from "@kalo/features/bookings/lib/tasker/BookingEmailAndSmsTaskService";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as bookingRepositoryModuleLoader } from "@kalo/features/di/modules/Booking";
+import { moduleLoader as loggerServiceModule } from "@kalo/features/di/shared/services/logger.service";
 
 import { moduleLoader as BookingEmailSmsHandlerModuleLoader } from "../BookingEmailSmsHandler.module";
 import { BOOKING_EMAIL_SMS_TASKER_DI_TOKENS } from "./tokens";

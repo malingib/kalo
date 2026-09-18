@@ -1,5 +1,5 @@
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
 import { Avatar } from "../avatar/Avatar";
 import { EmptyScreen } from "../empty-screen/EmptyScreen";

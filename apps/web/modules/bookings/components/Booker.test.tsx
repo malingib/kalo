@@ -1,4 +1,4 @@
-import "@calcom/features/bookings/Booker/__mocks__/config";
+import "@kalo/features/bookings/Booker/__mocks__/config";
 import "./__mocks__/OverlayCalendar";
 import "./__mocks__/AvailableTimeSlots";
 import "./__mocks__/DatePicker";
@@ -7,8 +7,8 @@ import "./__mocks__/EventMeta";
 import "./__mocks__/Header";
 import "./__mocks__/LargeCalendar";
 import "./__mocks__/Section";
-import { constantsScenarios } from "@calcom/lib/__mocks__/constants";
-import "@calcom/lib/__mocks__/logger";
+import { constantsScenarios } from "@kalo/lib/__mocks__/constants";
+import "@kalo/lib/__mocks__/logger";
 
 import React from "react";
 import { vi } from "vitest";
@@ -31,11 +31,11 @@ vi.mock("next/navigation", async (importOriginal) => {
   };
 });
 
-import "@calcom/dayjs/__mocks__";
-import "@calcom/web/modules/auth/components/Turnstile";
+import "@kalo/dayjs/__mocks__";
+import "@kalo/web/modules/auth/components/Turnstile";
 
-import { render, screen } from "@calcom/features/bookings/Booker/__tests__/test-utils";
-import type { BookerProps } from "@calcom/features/bookings/Booker/types";
+import { render, screen } from "@kalo/features/bookings/Booker/__tests__/test-utils";
+import type { BookerProps } from "@kalo/features/bookings/Booker/types";
 import type { WrappedBookerProps } from "../types";
 import { Booker } from "./Booker";
 
@@ -82,7 +82,7 @@ const mockEvent = {
   isPending: false,
 };
 
-vi.mock("@calcom/features/calendars/components/NoAvailabilityDialog", () => ({
+vi.mock("@kalo/features/calendars/components/NoAvailabilityDialog", () => ({
   default: () => {
     return null;
   },
@@ -98,11 +98,11 @@ const mockSchedule = {
   invalidate: vi.fn(),
 };
 
-vi.mock("@calcom/atoms/hooks/useIsPlatformBookerEmbed", () => ({
+vi.mock("@kalo/atoms/hooks/useIsPlatformBookerEmbed", () => ({
   useIsPlatformBookerEmbed: () => false,
 }));
 
-vi.mock("@calcom/atoms/hooks/useIsPlatform", () => ({
+vi.mock("@kalo/atoms/hooks/useIsPlatform", () => ({
   useIsPlatform: () => false,
 }));
 
@@ -182,7 +182,7 @@ describe("Booker", () => {
     constantsScenarios.set({
       PUBLIC_QUICK_AVAILABILITY_ROLLOUT: "100",
       POWERED_BY_URL: "https://go.cal.com/booking",
-      APP_NAME: "Cal.diy",
+      APP_NAME: "Kalo",
     });
     vi.clearAllMocks();
   });

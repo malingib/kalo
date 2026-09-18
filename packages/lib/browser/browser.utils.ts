@@ -1,4 +1,4 @@
-import { sdkActionManager } from "@calcom/embed-core/embed-iframe";
+import { sdkActionManager } from "@kalo/embed-core/embed-iframe";
 
 type BrowserInfo = {
   url: string;
@@ -56,7 +56,7 @@ const afterNthPaintCycle = (n: number, callback: () => void): void => {
  */
 export const scrollIntoViewSmooth = (element: HTMLElement, isEmbed = false): void => {
   const currentPosition = element.getBoundingClientRect().top;
-  // eslint-disable-next-line @calcom/eslint/no-scroll-into-view-embed
+  // eslint-disable-next-line @kalo/eslint/no-scroll-into-view-embed
   element.scrollIntoView({ behavior: "smooth" });
   if (!isEmbed) {
     return;

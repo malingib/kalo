@@ -1,8 +1,8 @@
-import { FEATURE_OPT_IN_DI_TOKENS } from "@calcom/features/feature-opt-in/di/tokens";
-import { FeatureOptInService } from "@calcom/features/feature-opt-in/services/FeatureOptInService";
-import { moduleLoader as cachedFeatureRepositoryModuleLoader } from "@calcom/features/flags/di/CachedFeatureRepository.module";
-import { moduleLoader as cachedTeamFeatureRepositoryModuleLoader } from "@calcom/features/flags/di/CachedTeamFeatureRepository.module";
-import { moduleLoader as cachedUserFeatureRepositoryModuleLoader } from "@calcom/features/flags/di/CachedUserFeatureRepository.module";
+import { FEATURE_OPT_IN_DI_TOKENS } from "@kalo/features/feature-opt-in/di/tokens";
+import { FeatureOptInService } from "@kalo/features/feature-opt-in/services/FeatureOptInService";
+import { moduleLoader as cachedFeatureRepositoryModuleLoader } from "@kalo/features/flags/di/CachedFeatureRepository.module";
+import { moduleLoader as cachedTeamFeatureRepositoryModuleLoader } from "@kalo/features/flags/di/CachedTeamFeatureRepository.module";
+import { moduleLoader as cachedUserFeatureRepositoryModuleLoader } from "@kalo/features/flags/di/CachedUserFeatureRepository.module";
 import type { Module } from "@evyweb/ioctopus";
 import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "../di";
 

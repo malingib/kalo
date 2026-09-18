@@ -1,4 +1,4 @@
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 export function Label(props: JSX.IntrinsicElements["label"]) {
   const { className, ...restProps } = props;

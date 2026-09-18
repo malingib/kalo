@@ -1,7 +1,7 @@
-import type { CredentialDataWithTeamName } from "@calcom/app-store/utils";
-import { isDelegationCredential } from "@calcom/lib/delegationCredential";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import type { CredentialDataWithTeamName } from "@kalo/app-store/utils";
+import { isDelegationCredential } from "@kalo/lib/delegationCredential";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 
 import getApps from "../utils";
 

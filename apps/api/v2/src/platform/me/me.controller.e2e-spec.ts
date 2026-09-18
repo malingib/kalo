@@ -1,6 +1,6 @@
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { ApiSuccessResponse, UserResponse } from "@calcom/platform-types";
-import type { Team, User } from "@calcom/prisma/client";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { ApiSuccessResponse, UserResponse } from "@kalo/platform-types";
+import type { Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

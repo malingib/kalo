@@ -1,7 +1,7 @@
 import type { GroupBase, InputProps, OptionProps, ControlProps } from "react-select";
 import { components as reactSelectComponents } from "react-select";
 
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 import { Badge, CreditsBadge } from "../../badge";
 import { CheckIcon } from "@coss/ui/icons";

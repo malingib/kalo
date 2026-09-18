@@ -1,27 +1,27 @@
 import process from "node:process";
-import { sendEmailVerification } from "@calcom/features/auth/lib/verifyEmail";
-import { SIGNUP_ERROR_CODES } from "@calcom/features/auth/signup/constants";
-import { createOrUpdateMemberships } from "@calcom/features/auth/signup/utils/createOrUpdateMemberships";
-import { joinAnyChildTeamOnOrgInvite } from "@calcom/features/auth/signup/utils/organization";
-import { prefillAvatar } from "@calcom/features/auth/signup/utils/prefillAvatar";
+import { sendEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
+import { SIGNUP_ERROR_CODES } from "@kalo/features/auth/signup/constants";
+import { createOrUpdateMemberships } from "@kalo/features/auth/signup/utils/createOrUpdateMemberships";
+import { joinAnyChildTeamOnOrgInvite } from "@kalo/features/auth/signup/utils/organization";
+import { prefillAvatar } from "@kalo/features/auth/signup/utils/prefillAvatar";
 import {
   findTokenByToken,
   throwIfTokenExpired,
   validateAndGetCorrectedUsernameForTeam,
-} from "@calcom/features/auth/signup/utils/token";
-import { validateAndGetCorrectedUsernameAndEmail } from "@calcom/features/auth/signup/utils/validateUsername";
-import { hashPassword } from "@calcom/lib/auth/hashPassword";
+} from "@kalo/features/auth/signup/utils/token";
+import { validateAndGetCorrectedUsernameAndEmail } from "@kalo/features/auth/signup/utils/validateUsername";
+import { hashPassword } from "@kalo/lib/auth/hashPassword";
 
-import logger from "@calcom/lib/logger";
-import { isPrismaError } from "@calcom/lib/server/getServerErrorFromUnknown";
-import { isUsernameReservedDueToMigration } from "@calcom/lib/server/username";
-import slugify from "@calcom/lib/slugify";
-import { prisma } from "@calcom/prisma";
-import { IdentityProvider } from "@calcom/prisma/enums";
-import { signupSchema } from "@calcom/prisma/zod-utils";
+import logger from "@kalo/lib/logger";
+import { isPrismaError } from "@kalo/lib/server/getServerErrorFromUnknown";
+import { isUsernameReservedDueToMigration } from "@kalo/lib/server/username";
+import slugify from "@kalo/lib/slugify";
+import { prisma } from "@kalo/prisma";
+import { IdentityProvider } from "@kalo/prisma/enums";
+import { signupSchema } from "@kalo/prisma/zod-utils";
 import { NextResponse } from "next/server";
-import { getUserRepository } from "@calcom/features/di/containers/UserRepository";
-import { CreationSource } from "@calcom/prisma/enums";
+import { getUserRepository } from "@kalo/features/di/containers/UserRepository";
+import { CreationSource } from "@kalo/prisma/enums";
 
 export default async function handler(body: Record<string, string>) {
   const { email, password, language, token } = signupSchema.parse(body);

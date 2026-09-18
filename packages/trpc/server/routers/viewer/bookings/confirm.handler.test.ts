@@ -32,7 +32,7 @@ describe.skip("confirmHandler", () => {
     });
 
     const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-    const iCalUID = `${uidOfBooking}@Cal.diy`;
+    const iCalUID = `${uidOfBooking}@Kalo`;
 
     const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
@@ -129,7 +129,7 @@ describe.skip("confirmHandler", () => {
     });
 
     const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-    const iCalUID = `${uidOfBooking}@Cal.diy`;
+    const iCalUID = `${uidOfBooking}@Kalo`;
 
     const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 

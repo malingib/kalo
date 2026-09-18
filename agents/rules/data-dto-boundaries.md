@@ -81,7 +81,7 @@ function UserProfile({ user }: { user: UserDTO }) {
 export type BookingStatusDto = "CANCELLED" | "ACCEPTED" | "REJECTED" | "PENDING";
 
 // Bad - importing Prisma enum
-import { BookingStatus } from "@calcom/prisma/client";
+import { BookingStatus } from "@kalo/prisma/client";
 ```
 
 **Type safety** - never use `as any` in DTO mapping functions. If types don't align, fix the mapping explicitly.
@@ -93,4 +93,4 @@ import { BookingStatus } from "@calcom/prisma/client";
 
 Yes, this requires more code. Yes, it's worth it. Explicit boundaries prevent the architectural erosion that creates long-term maintenance nightmares.
 
-Reference: [Cal.diy Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)

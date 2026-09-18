@@ -1,27 +1,27 @@
 export {
   ScheduleRepository,
   type FindDetailedScheduleByIdReturnType,
-} from "@calcom/features/schedules/repositories/ScheduleRepository";
+} from "@kalo/features/schedules/repositories/ScheduleRepository";
 
 export {
   updateSchedule,
   type UpdateScheduleResponse,
-} from "@calcom/features/schedules/services/ScheduleService";
-export { UserAvailabilityService } from "@calcom/features/availability/lib/getUserAvailability";
+} from "@kalo/features/schedules/services/ScheduleService";
+export { UserAvailabilityService } from "@kalo/features/availability/lib/getUserAvailability";
 
 export {
   createHandler as createScheduleHandler,
   type CreateScheduleHandlerReturn,
-} from "@calcom/trpc/server/routers/viewer/availability/schedule/create.handler";
-export { ZCreateInputSchema as CreateScheduleSchema } from "@calcom/trpc/server/routers/viewer/availability/schedule/create.schema";
+} from "@kalo/trpc/server/routers/viewer/availability/schedule/create.handler";
+export { ZCreateInputSchema as CreateScheduleSchema } from "@kalo/trpc/server/routers/viewer/availability/schedule/create.schema";
 
 export {
   listHandler as getAvailabilityListHandler,
   type GetAvailabilityListHandlerReturn,
-} from "@calcom/trpc/server/routers/viewer/availability/list.handler";
+} from "@kalo/trpc/server/routers/viewer/availability/list.handler";
 export {
   duplicateHandler as duplicateScheduleHandler,
   type DuplicateScheduleHandlerReturn,
-} from "@calcom/trpc/server/routers/viewer/availability/schedule/duplicate.handler";
+} from "@kalo/trpc/server/routers/viewer/availability/schedule/duplicate.handler";
 
-export { getScheduleByEventSlugHandler } from "@calcom/trpc/server/routers/viewer/availability/schedule/getScheduleByEventTypeSlug.handler";
+export { getScheduleByEventSlugHandler } from "@kalo/trpc/server/routers/viewer/availability/schedule/getScheduleByEventTypeSlug.handler";

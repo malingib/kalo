@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
 import process from "node:process";
-import { normalizeKenyanPhone } from "@calcom/features/mpesa/normalizePhone";
-import { WhatsAppSessionRepository } from "@calcom/features/whatsapp-bot/src/sessionStore";
-import prisma from "@calcom/prisma";
-import { BookingStatus } from "@calcom/prisma/enums";
+import { normalizeKenyanPhone } from "@kalo/features/mpesa/normalizePhone";
+import { WhatsAppSessionRepository } from "@kalo/features/whatsapp-bot/src/sessionStore";
+import prisma from "@kalo/prisma";
+import { BookingStatus } from "@kalo/prisma/enums";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type StkCallbackItem = { Name: string; Value: string | number };

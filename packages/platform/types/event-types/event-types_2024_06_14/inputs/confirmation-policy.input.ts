@@ -4,7 +4,7 @@ import { IsEnum, IsOptional, IsInt, ValidateNested, IsBoolean, ValidateIf } from
 import type { ValidatorConstraintInterface, ValidationOptions } from "class-validator";
 import { ValidatorConstraint, registerDecorator } from "class-validator";
 
-import { ConfirmationPolicyEnum, NoticeThresholdUnitEnum } from "@calcom/platform-enums";
+import { ConfirmationPolicyEnum, NoticeThresholdUnitEnum } from "@kalo/platform-enums";
 
 import type { Disabled_2024_06_14 } from "./disabled.input";
 

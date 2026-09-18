@@ -1,11 +1,11 @@
 // Theme application function - will be stringified and injected. So, it must not use anything from the closure
 export const applyTheme = function () {
   try {
-    // This utility is a replica of @calcom/lib/webstorage.ts but we can reuse it because applyTheme is stringified and injected, so we can't have deps here
+    // This utility is a replica of @kalo/lib/webstorage.ts but we can reuse it because applyTheme is stringified and injected, so we can't have deps here
     const safeLocalStorage = {
       getItem: function (key: string) {
         try {
-          // eslint-disable-next-line @calcom/eslint/avoid-web-storage
+          // eslint-disable-next-line @kalo/eslint/avoid-web-storage
           return localStorage.getItem(key);
         } catch (e) {
           return null;
@@ -13,7 +13,7 @@ export const applyTheme = function () {
       },
       key: function (index: number) {
         try {
-          // eslint-disable-next-line @calcom/eslint/avoid-web-storage
+          // eslint-disable-next-line @kalo/eslint/avoid-web-storage
           return localStorage.key(index);
         } catch (e) {
           return null;
@@ -21,7 +21,7 @@ export const applyTheme = function () {
       },
       getLength: function () {
         try {
-          // eslint-disable-next-line @calcom/eslint/avoid-web-storage
+          // eslint-disable-next-line @kalo/eslint/avoid-web-storage
           return localStorage.length;
         } catch (e) {
           return 0;

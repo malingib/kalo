@@ -1,5 +1,5 @@
-import { ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
-import { OAuthClientType } from "@calcom/prisma/enums";
+import { ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
+import { OAuthClientType } from "@kalo/prisma/enums";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import {

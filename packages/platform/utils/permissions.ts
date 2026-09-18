@@ -10,8 +10,8 @@ import {
   PROFILE_WRITE,
   SCHEDULE_READ,
   SCHEDULE_WRITE,
-} from "@calcom/platform-constants";
-import type { PLATFORM_PERMISSION } from "@calcom/platform-types";
+} from "@kalo/platform-constants";
+import type { PLATFORM_PERMISSION } from "@kalo/platform-types";
 
 export const hasPermission = (userPermissions: number, permission: PLATFORM_PERMISSION): boolean => {
   // use bitwise AND to check if user has the permission

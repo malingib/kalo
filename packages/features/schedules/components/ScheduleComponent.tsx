@@ -12,20 +12,20 @@ import type {
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { createFilter, type GroupBase, type Props } from "react-select";
 
-import type { scheduleClassNames } from "@calcom/atoms/availability/types";
-import type { ConfigType } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { defaultDayRange as DEFAULT_DAY_RANGE } from "@calcom/lib/availability";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { weekdayNames } from "@calcom/lib/weekday";
-import type { TimeRange } from "@calcom/types/schedule";
-import cn from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { Dropdown, DropdownMenuContent, DropdownMenuTrigger } from "@calcom/ui/components/dropdown";
-import { Select } from "@calcom/ui/components/form";
-import { CheckboxField } from "@calcom/ui/components/form";
-import { Switch } from "@calcom/ui/components/form";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import type { scheduleClassNames } from "@kalo/atoms/availability/types";
+import type { ConfigType } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { defaultDayRange as DEFAULT_DAY_RANGE } from "@kalo/lib/availability";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { weekdayNames } from "@kalo/lib/weekday";
+import type { TimeRange } from "@kalo/types/schedule";
+import cn from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { Dropdown, DropdownMenuContent, DropdownMenuTrigger } from "@kalo/ui/components/dropdown";
+import { Select } from "@kalo/ui/components/form";
+import { CheckboxField } from "@kalo/ui/components/form";
+import { Switch } from "@kalo/ui/components/form";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 export type { TimeRange };
 

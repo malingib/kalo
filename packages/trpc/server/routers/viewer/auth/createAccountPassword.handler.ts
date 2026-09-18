@@ -1,6 +1,6 @@
-import { passwordResetRequest } from "@calcom/features/auth/lib/passwordResetRequest";
-import prisma from "@calcom/prisma";
-import { IdentityProvider } from "@calcom/prisma/enums";
+import { passwordResetRequest } from "@kalo/features/auth/lib/passwordResetRequest";
+import prisma from "@kalo/prisma";
+import { IdentityProvider } from "@kalo/prisma/enums";
 
 import { TRPCError } from "@trpc/server";
 

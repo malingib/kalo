@@ -1,13 +1,13 @@
 "use client";
 
-import { useBookingSuccessRedirect } from "@calcom/features/bookings/lib/bookingSuccessRedirect";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useCopy } from "@calcom/lib/hooks/useCopy";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { Spinner } from "@calcom/ui/components/icon";
-import { showToast } from "@calcom/ui/components/toast";
+import { useBookingSuccessRedirect } from "@kalo/features/bookings/lib/bookingSuccessRedirect";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useCopy } from "@kalo/lib/hooks/useCopy";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { Spinner } from "@kalo/ui/components/icon";
+import { showToast } from "@kalo/ui/components/toast";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";

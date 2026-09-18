@@ -1,4 +1,4 @@
-/* eslint-disable @calcom/eslint/deprecated-imports */
+/* eslint-disable @kalo/eslint/deprecated-imports */
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";

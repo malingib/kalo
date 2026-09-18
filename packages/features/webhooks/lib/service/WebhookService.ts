@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 import type { WebhookSubscriber, WebhookDeliveryResult } from "../dto/types";
 import type { WebhookPayload } from "../factory/types";

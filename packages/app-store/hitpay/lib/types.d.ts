@@ -1,4 +1,4 @@
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 export type PaidBooking = Prisma.BookingGetPayload<{
   select: {

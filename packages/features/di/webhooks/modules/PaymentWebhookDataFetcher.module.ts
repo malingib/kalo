@@ -1,4 +1,4 @@
-import { PaymentWebhookDataFetcher } from "@calcom/features/webhooks/lib/service/data-fetchers/PaymentWebhookDataFetcher";
+import { PaymentWebhookDataFetcher } from "@kalo/features/webhooks/lib/service/data-fetchers/PaymentWebhookDataFetcher";
 import { createModule } from "@evyweb/ioctopus";
 import { SHARED_TOKENS } from "../../shared/shared.tokens";
 import { WEBHOOK_TOKENS } from "../Webhooks.tokens";

@@ -1,12 +1,12 @@
 import { describe, expect, vi } from "vitest";
 
-import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@calcom/lib/constants";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { buildCalendarEvent, buildPerson } from "@calcom/lib/test/builder";
-import { buildVideoCallData } from "@calcom/lib/test/builder";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import { test } from "@calcom/testing/lib/fixtures/fixtures";
+import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@kalo/lib/constants";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { buildCalendarEvent, buildPerson } from "@kalo/lib/test/builder";
+import { buildVideoCallData } from "@kalo/lib/test/builder";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import { test } from "@kalo/testing/lib/fixtures/fixtures";
 
 import generateIcsString from "./generateIcsString";
 

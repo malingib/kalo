@@ -1,11 +1,11 @@
-import { checkSMSRateLimit } from "@calcom/lib/smsLockState";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { checkSMSRateLimit } from "@kalo/lib/smsLockState";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 import type { TFunction } from "i18next";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import SMSManager from "../sms-manager";
 
-vi.mock("@calcom/lib/smsLockState");
+vi.mock("@kalo/lib/smsLockState");
 
 interface TestAttendee extends Person {
   name: string;

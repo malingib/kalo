@@ -2,9 +2,9 @@
 
 import { useFormContext } from "react-hook-form";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { Label, TextField, Select } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { Label, TextField, Select } from "@kalo/ui/components/form";
 import { XIcon } from "@coss/ui/icons";
 
 import type { InviteRole } from "../store/onboarding-store";
@@ -72,7 +72,7 @@ export function EmailInviteForm({
                 <TextField
                   labelSrOnly
                   {...register(`invites.${index}.email`)}
-                  placeholder={emailPlaceholder || `rick@cal.com`}
+                  placeholder={emailPlaceholder || `rick@kalo`}
                   type="email"
                   size="sm"
                 />

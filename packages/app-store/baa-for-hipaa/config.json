@@ -4,13 +4,13 @@
   "slug": "baa-for-hipaa",
   "type": "baa-for-hipaa_other",
   "logo": "icon.svg",
-  "url": "https://cal.com/BAA",
+  "url": "https://github.com/malingib/kalo",
   "variant": "other",
   "categories": [
     "other"
   ],
-  "publisher": "Cal.com, Inc.",
-  "email": "support@cal.com",
+  "publisher": "Kalo, Inc.",
+  "email": "support@kalo",
   "description": "Request a signed Business Associate Agreement for your HIPAA compliance records",
   "isTemplate": false,
   "__createdUsingCli": true,
@@ -20,7 +20,7 @@
     "mode": "subscription"
   },
   "externalLink": {
-    "url": "https://cal.com/BAA",
+    "url": "https://github.com/malingib/kalo",
     "newTab": true
   }
 }

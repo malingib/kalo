@@ -1,7 +1,7 @@
-import type { ConfigType } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import type { Availability } from "@calcom/prisma/client";
-import type { Schedule, TimeRange, WorkingHours } from "@calcom/types/schedule";
+import type { ConfigType } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import type { Availability } from "@kalo/prisma/client";
+import type { Schedule, TimeRange, WorkingHours } from "@kalo/types/schedule";
 
 import { nameOfDay } from "./weekday";
 

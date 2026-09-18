@@ -1,4 +1,4 @@
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import type { QuickAvailabilityCheck } from "../types";
 import { isSlotEquivalent, isValidISOFormat } from "./isSlotEquivalent";

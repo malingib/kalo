@@ -2,8 +2,8 @@ import { admin_directory_v1 } from "@googleapis/admin";
 import { OAuth2Client } from "google-auth-library";
 import { z } from "zod";
 
-import getAppKeysFromSlug from "@calcom/app-store/_utils/getAppKeysFromSlug";
-import { prisma } from "@calcom/prisma";
+import getAppKeysFromSlug from "@kalo/app-store/_utils/getAppKeysFromSlug";
+import { prisma } from "@kalo/prisma";
 
 import type { TrpcSessionUser } from "../../../types";
 

@@ -1,4 +1,4 @@
-import { getAvailableSlotsService } from "@calcom/features/di/containers/AvailableSlots";
+import { getAvailableSlotsService } from "@kalo/features/di/containers/AvailableSlots";
 
 import type { GetScheduleOptions } from "./types";
 

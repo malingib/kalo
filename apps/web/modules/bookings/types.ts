@@ -1,11 +1,11 @@
-import type { UseBookerLayoutType } from "@calcom/features/bookings/Booker/hooks/useBookerLayout";
-import type { UseBookingFormReturnType } from "@calcom/features/bookings/Booker/hooks/useBookingForm";
-import type { CustomClassNames, ToggledConnectedCalendars } from "@calcom/features/bookings/Booker/types";
-import type { BookerEventQuery } from "@calcom/features/bookings/types";
-import type { DataTableRow } from "@calcom/features/data-table/lib/separator";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import type { EventBusyDate } from "@calcom/types/Calendar";
-import type { useScheduleForEventReturnType } from "@calcom/web/modules/schedules/hooks/useEvent";
+import type { UseBookerLayoutType } from "@kalo/features/bookings/Booker/hooks/useBookerLayout";
+import type { UseBookingFormReturnType } from "@kalo/features/bookings/Booker/hooks/useBookingForm";
+import type { CustomClassNames, ToggledConnectedCalendars } from "@kalo/features/bookings/Booker/types";
+import type { BookerEventQuery } from "@kalo/features/bookings/types";
+import type { DataTableRow } from "@kalo/features/data-table/lib/separator";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import type { EventBusyDate } from "@kalo/types/Calendar";
+import type { useScheduleForEventReturnType } from "@kalo/web/modules/schedules/hooks/useEvent";
 import type { UseBookingsReturnType } from "./hooks/useBookings";
 import type { UseSlotsReturnType } from "./hooks/useSlots";
 import type { UseVerifyCodeReturnType } from "./hooks/useVerifyCode";
@@ -36,8 +36,8 @@ export type RowData = DataTableRow<BookingRowData>;
 
 export type BookingListingStatus = (typeof validStatuses)[number];
 
-export type { UseBookerLayoutType } from "@calcom/features/bookings/Booker/hooks/useBookerLayout";
-export type { UseBookingFormReturnType } from "@calcom/features/bookings/Booker/hooks/useBookingForm";
+export type { UseBookerLayoutType } from "@kalo/features/bookings/Booker/hooks/useBookerLayout";
+export type { UseBookingFormReturnType } from "@kalo/features/bookings/Booker/hooks/useBookingForm";
 export type { UseBookingsReturnType } from "./hooks/useBookings";
 export type { UseSlotsReturnType } from "./hooks/useSlots";
 export type { UseVerifyCodeReturnType } from "./hooks/useVerifyCode";
@@ -101,7 +101,7 @@ export type WrappedBookerPropsForPlatform = WrappedBookerPropsMain & {
   isPlatform: true;
   verifyCode: undefined;
   customClassNames?: CustomClassNames;
-  timeZones?: import("@calcom/features/bookings/Booker/types").Timezone[];
+  timeZones?: import("@kalo/features/bookings/Booker/types").Timezone[];
   roundRobinHideOrgAndTeam?: boolean;
   hideOrgTeamAvatar?: boolean;
 };
@@ -109,7 +109,7 @@ export type WrappedBookerPropsForPlatform = WrappedBookerPropsMain & {
 export type WrappedBookerPropsForWeb = WrappedBookerPropsMain & {
   isPlatform: false;
   verifyCode: UseVerifyCodeReturnType;
-  timeZones?: import("@calcom/features/bookings/Booker/types").Timezone[];
+  timeZones?: import("@kalo/features/bookings/Booker/types").Timezone[];
   roundRobinHideOrgAndTeam?: boolean;
   hideOrgTeamAvatar?: boolean;
 };

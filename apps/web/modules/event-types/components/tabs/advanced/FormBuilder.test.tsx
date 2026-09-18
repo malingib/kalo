@@ -6,8 +6,8 @@ import {
   setMockIntersectionObserver,
   setMockMatchMedia,
   verifier,
-} from "@calcom/features/form-builder/testUtils";
-import { showToast } from "@calcom/ui/components/toast";
+} from "@kalo/features/form-builder/testUtils";
+import { showToast } from "@kalo/ui/components/toast";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { render, screen, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
@@ -35,11 +35,11 @@ vi.mock("next/navigation", async (importOriginal) => {
   };
 });
 
-vi.mock("@calcom/ui/components/toast", () => ({
+vi.mock("@kalo/ui/components/toast", () => ({
   showToast: vi.fn(),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));

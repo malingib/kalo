@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from "@calcom/lib/hooks/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "@kalo/lib/hooks/useIsomorphicLayoutEffect";
 import { useRef } from "react";
 import type { HorizontalTabItemProps } from "./HorizontalTabItem";
 import HorizontalTabItem from "./HorizontalTabItem";

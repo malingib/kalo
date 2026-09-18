@@ -17,8 +17,8 @@ Barrel files (index.ts that re-export from multiple modules) can hurt tree-shaki
 // Importing from index.ts barrel files
 import { BookingService, UserService } from "./services";
 
-// Importing from @calcom/ui barrel
-import { Button } from "@calcom/ui";
+// Importing from @kalo/ui barrel
+import { Button } from "@kalo/ui";
 ```
 
 **Correct (importing directly from source):**
@@ -29,7 +29,7 @@ import { BookingService } from "./services/BookingService";
 import { UserService } from "./services/UserService";
 
 // Import directly from component path
-import { Button } from "@calcom/ui/components/button";
+import { Button } from "@kalo/ui/components/button";
 ```
 
-Reference: [Cal.diy Engineering Standards](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Standards](https://cal.com/blog/engineering-in-2026-and-beyond)

@@ -1,5 +1,5 @@
-import { getWebhookFeature } from "@calcom/features/di/webhooks/containers/webhook";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getWebhookFeature } from "@kalo/features/di/webhooks/containers/webhook";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 import type { TGetInputSchema } from "./get.schema";
 
 type GetOptions = {

@@ -6,9 +6,9 @@ import { UserWithProfile } from "@/modules/users/users.repository";
 import { Controller, Get, UseGuards, Version, VERSION_NEUTRAL } from "@nestjs/common";
 import { ApiTags as DocsTags, ApiExcludeController as DocsExcludeController } from "@nestjs/swagger";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import { ConnectedApps } from "@calcom/platform-libraries/app-store";
-import { ApiResponse } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import { ConnectedApps } from "@kalo/platform-libraries/app-store";
+import { ApiResponse } from "@kalo/platform-types";
 
 /*
 Conferencing endpoints for atoms, split from AtomsController for clarity and maintainability.

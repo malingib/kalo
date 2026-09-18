@@ -8,7 +8,7 @@ import {
   X_CAL_CLIENT_ID,
   X_CAL_PLATFORM_EMBED,
   X_CAL_SECRET_KEY,
-} from "@calcom/platform-constants";
+} from "@kalo/platform-constants";
 import type { ValidationError } from "@nestjs/common";
 import { BadRequestException, Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import type { NestExpressApplication } from "@nestjs/platform-express";

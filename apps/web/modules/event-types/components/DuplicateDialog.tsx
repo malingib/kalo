@@ -4,24 +4,24 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { EventTypeDuplicateInput } from "@calcom/features/eventtypes/lib/types";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useDebounce } from "@calcom/lib/hooks/useDebounce";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useTypedQuery } from "@calcom/lib/hooks/useTypedQuery";
-import { HttpError } from "@calcom/lib/http-error";
-import { md } from "@calcom/lib/markdownIt";
-import slugify from "@calcom/lib/slugify";
-import turndown from "@calcom/lib/turndownService";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
-import { Editor } from "@calcom/ui/components/editor";
-import { Form } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
-import { revalidateEventTypesList } from "@calcom/web/app/(use-page-wrapper)/(main-nav)/event-types/actions";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { EventTypeDuplicateInput } from "@kalo/features/eventtypes/lib/types";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useDebounce } from "@kalo/lib/hooks/useDebounce";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useTypedQuery } from "@kalo/lib/hooks/useTypedQuery";
+import { HttpError } from "@kalo/lib/http-error";
+import { md } from "@kalo/lib/markdownIt";
+import slugify from "@kalo/lib/slugify";
+import turndown from "@kalo/lib/turndownService";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
+import { Editor } from "@kalo/ui/components/editor";
+import { Form } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
+import { revalidateEventTypesList } from "@kalo/web/app/(use-page-wrapper)/(main-nav)/event-types/actions";
 
 const querySchema = z.object({
   title: z.string().min(1),

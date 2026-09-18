@@ -1,4 +1,4 @@
-import { TeamEventTypeOutput_2024_06_14 } from "@calcom/platform-types";
+import { TeamEventTypeOutput_2024_06_14 } from "@kalo/platform-types";
 import { Injectable, PipeTransform } from "@nestjs/common";
 import { plainToClass } from "class-transformer";
 import {

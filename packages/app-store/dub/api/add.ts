@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { HttpError } from "@calcom/lib/http-error";
-import { defaultHandler } from "@calcom/lib/server/defaultHandler";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+import { HttpError } from "@kalo/lib/http-error";
+import { defaultHandler } from "@kalo/lib/server/defaultHandler";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
 
 import getParsedAppKeysFromSlug from "../../_utils/getParsedAppKeysFromSlug";
 import { dubAppKeysSchema, scopeString } from "../lib/utils";

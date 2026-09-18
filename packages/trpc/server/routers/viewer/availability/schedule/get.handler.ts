@@ -1,5 +1,5 @@
-import { ScheduleRepository } from "@calcom/features/schedules/repositories/ScheduleRepository";
-import { prisma } from "@calcom/prisma";
+import { ScheduleRepository } from "@kalo/features/schedules/repositories/ScheduleRepository";
+import { prisma } from "@kalo/prisma";
 
 import type { TrpcSessionUser } from "../../../../types";
 import type { TGetInputSchema } from "./get.schema";

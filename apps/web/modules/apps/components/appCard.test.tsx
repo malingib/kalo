@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { vi, describe, expect } from "vitest";
 
-import type { AppFrontendPayload } from "@calcom/types/App";
+import type { AppFrontendPayload } from "@kalo/types/App";
 
 import { AppCard } from "./AppCard";
 

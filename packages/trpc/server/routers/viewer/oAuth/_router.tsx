@@ -1,4 +1,4 @@
-import authedProcedure, { authedAdminProcedure } from "@calcom/trpc/server/procedures/authedProcedure";
+import authedProcedure, { authedAdminProcedure } from "@kalo/trpc/server/procedures/authedProcedure";
 import { router } from "../../../trpc";
 import { ZCreateClientInputSchema } from "./createClient.schema";
 import { ZDeleteClientInputSchema } from "./deleteClient.schema";

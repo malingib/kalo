@@ -1,7 +1,7 @@
 import process from "node:process";
-import { RedisService } from "@calcom/features/redis/RedisService";
-import logger from "@calcom/lib/logger";
-import prisma from "@calcom/prisma";
+import { RedisService } from "@kalo/features/redis/RedisService";
+import logger from "@kalo/lib/logger";
+import prisma from "@kalo/prisma";
 import type { RatelimitResponse } from "@unkey/ratelimit";
 import { hashAPIKey } from "./apiKeys";
 

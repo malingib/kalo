@@ -1,5 +1,5 @@
-import { formatDateTime, formatDateTimeRange } from "@calcom/lib/dateTimeFormatter";
-import { TimeFormat } from "@calcom/lib/timeFormat";
+import { formatDateTime, formatDateTimeRange } from "@kalo/lib/dateTimeFormatter";
+import { TimeFormat } from "@kalo/lib/timeFormat";
 
 interface EventFromToTime {
   date: string;

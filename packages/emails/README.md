@@ -6,7 +6,7 @@
 ## Usage
 
 ```ts
-import renderEmail from "@calcom/emails/renderEmail";
+import renderEmail from "@kalo/emails/renderEmail";
 
 await renderEmail("TeamInviteEmail", {
   language: t,

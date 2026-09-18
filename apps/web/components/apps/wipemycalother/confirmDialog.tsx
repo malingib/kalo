@@ -2,15 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 
-import dayjs from "@calcom/dayjs";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import logger from "@calcom/lib/logger";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
+import dayjs from "@kalo/dayjs";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import logger from "@kalo/lib/logger";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
 import { ClockIcon } from "@coss/ui/icons";
-import { showToast } from "@calcom/ui/components/toast";
+import { showToast } from "@kalo/ui/components/toast";
 
 interface IConfirmDialogWipe {
   isOpenDialog: boolean;

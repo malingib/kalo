@@ -1,5 +1,5 @@
-import CalendarManagerMock from "@calcom/features/calendars/lib/__mocks__/CalendarManager";
-import { constantsScenarios } from "@calcom/lib/__mocks__/constants";
+import CalendarManagerMock from "@kalo/features/calendars/lib/__mocks__/CalendarManager";
+import { constantsScenarios } from "@kalo/lib/__mocks__/constants";
 
 import {
   getDate,
@@ -12,13 +12,13 @@ import {
   TestData,
   createCredentials,
   mockCrmApp,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
 
 import { describe, vi, test } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import { getAvailableSlotsService } from "@calcom/features/di/containers/AvailableSlots";
-import { SchedulingType, type BookingStatus } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { getAvailableSlotsService } from "@kalo/features/di/containers/AvailableSlots";
+import { SchedulingType, type BookingStatus } from "@kalo/prisma/enums";
 
 import { expect, expectedSlotsForSchedule } from "./getSchedule/expects";
 import { setupAndTeardown } from "./getSchedule/setupAndTeardown";

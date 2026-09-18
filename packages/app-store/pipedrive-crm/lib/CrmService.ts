@@ -3,18 +3,18 @@ import {
   CREDENTIAL_SYNC_ENDPOINT,
   CREDENTIAL_SYNC_SECRET,
   CREDENTIAL_SYNC_SECRET_HEADER_NAME,
-} from "@calcom/lib/constants";
-import { getLocation } from "@calcom/lib/CalEventParser";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
+} from "@kalo/lib/constants";
+import { getLocation } from "@kalo/lib/CalEventParser";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
 import type {
   CalendarEvent,
   EventBusyDate,
   IntegrationCalendar,
   NewCalendarEventType,
-} from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { ContactCreateInput, CRM, Contact } from "@calcom/types/CrmService";
+} from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { ContactCreateInput, CRM, Contact } from "@kalo/types/CrmService";
 
 import { invalidateCredential } from "../../_utils/invalidateCredential";
 import { OAuthManager } from "../../_utils/oauth/OAuthManager";

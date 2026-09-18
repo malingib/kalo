@@ -1,7 +1,7 @@
 import { Expose, Type } from "class-transformer";
 import { IsInt, ValidateNested } from "class-validator";
 
-import { ApiResponseWithoutData } from "@calcom/platform-types";
+import { ApiResponseWithoutData } from "@kalo/platform-types";
 
 import { WebhookOutputDto } from "./webhook.output";
 

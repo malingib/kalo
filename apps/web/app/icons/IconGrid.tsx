@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@calcom/ui/components/icon";
-import type { IconName } from "@calcom/ui/components/icon";
+import { Icon } from "@kalo/ui/components/icon";
+import type { IconName } from "@kalo/ui/components/icon";
 
 export const IconGrid = (props: {
   title: string;

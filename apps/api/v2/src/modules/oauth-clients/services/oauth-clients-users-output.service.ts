@@ -2,7 +2,7 @@ import { ManagedUserOutput } from "@/modules/oauth-clients/controllers/oauth-cli
 import { Injectable } from "@nestjs/common";
 import { plainToInstance } from "class-transformer";
 
-import type { User } from "@calcom/prisma/client";
+import type { User } from "@kalo/prisma/client";
 
 @Injectable()
 export class OAuthClientUsersOutputService {

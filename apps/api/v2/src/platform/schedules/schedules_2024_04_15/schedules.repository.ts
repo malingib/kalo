@@ -3,7 +3,7 @@ import { CreateScheduleInput_2024_04_15 } from "@/platform/schedules/schedules_2
 import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { Injectable } from "@nestjs/common";
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 
 @Injectable()

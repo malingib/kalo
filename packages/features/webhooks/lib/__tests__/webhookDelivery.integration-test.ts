@@ -1,6 +1,6 @@
-import { prisma } from "@calcom/prisma";
-import type { EventType, User, Webhook } from "@calcom/prisma/client";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { prisma } from "@kalo/prisma";
+import type { EventType, User, Webhook } from "@kalo/prisma/client";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { v4 } from "uuid";
 import { afterAll, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import type { WebhookTaskPayload } from "../types/webhookTask";
@@ -24,7 +24,7 @@ import type { WebhookTaskPayload } from "../types/webhookTask";
 const deliveredWebhooks: WebhookTaskPayload[] = [];
 
 // Mock the WebhookTasker module before importing the container
-vi.mock("@calcom/features/webhooks/lib/tasker/WebhookTasker", () => ({
+vi.mock("@kalo/features/webhooks/lib/tasker/WebhookTasker", () => ({
   WebhookTasker: class MockWebhookTasker {
     async deliverWebhook(payload: WebhookTaskPayload) {
       deliveredWebhooks.push(payload);
@@ -34,7 +34,7 @@ vi.mock("@calcom/features/webhooks/lib/tasker/WebhookTasker", () => ({
 }));
 
 // Import after mocking
-const { getWebhookProducer } = await import("@calcom/features/di/webhooks/containers/webhook");
+const { getWebhookProducer } = await import("@kalo/features/di/webhooks/containers/webhook");
 
 describe("Webhook Producer Integration", () => {
   let testUser: User;

@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import type { BookerState } from "@calcom/features/bookings/Booker/types";
-import { BookerLayouts } from "@calcom/prisma/zod-utils";
+import dayjs from "@kalo/dayjs";
+import type { BookerState } from "@kalo/features/bookings/Booker/types";
+import { BookerLayouts } from "@kalo/prisma/zod-utils";
 
 import { useTimesForSchedule } from "./useTimesForSchedule";
 
 // Mock the booker store context
 const mockUseBookerStoreContext = vi.fn();
-vi.mock("@calcom/features/bookings/Booker/BookerStoreProvider", () => ({
+vi.mock("@kalo/features/bookings/Booker/BookerStoreProvider", () => ({
   useBookerStoreContext: (selector: (state: { month: string | null; state: BookerState }) => unknown) =>
     mockUseBookerStoreContext(selector),
 }));

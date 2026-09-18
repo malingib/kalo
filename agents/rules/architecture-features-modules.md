@@ -15,7 +15,7 @@ The `packages/features` package should contain only framework-agnostic code:
 - Core utilities and helpers
 - Types and interfaces
 
-**Files in `packages/features/**` should NOT import from `@calcom/trpc`.**
+**Files in `packages/features/**` should NOT import from `@kalo/trpc`.**
 
 ## apps/web/modules
 
@@ -44,11 +44,11 @@ apps/web/modules/feature-opt-in/
 ```typescript
 // ❌ Bad - tRPC hook in packages/features
 // packages/features/feature-opt-in/hooks/useFeatureOptIn.ts
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 
 // ✅ Good - tRPC hook in apps/web/modules
 // apps/web/modules/feature-opt-in/hooks/useFeatureOptIn.ts
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 ```
 
 This separation ensures that `packages/features` remains portable and can be used by other apps (like `apps/api/v2`) without pulling in web-specific dependencies.

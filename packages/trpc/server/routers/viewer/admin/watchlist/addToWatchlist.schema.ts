@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { WatchlistType } from "@calcom/prisma/enums";
+import { WatchlistType } from "@kalo/prisma/enums";
 
 export const ZAddToWatchlistInputSchema = z.object({
   email: z.string().email(),

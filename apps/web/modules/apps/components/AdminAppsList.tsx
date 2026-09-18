@@ -1,27 +1,27 @@
 "use client";
 
-import AppCategoryNavigation from "@calcom/app-store/_components/AppCategoryNavigation";
-import { appKeysSchemas } from "@calcom/app-store/apps.keys-schemas.generated";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { AppCategories } from "@calcom/prisma/enums";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import cs from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
+import AppCategoryNavigation from "@kalo/app-store/_components/AppCategoryNavigation";
+import { appKeysSchemas } from "@kalo/app-store/apps.keys-schemas.generated";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { AppCategories } from "@kalo/prisma/enums";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import cs from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
 import {
   ConfirmationDialogContent,
   DialogClose,
   DialogContent,
   DialogFooter,
-} from "@calcom/ui/components/dialog";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { Form, Switch, TextField } from "@calcom/ui/components/form";
-import { List } from "@calcom/ui/components/list";
-import { SkeletonButton, SkeletonContainer, SkeletonText } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
-import AppListCardWebWrapper from "@calcom/web/modules/apps/components/AppListCardWebWrapper";
+} from "@kalo/ui/components/dialog";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { Form, Switch, TextField } from "@kalo/ui/components/form";
+import { List } from "@kalo/ui/components/list";
+import { SkeletonButton, SkeletonContainer, SkeletonText } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
+import AppListCardWebWrapper from "@kalo/web/modules/apps/components/AppListCardWebWrapper";
 import { PencilIcon } from "@coss/ui/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 // eslint-disable-next-line no-restricted-imports

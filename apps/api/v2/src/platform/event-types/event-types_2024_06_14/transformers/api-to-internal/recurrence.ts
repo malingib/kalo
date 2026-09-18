@@ -1,6 +1,6 @@
-import { Frequency } from "@calcom/platform-enums";
-import type { Recurrence_2024_06_14 } from "@calcom/platform-types";
-import { type TransformRecurringEventSchema_2024_06_14 } from "@calcom/platform-types";
+import { Frequency } from "@kalo/platform-enums";
+import type { Recurrence_2024_06_14 } from "@kalo/platform-types";
+import { type TransformRecurringEventSchema_2024_06_14 } from "@kalo/platform-types";
 
 export function transformRecurrenceApiToInternal(
   recurrence: Recurrence_2024_06_14

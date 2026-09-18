@@ -1,20 +1,20 @@
-import dayjs from "@calcom/dayjs";
-import type { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { getBusyCalendarTimes } from "@calcom/features/calendars/lib/CalendarManager";
-import { getDefinedBufferTimes } from "@calcom/features/eventtypes/lib/getDefinedBufferTimes";
-import { subtract } from "@calcom/features/schedules/lib/date-ranges";
-import { stringToDayjs } from "@calcom/lib/dayjs";
-import { intervalLimitKeyToUnit } from "@calcom/lib/intervalLimits/intervalLimit";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeBooking } from "@calcom/lib/piiFreeData";
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import { performance } from "@calcom/lib/server/perfObserver";
-import prisma from "@calcom/prisma";
-import type { Booking, EventType, Prisma, SelectedCalendar } from "@calcom/prisma/client";
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { CalendarFetchMode, EventBusyDetails } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import dayjs from "@kalo/dayjs";
+import type { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { getBusyCalendarTimes } from "@kalo/features/calendars/lib/CalendarManager";
+import { getDefinedBufferTimes } from "@kalo/features/eventtypes/lib/getDefinedBufferTimes";
+import { subtract } from "@kalo/features/schedules/lib/date-ranges";
+import { stringToDayjs } from "@kalo/lib/dayjs";
+import { intervalLimitKeyToUnit } from "@kalo/lib/intervalLimits/intervalLimit";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeBooking } from "@kalo/lib/piiFreeData";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import { performance } from "@kalo/lib/server/perfObserver";
+import prisma from "@kalo/prisma";
+import type { Booking, EventType, Prisma, SelectedCalendar } from "@kalo/prisma/client";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { CalendarFetchMode, EventBusyDetails } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 
 const BATCH_SIZE_FOR_LIMIT_CHECKS = 50;
 const MAX_CONCURRENT_LIMIT_CHECK_BATCHES = 5;
@@ -91,7 +91,7 @@ export class BusyTimesService {
      *   - The current user has a different booking at this time he/she attends
      *
      * See further discussion within this GH issue:
-     * https://github.com/calcom/cal.diy/issues/6374
+     * https://github.com/calcom/kalo/issues/6374
      *
      * NOTE: Changes here will likely require changes to some mocking
      *  logic within getSchedule.test.ts:addBookings

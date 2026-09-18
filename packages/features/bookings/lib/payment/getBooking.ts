@@ -1,19 +1,19 @@
 import process from "node:process";
-import { enrichUserWithDelegationCredentials } from "@calcom/app-store/delegationCredential";
-import { getCalEventResponses } from "@calcom/features/bookings/lib/getCalEventResponses";
+import { enrichUserWithDelegationCredentials } from "@kalo/app-store/delegationCredential";
+import { getCalEventResponses } from "@kalo/features/bookings/lib/getCalEventResponses";
 import {
   type EventTypeBrandingData,
   getEventTypeService,
-} from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { getTranslation } from "@calcom/i18n/server";
-import { HttpError as HttpCode } from "@calcom/lib/http-error";
-import { isPrismaObjOrUndefined } from "@calcom/lib/isPrismaObj";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import { getTimeFormatStringFromUserTimeFormat } from "@calcom/lib/timeFormat";
-import { bookingMinimalSelect, prisma } from "@calcom/prisma";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import { EventTypeMetaDataSchema } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+} from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { getTranslation } from "@kalo/i18n/server";
+import { HttpError as HttpCode } from "@kalo/lib/http-error";
+import { isPrismaObjOrUndefined } from "@kalo/lib/isPrismaObj";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
+import { bookingMinimalSelect, prisma } from "@kalo/prisma";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 const getBookerBaseUrl = async (_orgSlug?: string | number | null): Promise<string> =>
   process.env.NEXT_PUBLIC_WEBAPP_URL || "https://app.cal.com";

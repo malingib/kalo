@@ -17,9 +17,9 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import "vitest-fetch-mock";
 
 import process from "node:process";
-import { MeetLocationType } from "@calcom/app-store/constants";
-import logger from "@calcom/lib/logger";
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
+import { MeetLocationType } from "@kalo/app-store/constants";
+import logger from "@kalo/lib/logger";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
 import BuildCalendarService, { createGoogleCalendarServiceWithGoogleType } from "../CalendarService";
 import { createCredentialForCalendarService, createMockJWTInstance } from "./utils";
 
@@ -149,7 +149,7 @@ describe("getPrimaryCalendar", () => {
 
 describe("Date Optimization Benchmarks", () => {
   test("native Date calculations should be significantly faster than dayjs while producing identical results", async () => {
-    const dayjs = (await import("@calcom/dayjs")).default;
+    const dayjs = (await import("@kalo/dayjs")).default;
 
     const testCases = [
       {
@@ -221,7 +221,7 @@ describe("Date Optimization Benchmarks", () => {
   });
 
   test("chunking logic should produce identical results between dayjs and native Date implementations", async () => {
-    const dayjs = (await import("@calcom/dayjs")).default;
+    const dayjs = (await import("@kalo/dayjs")).default;
 
     const testCases = [
       {
@@ -299,7 +299,7 @@ describe("Date Optimization Benchmarks", () => {
   });
 
   test("date parsing should be consistent between dayjs and native Date for all expected input formats", async () => {
-    const dayjs = (await import("@calcom/dayjs")).default;
+    const dayjs = (await import("@kalo/dayjs")).default;
 
     // Test various date formats that Google Calendar API might return
     const testDates = [

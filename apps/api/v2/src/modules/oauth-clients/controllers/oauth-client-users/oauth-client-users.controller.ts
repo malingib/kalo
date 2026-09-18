@@ -1,6 +1,6 @@
-import { SUCCESS_STATUS, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
-import { MembershipRole } from "@calcom/platform-libraries";
-import type { User } from "@calcom/prisma/client";
+import { SUCCESS_STATUS, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
+import { MembershipRole } from "@kalo/platform-libraries";
+import type { User } from "@kalo/prisma/client";
 import {
   Body,
   Controller,

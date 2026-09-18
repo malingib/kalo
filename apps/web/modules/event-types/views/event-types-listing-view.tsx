@@ -1,26 +1,26 @@
 "use client";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { APP_NAME } from "@calcom/lib/constants";
-import { extractHostTimezone, filterActiveLinks } from "@calcom/lib/hashedLinksUtils";
-import { useCopy } from "@calcom/lib/hooks/useCopy";
-import { useInViewObserver } from "@calcom/lib/hooks/useInViewObserver";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useGetTheme } from "@calcom/lib/hooks/useTheme";
-import { useTypedQuery } from "@calcom/lib/hooks/useTypedQuery";
-import { HttpError } from "@calcom/lib/http-error";
-import { parseEventTypeColor } from "@calcom/lib/isEventTypeColor";
-import { localStorage } from "@calcom/lib/webstorage";
-import { MembershipRole, SchedulingType } from "@calcom/prisma/enums";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { ArrowButton } from "@calcom/ui/components/arrow-button";
-import { UserAvatarGroup } from "@calcom/ui/components/avatar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { ButtonGroup } from "@calcom/ui/components/buttonGroup";
-import { ConfirmationDialogContent } from "@calcom/ui/components/dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { APP_NAME } from "@kalo/lib/constants";
+import { extractHostTimezone, filterActiveLinks } from "@kalo/lib/hashedLinksUtils";
+import { useCopy } from "@kalo/lib/hooks/useCopy";
+import { useInViewObserver } from "@kalo/lib/hooks/useInViewObserver";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useGetTheme } from "@kalo/lib/hooks/useTheme";
+import { useTypedQuery } from "@kalo/lib/hooks/useTypedQuery";
+import { HttpError } from "@kalo/lib/http-error";
+import { parseEventTypeColor } from "@kalo/lib/isEventTypeColor";
+import { localStorage } from "@kalo/lib/webstorage";
+import { MembershipRole, SchedulingType } from "@kalo/prisma/enums";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { ArrowButton } from "@kalo/ui/components/arrow-button";
+import { UserAvatarGroup } from "@kalo/ui/components/avatar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { ButtonGroup } from "@kalo/ui/components/buttonGroup";
+import { ConfirmationDialogContent } from "@kalo/ui/components/dialog";
 import {
   Dropdown,
   DropdownItem,
@@ -29,24 +29,24 @@ import {
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { Label, Switch, TextField } from "@calcom/ui/components/form";
-import { HorizontalTabs } from "@calcom/ui/components/navigation";
-import { Skeleton } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+} from "@kalo/ui/components/dropdown";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { Label, Switch, TextField } from "@kalo/ui/components/form";
+import { HorizontalTabs } from "@kalo/ui/components/navigation";
+import { Skeleton } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import {
   EventTypeEmbedButton,
   EventTypeEmbedDialog,
-} from "@calcom/web/modules/embed/components/EventTypeEmbed";
-import { EventTypeDescription } from "@calcom/web/modules/event-types/components";
+} from "@kalo/web/modules/embed/components/EventTypeEmbed";
+import { EventTypeDescription } from "@kalo/web/modules/event-types/components";
 import {
   CreateEventTypeDialog,
   type ProfileOption,
-} from "@calcom/web/modules/event-types/components/CreateEventTypeDialog";
-import { DuplicateDialog } from "@calcom/web/modules/event-types/components/DuplicateDialog";
-import { InfiniteSkeletonLoader } from "@calcom/web/modules/event-types/components/SkeletonLoader";
+} from "@kalo/web/modules/event-types/components/CreateEventTypeDialog";
+import { DuplicateDialog } from "@kalo/web/modules/event-types/components/DuplicateDialog";
+import { InfiniteSkeletonLoader } from "@kalo/web/modules/event-types/components/SkeletonLoader";
 import { SearchIcon } from "@coss/ui/icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TRPCClientError } from "@trpc/client";

@@ -1,10 +1,10 @@
-import dayjs from "@calcom/dayjs";
-import { useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import type { BookingResponse } from "@calcom/features/bookings/types";
-import { getSafe } from "@calcom/lib/getSafe";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { navigateInTopWindow } from "@calcom/lib/navigateInTopWindow";
-import type { EventType } from "@calcom/prisma/client";
+import dayjs from "@kalo/dayjs";
+import { useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import type { BookingResponse } from "@kalo/features/bookings/types";
+import { getSafe } from "@kalo/lib/getSafe";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { navigateInTopWindow } from "@kalo/lib/navigateInTopWindow";
+import type { EventType } from "@kalo/prisma/client";
 import { useRouter } from "next/navigation";
 
 export function getNewSearchParams(args: {
@@ -209,9 +209,9 @@ export const useBookingSuccessRedirect = () => {
 
       const bookingExtraParams = getBookingRedirectExtraParams(booking);
 
-      // Filter internal Cal.diy params when redirecting to external URLs.
+      // Filter internal Kalo params when redirecting to external URLs.
       // - It prevents leaking internal state.
-      // - Certain websites might break due to the presence of certain params e.g. Wordpress has different meaning for `embed` param and an embed param passed by Cal.diy breaks a wordpress webpage
+      // - Certain websites might break due to the presence of certain params e.g. Wordpress has different meaning for `embed` param and an embed param passed by Kalo breaks a wordpress webpage
       const newSearchParams = getNewSearchParams({
         query: {
           ...query,

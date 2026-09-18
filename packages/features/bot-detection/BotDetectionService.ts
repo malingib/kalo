@@ -1,12 +1,12 @@
 import { checkBotId } from "botid/server";
 import type { IncomingHttpHeaders } from "node:http";
 
-import type { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import type { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
+import type { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import type { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
 
 interface BotDetectionConfig {
   eventTypeId?: number;

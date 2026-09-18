@@ -1,10 +1,10 @@
-import dayjs from "@calcom/dayjs";
-import { handleWebhookTrigger } from "@calcom/features/bookings/lib/handleWebhookTrigger";
-import type { EventPayloadType } from "@calcom/features/webhooks/lib/sendPayload";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { HttpError } from "@calcom/lib/http-error";
-import prisma from "@calcom/prisma";
-import { BookingStatus } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { handleWebhookTrigger } from "@kalo/features/bookings/lib/handleWebhookTrigger";
+import type { EventPayloadType } from "@kalo/features/webhooks/lib/sendPayload";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { HttpError } from "@kalo/lib/http-error";
+import prisma from "@kalo/prisma";
+import { BookingStatus } from "@kalo/prisma/enums";
 import { createLoggerWithEventDetails } from "../handleNewBooking/logger";
 import createNewSeat from "./create/createNewSeat";
 import rescheduleSeatedBooking from "./reschedule/rescheduleSeatedBooking";

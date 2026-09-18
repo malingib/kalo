@@ -5,7 +5,7 @@ import { IsNotEmptyObject, ValidateNested } from "class-validator";
 import {
   ApiResponseWithoutData,
   ReserveSlotOutput_2024_09_04 as ReserveSlotOutputType_2024_09_04,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export class ReserveSlotOutputResponse_2024_09_04 extends ApiResponseWithoutData {
   @ApiProperty({

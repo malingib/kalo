@@ -1,6 +1,6 @@
-import type { GlobalBlockingService } from "@calcom/features/watchlist/lib/service/GlobalBlockingService";
-import type { OrganizationBlockingService } from "@calcom/features/watchlist/lib/service/OrganizationBlockingService";
-import { SpamCheckService } from "@calcom/features/watchlist/lib/service/SpamCheckService";
+import type { GlobalBlockingService } from "@kalo/features/watchlist/lib/service/GlobalBlockingService";
+import type { OrganizationBlockingService } from "@kalo/features/watchlist/lib/service/OrganizationBlockingService";
+import { SpamCheckService } from "@kalo/features/watchlist/lib/service/SpamCheckService";
 
 import { getGlobalBlockingService, getOrganizationBlockingService } from "./watchlist";
 

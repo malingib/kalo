@@ -1,6 +1,6 @@
-import { FilterSegmentRepository } from "@calcom/features/data-table/repositories/filterSegment";
-import type { TUpdateFilterSegmentInputSchema } from "@calcom/features/data-table/repositories/filterSegment.type";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { FilterSegmentRepository } from "@kalo/features/data-table/repositories/filterSegment";
+import type { TUpdateFilterSegmentInputSchema } from "@kalo/features/data-table/repositories/filterSegment.type";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 export const updateFilterSegmentHandler = async ({
   ctx,

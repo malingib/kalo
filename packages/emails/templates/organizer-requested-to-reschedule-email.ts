@@ -1,5 +1,5 @@
-import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import { EMAIL_FROM_NAME } from "@kalo/lib/constants";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 import generateIcsFile, { GenerateIcsRole } from "../lib/generateIcsFile";
 import renderEmail from "../src/renderEmail";

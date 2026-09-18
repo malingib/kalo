@@ -1,9 +1,9 @@
 import z from "zod";
 
-import type { SendgridNewContact } from "@calcom/lib/Sendgrid";
-import Sendgrid from "@calcom/lib/Sendgrid";
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import logger from "@calcom/lib/logger";
+import type { SendgridNewContact } from "@kalo/lib/Sendgrid";
+import Sendgrid from "@kalo/lib/Sendgrid";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import logger from "@kalo/lib/logger";
 import type {
   Calendar,
   CalendarEvent,
@@ -11,8 +11,8 @@ import type {
   GetAvailabilityParams,
   IntegrationCalendar,
   NewCalendarEventType,
-} from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
+} from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
 
 const apiKeySchema = z.object({
   encrypted: z.string(),

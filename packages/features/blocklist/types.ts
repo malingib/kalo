@@ -1,6 +1,6 @@
 "use client";
 
-import type { WatchlistType } from "@calcom/prisma/enums";
+import type { WatchlistType } from "@kalo/prisma/enums";
 
 export type BlocklistScope = "organization" | "system";
 

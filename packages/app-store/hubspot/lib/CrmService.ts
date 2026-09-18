@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { checkIfFreeEmailDomain } from "@calcom/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain";
-import getLabelValueMapFromResponses from "@calcom/lib/bookings/getLabelValueMapFromResponses";
-import { getLocation } from "@calcom/lib/CalEventParser";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { PrismaTrackingRepository } from "@calcom/features/bookings/repositories/PrismaTrackingRepository";
-import prisma from "@calcom/prisma";
-import type { CalEventResponses, CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { Contact, ContactCreateInput, CRM, CrmEvent } from "@calcom/types/CrmService";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { checkIfFreeEmailDomain } from "@kalo/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain";
+import getLabelValueMapFromResponses from "@kalo/lib/bookings/getLabelValueMapFromResponses";
+import { getLocation } from "@kalo/lib/CalEventParser";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { PrismaTrackingRepository } from "@kalo/features/bookings/repositories/PrismaTrackingRepository";
+import prisma from "@kalo/prisma";
+import type { CalEventResponses, CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { Contact, ContactCreateInput, CRM, CrmEvent } from "@kalo/types/CrmService";
 import * as hubspot from "@hubspot/api-client";
 import type { BatchInputPublicAssociation } from "@hubspot/api-client/lib/codegen/crm/associations";
 import type { PublicObjectSearchRequest } from "@hubspot/api-client/lib/codegen/crm/contacts";

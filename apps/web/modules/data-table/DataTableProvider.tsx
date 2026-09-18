@@ -8,7 +8,7 @@ import type {
   SegmentIdentifier,
   SystemFilterSegment,
   UseSegments,
-} from "@calcom/features/data-table/lib/types";
+} from "@kalo/features/data-table/lib/types";
 import type { ColumnSizingState, OnChangeFn, SortingState, VisibilityState } from "@tanstack/react-table";
 import { createContext, useMemo } from "react";
 import type { ActiveFiltersValidatorState } from "./contexts";

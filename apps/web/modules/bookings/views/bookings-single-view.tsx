@@ -9,51 +9,51 @@ import { Fragment, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { z } from "zod";
 
-import BookingPageTagManager from "@calcom/app-store/BookingPageTagManager";
-import type { getEventLocationValue } from "@calcom/app-store/locations";
-import { getSuccessPageLocationMessage, guessEventLocationType } from "@calcom/app-store/locations";
-import { getEventTypeAppData } from "@calcom/app-store/utils";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import type { ConfigType } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
+import BookingPageTagManager from "@kalo/app-store/BookingPageTagManager";
+import type { getEventLocationValue } from "@kalo/app-store/locations";
+import { getSuccessPageLocationMessage, guessEventLocationType } from "@kalo/app-store/locations";
+import { getEventTypeAppData } from "@kalo/app-store/utils";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import type { ConfigType } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
 import {
   useEmbedNonStylesConfig,
   useIsBackgroundTransparent,
   useIsEmbed,
-} from "@calcom/embed-core/embed-iframe";
-import { Price } from "@calcom/features/bookings/components/event-meta/Price";
-import { getCalendarLinks, CalendarLinkType } from "@calcom/features/bookings/lib/getCalendarLinks";
-import { RATING_OPTIONS, validateRating } from "@calcom/features/bookings/lib/rating";
-import { isWithinMinimumRescheduleNotice as isWithinMinimumRescheduleNoticeUtil } from "@calcom/features/bookings/lib/reschedule/isWithinMinimumRescheduleNotice";
-import type { nameObjectSchema } from "@calcom/features/eventtypes/lib/eventNaming";
-import { getEventName } from "@calcom/features/eventtypes/lib/eventNaming";
-import { shouldShowFieldInCustomResponses } from "@calcom/lib/bookings/SystemField";
-import { APP_NAME } from "@calcom/lib/constants";
-import { formatToLocalizedDate, formatToLocalizedTime, formatToLocalizedTimezone } from "@calcom/lib/dayjs";
-import useGetBrandingColours from "@calcom/lib/getBrandColours";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useRouterQuery } from "@calcom/lib/hooks/useRouterQuery";
-import useTheme from "@calcom/lib/hooks/useTheme";
-import isSmsCalEmail from "@calcom/lib/isSmsCalEmail";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import { getEveryFreqFor } from "@calcom/lib/recurringStrings";
-import { getIs24hClockFromLocalStorage, isBrowserLocale24h } from "@calcom/lib/timeFormat";
-import { getTimeShiftFlags, getFirstShiftFlags } from "@calcom/lib/timeShift";
-import { CURRENT_TIMEZONE } from "@calcom/lib/timezoneConstants";
-import { localStorage } from "@calcom/lib/webstorage";
-import { AssignmentReasonEnum, BookingStatus, SchedulingType } from "@calcom/prisma/enums";
+} from "@kalo/embed-core/embed-iframe";
+import { Price } from "@kalo/features/bookings/components/event-meta/Price";
+import { getCalendarLinks, CalendarLinkType } from "@kalo/features/bookings/lib/getCalendarLinks";
+import { RATING_OPTIONS, validateRating } from "@kalo/features/bookings/lib/rating";
+import { isWithinMinimumRescheduleNotice as isWithinMinimumRescheduleNoticeUtil } from "@kalo/features/bookings/lib/reschedule/isWithinMinimumRescheduleNotice";
+import type { nameObjectSchema } from "@kalo/features/eventtypes/lib/eventNaming";
+import { getEventName } from "@kalo/features/eventtypes/lib/eventNaming";
+import { shouldShowFieldInCustomResponses } from "@kalo/lib/bookings/SystemField";
+import { APP_NAME } from "@kalo/lib/constants";
+import { formatToLocalizedDate, formatToLocalizedTime, formatToLocalizedTimezone } from "@kalo/lib/dayjs";
+import useGetBrandingColours from "@kalo/lib/getBrandColours";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useRouterQuery } from "@kalo/lib/hooks/useRouterQuery";
+import useTheme from "@kalo/lib/hooks/useTheme";
+import isSmsCalEmail from "@kalo/lib/isSmsCalEmail";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import { getEveryFreqFor } from "@kalo/lib/recurringStrings";
+import { getIs24hClockFromLocalStorage, isBrowserLocale24h } from "@kalo/lib/timeFormat";
+import { getTimeShiftFlags, getFirstShiftFlags } from "@kalo/lib/timeShift";
+import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
+import { localStorage } from "@kalo/lib/webstorage";
+import { AssignmentReasonEnum, BookingStatus, SchedulingType } from "@kalo/prisma/enums";
 
-import assignmentReasonBadgeTitleMap from "@calcom/web/lib/booking/assignmentReasonBadgeTitleMap";
-import { bookingMetadataSchema } from "@calcom/prisma/zod-utils";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { EmailInput, TextArea } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
+import assignmentReasonBadgeTitleMap from "@kalo/web/lib/booking/assignmentReasonBadgeTitleMap";
+import { bookingMetadataSchema } from "@kalo/prisma/zod-utils";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { EmailInput, TextArea } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
 import {
   CalendarIcon,
   CheckIcon,
@@ -61,11 +61,11 @@ import {
   ExternalLinkIcon,
   XIcon,
 } from "@coss/ui/icons";
-import { showToast } from "@calcom/ui/components/toast";
-import { useCalcomTheme } from "@calcom/ui/styles";
-import CancelBooking from "@calcom/web/components/booking/CancelBooking";
-import EventReservationSchema from "@calcom/web/components/schemas/EventReservationSchema";
-import { timeZone } from "@calcom/web/lib/clock";
+import { showToast } from "@kalo/ui/components/toast";
+import { useCalcomTheme } from "@kalo/ui/styles";
+import CancelBooking from "@kalo/web/components/booking/CancelBooking";
+import EventReservationSchema from "@kalo/web/components/schemas/EventReservationSchema";
+import { timeZone } from "@kalo/web/lib/clock";
 
 import { usePaymentStatus } from "../hooks/usePaymentStatus";
 import type { PageProps } from "./bookings-single-view.getServerSideProps";
@@ -1056,7 +1056,7 @@ export default function Success(props: PageProps) {
                               id="email"
                               defaultValue={email}
                               className="mr- focus:border-brand-default border-default text-default mt-0 block w-full rounded-none rounded-l-md shadow-sm focus:ring-black sm:text-sm"
-                              placeholder="rick.astley@cal.com"
+                              placeholder="rick.astley@kalo"
                             />
                             <Button
                               type="submit"

@@ -7,7 +7,7 @@ import { EventTypeOwnershipGuard } from "@/modules/event-types/guards/event-type
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiTags as DocsTags } from "@nestjs/swagger";
 
-import { EVENT_TYPE_READ, EVENT_TYPE_WRITE, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { EVENT_TYPE_READ, EVENT_TYPE_WRITE, SUCCESS_STATUS } from "@kalo/platform-constants";
 import {
   CreatePrivateLinkInput,
   CreatePrivateLinkOutput,
@@ -15,7 +15,7 @@ import {
   GetPrivateLinksOutput,
   UpdatePrivateLinkOutput,
   UpdatePrivateLinkBody,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 import { PrivateLinksService } from "../services/private-links.service";
 

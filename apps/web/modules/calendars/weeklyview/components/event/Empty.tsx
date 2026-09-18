@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { useTimePreferences } from "@calcom/features/bookings/lib";
-import classNames from "@calcom/ui/classNames";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { useTimePreferences } from "@kalo/features/bookings/lib";
+import classNames from "@kalo/ui/classNames";
 
-import { OutOfOfficeInSlots } from "@calcom/web/modules/bookings/components/OutOfOfficeInSlots";
-import { useCalendarStore } from "@calcom/features/calendars/weeklyview/state/store";
-import type { CalendarAvailableTimeslots } from "@calcom/features/calendars/weeklyview/types/state";
-import type { GridCellToDateProps } from "@calcom/features/calendars/weeklyview/utils";
-import { gridCellToDateTime } from "@calcom/features/calendars/weeklyview/utils";
+import { OutOfOfficeInSlots } from "@kalo/web/modules/bookings/components/OutOfOfficeInSlots";
+import { useCalendarStore } from "@kalo/features/calendars/weeklyview/state/store";
+import type { CalendarAvailableTimeslots } from "@kalo/features/calendars/weeklyview/types/state";
+import type { GridCellToDateProps } from "@kalo/features/calendars/weeklyview/utils";
+import { gridCellToDateTime } from "@kalo/features/calendars/weeklyview/utils";
 
 type EmptyCellProps = GridCellToDateProps & {
   isDisabled?: boolean;

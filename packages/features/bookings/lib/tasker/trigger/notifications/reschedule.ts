@@ -8,10 +8,10 @@ export const reschedule = schemaTask({
   ...bookingNotificationsTaskConfig,
   schema: bookingNotificationTaskSchema,
   run: async (payload) => {
-    const { TriggerDevLogger } = await import("@calcom/lib/triggerDevLogger");
-    const { BookingEmailSmsHandler } = await import("@calcom/features/bookings/lib/BookingEmailSmsHandler");
-    const { BookingRepository } = await import("@calcom/features/bookings/repositories/BookingRepository");
-    const { prisma } = await import("@calcom/prisma");
+    const { TriggerDevLogger } = await import("@kalo/lib/triggerDevLogger");
+    const { BookingEmailSmsHandler } = await import("@kalo/features/bookings/lib/BookingEmailSmsHandler");
+    const { BookingRepository } = await import("@kalo/features/bookings/repositories/BookingRepository");
+    const { prisma } = await import("@kalo/prisma");
     const { BookingEmailAndSmsTaskService } = await import("../../BookingEmailAndSmsTaskService");
 
     const triggerDevLogger = new TriggerDevLogger();

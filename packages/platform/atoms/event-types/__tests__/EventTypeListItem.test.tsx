@@ -16,19 +16,19 @@ vi.mock("next/link", () => ({
 }));
 
 // Mock useLocale
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string) => key,
   }),
 }));
 
 // Mock toast
-vi.mock("@calcom/ui/components/toast", () => ({
+vi.mock("@kalo/ui/components/toast", () => ({
   showToast: vi.fn(),
 }));
 
 // Mock dialog components
-vi.mock("@calcom/ui/components/dialog", () => ({
+vi.mock("@kalo/ui/components/dialog", () => ({
   Dialog: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
     open ? <div data-testid="dialog">{children}</div> : null,
   ConfirmationDialogContent: ({

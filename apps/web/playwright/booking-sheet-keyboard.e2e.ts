@@ -1,4 +1,4 @@
-import { BookingStatus } from "@calcom/prisma/enums";
+import { BookingStatus } from "@kalo/prisma/enums";
 import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 

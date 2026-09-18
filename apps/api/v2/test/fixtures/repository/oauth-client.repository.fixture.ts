@@ -2,7 +2,7 @@ import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { TestingModule } from "@nestjs/testing";
 
-import type { PlatformOAuthClient, Prisma } from "@calcom/prisma/client";
+import type { PlatformOAuthClient, Prisma } from "@kalo/prisma/client";
 
 export class OAuthClientRepositoryFixture {
   private prismaReadClient: PrismaReadService["prisma"];

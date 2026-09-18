@@ -3,7 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsInt, IsEnum, ValidateNested, IsString, IsDateString, IsOptional } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
 
 export class UserOooOutputDto {
   @IsInt()

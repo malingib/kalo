@@ -1,6 +1,6 @@
-import dayjs from "@calcom/dayjs";
-import type { PrismaClient } from "@calcom/prisma";
-import type { AccessScope } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import type { PrismaClient } from "@kalo/prisma";
+import type { AccessScope } from "@kalo/prisma/enums";
 
 interface CreateAccessCodeInput {
   code: string;

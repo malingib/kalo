@@ -2,13 +2,13 @@ import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import type { UseFormGetValues, UseFormSetValue, Control, FormState } from "react-hook-form";
 
-import type { LocationFormValues } from "@calcom/features/eventtypes/lib/types";
-import type { SingleValueLocationOption } from "@calcom/features/form/components/LocationSelect";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { Label } from "@calcom/ui/components/form";
-import { Skeleton, SkeletonText, SkeletonContainer } from "@calcom/ui/components/skeleton";
+import type { LocationFormValues } from "@kalo/features/eventtypes/lib/types";
+import type { SingleValueLocationOption } from "@kalo/features/form/components/LocationSelect";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { Label } from "@kalo/ui/components/form";
+import { Skeleton, SkeletonText, SkeletonContainer } from "@kalo/ui/components/skeleton";
 
 import { QueryCell } from "@lib/QueryCell";
 

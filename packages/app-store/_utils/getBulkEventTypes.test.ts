@@ -1,10 +1,10 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 
-import type { Prisma } from "@calcom/prisma/client";
+import type { Prisma } from "@kalo/prisma/client";
 
 import { filterEventTypesWhereLocationUpdateIsAllowed, getBulkUserEventTypes } from "./getBulkEventTypes";
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {
     eventType: {
       findMany: vi.fn(),
@@ -24,7 +24,7 @@ vi.mock("../utils", () => ({
   }),
 }));
 
-import { prisma } from "@calcom/prisma";
+import { prisma } from "@kalo/prisma";
 
 describe("filterEventTypesWhereLocationUpdateIsAllowed", () => {
   it("should allow location updates for event types without a parent", () => {

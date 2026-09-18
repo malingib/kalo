@@ -1,24 +1,24 @@
-import { LearnMoreLink } from "@calcom/features/eventtypes/components/LearnMoreLink";
-import { getDefinedBufferTimes } from "@calcom/features/eventtypes/lib/getDefinedBufferTimes";
+import { LearnMoreLink } from "@kalo/features/eventtypes/components/LearnMoreLink";
+import { getDefinedBufferTimes } from "@kalo/features/eventtypes/lib/getDefinedBufferTimes";
 import type {
   EventTypeSetupProps,
   FormValues,
   InputClassNames,
   SelectClassNames,
   SettingsToggleClassNames,
-} from "@calcom/features/eventtypes/lib/types";
-import CheckboxField from "@calcom/features/form/components/CheckboxField";
-import { ROLLING_WINDOW_PERIOD_MAX_DAYS_TO_CHECK } from "@calcom/lib/constants";
-import type { DurationType } from "@calcom/lib/convertToNewDurationType";
-import convertToNewDurationType from "@calcom/lib/convertToNewDurationType";
-import findDurationType from "@calcom/lib/findDurationType";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { ascendingLimitKeys, intervalLimitKeyToUnit } from "@calcom/lib/intervalLimits/intervalLimit";
-import type { IntervalLimit } from "@calcom/lib/intervalLimits/intervalLimitSchema";
-import { PeriodType, SchedulingType } from "@calcom/prisma/enums";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
+} from "@kalo/features/eventtypes/lib/types";
+import CheckboxField from "@kalo/features/form/components/CheckboxField";
+import { ROLLING_WINDOW_PERIOD_MAX_DAYS_TO_CHECK } from "@kalo/lib/constants";
+import type { DurationType } from "@kalo/lib/convertToNewDurationType";
+import convertToNewDurationType from "@kalo/lib/convertToNewDurationType";
+import findDurationType from "@kalo/lib/findDurationType";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { ascendingLimitKeys, intervalLimitKeyToUnit } from "@kalo/lib/intervalLimits/intervalLimit";
+import type { IntervalLimit } from "@kalo/lib/intervalLimits/intervalLimitSchema";
+import { PeriodType, SchedulingType } from "@kalo/prisma/enums";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
 import {
   DateRangePicker,
   InputField,
@@ -26,9 +26,9 @@ import {
   Select,
   SettingsToggle,
   TextField,
-} from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+} from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import Link from "next/link";

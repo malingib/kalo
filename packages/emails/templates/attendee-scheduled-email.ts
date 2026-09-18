@@ -1,7 +1,7 @@
-import { getRichDescription } from "@calcom/lib/CalEventParser";
-import { getReplyToHeader } from "@calcom/lib/getReplyToHeader";
-import { TimeFormat } from "@calcom/lib/timeFormat";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { getRichDescription } from "@kalo/lib/CalEventParser";
+import { getReplyToHeader } from "@kalo/lib/getReplyToHeader";
+import { TimeFormat } from "@kalo/lib/timeFormat";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 import type { TFunction } from "i18next";
 import { default as cloneDeep } from "lodash/cloneDeep";
 import generateIcsFile, { GenerateIcsRole } from "../lib/generateIcsFile";

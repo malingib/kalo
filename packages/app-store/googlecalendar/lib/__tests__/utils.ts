@@ -1,11 +1,11 @@
-import prismock from "@calcom/testing/lib/__mocks__/prisma";
+import prismock from "@kalo/testing/lib/__mocks__/prisma";
 import { MOCK_JWT_TOKEN, setLastCreatedJWT } from "../__mocks__/googleapis";
 
 import { JWT } from "googleapis-common";
 import { vi } from "vitest";
 import "vitest-fetch-mock";
 
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
 
 vi.stubEnv("GOOGLE_WEBHOOK_TOKEN", "test-webhook-token");
 

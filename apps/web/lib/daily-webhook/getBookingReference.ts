@@ -1,7 +1,7 @@
-import { BookingReferenceRepository } from "@calcom/features/bookingReference/repositories/BookingReferenceRepository";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
+import { BookingReferenceRepository } from "@kalo/features/bookingReference/repositories/BookingReferenceRepository";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
 
 const log = logger.getSubLogger({ prefix: ["daily-video-webhook-handler"] });
 

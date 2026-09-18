@@ -1,17 +1,17 @@
-import { WatchlistAction, WatchlistSource, WatchlistType } from "@calcom/prisma/enums";
+import { WatchlistAction, WatchlistSource, WatchlistType } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AdminWatchlistOperationsService } from "./AdminWatchlistOperationsService";
 
-vi.mock("@calcom/features/auth/lib/verifyEmail", () => ({
+vi.mock("@kalo/features/auth/lib/verifyEmail", () => ({
   sendEmailVerification: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));
 
-import { sendEmailVerification } from "@calcom/features/auth/lib/verifyEmail";
+import { sendEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
 
 function createMockWatchlistRepo() {
   return {

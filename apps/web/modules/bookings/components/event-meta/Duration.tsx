@@ -1,13 +1,13 @@
 import type { TFunction } from "i18next";
 import { useEffect, useRef } from "react";
 
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import { useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import { useShouldShowArrows } from "@calcom/web/modules/apps/components/AllApps";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import type { BookerEvent } from "@calcom/features/bookings/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import { useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { useShouldShowArrows } from "@kalo/web/modules/apps/components/AllApps";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import type { BookerEvent } from "@kalo/features/bookings/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 import { ChevronLeftIcon, ChevronRightIcon } from "@coss/ui/icons";
 
 /** Render X mins as X hours or X hours Y mins instead of in minutes once >= 60 minutes */
@@ -78,7 +78,7 @@ export const EventDuration = ({
     const timeout = setTimeout(() => {
       if (isEmbed) return;
       if (selectedDuration && itemRefs.current[selectedDuration]) {
-        // eslint-disable-next-line @calcom/eslint/no-scroll-into-view-embed -- Called on !isEmbed case
+        // eslint-disable-next-line @kalo/eslint/no-scroll-into-view-embed -- Called on !isEmbed case
         itemRefs.current[selectedDuration]?.scrollIntoView({
           behavior: "smooth",
           block: "center",

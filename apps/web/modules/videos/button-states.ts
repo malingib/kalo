@@ -3,7 +3,7 @@ import {
   RECORDING_IN_PROGRESS_ICON,
   TRANSCRIPTION_STOPPED_ICON,
   RECORDING_DEFAULT_ICON,
-} from "@calcom/lib/constants";
+} from "@kalo/lib/constants";
 
 export const BUTTONS = {
   STOP_TRANSCRIPTION: {

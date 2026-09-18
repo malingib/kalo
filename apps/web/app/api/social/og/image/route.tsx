@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 import type { SatoriOptions } from "satori";
 import { z, ZodError } from "zod";
 
-import { Meeting, App, Generic, getOGImageVersion } from "@calcom/lib/OgImages";
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { Meeting, App, Generic, getOGImageVersion } from "@kalo/lib/OgImages";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 export const runtime = "edge";
 
@@ -122,7 +122,7 @@ async function handler(req: NextRequest) {
           });
 
           // Get SVG hash for the app
-          const svgHashesModule = await import("@calcom/web/public/app-store/svg-hashes.json");
+          const svgHashesModule = await import("@kalo/web/public/app-store/svg-hashes.json");
           const SVG_HASHES = svgHashesModule.default ?? {};
           const svgHash = SVG_HASHES[slug] ?? undefined;
 

@@ -1,18 +1,18 @@
-import type { LocationObject } from "@calcom/app-store/locations";
-import { getBookingFieldsWithSystemFields } from "@calcom/features/bookings/lib/getBookingFields";
-import type { DefaultEvent } from "@calcom/features/eventtypes/lib/defaultEvents";
-import { withSelectedCalendars } from "@calcom/features/users/repositories/UserRepository";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import { userSelect } from "@calcom/prisma/selects/user";
+import type { LocationObject } from "@kalo/app-store/locations";
+import { getBookingFieldsWithSystemFields } from "@kalo/features/bookings/lib/getBookingFields";
+import type { DefaultEvent } from "@kalo/features/eventtypes/lib/defaultEvents";
+import { withSelectedCalendars } from "@kalo/features/users/repositories/UserRepository";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import { userSelect } from "@kalo/prisma/selects/user";
 import {
   customInputSchema,
   EventTypeMetaDataSchema,
   rrSegmentQueryValueSchema,
-} from "@calcom/prisma/zod-utils";
+} from "@kalo/prisma/zod-utils";
 
 const getEventTypesFromDBSelect = {
   id: true,

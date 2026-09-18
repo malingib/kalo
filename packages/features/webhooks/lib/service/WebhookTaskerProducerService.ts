@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { v4 as uuidv4 } from "uuid";
 import type { BookingTriggerEvents, PaymentTriggerEvents } from "../factory/versioned/PayloadBuilderFactory";
 import type { ILogger } from "../interface/infrastructure";

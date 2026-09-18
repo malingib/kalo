@@ -1,4 +1,4 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { describe, it, expect, vi, beforeEach } from "vitest";
@@ -7,10 +7,10 @@ import { TRPCError } from "@trpc/server";
 
 import { duplicateHandler } from "./duplicate.handler";
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: prismaMock,
 }));
-vi.mock("@calcom/features/eventtypes/repositories/eventTypeRepository");
+vi.mock("@kalo/features/eventtypes/repositories/eventTypeRepository");
 
 describe("duplicateHandler", () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,7 +32,7 @@ describe("duplicateHandler", () => {
 
   it("should throw INTERNAL_SERVER_ERROR in case of unique constraint violation", async () => {
     const { EventTypeRepository } = await import(
-      "@calcom/features/eventtypes/repositories/eventTypeRepository"
+      "@kalo/features/eventtypes/repositories/eventTypeRepository"
     );
     vi.mocked(EventTypeRepository).mockImplementation(function () {
       return {

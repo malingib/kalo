@@ -4,11 +4,11 @@ import { vi } from "vitest";
 
 import Credits from "./Credits";
 
-vi.mock("@calcom/lib/constants", async () => {
-  const actual = (await vi.importActual("@calcom/lib/constants")) as typeof import("@calcom/lib/constants");
+vi.mock("@kalo/lib/constants", async () => {
+  const actual = (await vi.importActual("@kalo/lib/constants")) as typeof import("@kalo/lib/constants");
   return {
     ...actual,
-    CALCOM_VERSION: "mockedVersion",
+    KALO_VERSION: "mockedVersion",
   };
 });
 

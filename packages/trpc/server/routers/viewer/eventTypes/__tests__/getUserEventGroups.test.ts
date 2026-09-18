@@ -1,11 +1,11 @@
-import type { PrismaClient } from "@calcom/prisma";
-import { MembershipRole } from "@calcom/prisma/enums";
+import type { PrismaClient } from "@kalo/prisma";
+import { MembershipRole } from "@kalo/prisma/enums";
 import { TRPCError } from "@trpc/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getUserEventGroups } from "../getUserEventGroups.handler";
 
 // Mock dependencies
-vi.mock("@calcom/lib/checkRateLimitAndThrowError", () => ({
+vi.mock("@kalo/lib/checkRateLimitAndThrowError", () => ({
   checkRateLimitAndThrowError: vi.fn(),
 }));
 
@@ -21,11 +21,11 @@ const { mockFindAllByUpIdIncludeTeam, MockMembershipRepository } = vi.hoisted(()
   return { mockFindAllByUpIdIncludeTeam, MockMembershipRepository };
 });
 
-vi.mock("@calcom/features/membership/repositories/MembershipRepository", () => ({
+vi.mock("@kalo/features/membership/repositories/MembershipRepository", () => ({
   MembershipRepository: MockMembershipRepository,
 }));
 
-vi.mock("@calcom/features/profile/repositories/ProfileRepository", () => ({
+vi.mock("@kalo/features/profile/repositories/ProfileRepository", () => ({
   ProfileRepository: {
     findByUpIdWithAuth: vi.fn(),
   },
@@ -41,11 +41,11 @@ vi.mock("../teamAccessUseCase", () => ({
   }),
 }));
 
-vi.mock("@calcom/lib/getAvatarUrl", () => ({
+vi.mock("@kalo/lib/getAvatarUrl", () => ({
   getUserAvatarUrl: vi.fn().mockReturnValue("https://avatar.com/user.jpg"),
 }));
 
-vi.mock("@calcom/lib/defaultAvatarImage", () => ({
+vi.mock("@kalo/lib/defaultAvatarImage", () => ({
   getPlaceholderAvatar: vi.fn().mockReturnValue("https://avatar.com/placeholder.jpg"),
 }));
 
@@ -67,7 +67,7 @@ describe("getUserEventGroups", () => {
   } as unknown as NonNullable<
     Awaited<
       ReturnType<
-        typeof import("@calcom/features/profile/repositories/ProfileRepository").ProfileRepository.findByUpIdWithAuth
+        typeof import("@kalo/features/profile/repositories/ProfileRepository").ProfileRepository.findByUpIdWithAuth
       >
     >
   >;
@@ -83,7 +83,7 @@ describe("getUserEventGroups", () => {
 
   describe("Basic functionality", () => {
     it("should throw TRPCError when profile is not found", async () => {
-      const { ProfileRepository } = await import("@calcom/features/profile/repositories/ProfileRepository");
+      const { ProfileRepository } = await import("@kalo/features/profile/repositories/ProfileRepository");
       vi.mocked(ProfileRepository.findByUpIdWithAuth).mockResolvedValue(null);
 
       await expect(
@@ -95,7 +95,7 @@ describe("getUserEventGroups", () => {
     });
 
     it("should return user event groups when no filters are applied", async () => {
-      const { ProfileRepository } = await import("@calcom/features/profile/repositories/ProfileRepository");
+      const { ProfileRepository } = await import("@kalo/features/profile/repositories/ProfileRepository");
 
       vi.mocked(ProfileRepository.findByUpIdWithAuth).mockResolvedValue(mockProfile);
       mockFindAllByUpIdIncludeTeam.mockResolvedValue([]);
@@ -122,7 +122,7 @@ describe("getUserEventGroups", () => {
 
   describe("Team memberships", () => {
     it("should include team events when team memberships exist", async () => {
-      const { ProfileRepository } = await import("@calcom/features/profile/repositories/ProfileRepository");
+      const { ProfileRepository } = await import("@kalo/features/profile/repositories/ProfileRepository");
 
       const mockTeamMembership = {
         id: 1,
@@ -145,7 +145,7 @@ describe("getUserEventGroups", () => {
       } as unknown as NonNullable<
         Awaited<
           ReturnType<
-            typeof import("@calcom/features/membership/repositories/MembershipRepository").MembershipRepository.findAllByUpIdIncludeTeam
+            typeof import("@kalo/features/membership/repositories/MembershipRepository").MembershipRepository.findAllByUpIdIncludeTeam
           >
         >
       >[0];
@@ -172,7 +172,7 @@ describe("getUserEventGroups", () => {
 
   describe("Permissions", () => {
     it("should grant permissions for team members (stub always returns true)", async () => {
-      const { ProfileRepository } = await import("@calcom/features/profile/repositories/ProfileRepository");
+      const { ProfileRepository } = await import("@kalo/features/profile/repositories/ProfileRepository");
 
       const mockTeamMembership = {
         id: 1,
@@ -195,7 +195,7 @@ describe("getUserEventGroups", () => {
       } as unknown as NonNullable<
         Awaited<
           ReturnType<
-            typeof import("@calcom/features/membership/repositories/MembershipRepository").MembershipRepository.findAllByUpIdIncludeTeam
+            typeof import("@kalo/features/membership/repositories/MembershipRepository").MembershipRepository.findAllByUpIdIncludeTeam
           >
         >
       >[0];
@@ -217,7 +217,7 @@ describe("getUserEventGroups", () => {
 
   describe("Organization handling", () => {
     it("should handle organization locked event types", async () => {
-      const { ProfileRepository } = await import("@calcom/features/profile/repositories/ProfileRepository");
+      const { ProfileRepository } = await import("@kalo/features/profile/repositories/ProfileRepository");
 
       const mockProfileWithOrg = {
         ...mockProfile,
@@ -229,7 +229,7 @@ describe("getUserEventGroups", () => {
       } as unknown as NonNullable<
         Awaited<
           ReturnType<
-            typeof import("@calcom/features/profile/repositories/ProfileRepository").ProfileRepository.findByUpIdWithAuth
+            typeof import("@kalo/features/profile/repositories/ProfileRepository").ProfileRepository.findByUpIdWithAuth
           >
         >
       >;

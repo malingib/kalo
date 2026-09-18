@@ -1,22 +1,22 @@
 "use client";
 
-import { sdkActionManager, useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import { useBookerEmbedEvents } from "@calcom/embed-core/src/embed-iframe/react-hooks";
-import type { BookerProps } from "@calcom/features/bookings/Booker";
+import { sdkActionManager, useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { useBookerEmbedEvents } from "@kalo/embed-core/src/embed-iframe/react-hooks";
+import type { BookerProps } from "@kalo/features/bookings/Booker";
 import {
   BookerStoreProvider,
   useBookerStoreContext,
   useInitializeBookerStoreContext,
-} from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useBookerLayout } from "@calcom/features/bookings/Booker/hooks/useBookerLayout";
-import { useBookingForm } from "@calcom/features/bookings/Booker/hooks/useBookingForm";
-import { useInitializeBookerStore } from "@calcom/features/bookings/Booker/store";
-import { useBrandColors } from "@calcom/features/bookings/Booker/utils/use-brand-colors";
-import type { getPublicEvent } from "@calcom/features/eventtypes/lib/getPublicEvent";
-import { DEFAULT_DARK_BRAND_COLOR, DEFAULT_LIGHT_BRAND_COLOR, WEBAPP_URL } from "@calcom/lib/constants";
-import { useRouterQuery } from "@calcom/lib/hooks/useRouterQuery";
-import { localStorage } from "@calcom/lib/webstorage";
-import { useEvent, useScheduleForEvent } from "@calcom/web/modules/schedules/hooks/useEvent";
+} from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useBookerLayout } from "@kalo/features/bookings/Booker/hooks/useBookerLayout";
+import { useBookingForm } from "@kalo/features/bookings/Booker/hooks/useBookingForm";
+import { useInitializeBookerStore } from "@kalo/features/bookings/Booker/store";
+import { useBrandColors } from "@kalo/features/bookings/Booker/utils/use-brand-colors";
+import type { getPublicEvent } from "@kalo/features/eventtypes/lib/getPublicEvent";
+import { DEFAULT_DARK_BRAND_COLOR, DEFAULT_LIGHT_BRAND_COLOR, WEBAPP_URL } from "@kalo/lib/constants";
+import { useRouterQuery } from "@kalo/lib/hooks/useRouterQuery";
+import { localStorage } from "@kalo/lib/webstorage";
+import { useEvent, useScheduleForEvent } from "@kalo/web/modules/schedules/hooks/useEvent";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useMemo } from "react";

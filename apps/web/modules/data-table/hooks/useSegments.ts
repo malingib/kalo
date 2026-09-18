@@ -1,10 +1,10 @@
-import { recalculateDateRange } from "@calcom/features/data-table/lib/dateRange";
+import { recalculateDateRange } from "@kalo/features/data-table/lib/dateRange";
 import {
   type SegmentIdentifier,
   SYSTEM_SEGMENT_PREFIX,
   type UseSegments,
-} from "@calcom/features/data-table/lib/types";
-import { isDateRangeFilterValue } from "@calcom/features/data-table/lib/utils";
+} from "@kalo/features/data-table/lib/types";
+import { isDateRangeFilterValue } from "@kalo/features/data-table/lib/utils";
 import { useMemo } from "react";
 
 export const useSegments: UseSegments = ({ tableIdentifier, providedSegments, systemSegments }) => {

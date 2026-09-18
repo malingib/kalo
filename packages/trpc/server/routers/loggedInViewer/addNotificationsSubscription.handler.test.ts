@@ -1,18 +1,18 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 const sendNotification = vi.fn();
 
-vi.mock("@calcom/features/notifications/sendNotification", () => ({
+vi.mock("@kalo/features/notifications/sendNotification", () => ({
   sendNotification,
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: vi.fn().mockResolvedValue((key: string) => key),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {
     notificationsSubscriptions: {
       findFirst: vi.fn().mockResolvedValue(null),

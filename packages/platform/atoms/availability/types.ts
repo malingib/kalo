@@ -1,4 +1,4 @@
-import type { Schedule as ScheduleType, TimeRange } from "@calcom/types/schedule";
+import type { Schedule as ScheduleType, TimeRange } from "@kalo/types/schedule";
 
 export type Availability = {
   id: number;

@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 
-import { formatPrice } from "@calcom/lib/currencyConversions";
+import { formatPrice } from "@kalo/lib/currencyConversions";
 
-import type { EventPrice } from "@calcom/features/bookings/types";
+import type { EventPrice } from "@kalo/features/bookings/types";
 
 const AlbyPriceComponent = dynamic(
-  () => import("@calcom/app-store/alby/components/AlbyPriceComponent").then((m) => m.AlbyPriceComponent),
+  () => import("@kalo/app-store/alby/components/AlbyPriceComponent").then((m) => m.AlbyPriceComponent),
   {
     ssr: false,
   }

@@ -5,7 +5,7 @@ import { PrismaProfileRepository } from "@/lib/repositories/prisma-profile.repos
 import { PrismaUserRepository } from "@/lib/repositories/prisma-user.repository";
 import { Injectable } from "@nestjs/common";
 
-import { BookingCancelService as BaseBookingCancelService } from "@calcom/platform-libraries/bookings";
+import { BookingCancelService as BaseBookingCancelService } from "@kalo/platform-libraries/bookings";
 
 @Injectable()
 export class BookingCancelService extends BaseBookingCancelService {

@@ -1,7 +1,7 @@
 // my-test.ts
 
-import { getTestEmails } from "@calcom/lib/testEmails";
-import { getTestSMS } from "@calcom/lib/testSMS";
+import { getTestEmails } from "@kalo/lib/testEmails";
+import { getTestSMS } from "@kalo/lib/testSMS";
 import { test as base } from "vitest";
 
 export interface Fixtures {

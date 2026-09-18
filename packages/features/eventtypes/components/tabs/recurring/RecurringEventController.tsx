@@ -1,17 +1,17 @@
-import { LearnMoreLink } from "@calcom/features/eventtypes/components/LearnMoreLink";
+import { LearnMoreLink } from "@kalo/features/eventtypes/components/LearnMoreLink";
 import type {
   EventTypeSetup,
   FormValues,
   InputClassNames,
   SelectClassNames,
   SettingsToggleClassNames,
-} from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Frequency } from "@calcom/prisma/zod-utils";
-import type { RecurringEvent } from "@calcom/types/Calendar";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Select, SettingsToggle, TextField } from "@calcom/ui/components/form";
+} from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Frequency } from "@kalo/prisma/zod-utils";
+import type { RecurringEvent } from "@kalo/types/Calendar";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Select, SettingsToggle, TextField } from "@kalo/ui/components/form";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 

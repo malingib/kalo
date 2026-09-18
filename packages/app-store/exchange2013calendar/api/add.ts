@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
-import { symmetricEncrypt } from "@calcom/lib/crypto";
-import logger from "@calcom/lib/logger";
-import { defaultHandler } from "@calcom/lib/server/defaultHandler";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
-import prisma from "@calcom/prisma";
+import { symmetricEncrypt } from "@kalo/lib/crypto";
+import logger from "@kalo/lib/logger";
+import { defaultHandler } from "@kalo/lib/server/defaultHandler";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
+import prisma from "@kalo/prisma";
 
 import getInstalledAppPath from "../../_utils/getInstalledAppPath";
 import { BuildCalendarService } from "../lib";

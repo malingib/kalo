@@ -1,4 +1,4 @@
-import { DEFAULT_GROUP_ID } from "@calcom/lib/constants";
+import { DEFAULT_GROUP_ID } from "@kalo/lib/constants";
 
 export function groupHostsByGroupId<T extends { groupId?: string | null }>({
   hosts,

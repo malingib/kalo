@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { test } from "./lib/fixtures";
 import { localize } from "./lib/localize";

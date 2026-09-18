@@ -43,7 +43,7 @@ import { plainToClass } from "class-transformer";
 import { Request } from "express";
 import { z } from "zod";
 
-import { APPS_READ } from "@calcom/platform-constants";
+import { APPS_READ } from "@kalo/platform-constants";
 import {
   SUCCESS_STATUS,
   CALENDARS,
@@ -51,9 +51,9 @@ import {
   OFFICE_365_CALENDAR,
   APPLE_CALENDAR,
   CREDENTIAL_CALENDARS,
-} from "@calcom/platform-constants";
-import { ApiResponse, CalendarBusyTimesInput, CreateCalendarCredentialsInput } from "@calcom/platform-types";
-import type { User } from "@calcom/prisma/client";
+} from "@kalo/platform-constants";
+import { ApiResponse, CalendarBusyTimesInput, CreateCalendarCredentialsInput } from "@kalo/platform-types";
+import type { User } from "@kalo/prisma/client";
 
 export interface CalendarState {
   accessToken: string;

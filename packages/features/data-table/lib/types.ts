@@ -1,8 +1,8 @@
 import type { SortingState, ColumnSort } from "@tanstack/react-table";
 import { z } from "zod";
 
-import type { TextFilterOperator, FilterType } from "@calcom/types/data-table";
-export type { ColumnFilterMeta, FilterableColumn } from "@calcom/types/data-table";
+import type { TextFilterOperator, FilterType } from "@kalo/types/data-table";
+export type { ColumnFilterMeta, FilterableColumn } from "@kalo/types/data-table";
 
 const ColumnFilterType = {
   SINGLE_SELECT: "ss",

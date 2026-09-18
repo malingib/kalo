@@ -1,8 +1,8 @@
 import type { CSSObjectWithLabel, GroupBase, Props, ValueContainerProps } from "react-select";
 import { components } from "react-select";
 
-import { Icon } from "@calcom/ui/components/icon";
-import { Select } from "@calcom/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { Select } from "@kalo/ui/components/form";
 
 // Helper to merge react-select styles with type safety
 const mergeStyles = (base: CSSObjectWithLabel, overrides: Record<string, unknown>): CSSObjectWithLabel => {

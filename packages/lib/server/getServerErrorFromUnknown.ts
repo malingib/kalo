@@ -1,9 +1,9 @@
 import type { ZodIssue } from "zod";
 import { ZodError } from "zod";
 
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { Prisma } from "@calcom/prisma/client";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { Prisma } from "@kalo/prisma/client";
 
 import { HttpError } from "../http-error";
 import { redactError } from "../redactError";
@@ -45,7 +45,7 @@ function parseZodErrorIssues(issues: ZodIssue[]): string {
  * Converts unknown error types to HttpError with proper status code mapping and error redaction.
  * SERVER-ONLY: This function imports Prisma and Stripe schemas and should only be used in server-side code.
  * Use in API routes, webhooks, and server-side services.
- * For client-side code, use getErrorFromUnknown from @calcom/lib/errors instead.
+ * For client-side code, use getErrorFromUnknown from @kalo/lib/errors instead.
  *
  * NOTE: This function does NOT handle TRPCError. Callers that need to handle TRPCError should do so
  * explicitly before calling this function (see onErrorHandler.ts and defaultResponder.ts for examples).

@@ -1,9 +1,9 @@
-import dayjs from "@calcom/dayjs";
-import { OnboardingPathService } from "@calcom/features/onboarding/lib/onboarding-path.service";
-import { IS_STRIPE_ENABLED, WEBAPP_URL } from "@calcom/lib/constants";
-import { prisma } from "@calcom/prisma";
-import { CreationSource, MembershipRole } from "@calcom/prisma/enums";
-import { userMetadata } from "@calcom/prisma/zod-utils";
+import dayjs from "@kalo/dayjs";
+import { OnboardingPathService } from "@kalo/features/onboarding/lib/onboarding-path.service";
+import { IS_STRIPE_ENABLED, WEBAPP_URL } from "@kalo/lib/constants";
+import { prisma } from "@kalo/prisma";
+import { CreationSource, MembershipRole } from "@kalo/prisma/enums";
+import { userMetadata } from "@kalo/prisma/zod-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 

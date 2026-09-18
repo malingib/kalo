@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import useMediaQuery from "@calcom/lib/hooks/useMediaQuery";
-import { ToggleGroup } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import useMediaQuery from "@kalo/lib/hooks/useMediaQuery";
+import { ToggleGroup } from "@kalo/ui/components/form";
 import { CalendarIcon, MenuIcon } from "@coss/ui/icons";
 
 import { useBookingsView } from "../hooks/useBookingsView";

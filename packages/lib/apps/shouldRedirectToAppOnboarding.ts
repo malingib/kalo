@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const shouldRedirectToAppOnboarding = (appMetadata: AppMeta) => {
   const hasEventTypes = appMetadata?.extendsFeature === "EventType";

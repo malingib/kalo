@@ -1,4 +1,4 @@
-import type { Brand } from "@calcom/types/utils";
+import type { Brand } from "@kalo/types/utils";
 
 import type { tabs } from "../lib/EmbedTabs";
 import type { useEmbedTypes } from "../lib/hooks";

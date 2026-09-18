@@ -26,8 +26,8 @@ import {
 } from "@nestjs/common";
 import { ApiTags as DocsTags, ApiExcludeController as DocsExcludeController } from "@nestjs/swagger";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import { ApiResponse } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import { ApiResponse } from "@kalo/platform-types";
 
 @Controller({
   path: "/v2/atoms",

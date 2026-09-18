@@ -1,9 +1,9 @@
-import type { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import type { IAttendeeRepository } from "@calcom/features/bookings/repositories/IAttendeeRepository";
-import type { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import type { ISimpleLogger } from "@calcom/features/di/shared/services/logger.service";
-import type { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import type { UserRepository } from "@calcom/features/users/repositories/UserRepository";
+import type { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import type { IAttendeeRepository } from "@kalo/features/bookings/repositories/IAttendeeRepository";
+import type { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import type { ISimpleLogger } from "@kalo/features/di/shared/services/logger.service";
+import type { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import type { UserRepository } from "@kalo/features/users/repositories/UserRepository";
 import type { DisplayField, TranslationWithParams } from "../actions/IAuditActionService";
 import { RescheduledAuditActionService } from "../actions/RescheduledAuditActionService";
 import type { BookingAuditContext } from "../dto/types";

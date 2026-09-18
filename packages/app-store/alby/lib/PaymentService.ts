@@ -2,13 +2,13 @@ import { LightningAddress } from "@getalby/lightning-tools";
 import { v4 as uuidv4 } from "uuid";
 import type z from "zod";
 
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import prisma from "@calcom/prisma";
-import type { Booking, Payment, PaymentOption, Prisma } from "@calcom/prisma/client";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { IAbstractPaymentService } from "@calcom/types/PaymentService";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import prisma from "@kalo/prisma";
+import type { Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { IAbstractPaymentService } from "@kalo/types/PaymentService";
 
 import { albyCredentialKeysSchema } from "./albyCredentialKeysSchema";
 

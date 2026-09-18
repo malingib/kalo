@@ -1,4 +1,4 @@
-import { test } from "@calcom/web/playwright/lib/fixtures";
+import { test } from "@kalo/web/playwright/lib/fixtures";
 import { expect } from "@playwright/test";
 import { deleteAllBookingsByEmail, ensureEmbedIframe, getBooking } from "../lib/testUtils";
 

@@ -1,8 +1,8 @@
 import {
   BookerLayoutsInputEnum_2024_06_14,
   BookerLayoutsOutputEnum_2024_06_14,
-} from "@calcom/platform-enums";
-import type { BookerLayoutsTransformedSchema } from "@calcom/platform-types";
+} from "@kalo/platform-enums";
+import type { BookerLayoutsTransformedSchema } from "@kalo/platform-types";
 
 export function transformBookerLayoutsInternalToApi(
   transformedBookerLayouts: BookerLayoutsTransformedSchema

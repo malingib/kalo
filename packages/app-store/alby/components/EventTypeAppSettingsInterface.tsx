@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-import { currencyOptions } from "@calcom/app-store/alby/lib/currencyOptions";
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Alert } from "@calcom/ui/components/alert";
-import { Select } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { SatSymbol } from "@calcom/ui/components/icon";
+import { currencyOptions } from "@kalo/app-store/alby/lib/currencyOptions";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Alert } from "@kalo/ui/components/alert";
+import { Select } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { SatSymbol } from "@kalo/ui/components/icon";
 
 import { PaypalPaymentOptions as paymentOptions } from "../zod";
 

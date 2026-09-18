@@ -1,6 +1,6 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as eventTypeRepositoryModuleLoader } from "@calcom/features/di/modules/EventType";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as eventTypeRepositoryModuleLoader } from "@kalo/features/di/modules/EventType";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
 import { EventTypeService } from "../service/EventTypeService";
 
 const thisModule = createModule();

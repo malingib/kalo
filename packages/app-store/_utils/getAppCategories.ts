@@ -1,6 +1,6 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import type { AppCategories } from "@calcom/prisma/enums";
-import type { IconName } from "@calcom/ui/components/icon";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import type { AppCategories } from "@kalo/prisma/enums";
+import type { IconName } from "@kalo/ui/components/icon";
 
 function getHref(baseURL: string, category: string, useQueryParam: boolean) {
   const baseUrlParsed = new URL(baseURL, WEBAPP_URL);

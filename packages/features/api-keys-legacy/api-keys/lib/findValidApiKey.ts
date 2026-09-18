@@ -1,5 +1,5 @@
-import { hashAPIKey } from "@calcom/features/api-keys-legacy/api-keys/lib/apiKeys";
-import prisma from "@calcom/prisma";
+import { hashAPIKey } from "@kalo/features/api-keys-legacy/api-keys/lib/apiKeys";
+import prisma from "@kalo/prisma";
 
 const findValidApiKey = async (apiKey: string, appId?: string) => {
   const hashedKey = hashAPIKey(apiKey.substring(process.env.API_KEY_PREFIX?.length || 0));

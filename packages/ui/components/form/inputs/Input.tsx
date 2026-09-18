@@ -1,7 +1,7 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 import { EyeIcon, EyeOffIcon, SearchIcon } from "@coss/ui/icons";
 import type React from "react";
 import type { ReactNode } from "react";

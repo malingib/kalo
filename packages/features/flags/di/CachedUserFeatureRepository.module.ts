@@ -1,4 +1,4 @@
-import { createModule, type ModuleLoader } from "@calcom/features/di/di";
+import { createModule, type ModuleLoader } from "@kalo/features/di/di";
 import type { Module } from "@evyweb/ioctopus";
 import { CachedUserFeatureRepository } from "../repositories/CachedUserFeatureRepository";
 import { moduleLoader as prismaUserFeatureRepositoryModuleLoader } from "./PrismaUserFeatureRepository.module";
@@ -10,7 +10,7 @@ const moduleToken: symbol = FLAGS_DI_TOKENS.CACHED_USER_FEATURE_REPOSITORY_MODUL
 
 thisModule.bind(token).toClass(CachedUserFeatureRepository, [prismaUserFeatureRepositoryModuleLoader.token]);
 
-const loadModule = (container: ReturnType<typeof import("@calcom/features/di/di").createContainer>): void => {
+const loadModule = (container: ReturnType<typeof import("@kalo/features/di/di").createContainer>): void => {
   container.load(moduleToken, thisModule);
   prismaUserFeatureRepositoryModuleLoader.loadModule(container);
 };

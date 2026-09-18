@@ -1,19 +1,19 @@
 import process from "node:process";
-import { updateProfilePhotoGoogle } from "@calcom/app-store/_utils/oauth/updateProfilePhotoGoogle";
-import { updateProfilePhotoMicrosoft } from "@calcom/app-store/_utils/oauth/updateProfilePhotoMicrosoft";
-import { createGoogleCalendarServiceWithGoogleType } from "@calcom/app-store/googlecalendar/lib/CalendarService";
-import { getIdentityProvider } from "@calcom/features/auth/lib/identityProviders";
+import { updateProfilePhotoGoogle } from "@kalo/app-store/_utils/oauth/updateProfilePhotoGoogle";
+import { updateProfilePhotoMicrosoft } from "@kalo/app-store/_utils/oauth/updateProfilePhotoMicrosoft";
+import { createGoogleCalendarServiceWithGoogleType } from "@kalo/app-store/googlecalendar/lib/CalendarService";
+import { getIdentityProvider } from "@kalo/features/auth/lib/identityProviders";
 import {
   OUTLOOK_CLIENT_ID,
   OUTLOOK_CLIENT_SECRET,
   OUTLOOK_LOGIN_ENABLED,
-} from "@calcom/features/auth/lib/outlook";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { buildCredentialCreateData } from "@calcom/features/credentials/services/CredentialDataService";
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { isPasswordValid } from "@calcom/lib/auth/isPasswordValid";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
+} from "@kalo/features/auth/lib/outlook";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { buildCredentialCreateData } from "@kalo/features/credentials/services/CredentialDataService";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { isPasswordValid } from "@kalo/lib/auth/isPasswordValid";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
 import {
   ENABLE_PROFILE_SWITCHER,
   GOOGLE_CALENDAR_SCOPES,
@@ -23,21 +23,21 @@ import {
   IS_TEAM_BILLING_ENABLED,
   MICROSOFT_CALENDAR_SCOPES,
   WEBAPP_URL,
-} from "@calcom/lib/constants";
-import { symmetricDecrypt, symmetricEncrypt } from "@calcom/lib/crypto";
-import { defaultCookies } from "@calcom/lib/default-cookies";
-import { isENVDev } from "@calcom/lib/env";
-import logger from "@calcom/lib/logger";
-import { randomString } from "@calcom/lib/random";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { hashEmail } from "@calcom/lib/server/PiiHasher";
-import slugify from "@calcom/lib/slugify";
-import type { TrackingData } from "@calcom/lib/tracking";
-import prisma from "@calcom/prisma";
-import type { Membership, Team } from "@calcom/prisma/client";
-import { CreationSource, IdentityProvider, MembershipRole, UserPermissionRole } from "@calcom/prisma/enums";
-import { teamMetadataSchema, userMetadata } from "@calcom/prisma/zod-utils";
-import type { UserProfile } from "@calcom/types/UserProfile";
+} from "@kalo/lib/constants";
+import { symmetricDecrypt, symmetricEncrypt } from "@kalo/lib/crypto";
+import { defaultCookies } from "@kalo/lib/default-cookies";
+import { isENVDev } from "@kalo/lib/env";
+import logger from "@kalo/lib/logger";
+import { randomString } from "@kalo/lib/random";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { hashEmail } from "@kalo/lib/server/PiiHasher";
+import slugify from "@kalo/lib/slugify";
+import type { TrackingData } from "@kalo/lib/tracking";
+import prisma from "@kalo/prisma";
+import type { Membership, Team } from "@kalo/prisma/client";
+import { CreationSource, IdentityProvider, MembershipRole, UserPermissionRole } from "@kalo/prisma/enums";
+import { teamMetadataSchema, userMetadata } from "@kalo/prisma/zod-utils";
+import type { UserProfile } from "@kalo/types/UserProfile";
 import { calendar_v3 } from "@googleapis/calendar";
 import { waitUntil } from "@vercel/functions";
 import { OAuth2Client } from "googleapis-common";
@@ -233,7 +233,7 @@ export async function authorizeCredentials(
       throw new Error(ErrorCode.InternalServerError);
     }
 
-    const isValidToken = (await import("@calcom/lib/totp")).totpAuthenticatorCheck(
+    const isValidToken = (await import("@kalo/lib/totp")).totpAuthenticatorCheck(
       credentials.totpCode,
       secret
     );
@@ -289,7 +289,7 @@ export async function authorizeCredentials(
 
 export const CalComCredentialsProvider = CredentialsProvider({
   id: "credentials",
-  name: "Cal.diy",
+  name: "Kalo",
   type: "credentials",
   credentials: {
     email: { label: "Email Address", type: "email", placeholder: "john.doe@example.com" },

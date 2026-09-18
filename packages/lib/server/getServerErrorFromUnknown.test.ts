@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 import { ZodError } from "zod";
 
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { Prisma } from "@calcom/prisma/client";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { Prisma } from "@kalo/prisma/client";
 
 import { HttpError } from "../http-error";
 import { TracedError } from "../tracing/error";

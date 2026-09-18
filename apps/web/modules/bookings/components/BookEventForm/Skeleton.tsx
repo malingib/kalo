@@ -1,4 +1,4 @@
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 export const FormSkeleton = () => (
   <div className="flex flex-col">

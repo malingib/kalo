@@ -21,9 +21,9 @@ runs:
       env:
         DATABASE_URL: ${{ inputs.DATABASE_URL }}
         DATABASE_DIRECT_URL: ${{ inputs.DATABASE_URL }}
-        E2E_TEST_CALCOM_QA_EMAIL: ${{ inputs.E2E_TEST_CALCOM_QA_EMAIL }}
-        E2E_TEST_CALCOM_QA_PASSWORD: ${{ inputs.E2E_TEST_CALCOM_QA_PASSWORD }}
-        E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS: ${{ inputs.E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS }}
+        E2E_TEST_KALO_QA_EMAIL: ${{ inputs.E2E_TEST_KALO_QA_EMAIL }}
+        E2E_TEST_KALO_QA_PASSWORD: ${{ inputs.E2E_TEST_KALO_QA_PASSWORD }}
+        E2E_TEST_KALO_QA_GCAL_CREDENTIALS: ${{ inputs.E2E_TEST_KALO_QA_GCAL_CREDENTIALS }}
       with:
         path: ${{ inputs.path }}
         key: ${{ steps.cache-key.outputs.key }}

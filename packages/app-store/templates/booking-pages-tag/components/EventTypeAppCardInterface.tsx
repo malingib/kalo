@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
-import AppCard from "@calcom/app-store/_components/AppCard";
-import type { EventTypeAppCardComponent } from "@calcom/app-store/types";
-import { TextField } from "@calcom/ui/components/form";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
+import AppCard from "@kalo/app-store/_components/AppCard";
+import type { EventTypeAppCardComponent } from "@kalo/app-store/types";
+import { TextField } from "@kalo/ui/components/form";
 
 import type { appDataSchema } from "../zod";
 

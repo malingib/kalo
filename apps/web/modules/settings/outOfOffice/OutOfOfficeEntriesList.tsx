@@ -1,17 +1,17 @@
 "use client";
 
-import dayjs from "@calcom/dayjs";
-import { ColumnFilterType, ZDateRangeFilterValue } from "@calcom/features/data-table";
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import dayjs from "@kalo/dayjs";
+import { ColumnFilterType, ZDateRangeFilterValue } from "@kalo/features/data-table";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { ClockIcon } from "@coss/ui/icons";
 import { keepPreviousData } from "@tanstack/react-query";
 import {

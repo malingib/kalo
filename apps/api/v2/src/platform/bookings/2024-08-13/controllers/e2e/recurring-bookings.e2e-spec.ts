@@ -1,11 +1,11 @@
-import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_08_13 } from "@calcom/platform-constants";
-import { AttendeeCancelledEmail, OrganizerCancelledEmail } from "@calcom/platform-libraries/emails";
+import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_08_13 } from "@kalo/platform-constants";
+import { AttendeeCancelledEmail, OrganizerCancelledEmail } from "@kalo/platform-libraries/emails";
 import type {
   CancelBookingInput_2024_08_13,
   CreateRecurringBookingInput_2024_08_13,
   RecurringBookingOutput_2024_08_13,
-} from "@calcom/platform-types";
-import type { PlatformOAuthClient, Team, User } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { PlatformOAuthClient, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

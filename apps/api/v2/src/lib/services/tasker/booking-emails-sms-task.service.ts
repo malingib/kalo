@@ -3,7 +3,7 @@ import { PrismaBookingRepository } from "@/lib/repositories/prisma-booking.repos
 import { BookingEmailSmsService } from "@/lib/services/booking-emails-sms-service";
 import { Injectable } from "@nestjs/common";
 
-import { BookingEmailAndSmsTaskService as BaseBookingEmailAndSmsTaskService } from "@calcom/platform-libraries/bookings";
+import { BookingEmailAndSmsTaskService as BaseBookingEmailAndSmsTaskService } from "@kalo/platform-libraries/bookings";
 
 @Injectable()
 export class BookingEmailAndSmsTaskService extends BaseBookingEmailAndSmsTaskService {

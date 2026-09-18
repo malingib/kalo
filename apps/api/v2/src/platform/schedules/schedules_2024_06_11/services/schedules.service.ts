@@ -2,8 +2,8 @@ import type {
   CreateScheduleInput_2024_06_11,
   ScheduleOutput_2024_06_11,
   UpdateScheduleInput_2024_06_11,
-} from "@calcom/platform-types";
-import type { Schedule } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { Schedule } from "@kalo/prisma/client";
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { EventTypesRepository_2024_06_14 } from "@/platform/event-types/event-types_2024_06_14/event-types.repository";
 import { SchedulesRepository_2024_06_11 } from "@/platform/schedules/schedules_2024_06_11/schedules.repository";

@@ -4,9 +4,9 @@ import { DubEmbed } from "@dub/embed-react";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
-import { IS_DUB_REFERRALS_ENABLED } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { showToast } from "@calcom/ui/components/toast";
+import { IS_DUB_REFERRALS_ENABLED } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { showToast } from "@kalo/ui/components/toast";
 
 const fetchReferralsToken = async () => {
   try {

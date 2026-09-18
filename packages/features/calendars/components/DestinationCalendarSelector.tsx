@@ -1,9 +1,9 @@
-import type { SelectClassNames } from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { App } from "@calcom/types/App";
-import type { IntegrationCalendar } from "@calcom/types/Calendar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Select } from "@calcom/ui/components/form";
+import type { SelectClassNames } from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { App } from "@kalo/types/App";
+import type { IntegrationCalendar } from "@kalo/types/Calendar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Select } from "@kalo/ui/components/form";
 import { CheckIcon } from "@coss/ui/icons";
 import classNames from "classnames";
 import { useEffect, useState } from "react";

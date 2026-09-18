@@ -1,5 +1,5 @@
 /**
- * Integration-style tests that use the real @calcom/platform-libraries package (no virtual mock).
+ * Integration-style tests that use the real @kalo/platform-libraries package (no virtual mock).
  * We import the real ConnectedDestinationCalendars type so that if the package or type shape changes,
  * this file will still compile and tests validate our service against the subset of fields we use.
  * CalendarsService is still mocked so we don't require DB/Redis. Mock data uses a minimal shape
@@ -8,8 +8,8 @@
 
 import {
   GOOGLE_CALENDAR_TYPE,
-} from "@calcom/platform-constants";
-import type { ConnectedDestinationCalendars } from "@calcom/platform-libraries";
+} from "@kalo/platform-constants";
+import type { ConnectedDestinationCalendars } from "@kalo/platform-libraries";
 import { Test, TestingModule } from "@nestjs/testing";
 import { UnifiedCalendarsFreebusyService } from "./unified-calendars-freebusy.service";
 import { CalendarsService } from "@/platform/calendars/services/calendars.service";

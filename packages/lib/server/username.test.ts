@@ -1,4 +1,4 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 

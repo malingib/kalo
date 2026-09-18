@@ -3,7 +3,7 @@ import {
   CREDENTIAL_SYNC_ENDPOINT,
   CREDENTIAL_SYNC_SECRET,
   CREDENTIAL_SYNC_SECRET_HEADER_NAME,
-} from "@calcom/lib/constants";
+} from "@kalo/lib/constants";
 
 import { invalidateCredential } from "../invalidateCredential";
 import { getCurrentTokenObject } from "./getCurrentTokenObject";

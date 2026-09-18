@@ -9,7 +9,7 @@ import { ApiAuthGuardRequest } from "@/modules/auth/strategies/api-auth/api-auth
 import { Body, Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from "@nestjs/common";
 import { ApiTags, ApiHeader, ApiOperation } from "@nestjs/swagger";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
 
 @Controller({
   path: "/v2/api-keys",

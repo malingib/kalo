@@ -1,5 +1,5 @@
-import { getFeatureRepository } from "@calcom/features/di/containers/FeatureRepository";
-import type { FeatureId } from "@calcom/features/flags/config";
+import { getFeatureRepository } from "@kalo/features/di/containers/FeatureRepository";
+import type { FeatureId } from "@kalo/features/flags/config";
 
 import type { TAdminToggleFeatureFlagSchema } from "./toggleFeatureFlag.schema";
 

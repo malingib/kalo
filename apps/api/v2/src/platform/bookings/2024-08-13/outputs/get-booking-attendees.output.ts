@@ -1,5 +1,5 @@
-import { ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
-import { BookingAttendee } from "@calcom/platform-types";
+import { ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
+import { BookingAttendee } from "@kalo/platform-types";
 import { ApiProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsArray, IsEnum, IsNumber, ValidateNested } from "class-validator";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 export const CallToActionIcon = ({ iconName, style }: { iconName: string; style?: React.CSSProperties }) => (
   <img

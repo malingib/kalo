@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Apple Calendar",
@@ -11,10 +11,10 @@ export const metadata = {
   categories: ["calendar"],
   category: "calendar",
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "apple-calendar",
   url: "https://cal.com/",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "applecalendar",
   isOAuth: false,
 } as AppMeta;

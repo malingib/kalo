@@ -1,8 +1,8 @@
-import { getLocationByType, getTranslatedLocation } from "@calcom/app-store/locations";
-import type { BookerEvent } from "@calcom/features/bookings/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import classNames from "@calcom/ui/classNames";
+import { getLocationByType, getTranslatedLocation } from "@kalo/app-store/locations";
+import type { BookerEvent } from "@kalo/features/bookings/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import classNames from "@kalo/ui/classNames";
 
 import { EventMetaBlock } from "./Details";
 

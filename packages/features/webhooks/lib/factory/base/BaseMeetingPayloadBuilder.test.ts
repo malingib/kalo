@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 import type { MeetingStartedDTO, MeetingEndedDTO } from "../../dto/types";
 import { MeetingPayloadBuilder } from "../versioned/v2021-10-20/MeetingPayloadBuilder";

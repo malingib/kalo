@@ -1,4 +1,4 @@
-import { md } from "@calcom/lib/markdownIt";
+import { md } from "@kalo/lib/markdownIt";
 import DOMPurify from "dompurify";
 
 if (typeof window == "undefined") {

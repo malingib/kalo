@@ -1,6 +1,6 @@
-import useGetBrandingColours from "@calcom/lib/getBrandColours";
-import useTheme from "@calcom/lib/hooks/useTheme";
-import { useCalcomTheme } from "@calcom/ui/styles";
+import useGetBrandingColours from "@kalo/lib/getBrandColours";
+import useTheme from "@kalo/lib/hooks/useTheme";
+import { useCalcomTheme } from "@kalo/ui/styles";
 
 export const useBrandColors = ({
   brandColor,

@@ -1,6 +1,6 @@
-import { EventTypeHostService } from "@calcom/features/host/services/EventTypeHostService";
-import type { PaginatedAssignmentChildrenResponse } from "@calcom/features/host/services/IEventTypeHostService";
-import type { PrismaClient } from "@calcom/prisma/client";
+import { EventTypeHostService } from "@kalo/features/host/services/EventTypeHostService";
+import type { PaginatedAssignmentChildrenResponse } from "@kalo/features/host/services/IEventTypeHostService";
+import type { PrismaClient } from "@kalo/prisma/client";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TGetChildrenForAssignmentInputSchema } from "./getChildrenForAssignment.schema";
@@ -14,7 +14,7 @@ type GetChildrenForAssignmentInput = {
 };
 
 export type { PaginatedAssignmentChildrenResponse as GetChildrenForAssignmentResponse };
-export type { AssignmentChild } from "@calcom/features/host/services/IEventTypeHostService";
+export type { AssignmentChild } from "@kalo/features/host/services/IEventTypeHostService";
 
 export const getChildrenForAssignmentHandler = async ({
   ctx,

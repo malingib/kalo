@@ -3,17 +3,17 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import type { FormValues } from "@calcom/features/eventtypes/lib/types";
-import type { CalVideoSettings as CalVideoSettingsType } from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { TextField } from "@calcom/ui/components/form";
-import { SettingsToggle } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import LocationSettingsContainer from "@calcom/web/modules/event-types/components/locations/LocationSettingsContainer";
-import { InfoBadge } from "@calcom/ui/components/badge";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import type { FormValues } from "@kalo/features/eventtypes/lib/types";
+import type { CalVideoSettings as CalVideoSettingsType } from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { TextField } from "@kalo/ui/components/form";
+import { SettingsToggle } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import LocationSettingsContainer from "@kalo/web/modules/event-types/components/locations/LocationSettingsContainer";
+import { InfoBadge } from "@kalo/ui/components/badge";
 
 const CalVideoSettings = ({ calVideoSettings }: { calVideoSettings?: CalVideoSettingsType }) => {
   const { t } = useLocale();

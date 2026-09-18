@@ -37,4 +37,4 @@ const processedResult = processData(userData);
 **The principle:**
 The "slowness" of doing things right is an investment, not a cost. Code that's architected correctly from the start doesn't need massive refactors later.
 
-Reference: [Cal.diy Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)

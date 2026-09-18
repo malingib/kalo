@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-import { getDailyAppKeys } from "@calcom/app-store/dailyvideo/lib/getDailyAppKeys";
-import { prisma } from "@calcom/prisma";
-import type { GetRecordingsResponseSchema, GetAccessLinkResponseSchema } from "@calcom/prisma/zod-utils";
+import { getDailyAppKeys } from "@kalo/app-store/dailyvideo/lib/getDailyAppKeys";
+import { prisma } from "@kalo/prisma";
+import type { GetRecordingsResponseSchema, GetAccessLinkResponseSchema } from "@kalo/prisma/zod-utils";
 import {
   getRecordingsResponseSchema,
   getAccessLinkResponseSchema,
   recordingItemSchema,
-} from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
-import type { PartialReference } from "@calcom/types/EventManager";
-import type { VideoApiAdapter, VideoCallData } from "@calcom/types/VideoApiAdapter";
+} from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
+import type { PartialReference } from "@kalo/types/EventManager";
+import type { VideoApiAdapter, VideoCallData } from "@kalo/types/VideoApiAdapter";
 
 import {
   ZSubmitBatchProcessorJobRes,

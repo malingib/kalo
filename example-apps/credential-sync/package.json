@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/example-app-credential-sync",
+  "name": "@kalo/example-app-credential-sync",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@calcom/atoms": "workspace:*",
+    "@kalo/atoms": "workspace:*",
     "@prisma/client": "6.16.1",
     "next": "15.5.15",
     "prisma": "6.16.1",

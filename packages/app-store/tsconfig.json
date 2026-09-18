@@ -1,17 +1,17 @@
 {
-  "extends": "@calcom/tsconfig/react-library.json",
+  "extends": "@kalo/tsconfig/react-library.json",
   "exclude": ["dist", "types", "build", "**/node_modules/**"],
   "compilerOptions": {
     "paths": {
-      "@prisma/client/*": ["@calcom/prisma/client/*"],
-      "@calcom/testing/*": ["./../testing/src/*"]
+      "@prisma/client/*": ["@kalo/prisma/client/*"],
+      "@kalo/testing/*": ["./../testing/src/*"]
     },
     "resolveJsonModule": true,
     "experimentalDecorators": true
   },
   "include": [
     "next-env.d.ts",
-    "@calcom/types",
+    "@kalo/types",
     "../types/*.d.ts",
     "../types/next-auth.d.ts",
     "*.ts",

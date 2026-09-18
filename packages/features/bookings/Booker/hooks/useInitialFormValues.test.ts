@@ -4,11 +4,11 @@
 import { cleanup, renderHook, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-import type { BookerEvent } from "@calcom/features/bookings/types";
+import type { BookerEvent } from "@kalo/features/bookings/types";
 
 import { useInitialFormValues } from "./useInitialFormValues";
 
-vi.mock("@calcom/features/bookings/Booker/store", () => ({
+vi.mock("@kalo/features/bookings/Booker/store", () => ({
   useBookerStore: vi.fn((selector) => {
     const state = {
       bookingData: null,
@@ -18,7 +18,7 @@ vi.mock("@calcom/features/bookings/Booker/store", () => ({
   }),
 }));
 
-vi.mock("@calcom/features/bookings/lib/getBookingResponsesSchema", () => ({
+vi.mock("@kalo/features/bookings/lib/getBookingResponsesSchema", () => ({
   getBookingResponsesPartialSchema: vi.fn(() => ({
     parseAsync: vi.fn((data) => Promise.resolve(data)),
   })),

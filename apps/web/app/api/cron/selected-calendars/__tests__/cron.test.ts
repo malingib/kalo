@@ -1,18 +1,18 @@
-import prismock from "@calcom/testing/lib/__mocks__/prisma";
-import "@calcom/lib/server/__mocks__/serviceAccountKey";
+import prismock from "@kalo/testing/lib/__mocks__/prisma";
+import "@kalo/lib/server/__mocks__/serviceAccountKey";
 
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
-import { CalendarAppDelegationCredentialInvalidGrantError } from "@calcom/lib/CalendarAppError";
+import { CalendarAppDelegationCredentialInvalidGrantError } from "@kalo/lib/CalendarAppError";
 
 import { handleCreateSelectedCalendars, isSameEmail } from "../route";
 
 // Mock findUniqueDelegationCalendarCredential to actually query prismock
 // The stub in delegationCredential.ts always returns null, breaking the cron flow.
 // We mock it to return a credential-like object so getCalendarService() proceeds.
-vi.mock("@calcom/app-store/delegationCredential", async () => {
-  const actual = await vi.importActual<typeof import("@calcom/app-store/delegationCredential")>(
-    "@calcom/app-store/delegationCredential"
+vi.mock("@kalo/app-store/delegationCredential", async () => {
+  const actual = await vi.importActual<typeof import("@kalo/app-store/delegationCredential")>(
+    "@kalo/app-store/delegationCredential"
   );
   return {
     ...actual,
@@ -33,7 +33,7 @@ vi.mock("@calcom/app-store/delegationCredential", async () => {
 
 // Mock GoogleCalendarService factory function
 const getPrimaryCalendarMock = vi.fn();
-vi.mock("@calcom/app-store/googlecalendar/lib/CalendarService", () => {
+vi.mock("@kalo/app-store/googlecalendar/lib/CalendarService", () => {
   return {
     __esModule: true,
     createGoogleCalendarServiceWithGoogleType: vi.fn().mockImplementation(function () {

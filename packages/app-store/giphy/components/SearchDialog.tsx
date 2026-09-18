@@ -1,15 +1,15 @@
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
-import { Input } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import type { IconName } from "@calcom/ui/components/icon";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
+import { Input } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import type { IconName } from "@kalo/ui/components/icon";
 
 interface ISearchDialog {
   isOpenDialog: boolean;

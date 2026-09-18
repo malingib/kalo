@@ -1,6 +1,6 @@
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { getScheduleListItemData } from "@calcom/lib/schedules/transformers/getScheduleListItemData";
-import { availabilityRouter } from "@calcom/trpc/server/routers/viewer/availability/_router";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { getScheduleListItemData } from "@kalo/lib/schedules/transformers/getScheduleListItemData";
+import { availabilityRouter } from "@kalo/trpc/server/routers/viewer/availability/_router";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { createRouterCaller, getTRPCContext } from "app/_trpc/context";
 import type { PageProps, ReadonlyHeaders, ReadonlyRequestCookies } from "app/_types";

@@ -1,4 +1,4 @@
-import type { DestinationCalendarRepository } from "@calcom/features/calendars/repositories/DestinationCalendarRepository";
+import type { DestinationCalendarRepository } from "@kalo/features/calendars/repositories/DestinationCalendarRepository";
 
 import { createContainer } from "../di";
 import { moduleLoader as destinationCalendarRepositoryModuleLoader } from "../modules/DestinationCalendar";

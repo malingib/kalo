@@ -1,4 +1,4 @@
-import { BookingStatus } from "@calcom/prisma/enums";
+import { BookingStatus } from "@kalo/prisma/enums";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -33,7 +33,7 @@ const { mockPrisma } = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@calcom/prisma", () => ({ default: mockPrisma, prisma: mockPrisma }));
+vi.mock("@kalo/prisma", () => ({ default: mockPrisma, prisma: mockPrisma }));
 
 import handler from "./callback";
 

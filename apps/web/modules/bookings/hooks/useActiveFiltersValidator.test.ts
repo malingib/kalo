@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { ColumnFilterType } from "@calcom/features/data-table";
-import type { ActiveFilters } from "@calcom/features/data-table";
+import { ColumnFilterType } from "@kalo/features/data-table";
+import type { ActiveFilters } from "@kalo/features/data-table";
 
 import { createActiveFiltersValidator, type AccessibleResources } from "./useActiveFiltersValidator";
 

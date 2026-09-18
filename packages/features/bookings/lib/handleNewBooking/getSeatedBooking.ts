@@ -1,4 +1,4 @@
-import prisma from "@calcom/prisma";
+import prisma from "@kalo/prisma";
 
 import type { BookingSeat } from "../handleSeats/types";
 

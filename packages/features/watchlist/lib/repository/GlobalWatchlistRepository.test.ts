@@ -1,5 +1,5 @@
-import type { PrismaClient } from "@calcom/prisma/client";
-import { WatchlistAction, WatchlistSource, WatchlistType } from "@calcom/prisma/enums";
+import type { PrismaClient } from "@kalo/prisma/client";
+import { WatchlistAction, WatchlistSource, WatchlistType } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { type DeepMockProxy, mockDeep, mockReset } from "vitest-mock-extended";
 import { GlobalWatchlistRepository } from "./GlobalWatchlistRepository";

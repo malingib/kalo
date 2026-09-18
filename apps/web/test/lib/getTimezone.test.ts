@@ -1,6 +1,6 @@
 import { expect, beforeEach, afterEach, it, vi, describe } from "vitest";
 
-import { addTimezonesToDropdown, handleOptionLabel, filterBySearchText } from "@calcom/lib/timezone";
+import { addTimezonesToDropdown, handleOptionLabel, filterBySearchText } from "@kalo/lib/timezone";
 
 const timezonesFixture = [
   { label: "San Francisco", timezone: "America/Argentina/Cordoba" },

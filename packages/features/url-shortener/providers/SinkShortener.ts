@@ -1,4 +1,4 @@
-import logger from "@calcom/lib/logger";
+import logger from "@kalo/lib/logger";
 import type { IUrlShortenerProvider, ShortenOptions, ShortenResult } from "../IUrlShortenerProvider";
 import type { SinkClient } from "./SinkClient";
 

@@ -2,9 +2,9 @@ import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { authenticator } from "otplib";
 
-import { symmetricDecrypt } from "@calcom/lib/crypto";
-import { totpAuthenticatorCheck } from "@calcom/lib/totp";
-import { prisma } from "@calcom/prisma";
+import { symmetricDecrypt } from "@kalo/lib/crypto";
+import { totpAuthenticatorCheck } from "@kalo/lib/totp";
+import { prisma } from "@kalo/prisma";
 
 import { test } from "./lib/fixtures";
 import { getDefaultPassword } from "./lib/testUtils";

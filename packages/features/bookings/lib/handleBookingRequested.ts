@@ -1,13 +1,13 @@
-import { sendAttendeeRequestEmailAndSMS, sendOrganizerRequestEmail } from "@calcom/emails/email-manager";
-import { getWebhookPayloadForBooking } from "@calcom/features/bookings/lib/getWebhookPayloadForBooking";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
-import sendPayload from "@calcom/features/webhooks/lib/sendOrSchedulePayload";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { Prisma } from "@calcom/prisma/client";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import { sendAttendeeRequestEmailAndSMS, sendOrganizerRequestEmail } from "@kalo/emails/email-manager";
+import { getWebhookPayloadForBooking } from "@kalo/features/bookings/lib/getWebhookPayloadForBooking";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
+import sendPayload from "@kalo/features/webhooks/lib/sendOrSchedulePayload";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { Prisma } from "@kalo/prisma/client";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 const log = logger.getSubLogger({ prefix: ["[handleBookingRequested] book:user"] });
 

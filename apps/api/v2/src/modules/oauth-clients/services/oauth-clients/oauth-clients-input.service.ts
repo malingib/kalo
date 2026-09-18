@@ -1,8 +1,8 @@
 import { JwtService } from "@/modules/jwt/jwt.service";
 import { Injectable } from "@nestjs/common";
 
-import { PERMISSION_MAP } from "@calcom/platform-constants";
-import { CreateOAuthClientInput } from "@calcom/platform-types";
+import { PERMISSION_MAP } from "@kalo/platform-constants";
+import { CreateOAuthClientInput } from "@kalo/platform-types";
 
 @Injectable()
 export class OAuthClientsInputService {

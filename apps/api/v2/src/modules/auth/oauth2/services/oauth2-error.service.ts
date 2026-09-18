@@ -1,4 +1,4 @@
-import { ErrorWithCode, getHttpStatusCode } from "@calcom/platform-libraries/errors";
+import { ErrorWithCode, getHttpStatusCode } from "@kalo/platform-libraries/errors";
 import { HttpException, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { OAuthService } from "@/lib/services/oauth.service";
 import { OAuth2HttpException } from "@/modules/auth/oauth2/filters/oauth2-http.exception";

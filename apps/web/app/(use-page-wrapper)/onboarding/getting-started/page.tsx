@@ -1,6 +1,6 @@
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import { APP_NAME } from "@calcom/lib/constants";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import { APP_NAME } from "@kalo/lib/constants";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { _generateMetadata } from "app/_utils";
 import { cookies, headers } from "next/headers";

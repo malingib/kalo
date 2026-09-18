@@ -1,4 +1,4 @@
-import { WEBSITE_URL, IS_SELF_HOSTED, WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBSITE_URL, IS_SELF_HOSTED, WEBAPP_URL } from "@kalo/lib/constants";
 
 import type { PreviewState } from "../types";
 import { embedLibUrl } from "./constants";
@@ -32,7 +32,7 @@ export const Codes = {
       const namespaceProp = `${namespace ? `namespace="${namespace}"` : ""}`;
       const argumentForGetCalApi = getArgumentForGetCalApi(namespace);
       return code`
-import Cal, { getCalApi } from "@calcom/embed-react";
+import Cal, { getCalApi } from "@kalo/embed-react";
 import { useEffect } from "react";
 export default function MyApp() {
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function MyApp() {
         ...previewState,
       });
       return code`
-import { getCalApi } from "@calcom/embed-react";
+import { getCalApi } from "@kalo/embed-react";
 import { useEffect } from "react";
 export default function MyApp() {
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function MyApp() {
     }) => {
       const argumentForGetCalApi = getArgumentForGetCalApi(namespace);
       return code`
-import { getCalApi } from "@calcom/embed-react";
+import { getCalApi } from "@kalo/embed-react";
 import { useEffect } from "react";
 export default function MyApp() {
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function MyApp() {
       namespace: string;
     }) => {
       return code`
-import { BookerEmbed } from "@calcom/atoms";
+import { BookerEmbed } from "@kalo/atoms";
 
 // You might need to define or import BookerProps depending on your setup
 // For example: type BookerProps = { eventTypeSlug: string; calUsername: string; /* other props */ };
@@ -171,7 +171,7 @@ export default function Booker( props : BookerProps ) {
       previewState: PreviewState["floatingPopup"];
     }) => {
       return code`
-import { BookerEmbed } from "@calcom/atoms";
+import { BookerEmbed } from "@kalo/atoms";
 
 // You might need to define or import BookerProps depending on your setup
 export default function Booker( props : BookerProps ) {
@@ -209,7 +209,7 @@ export default function Booker( props : BookerProps ) {
       namespace: string;
     }) => {
       return code`
-import { BookerEmbed } from "@calcom/atoms";
+import { BookerEmbed } from "@kalo/atoms";
 
 // You might need to define or import BookerProps depending on your setup
 export default function Booker( props : BookerProps ) {

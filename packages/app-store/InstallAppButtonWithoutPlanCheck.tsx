@@ -1,9 +1,9 @@
 "use client";
 
-import type { UseAddAppMutationOptions } from "@calcom/app-store/_utils/useAddAppMutation";
-import useAddAppMutation from "@calcom/app-store/_utils/useAddAppMutation";
-import { deriveAppDictKeyFromType } from "@calcom/lib/deriveAppDictKeyFromType";
-import type { App } from "@calcom/types/App";
+import type { UseAddAppMutationOptions } from "@kalo/app-store/_utils/useAddAppMutation";
+import useAddAppMutation from "@kalo/app-store/_utils/useAddAppMutation";
+import { deriveAppDictKeyFromType } from "@kalo/lib/deriveAppDictKeyFromType";
+import type { App } from "@kalo/types/App";
 
 import { InstallAppButtonMap } from "./apps.browser.generated";
 import type { InstallAppButtonProps } from "./types";

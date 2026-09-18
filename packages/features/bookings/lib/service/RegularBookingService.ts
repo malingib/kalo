@@ -1,81 +1,81 @@
 import process from "node:process";
-import processExternalId from "@calcom/app-store/_utils/calendars/processExternalId";
-import { getPaymentAppData } from "@calcom/app-store/_utils/payments/getPaymentAppData";
-import { metadata as GoogleMeetMetadata } from "@calcom/app-store/googlevideo/_metadata";
+import processExternalId from "@kalo/app-store/_utils/calendars/processExternalId";
+import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
+import { metadata as GoogleMeetMetadata } from "@kalo/app-store/googlevideo/_metadata";
 import {
   getLocationValueForDB,
   MeetLocationType,
   OrganizerDefaultConferencingAppType,
-} from "@calcom/app-store/locations";
-import { getAppFromSlug } from "@calcom/app-store/utils";
+} from "@kalo/app-store/locations";
+import { getAppFromSlug } from "@kalo/app-store/utils";
 import {
   eventTypeAppMetadataOptionalSchema,
   eventTypeMetaDataSchemaWithTypedApps,
-} from "@calcom/app-store/zod-utils";
-import dayjs from "@calcom/dayjs";
-import getICalUID from "@calcom/emails/lib/getICalUID";
-import { verifyCodeUnAuthenticated } from "@calcom/features/auth/lib/verifyCodeUnAuthenticated";
+} from "@kalo/app-store/zod-utils";
+import dayjs from "@kalo/dayjs";
+import getICalUID from "@kalo/emails/lib/getICalUID";
+import { verifyCodeUnAuthenticated } from "@kalo/features/auth/lib/verifyCodeUnAuthenticated";
 import type {
   BookingDataSchemaGetter,
   BookingHandlerInput,
   CreateBookingMeta,
   CreateRegularBookingData,
-} from "@calcom/features/bookings/lib/dto/types";
-import EventManager, { placeholderCreatedEvent } from "@calcom/features/bookings/lib/EventManager";
-import { getAssignmentReasonCategory } from "@calcom/features/bookings/lib/getAssignmentReasonCategory";
-import type { CheckBookingAndDurationLimitsService } from "@calcom/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
-import { handlePayment } from "@calcom/features/bookings/lib/handlePayment";
-import { handleWebhookTrigger } from "@calcom/features/bookings/lib/handleWebhookTrigger";
-import { isEventTypeLoggingEnabled } from "@calcom/features/bookings/lib/isEventTypeLoggingEnabled";
-import type { BookingEmailAndSmsTasker } from "@calcom/features/bookings/lib/tasker/BookingEmailAndSmsTasker";
-import type { BuiltCalendarEvent } from "@calcom/features/CalendarEventBuilder";
-import { CalendarEventBuilder } from "@calcom/features/CalendarEventBuilder";
-import { getSpamCheckService } from "@calcom/features/di/watchlist/containers/SpamCheckService.container";
+} from "@kalo/features/bookings/lib/dto/types";
+import EventManager, { placeholderCreatedEvent } from "@kalo/features/bookings/lib/EventManager";
+import { getAssignmentReasonCategory } from "@kalo/features/bookings/lib/getAssignmentReasonCategory";
+import type { CheckBookingAndDurationLimitsService } from "@kalo/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
+import { handlePayment } from "@kalo/features/bookings/lib/handlePayment";
+import { handleWebhookTrigger } from "@kalo/features/bookings/lib/handleWebhookTrigger";
+import { isEventTypeLoggingEnabled } from "@kalo/features/bookings/lib/isEventTypeLoggingEnabled";
+import type { BookingEmailAndSmsTasker } from "@kalo/features/bookings/lib/tasker/BookingEmailAndSmsTasker";
+import type { BuiltCalendarEvent } from "@kalo/features/CalendarEventBuilder";
+import { CalendarEventBuilder } from "@kalo/features/CalendarEventBuilder";
+import { getSpamCheckService } from "@kalo/features/di/watchlist/containers/SpamCheckService.container";
 import {
   type EventTypeBrandingData,
   getEventTypeService,
-} from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { getEventName, updateHostInEventName } from "@calcom/features/eventtypes/lib/eventNaming";
-import type { HashedLinkService } from "@calcom/features/hashedLink/lib/service/HashedLinkService";
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { handleAnalyticsEvents } from "@calcom/features/tasker/tasks/analytics/handleAnalyticsEvents";
-import type { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { UsersRepository } from "@calcom/features/users/users.repository";
-import type { GetSubscriberOptions } from "@calcom/features/webhooks/lib/getWebhooks";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
-import type { IWebhookProducerService } from "@calcom/features/webhooks/lib/interface/WebhookProducerService";
+} from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { getEventName, updateHostInEventName } from "@kalo/features/eventtypes/lib/eventNaming";
+import type { HashedLinkService } from "@kalo/features/hashedLink/lib/service/HashedLinkService";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { handleAnalyticsEvents } from "@kalo/features/tasker/tasks/analytics/handleAnalyticsEvents";
+import type { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { UsersRepository } from "@kalo/features/users/users.repository";
+import type { GetSubscriberOptions } from "@kalo/features/webhooks/lib/getWebhooks";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
+import type { IWebhookProducerService } from "@kalo/features/webhooks/lib/interface/WebhookProducerService";
 import {
   cancelNoShowTasksForBooking,
   deleteWebhookScheduledTriggers,
   scheduleTrigger,
-} from "@calcom/features/webhooks/lib/scheduleTrigger";
-import type { EventPayloadType, EventTypeInfo } from "@calcom/features/webhooks/lib/sendPayload";
-import { getTranslation } from "@calcom/i18n/server";
-import { groupHostsByGroupId } from "@calcom/lib/bookings/hostGroupUtils";
-import { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
-import { DEFAULT_GROUP_ID, ENABLE_ASYNC_TASKER } from "@calcom/lib/constants";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { extractBaseEmail } from "@calcom/lib/extract-base-email";
-import { HttpError } from "@calcom/lib/http-error";
-import { criticalLogger } from "@calcom/lib/logger.server";
-import { getPiiFreeCalendarEvent, getPiiFreeEventType } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { getServerErrorFromUnknown } from "@calcom/lib/server/getServerErrorFromUnknown";
-import { getTimeFormatStringFromUserTimeFormat } from "@calcom/lib/timeFormat";
-import { distributedTracing } from "@calcom/lib/tracing/factory";
-import type { PrismaClient } from "@calcom/prisma";
-import type { AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@calcom/prisma/client";
-import { BookingStatus, CreationSource, SchedulingType, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { userMetadata as userMetadataSchema } from "@calcom/prisma/zod-utils";
+} from "@kalo/features/webhooks/lib/scheduleTrigger";
+import type { EventPayloadType, EventTypeInfo } from "@kalo/features/webhooks/lib/sendPayload";
+import { getTranslation } from "@kalo/i18n/server";
+import { groupHostsByGroupId } from "@kalo/lib/bookings/hostGroupUtils";
+import { getVideoCallUrlFromCalEvent } from "@kalo/lib/CalEventParser";
+import { DEFAULT_GROUP_ID, ENABLE_ASYNC_TASKER } from "@kalo/lib/constants";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { extractBaseEmail } from "@kalo/lib/extract-base-email";
+import { HttpError } from "@kalo/lib/http-error";
+import { criticalLogger } from "@kalo/lib/logger.server";
+import { getPiiFreeCalendarEvent, getPiiFreeEventType } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUnknown";
+import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
+import { distributedTracing } from "@kalo/lib/tracing/factory";
+import type { PrismaClient } from "@kalo/prisma";
+import type { AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@kalo/prisma/client";
+import { BookingStatus, CreationSource, SchedulingType, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { userMetadata as userMetadataSchema } from "@kalo/prisma/zod-utils";
 import type {
   AdditionalInformation,
   AppsStatus,
   CalEventResponses,
   CalendarEvent,
-} from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
-import type { EventResult, PartialReference } from "@calcom/types/EventManager";
+} from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
+import type { EventResult, PartialReference } from "@kalo/types/EventManager";
 import short, { uuid } from "short-uuid";
 import { v5 as uuidv5 } from "uuid";
 import type { BookingRepository } from "../../repositories/BookingRepository";
@@ -2526,7 +2526,7 @@ async function handler(
       bookingInfo: {
         name: bookingContext.fullName,
         email: bookingContext.bookerEmail,
-        eventName: "Cal.diy lead",
+        eventName: "Kalo lead",
       },
       isTeamEventType,
     });

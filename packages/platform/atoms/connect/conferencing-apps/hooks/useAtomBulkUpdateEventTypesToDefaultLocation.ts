@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { V2_ENDPOINTS, SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { ApiSuccessResponse } from "@calcom/platform-types";
-import type { EventType } from "@calcom/prisma/client";
+import { V2_ENDPOINTS, SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { ApiSuccessResponse } from "@kalo/platform-types";
+import type { EventType } from "@kalo/prisma/client";
 
 import { useAtomsContext } from "../../../hooks/useAtomsContext";
 import http from "../../../lib/http";

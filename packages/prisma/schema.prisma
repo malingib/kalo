@@ -7,7 +7,6 @@ datasource db {
   directUrl = env("DATABASE_DIRECT_URL")
 }
 
-
 generator client {
   provider            = "prisma-client"
   previewFeatures     = ["views"]
@@ -511,7 +510,7 @@ model User {
   oAuthClients                   OAuthClient[]
   holidaySettings                UserHolidaySettings?
 
-  autoOptInFeatures Boolean @default(false)
+  autoOptInFeatures Boolean              @default(false)
   mpesaPaybill      String?
   mpesaTillNumber   String?
   mpesaShortcode    String?
@@ -923,7 +922,7 @@ model Booking {
   report                 BookingReport?
   wrongAssignmentReports WrongAssignmentReport[]
   mpesaTransactions      MPesaTransaction[]
-  paymentStatus          String                  @default("UNPAID")
+  paymentStatus          String                     @default("UNPAID")
   depositReceiptUrl      String?
 
   // @@partial_index([reassignById])
@@ -2910,26 +2909,26 @@ model WhatsAppMessageLog {
 // ─── PLATFORM (SUPER ADMIN) GLOBAL SETTINGS ───────────────────────────────────
 // Single-row table: only one PlatformSettings record should ever exist.
 model PlatformSettings {
-  id   Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   // Monetization
-  platformFeePercent    Float   @default(3.0)       // e.g. 3% commission per booking
-  platformFeeCurrency   String  @default("KES")
+  platformFeePercent  Float  @default(3.0) // e.g. 3% commission per booking
+  platformFeeCurrency String @default("KES")
 
   // Vendor Subscription Plans (JSON config)
   // e.g. [{ "slug": "basic", "maxServices": 3, "feePercent": 5 }, ...]
-  subscriptionPlans     Json?
+  subscriptionPlans Json?
 
   // Master Safaricom Daraja credentials (platform-level STK Push)
-  darajaConsumerKey     String?
-  darajaConsumerSecret  String?
-  darajaShortcode       String?
-  darajaPasskey         String?
-  darajaCallbackUrl     String?
-  darajaIsSandbox       Boolean @default(true)
+  darajaConsumerKey    String?
+  darajaConsumerSecret String?
+  darajaShortcode      String?
+  darajaPasskey        String?
+  darajaCallbackUrl    String?
+  darajaIsSandbox      Boolean @default(true)
 
   // Central WhatsApp Gateway (shared vendor discovery line)
-  centralWhatsappPhone  String?
+  centralWhatsappPhone   String?
   centralWhatsappEnabled Boolean @default(false)
 
   // Vendor onboarding
@@ -2947,27 +2946,27 @@ model VendorProfile {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Storefront Identity
-  businessName   String?
-  businessSlug   String?  @unique
-  businessBio    String?
-  logoUrl        String?
-  coverImageUrl  String?
-  locationText   String?   // e.g. "2nd Floor, Westlands Mall, Nairobi"
-  locationLat    Float?
-  locationLng    Float?
-  currency       String   @default("KES")
-  timezone       String   @default("Africa/Nairobi")
+  businessName  String?
+  businessSlug  String? @unique
+  businessBio   String?
+  logoUrl       String?
+  coverImageUrl String?
+  locationText  String? // e.g. "2nd Floor, Westlands Mall, Nairobi"
+  locationLat   Float?
+  locationLng   Float?
+  currency      String  @default("KES")
+  timezone      String  @default("Africa/Nairobi")
 
   // Subscription Plan
-  planSlug       String   @default("basic")      // matches PlatformSettings.subscriptionPlans
-  isApproved     Boolean  @default(false)
-  isActive       Boolean  @default(true)
+  planSlug   String  @default("basic") // matches PlatformSettings.subscriptionPlans
+  isApproved Boolean @default(false)
+  isActive   Boolean @default(true)
 
   // Tenant M-Pesa Configuration (own payments)
   mpesaTillNumber      String?
   mpesaPaybill         String?
-  mpesaAccountName     String?                   // Name shown to customer when paying
-  mpesaPayoutPhone     String?                   // Vendor's M-Pesa number for receiving payouts
+  mpesaAccountName     String? // Name shown to customer when paying
+  mpesaPayoutPhone     String? // Vendor's M-Pesa number for receiving payouts
   // Daraja keys: only set if vendor uses own STK Push (Pro plan)
   darajaConsumerKey    String?
   darajaConsumerSecret String?
@@ -2975,11 +2974,11 @@ model VendorProfile {
   darajaPasskey        String?
 
   // WhatsApp Automation Config
-  whatsappEnabled         Boolean  @default(false)
-  whatsappGreeting        String?  // Custom greeting text, e.g. "Sasa! Welcome to BarberHub..."
-  whatsappFaqJson         Json?    // [{ "question": "Where are you?", "answer": "Westlands Mall" }]
-  whatsappOfflineMessage  String?  // Shown when vendor is marked offline
-  whatsappAutoConfirm     Boolean  @default(false) // Auto-confirm booking once deposit is paid
+  whatsappEnabled        Boolean @default(false)
+  whatsappGreeting       String? // Custom greeting text, e.g. "Sasa! Welcome to BarberHub..."
+  whatsappFaqJson        Json? // [{ "question": "Where are you?", "answer": "Westlands Mall" }]
+  whatsappOfflineMessage String? // Shown when vendor is marked offline
+  whatsappAutoConfirm    Boolean @default(false) // Auto-confirm booking once deposit is paid
 
   // Operating Hours (JSON, per-day blocks in EAT)
   // e.g. [{ "day": 1, "open": "08:00", "close": "19:00" }, ...]
@@ -2996,46 +2995,46 @@ model VendorProfile {
 
 // ─── INVENTORY ────────────────────────────────────────────────────────────────
 model InventoryItem {
-  id            String                 @id @default(uuid())
+  id            String         @id @default(uuid())
   vendorUserId  Int
-  vendorProfile VendorProfile?         @relation(fields: [vendorUserId], references: [userId], onDelete: Cascade)
+  vendorProfile VendorProfile? @relation(fields: [vendorUserId], references: [userId], onDelete: Cascade)
 
   name          String
   sku           String?
   description   String?
-  unit          String                 @default("pcs")   // pcs, kg, ml, hrs …
-  quantity      Float                  @default(0)
-  lowStockAlert Float                  @default(5)        // trigger alert below this
-  costPrice     Float?                 // purchase price in KES
-  salePrice     Float?                 // retail/service price in KES
+  unit          String  @default("pcs") // pcs, kg, ml, hrs …
+  quantity      Float   @default(0)
+  lowStockAlert Float   @default(5) // trigger alert below this
+  costPrice     Float? // purchase price in KES
+  salePrice     Float? // retail/service price in KES
   imageUrl      String?
-  isActive      Boolean                @default(true)
+  isActive      Boolean @default(true)
 
-  eventTypeId   Int?                   // optional: link to a service/EventType
-  transactions  InventoryTransaction[]
-  createdAt     DateTime               @default(now())
-  updatedAt     DateTime               @updatedAt
+  eventTypeId  Int? // optional: link to a service/EventType
+  transactions InventoryTransaction[]
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
 
   @@index([vendorUserId])
   @@index([eventTypeId])
 }
 
 enum InventoryTxType {
-  STOCK_IN     // purchase/restock
-  STOCK_OUT    // sold / used in service
-  ADJUSTMENT   // manual correction
-  WRITE_OFF    // damaged / expired
+  STOCK_IN // purchase/restock
+  STOCK_OUT // sold / used in service
+  ADJUSTMENT // manual correction
+  WRITE_OFF // damaged / expired
 }
 
 model InventoryTransaction {
-  id          String          @id @default(uuid())
-  itemId      String
-  item        InventoryItem   @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  type        InventoryTxType
-  quantity    Float           // positive = in, negative = out
-  note        String?
-  bookingUid  String?         // if tied to a booking/order
-  createdAt   DateTime        @default(now())
+  id         String          @id @default(uuid())
+  itemId     String
+  item       InventoryItem   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  type       InventoryTxType
+  quantity   Float // positive = in, negative = out
+  note       String?
+  bookingUid String? // if tied to a booking/order
+  createdAt  DateTime        @default(now())
 
   @@index([itemId])
   @@index([bookingUid])
@@ -3044,13 +3043,13 @@ model InventoryTransaction {
 // ─── RECEIPTS ─────────────────────────────────────────────────────────────────
 model Receipt {
   id                 String   @id @default(uuid())
-  receiptNumber      String   @unique   // e.g. RCP-20260805-0001
+  receiptNumber      String   @unique // e.g. RCP-20260805-0001
   bookingUid         String?
   vendorUserId       Int
   customerPhone      String?
   customerName       String?
   customerEmail      String?
-  lineItemsJson      Json     // [{ description, qty, unitPrice, total }]
+  lineItemsJson      Json // [{ description, qty, unitPrice, total }]
   subtotal           Float
   platformFee        Float    @default(0)
   depositPaid        Float    @default(0)
@@ -3088,16 +3087,16 @@ enum AlertChannel {
 }
 
 model Alert {
-  id           String       @id @default(uuid())
-  userId       Int          // recipient (vendor or admin)
-  type         AlertType
-  channel      AlertChannel @default(IN_APP)
-  title        String
-  body         String
-  isRead       Boolean      @default(false)
-  isDismissed  Boolean      @default(false)
-  metadata     Json?        // { bookingUid, itemId, inventoryItemName, … }
-  createdAt    DateTime     @default(now())
+  id          String       @id @default(uuid())
+  userId      Int // recipient (vendor or admin)
+  type        AlertType
+  channel     AlertChannel @default(IN_APP)
+  title       String
+  body        String
+  isRead      Boolean      @default(false)
+  isDismissed Boolean      @default(false)
+  metadata    Json? // { bookingUid, itemId, inventoryItemName, … }
+  createdAt   DateTime     @default(now())
 
   @@index([userId, isRead])
   @@index([userId, type])
@@ -3105,15 +3104,14 @@ model Alert {
 }
 
 model AlertPreference {
-  id           String       @id @default(uuid())
-  userId       Int          @unique
+  id        String @id @default(uuid())
+  userId    Int    @unique
   // Which alert types are enabled per channel (JSON flags)
   // { "LOW_STOCK": ["IN_APP","WHATSAPP"], "NEW_BOOKING": ["IN_APP","WHATSAPP","EMAIL"], … }
-  prefsJson    Json
+  prefsJson Json
 
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
-

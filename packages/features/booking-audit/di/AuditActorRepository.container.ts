@@ -1,5 +1,5 @@
-import { createContainer } from "@calcom/features/di/di";
-import type { IAuditActorRepository } from "@calcom/features/booking-audit/lib/repository/IAuditActorRepository";
+import { createContainer } from "@kalo/features/di/di";
+import type { IAuditActorRepository } from "@kalo/features/booking-audit/lib/repository/IAuditActorRepository";
 
 import { moduleLoader as auditActorRepositoryModule } from "./AuditActorRepository.module";
 

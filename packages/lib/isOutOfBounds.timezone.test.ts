@@ -1,7 +1,7 @@
 process.env.TZ = "Asia/Dubai";
 
-import dayjs from "@calcom/dayjs";
-import { PeriodType } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { PeriodType } from "@kalo/prisma/enums";
 import { describe, expect, it } from "vitest";
 import { calculatePeriodLimits, getRollingWindowEndDate } from "./isOutOfBounds";
 

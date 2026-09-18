@@ -1,12 +1,12 @@
 "use client";
 
-import { WEBHOOK_TRIGGER_EVENTS } from "@calcom/features/webhooks/lib/constants";
-import { subscriberUrlReserved } from "@calcom/features/webhooks/lib/subscriberUrlReserved";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import { revalidateWebhooksList } from "@calcom/web/app/(use-page-wrapper)/settings/(settings-layout)/developer/webhooks/(with-loader)/actions";
+import { WEBHOOK_TRIGGER_EVENTS } from "@kalo/features/webhooks/lib/constants";
+import { subscriberUrlReserved } from "@kalo/features/webhooks/lib/subscriberUrlReserved";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import { revalidateWebhooksList } from "@kalo/web/app/(use-page-wrapper)/settings/(settings-layout)/developer/webhooks/(with-loader)/actions";
 import { toastManager } from "@coss/ui/components/toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";

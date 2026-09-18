@@ -1,12 +1,12 @@
 import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-import dayjs from "@calcom/dayjs";
-import { APP_CREDENTIAL_SHARING_ENABLED } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
-import { test } from "@calcom/web/playwright/lib/fixtures";
-import { selectSecondAvailableTimeSlotNextMonth } from "@calcom/web/playwright/lib/testUtils";
+import dayjs from "@kalo/dayjs";
+import { APP_CREDENTIAL_SHARING_ENABLED } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
+import { test } from "@kalo/web/playwright/lib/fixtures";
+import { selectSecondAvailableTimeSlotNextMonth } from "@kalo/web/playwright/lib/testUtils";
 
 import metadata from "../_metadata";
 import GoogleCalendarService from "../lib/CalendarService";
@@ -24,8 +24,8 @@ test.describe("Google Calendar", async () => {
 
       test.skip(!!APP_CREDENTIAL_SHARING_ENABLED, "Credential sharing enabled");
 
-      if (process.env.E2E_TEST_CALCOM_GCAL_KEYS) {
-        const gCalKeys = JSON.parse(process.env.E2E_TEST_CALCOM_GCAL_KEYS);
+      if (process.env.E2E_TEST_KALO_GCAL_KEYS) {
+        const gCalKeys = JSON.parse(process.env.E2E_TEST_KALO_GCAL_KEYS);
         await prisma.app.update({
           where: {
             slug: "google-calendar",
@@ -35,18 +35,18 @@ test.describe("Google Calendar", async () => {
           },
         });
       } else {
-        test.skip(!process.env.E2E_TEST_CALCOM_GCAL_KEYS, "GCal keys not found");
+        test.skip(!process.env.E2E_TEST_KALO_GCAL_KEYS, "GCal keys not found");
       }
 
-      test.skip(!process.env.E2E_TEST_CALCOM_QA_EMAIL, "QA email not found");
-      test.skip(!process.env.E2E_TEST_CALCOM_QA_PASSWORD, "QA password not found");
+      test.skip(!process.env.E2E_TEST_KALO_QA_EMAIL, "QA email not found");
+      test.skip(!process.env.E2E_TEST_KALO_QA_PASSWORD, "QA password not found");
 
-      if (process.env.E2E_TEST_CALCOM_QA_EMAIL && process.env.E2E_TEST_CALCOM_QA_PASSWORD) {
+      if (process.env.E2E_TEST_KALO_QA_EMAIL && process.env.E2E_TEST_KALO_QA_PASSWORD) {
         qaGCalCredential = {
           ...(await prisma.credential.findFirstOrThrow({
             where: {
               user: {
-                email: process.env.E2E_TEST_CALCOM_QA_EMAIL,
+                email: process.env.E2E_TEST_KALO_QA_EMAIL,
               },
               type: metadata.type,
             },
@@ -64,7 +64,7 @@ test.describe("Google Calendar", async () => {
 
         const qaUserQuery = await prisma.user.findFirstOrThrow({
           where: {
-            email: process.env.E2E_TEST_CALCOM_QA_EMAIL,
+            email: process.env.E2E_TEST_KALO_QA_EMAIL,
           },
           select: {
             id: true,

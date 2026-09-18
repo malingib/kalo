@@ -1,10 +1,10 @@
 # GCP
 
-Deploying Cal.diy on Google Cloud Platform (GCP). In this guide, we will go over the steps to deploy Cal.diy on Google Cloud Platform (GCP). We will cover how to create a virtual machine, configure it, install Docker, and finally deploy the Cal.diy application.
+Deploying Kalo on Google Cloud Platform (GCP). In this guide, we will go over the steps to deploy Kalo on Google Cloud Platform (GCP). We will cover how to create a virtual machine, configure it, install Node.js, set up a database, and finally deploy the Kalo application.
 
 ## One Click Deployment
 
-[![Run on Google Cloud](https://storage.googleapis.com/gweb-cloudblog-publish/images/run_on_google_cloud.max-300x300.png)](https://deploy.cloud.run/?git_repo=https://github.com/calcom/cal.diy)
+[![Run on Google Cloud](https://storage.googleapis.com/gweb-cloudblog-publish/images/run_on_google_cloud.max-300x300.png)](https://deploy.cloud.run/?git_repo=https://github.com/malingib/kalo)
 
 ## Manual Deployment
 
@@ -36,15 +36,15 @@ Review the details of your virtual machine and click on the "Create" button to c
 
 ### 2. Configuring the Virtual Machine
 
-Once your virtual machine is created, you need to configure it to allow traffic on port 80.
+Once your virtual machine is created, you need to configure it to allow traffic on port 80 (or your chosen port).
 
 #### Open Port 80
 
 Click on the navigation menu icon (three horizontal lines) and select "Compute Engine" from the list. Then, click on "VM instances" in the sub-menu. Find your newly created instance and click on its name to enter its details page. Click on the "Firewalls" tab and then click on the "Add firewall rule" button. Select "Allow all" as the source and destination, set the protocol to "tcp" and the ports to "80". Click on the "Add" button to save the changes.
 
-### 3. Installing Docker
+### 3. Installing Node.js and PostgreSQL
 
-Now that your virtual machine is configured, you need to install Docker on it.
+Now that your virtual machine is configured, you need to install Node.js and PostgreSQL on it.
 
 #### Connect to Your Instance
 
@@ -56,47 +56,65 @@ gcloud ssh --project=[PROJECT_ID] --zone=[ZONE] [INSTANCE_NAME]
 
 Replace `[PROJECT_ID]` with your project ID, `[ZONE]` with the zone where your instance is located, and `[INSTANCE_NAME]` with the name of your instance. You can also use web based SSH.
 
-#### Install Docker
+#### Install Node.js
 
-Once connected, update the package list and install Docker using the following commands:
+Once connected, install Node.js 18+ (or the version pinned in `.nvmrc`) and Yarn:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g yarn
+```
+
+#### Install PostgreSQL
 
 ```bash
 sudo apt-get update
-sudo apt-get install docker.io
+sudo apt-get install -y postgresql
 ```
 
-#### Start the Docker Service
-
-Start the Docker service using the following command:
+Create a database and user for Kalo:
 
 ```bash
-sudo systemctl start docker
+sudo -u postgres psql -c "CREATE USER kalo WITH PASSWORD 'YOUR_DB_PASSWORD';"
+sudo -u postgres psql -c "CREATE DATABASE kalo OWNER kalo;"
 ```
 
-### 4. Deploying Cal.diy
+### 4. Deploying Kalo
 
-Now that Docker is installed and running, you can deploy Cal.diy on your virtual machine.
+Now that Node.js and PostgreSQL are installed, you can deploy Kalo on your virtual machine.
 
-#### Pull the Docker Image
-
-Use the following command to pull the Cal.diy Docker image from Docker Hub:
+#### Clone the Repository
 
 ```bash
-docker pull calcom/cal.diy
+git clone https://github.com/malingib/kalo.git
+cd kalo
 ```
 
-#### Run the Docker Container
-
-Run the Docker container using the following command:
+#### Install Dependencies and Configure
 
 ```bash
-docker run -d -p 80:80 calcom/cal.diy
+yarn
+cp .env.example .env
 ```
 
-This command maps port 80 on your local machine to port 80 inside the container, so you can access Cal.diy from outside the container.
+Edit `.env` and set `DATABASE_URL` to `postgresql://kalo:YOUR_DB_PASSWORD@localhost:5432/kalo`, plus generate `NEXTAUTH_SECRET` and `CALENDSO_ENCRYPTION_KEY` with `openssl rand -base64 32` and `openssl rand -base64 24`.
 
-#### Access Cal.diy
+#### Apply Database Migrations
 
-Open a web browser and navigate to `http://localhost`. You should now be able to access the Cal.diy homepage.
+```bash
+yarn workspace @kalo/prisma db-deploy
+```
 
-Congratulations! You have successfully deployed Cal.diy on Google Cloud Platform.
+#### Build and Run
+
+```bash
+yarn build
+yarn start
+```
+
+#### Access Kalo
+
+Open a web browser and navigate to `http://localhost` (or your VM's IP address). You should now be able to access the Kalo homepage.
+
+Congratulations! You have successfully deployed Kalo on Google Cloud Platform.

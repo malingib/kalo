@@ -13,7 +13,7 @@ import {
   IsBoolean,
 } from "class-validator";
 
-import { BookingWindowPeriodInputTypeEnum_2024_06_14 } from "@calcom/platform-enums";
+import { BookingWindowPeriodInputTypeEnum_2024_06_14 } from "@kalo/platform-enums";
 
 import type { Disabled_2024_06_14 } from "./disabled.input";
 

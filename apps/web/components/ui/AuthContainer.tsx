@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import { Logo } from "@calcom/ui/components/logo";
+import { Logo } from "@kalo/ui/components/logo";
 
 import Loader from "@components/Loader";
 

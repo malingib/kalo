@@ -1,9 +1,9 @@
-import { passwordResetRequest } from "@calcom/features/auth/lib/passwordResetRequest";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import { emailSchema } from "@calcom/lib/emailSchema";
-import getIP from "@calcom/lib/getIP";
-import { piiHasher } from "@calcom/lib/server/PiiHasher";
-import prisma from "@calcom/prisma";
+import { passwordResetRequest } from "@kalo/features/auth/lib/passwordResetRequest";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import { emailSchema } from "@kalo/lib/emailSchema";
+import getIP from "@kalo/lib/getIP";
+import { piiHasher } from "@kalo/lib/server/PiiHasher";
+import prisma from "@kalo/prisma";
 import { defaultResponderForAppDir } from "app/api/defaultResponderForAppDir";
 import { parseRequestData } from "app/api/parseRequestData";
 import type { NextRequest } from "next/server";

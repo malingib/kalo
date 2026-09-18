@@ -39,9 +39,9 @@ const updatePackageJson = ({
     return;
   }
   const packageJsonConfig = JSON.parse(fs.readFileSync(packageJsonPath).toString());
-  packageJsonConfig.name = `@calcom/${slug}`;
+  packageJsonConfig.name = `@kalo/${slug}`;
   packageJsonConfig.description = appDescription;
-  // packageJsonConfig.description = `@calcom/${appName}`;
+  // packageJsonConfig.description = `@kalo/${appName}`;
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJsonConfig, null, 2));
 };
 

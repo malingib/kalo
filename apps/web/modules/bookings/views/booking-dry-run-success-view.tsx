@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { CheckIcon } from "@coss/ui/icons";
 
 export default function DryRunSuccessful() {

@@ -1,4 +1,4 @@
-import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
+import { EMAIL_FROM_NAME } from "@kalo/lib/constants";
 
 import { getSubject, type TeamInvite } from "../lib/utils/team-invite-utils";
 import renderEmail from "../src/renderEmail";

@@ -1,7 +1,7 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import { moduleLoader as prismaModuleLoader } from "@kalo/features/di/modules/Prisma";
 
 export const profileRepositoryModule = createModule();
 const token = DI_TOKENS.PROFILE_REPOSITORY;

@@ -1,9 +1,9 @@
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import type { IAttendeeRepository } from "@calcom/features/bookings/repositories/IAttendeeRepository";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import type { ISimpleLogger } from "@calcom/features/di/shared/services/logger.service";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import type { IAttendeeRepository } from "@kalo/features/bookings/repositories/IAttendeeRepository";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import type { ISimpleLogger } from "@kalo/features/di/shared/services/logger.service";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type { BookingAuditContext } from "../../dto/types";
 import type { AuditActorType } from "../../repository/IAuditActorRepository";
@@ -16,12 +16,12 @@ import type {
 import { BookingAuditErrorCode, BookingAuditPermissionError } from "../BookingAuditAccessService";
 import { BookingAuditViewerService } from "../BookingAuditViewerService";
 
-vi.mock("@calcom/features/users/repositories/UserRepository");
-vi.mock("@calcom/features/bookings/repositories/BookingRepository");
-vi.mock("@calcom/features/membership/repositories/MembershipRepository");
-vi.mock("@calcom/features/credentials/repositories/CredentialRepository");
+vi.mock("@kalo/features/users/repositories/UserRepository");
+vi.mock("@kalo/features/bookings/repositories/BookingRepository");
+vi.mock("@kalo/features/membership/repositories/MembershipRepository");
+vi.mock("@kalo/features/credentials/repositories/CredentialRepository");
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));
@@ -531,7 +531,7 @@ describe("BookingAuditViewerService - Integration Tests", () => {
         });
       });
 
-      it("should show 'Cal.diy' for SYSTEM actor", async () => {
+      it("should show 'Kalo' for SYSTEM actor", async () => {
         createMockAuditLog("booking-uid-123", {
           actorType: "SYSTEM",
           actorUserUuid: null,
@@ -556,7 +556,7 @@ describe("BookingAuditViewerService - Integration Tests", () => {
 
         expect(result.auditLogs[0].actor).toMatchObject({
           type: "SYSTEM",
-          displayName: "Cal.diy",
+          displayName: "Kalo",
           displayEmail: null,
           displayAvatar: null,
         });
@@ -1206,7 +1206,7 @@ describe("BookingAuditViewerService - Integration Tests", () => {
 
         expect(result.auditLogs[2].id).toBe("another-successful-log");
         expect(result.auditLogs[2].hasError).toBeUndefined();
-        expect(result.auditLogs[2].actor.displayName).toBe("Cal.diy");
+        expect(result.auditLogs[2].actor.displayName).toBe("Kalo");
       });
 
       it("should log error message when enrichment fails", async () => {

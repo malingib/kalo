@@ -1,9 +1,9 @@
-import logger from "@calcom/lib/logger";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import type { baseEventTypeSelect } from "@calcom/prisma/selects";
-import { EventTypeMetaDataSchema } from "@calcom/prisma/zod-utils";
+import logger from "@kalo/lib/logger";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import type { baseEventTypeSelect } from "@kalo/prisma/selects";
+import { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 const log = logger.getSubLogger({ prefix: ["getEventTypesPublic"] });
 

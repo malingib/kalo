@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/btcpayserver",
+  "name": "@kalo/btcpayserver",
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   },
   "description": "BTCPay Server is a self-hosted open source Bitcoin payment processor. Start receiving bitcoin payments for your events and bookings."
 }

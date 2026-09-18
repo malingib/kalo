@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@calcom/prisma";
+import type { PrismaClient } from "@kalo/prisma";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { WrongAssignmentReportRepository } from "./WrongAssignmentReportRepository";
 

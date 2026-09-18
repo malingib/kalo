@@ -1,6 +1,6 @@
-import { IS_SELF_HOSTED, WEBSITE_URL } from "@calcom/lib/constants";
-import { trpc } from "@calcom/trpc/react";
-import type { AppRouter } from "@calcom/trpc/types/server/routers/_app";
+import { IS_SELF_HOSTED, WEBSITE_URL } from "@kalo/lib/constants";
+import { trpc } from "@kalo/trpc/react";
+import type { AppRouter } from "@kalo/trpc/types/server/routers/_app";
 import useRouterQuery from "@lib/hooks/useRouterQuery";
 import type { TRPCClientErrorLike } from "@trpc/client";
 import dynamic from "next/dynamic";

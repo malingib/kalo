@@ -1,6 +1,6 @@
-import { getAllDelegationCredentialsForUserByAppSlug } from "@calcom/app-store/delegationCredential";
-import { getAppFromSlug } from "@calcom/app-store/utils";
-import { prisma } from "@calcom/prisma";
+import { getAllDelegationCredentialsForUserByAppSlug } from "@kalo/app-store/delegationCredential";
+import { getAppFromSlug } from "@kalo/app-store/utils";
+import { prisma } from "@kalo/prisma";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TQueryForDependenciesInputSchema } from "./queryForDependencies.schema";

@@ -3,7 +3,7 @@ import withEmbedSsrAppDir from "app/WithEmbedSSR";
 import type { PageProps as ServerPageProps } from "app/_types";
 import { cookies, headers } from "next/headers";
 
-import { loadTranslations } from "@calcom/i18n/server";
+import { loadTranslations } from "@kalo/i18n/server";
 
 import { buildLegacyCtx } from "@lib/buildLegacyCtx";
 

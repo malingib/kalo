@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import classNames from "@calcom/ui/classNames";
-import { TextField } from "@calcom/ui/components/form";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import classNames from "@kalo/ui/classNames";
+import { TextField } from "@kalo/ui/components/form";
 
 const EventTypeAppSettingsInterface: EventTypeAppSettingsComponent = ({ eventType, disabled }) => {
   const { t } = useLocale();

@@ -6368,7 +6368,7 @@
     }
   },
   "info": {
-    "title": "Cal.diy API v2",
+    "title": "Kalo API v2",
     "description": "",
     "version": "1.0.0",
     "contact": {}
@@ -8270,7 +8270,7 @@
           },
           "disableOnPrefill": {
             "type": "boolean",
-            "description": "Disable this booking field if the URL contains query parameter with key equal to the slug and prefill it with the provided value.      For example, if URL contains query parameter `&guests=bob@cal.com`,      the guests field will be prefilled with this value and disabled. In case of Booker atom need to pass 'guests' to defaultFormValues prop with the desired value e.g. `defaultFormValues={{guests: ['bob@gmail.com', 'alice@gmail.com']}}`. See guide https://cal.com/docs/platform/guides/booking-field"
+            "description": "Disable this booking field if the URL contains query parameter with key equal to the slug and prefill it with the provided value.      For example, if URL contains query parameter `&guests=bob@kalo`,      the guests field will be prefilled with this value and disabled. In case of Booker atom need to pass 'guests' to defaultFormValues prop with the desired value e.g. `defaultFormValues={{guests: ['bob@gmail.com', 'alice@gmail.com']}}`. See guide https://cal.com/docs/platform/guides/booking-field"
           }
         },
         "required": ["slug"]
@@ -8740,7 +8740,7 @@
           },
           "locations": {
             "type": "array",
-            "description": "Locations where the event will take place. If not provided, cal video link will be used as the location. Note: Setting a location to a conferencing app does not install the app - the app must already be installed. Via API, only Google Meet (google-meet), Microsoft Teams (office365-video), and Zoom (zoom) can be installed. Cal Video (cal-video) is installed by default. All other conferencing apps must be connected via the Cal.diy web app and are not available for Platform plan customers. You can only set an event type location to an app that has already been installed or connected.",
+            "description": "Locations where the event will take place. If not provided, cal video link will be used as the location. Note: Setting a location to a conferencing app does not install the app - the app must already be installed. Via API, only Google Meet (google-meet), Microsoft Teams (office365-video), and Zoom (zoom) can be installed. Cal Video (cal-video) is installed by default. All other conferencing apps must be connected via the Kalo web app and are not available for Platform plan customers. You can only set an event type location to an app that has already been installed or connected.",
             "items": {
               "oneOf": [
                 {
@@ -9150,7 +9150,7 @@
           },
           "disableOnPrefill": {
             "type": "boolean",
-            "description": "Disable this booking field if the URL contains query parameter with key equal to the slug and prefill it with the provided value.      For example, if URL contains query parameter `&guests=lauris@cal.com`,      the guests field will be prefilled with this value and disabled."
+            "description": "Disable this booking field if the URL contains query parameter with key equal to the slug and prefill it with the provided value.      For example, if URL contains query parameter `&guests=lauris@kalo`,      the guests field will be prefilled with this value and disabled."
           },
           "isDefault": {
             "type": "object",
@@ -10855,7 +10855,7 @@
           },
           "locations": {
             "type": "array",
-            "description": "Locations where the event will take place. If not provided, cal video link will be used as the location. Note: Setting a location to a conferencing app does not install the app - the app must already be installed. Via API, only Google Meet (google-meet), Microsoft Teams (office365-video), and Zoom (zoom) can be installed. Cal Video (cal-video) is installed by default. All other conferencing apps must be connected via the Cal.diy web app and are not available for Platform plan customers. You can only set an event type location to an app that has already been installed or connected.",
+            "description": "Locations where the event will take place. If not provided, cal video link will be used as the location. Note: Setting a location to a conferencing app does not install the app - the app must already be installed. Via API, only Google Meet (google-meet), Microsoft Teams (office365-video), and Zoom (zoom) can be installed. Cal Video (cal-video) is installed by default. All other conferencing apps must be connected via the Kalo web app and are not available for Platform plan customers. You can only set an event type location to an app that has already been installed or connected.",
             "items": {
               "oneOf": [
                 {

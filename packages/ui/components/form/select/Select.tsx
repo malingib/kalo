@@ -3,8 +3,8 @@ import * as React from "react";
 import type { GroupBase, SingleValue, MultiValue } from "react-select";
 import ReactSelect from "react-select";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import cx from "@calcom/ui/classNames";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import cx from "@kalo/ui/classNames";
 
 import { Label } from "../inputs/Label";
 import { inputStyles } from "../inputs/TextField";

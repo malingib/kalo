@@ -1,9 +1,9 @@
 import type { Kysely } from "kysely";
 
-import type { TextFilterValue } from "@calcom/features/data-table/lib/types";
-import type { DB } from "@calcom/kysely";
-import type { PrismaClient } from "@calcom/prisma";
-import { getBookings } from "@calcom/trpc/server/routers/viewer/bookings/get.handler";
+import type { TextFilterValue } from "@kalo/features/data-table/lib/types";
+import type { DB } from "@kalo/kysely";
+import type { PrismaClient } from "@kalo/prisma";
+import { getBookings } from "@kalo/trpc/server/routers/viewer/bookings/get.handler";
 
 type InputByStatus = "upcoming" | "recurring" | "past" | "cancelled" | "unconfirmed";
 export type SortOptions = {

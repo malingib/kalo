@@ -1,4 +1,4 @@
-Contact: security@cal.com
+Contact: security@kalo
 Preferred-Languages: en
 Canonical: https://cal.com/.well-known/security.txt
-Policy: https://github.com/calcom/cal.diy/security/policy
+Policy: https://github.com/calcom/kalo/security/policy

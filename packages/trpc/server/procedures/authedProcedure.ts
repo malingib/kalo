@@ -1,4 +1,4 @@
-import type { getUserSession } from "@calcom/features/auth/lib/userFromSessionUtils";
+import type { getUserSession } from "@kalo/features/auth/lib/userFromSessionUtils";
 import { errorConversionMiddleware } from "../middlewares/errorConversionMiddleware";
 import perfMiddleware from "../middlewares/perfMiddleware";
 import { isAdminMiddleware, isAuthed, isOrgAdminMiddleware } from "../middlewares/sessionMiddleware";

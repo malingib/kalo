@@ -1,17 +1,17 @@
 import { useMemo } from "react";
 
-import { getPaymentAppData } from "@calcom/app-store/_utils/payments/getPaymentAppData";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import { Price } from "@calcom/features/bookings/components/event-meta/Price";
-import { PriceIcon } from "@calcom/web/modules/bookings/components/event-meta/PriceIcon";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import { markdownToSafeHTML } from "@calcom/lib/markdownToSafeHTML";
-import type { baseEventTypeSelect } from "@calcom/prisma";
-import type { Prisma, EventType } from "@calcom/prisma/client";
-import { SchedulingType } from "@calcom/prisma/enums";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
+import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import { Price } from "@kalo/features/bookings/components/event-meta/Price";
+import { PriceIcon } from "@kalo/web/modules/bookings/components/event-meta/PriceIcon";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import { markdownToSafeHTML } from "@kalo/lib/markdownToSafeHTML";
+import type { baseEventTypeSelect } from "@kalo/prisma";
+import type { Prisma, EventType } from "@kalo/prisma/client";
+import { SchedulingType } from "@kalo/prisma/enums";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
 
 export type EventTypeDescriptionProps = {
   eventType: Pick<

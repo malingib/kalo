@@ -3,12 +3,12 @@ import {
   EVENT_TYPE_WRITE,
   SUCCESS_STATUS,
   VERSION_2024_06_14,
-} from "@calcom/platform-constants";
+} from "@kalo/platform-constants";
 import {
   CreateEventTypeInput_2024_06_14,
   GetEventTypesQuery_2024_06_14,
   UpdateEventTypeInput_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import {
   Body,
   Controller,

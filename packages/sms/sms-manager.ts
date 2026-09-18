@@ -1,9 +1,9 @@
-import dayjs from "@calcom/dayjs";
-import isSmsCalEmail from "@calcom/lib/isSmsCalEmail";
-import { piiHasher } from "@calcom/lib/server/PiiHasher";
-import { checkSMSRateLimit } from "@calcom/lib/smsLockState";
-import { TimeFormat } from "@calcom/lib/timeFormat";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import dayjs from "@kalo/dayjs";
+import isSmsCalEmail from "@kalo/lib/isSmsCalEmail";
+import { piiHasher } from "@kalo/lib/server/PiiHasher";
+import { checkSMSRateLimit } from "@kalo/lib/smsLockState";
+import { TimeFormat } from "@kalo/lib/timeFormat";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 const handleSendingSMS = async ({
   reminderPhone,

@@ -5,8 +5,8 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { prisma } from "@calcom/prisma";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { prisma } from "@kalo/prisma";
 
 import { buildLegacyCtx } from "@lib/buildLegacyCtx";
 import { getServerSideProps } from "@lib/video/meeting-not-started/[uid]/getServerSideProps";

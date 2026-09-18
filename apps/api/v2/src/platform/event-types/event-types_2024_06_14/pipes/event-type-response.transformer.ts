@@ -1,7 +1,7 @@
 import { Injectable, PipeTransform } from "@nestjs/common";
 import { plainToClass } from "class-transformer";
 
-import { EventTypeOutput_2024_06_14 } from "@calcom/platform-types";
+import { EventTypeOutput_2024_06_14 } from "@kalo/platform-types";
 
 import {
   DatabaseEventType,

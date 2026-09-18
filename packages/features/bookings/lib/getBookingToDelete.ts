@@ -1,5 +1,5 @@
-import prisma, { bookingMinimalSelect } from "@calcom/prisma";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
+import prisma, { bookingMinimalSelect } from "@kalo/prisma";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
 
 export async function getBookingToDelete(id: number | undefined, uid: string | undefined) {
   return await prisma.booking.findUniqueOrThrow({

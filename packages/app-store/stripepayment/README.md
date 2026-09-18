@@ -1,13 +1,13 @@
 <!-- PROJECT LOGO -->
 <div align="center">
-  <a href="https://github.com/calcom/cal.diy">
+  <a href="https://github.com/calcom/kalo">
     <img src="https://user-images.githubusercontent.com/8019099/133430653-24422d2a-3c8d-4052-9ad6-0580597151ee.png" alt="Logo">
   </a>
 </div>
 
 # Stripe Payment Integration
 
-Stripe payment integration for Cal.diy. All code is licensed under the [MIT License](../../../LICENSE).
+Stripe payment integration for Kalo. All code is licensed under the [MIT License](../../../LICENSE).
 
 ## Setting up Stripe
 

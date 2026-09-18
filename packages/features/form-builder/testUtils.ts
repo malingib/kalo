@@ -1,7 +1,7 @@
 import { fireEvent, waitFor, screen, within } from "@testing-library/react";
 import { vi } from "vitest";
 
-import { getBookingFieldsWithSystemFields } from "@calcom/features/bookings/lib/getBookingFields";
+import { getBookingFieldsWithSystemFields } from "@kalo/features/bookings/lib/getBookingFields";
 
 export interface FieldProps {
   fieldType: string;

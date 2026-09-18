@@ -1,9 +1,9 @@
-import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import { withSelectedCalendars } from "@calcom/lib/server/withSelectedCalendars";
-import { availabilityUserSelect } from "@calcom/prisma";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
+import { enrichUserWithDelegationCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import { withSelectedCalendars } from "@kalo/lib/server/withSelectedCalendars";
+import { availabilityUserSelect } from "@kalo/prisma";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
 
 export async function findUsersForAvailabilityCheck({ where }: { where: Prisma.UserWhereInput }) {
   const user = await prisma.user.findFirst({

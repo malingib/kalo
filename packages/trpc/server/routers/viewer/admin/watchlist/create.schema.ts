@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { WatchlistType } from "@calcom/prisma/enums";
+import { WatchlistType } from "@kalo/prisma/enums";
 
 export const ZCreateWatchlistEntryInputSchema = z.object({
   type: z.nativeEnum(WatchlistType),

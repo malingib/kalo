@@ -1,4 +1,4 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prisma";
+import prismaMock from "@kalo/testing/lib/__mocks__/prisma";
 
 import {
   getBooker,
@@ -13,19 +13,19 @@ import {
   getDate,
   getMockBookingAttendee,
   mockCalendarToHaveNoBusySlots,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
-import { createMockNextJsRequest } from "@calcom/testing/lib/bookingScenario/createMockNextJsRequest";
-import { getMockRequestDataForBooking } from "@calcom/testing/lib/bookingScenario/getMockRequestDataForBooking";
-import { getMockRequestDataForCancelBooking } from "@calcom/testing/lib/bookingScenario/getMockRequestDataForCancelBooking";
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
+import { createMockNextJsRequest } from "@kalo/testing/lib/bookingScenario/createMockNextJsRequest";
+import { getMockRequestDataForBooking } from "@kalo/testing/lib/bookingScenario/getMockRequestDataForBooking";
+import { getMockRequestDataForCancelBooking } from "@kalo/testing/lib/bookingScenario/getMockRequestDataForCancelBooking";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
 
 import { describe, test, vi, expect } from "vitest";
 
-import { appStoreMetadata } from "@calcom/app-store/apps.metadata.generated";
-import * as emailManager from "@calcom/emails/email-manager";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { SchedulingType } from "@calcom/prisma/enums";
-import { BookingStatus } from "@calcom/prisma/enums";
+import { appStoreMetadata } from "@kalo/app-store/apps.metadata.generated";
+import * as emailManager from "@kalo/emails/email-manager";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { SchedulingType } from "@kalo/prisma/enums";
+import { BookingStatus } from "@kalo/prisma/enums";
 
 import { getNewBookingHandler } from "../../handleNewBooking/test/getNewBookingHandler";
 import * as handleSeatsModule from "../handleSeats";
@@ -1864,7 +1864,7 @@ describe("handleSeats", () => {
 
     describe("Canceling a booking", async () => {
       test("When canceling a booking, only remove that single attendee", async () => {
-        const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking"))
+        const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking"))
           .default;
 
         const organizer = getOrganizer({
@@ -2014,7 +2014,7 @@ describe("handleSeats", () => {
       });
 
       test("When last attendee cancels a booking, delete event", async () => {
-        const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking"))
+        const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking"))
           .default;
 
         const organizer = getOrganizer({
@@ -2845,7 +2845,7 @@ describe("handleSeats", () => {
 
     describe("Cancelling a booking", () => {
       test("When owner cancels booking, cancel booking for all attendees", async () => {
-        const handleCancelBooking = (await import("@calcom/features/bookings/lib/handleCancelBooking"))
+        const handleCancelBooking = (await import("@kalo/features/bookings/lib/handleCancelBooking"))
           .default;
 
         const booker = getBooker({

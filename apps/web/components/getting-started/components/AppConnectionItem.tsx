@@ -2,15 +2,15 @@ import Link from "next/link";
 import { useState } from "react";
 import posthog from "posthog-js";
 
-import { InstallAppButtonWithoutPlanCheck } from "@calcom/app-store/InstallAppButtonWithoutPlanCheck";
-import type { TDependencyData } from "@calcom/app-store/_appRegistry";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import type { App } from "@calcom/types/App";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
+import { InstallAppButtonWithoutPlanCheck } from "@kalo/app-store/InstallAppButtonWithoutPlanCheck";
+import type { TDependencyData } from "@kalo/app-store/_appRegistry";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import type { App } from "@kalo/types/App";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
 import { ArrowRightIcon, CircleAlertIcon } from "@coss/ui/icons";
 
 interface IAppConnectionItem {

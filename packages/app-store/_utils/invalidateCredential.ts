@@ -1,5 +1,5 @@
-import prisma from "@calcom/prisma";
-import type { CredentialPayload } from "@calcom/types/Credential";
+import prisma from "@kalo/prisma";
+import type { CredentialPayload } from "@kalo/types/Credential";
 
 export const invalidateCredential = async (credentialId: CredentialPayload["id"]) => {
   const credential = await prisma.credential.findUnique({

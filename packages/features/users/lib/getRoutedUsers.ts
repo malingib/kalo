@@ -1,11 +1,11 @@
-import { enrichHostsWithDelegationCredentials } from "@calcom/app-store/delegationCredential";
-import getOrgIdFromMemberOrTeamId from "@calcom/lib/getOrgIdFromMemberOrTeamId";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { RRResetInterval } from "@calcom/prisma/client";
-import type { RRTimestampBasis } from "@calcom/prisma/enums";
-import { SchedulingType } from "@calcom/prisma/enums";
-import type { CredentialPayload } from "@calcom/types/Credential";
+import { enrichHostsWithDelegationCredentials } from "@kalo/app-store/delegationCredential";
+import getOrgIdFromMemberOrTeamId from "@kalo/lib/getOrgIdFromMemberOrTeamId";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { RRResetInterval } from "@kalo/prisma/client";
+import type { RRTimestampBasis } from "@kalo/prisma/enums";
+import { SchedulingType } from "@kalo/prisma/enums";
+import type { CredentialPayload } from "@kalo/types/Credential";
 
 const log = logger.getSubLogger({ prefix: ["[getRoutedUsers]"] });
 

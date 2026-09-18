@@ -1,7 +1,7 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { generateHashedLink } from "@calcom/lib/generateHashedLink";
-import { randomString } from "@calcom/lib/random";
-import type { Schedule, TimeRange } from "@calcom/types/schedule";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { generateHashedLink } from "@kalo/lib/generateHashedLink";
+import { randomString } from "@kalo/lib/random";
+import type { Schedule, TimeRange } from "@kalo/types/schedule";
 import { expect } from "@playwright/test";
 import { JSDOM } from "jsdom";
 import { test, todo } from "./lib/fixtures";

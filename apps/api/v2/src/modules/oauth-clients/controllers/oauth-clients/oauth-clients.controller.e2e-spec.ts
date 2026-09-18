@@ -10,13 +10,13 @@ import {
   SCHEDULE_READ,
   SCHEDULE_WRITE,
   SUCCESS_STATUS,
-} from "@calcom/platform-constants";
+} from "@kalo/platform-constants";
 import type {
   ApiSuccessResponse,
   CreateOAuthClientInput,
   UpdateOAuthClientInput,
-} from "@calcom/platform-types";
-import type { Membership, PlatformOAuthClient, Team, User } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { Membership, PlatformOAuthClient, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

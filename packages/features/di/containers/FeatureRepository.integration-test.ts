@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 
-import { prisma } from "@calcom/prisma";
+import { prisma } from "@kalo/prisma";
 
 import { getFeatureRepository } from "./FeatureRepository";
 

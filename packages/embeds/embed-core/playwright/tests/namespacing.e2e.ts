@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 
  
-import { test } from "@calcom/web/playwright/lib/fixtures";
+import { test } from "@kalo/web/playwright/lib/fixtures";
 
 import { getEmbedIframe } from "../lib/testUtils";
 

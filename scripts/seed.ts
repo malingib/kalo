@@ -1,17 +1,17 @@
 import { createHash } from "node:crypto";
 import process from "node:process";
-import dailyMeta from "@calcom/app-store/dailyvideo/_metadata";
-import googleMeetMeta from "@calcom/app-store/googlevideo/_metadata";
-import zoomMeta from "@calcom/app-store/zoomvideo/_metadata";
-import dayjs from "@calcom/dayjs";
-import { hashPassword } from "@calcom/lib/auth/hashPassword";
-import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@calcom/lib/availability";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { prisma } from "@calcom/prisma";
-import type { Membership, Team, User, UserPermissionRole } from "@calcom/prisma/client";
-import { Prisma } from "@calcom/prisma/client";
-import { BookingStatus, MembershipRole, RedirectType, SchedulingType } from "@calcom/prisma/enums";
-import type { Ensure } from "@calcom/types/utils";
+import dailyMeta from "@kalo/app-store/dailyvideo/_metadata";
+import googleMeetMeta from "@kalo/app-store/googlevideo/_metadata";
+import zoomMeta from "@kalo/app-store/zoomvideo/_metadata";
+import dayjs from "@kalo/dayjs";
+import { hashPassword } from "@kalo/lib/auth/hashPassword";
+import { DEFAULT_SCHEDULE, getAvailabilityFromSchedule } from "@kalo/lib/availability";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { prisma } from "@kalo/prisma";
+import type { Membership, Team, User, UserPermissionRole } from "@kalo/prisma/client";
+import { Prisma } from "@kalo/prisma/client";
+import { BookingStatus, MembershipRole, RedirectType, SchedulingType } from "@kalo/prisma/enums";
+import type { Ensure } from "@kalo/types/utils";
 import { uuid } from "short-uuid";
 import type z from "zod";
 import type { teamMetadataSchema } from "../packages/prisma/zod-utils";
@@ -1027,11 +1027,11 @@ async function main() {
     });
   }
 
-  if (process.env.E2E_TEST_CALCOM_QA_EMAIL && process.env.E2E_TEST_CALCOM_QA_PASSWORD) {
+  if (process.env.E2E_TEST_KALO_QA_EMAIL && process.env.E2E_TEST_KALO_QA_PASSWORD) {
     await createUserAndEventType({
       user: {
-        email: process.env.E2E_TEST_CALCOM_QA_EMAIL || "qa@example.com",
-        password: process.env.E2E_TEST_CALCOM_QA_PASSWORD || "qa",
+        email: process.env.E2E_TEST_KALO_QA_EMAIL || "qa@example.com",
+        password: process.env.E2E_TEST_KALO_QA_PASSWORD || "qa",
         username: "qa",
         name: "QA Example",
       },
@@ -1043,10 +1043,10 @@ async function main() {
         },
       ],
       credentials: [
-        process.env.E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS
+        process.env.E2E_TEST_KALO_QA_GCAL_CREDENTIALS
           ? {
               type: "google_calendar",
-              key: JSON.parse(process.env.E2E_TEST_CALCOM_QA_GCAL_CREDENTIALS) as Prisma.JsonObject,
+              key: JSON.parse(process.env.E2E_TEST_KALO_QA_GCAL_CREDENTIALS) as Prisma.JsonObject,
               appId: "google-calendar",
             }
           : null,

@@ -2,8 +2,8 @@ import { ApiExtraModels, ApiProperty, getSchemaPath } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsIn } from "class-validator";
 
-import { SUCCESS_STATUS, ERROR_STATUS } from "@calcom/platform-constants";
-import { EventTypeOutput_2024_06_14, TeamEventTypeOutput_2024_06_14 } from "@calcom/platform-types";
+import { SUCCESS_STATUS, ERROR_STATUS } from "@kalo/platform-constants";
+import { EventTypeOutput_2024_06_14, TeamEventTypeOutput_2024_06_14 } from "@kalo/platform-types";
 
 @ApiExtraModels(EventTypeOutput_2024_06_14, TeamEventTypeOutput_2024_06_14)
 export class GetEventTypeOutput_2024_06_14 {

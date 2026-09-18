@@ -1,5 +1,5 @@
-import { ShellSubHeading } from "@calcom/ui/components/layout";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { ShellSubHeading } from "@kalo/ui/components/layout";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 export function SkeletonLoader({ className }: { className?: string }) {
   return (

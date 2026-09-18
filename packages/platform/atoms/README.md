@@ -6,8 +6,8 @@ Customizable UI components to integrate scheduling into your services.
 Currently supports React 18, React 19, Next 14 and Next 15.
 
 ### Changelog 
-1. Changelog can be viewed [here](https://github.com/calcom/cal.diy/blob/main/packages/platform/atoms/CHANGELOG.md).
-2. For upcoming changes in the next release click [here](https://github.com/calcom/cal.diy/pulls?q=is%3Apr+is%3Aopen+%22chore%3A+version+packages%22+in%3Atitle) to see a pull request titled `chore: version packages` containing next release changes.
+1. Changelog can be viewed [here](https://github.com/calcom/kalo/blob/main/packages/platform/atoms/CHANGELOG.md).
+2. For upcoming changes in the next release click [here](https://github.com/calcom/kalo/pulls?q=is%3Apr+is%3Aopen+%22chore%3A+version+packages%22+in%3Atitle) to see a pull request titled `chore: version packages` containing next release changes.
 
 ### Versioning
 1. We use semantic versioning meaning that all updates except major should be safe to update.
@@ -23,10 +23,10 @@ Documentation on how to get started with platform solution is [here](https://cal
 
 ### Versioning
 We use a tool called changesets that helps documenting changes related to your development branch and then manages
-atoms versioning and publishing to [npm](https://www.npmjs.com/package/@calcom/atoms). We need to add a log documenting changes and then letting changesets to gather the changes, update Changelog and update version in `package.json`.
+atoms versioning and publishing to [npm](https://www.npmjs.com/package/@kalo/atoms). We need to add a log documenting changes and then letting changesets to gather the changes, update Changelog and update version in `package.json`.
 
-1. Let's say you are on a development branch and just finished adding a new feature to atoms. While on the development branch, you have to add a log documenting this feature so that it later ends up in the atoms [CHANGELOG.md](https://github.com/calcom/cal.diy/blob/main/packages/platform/atoms/CHANGELOG.md).
-- Run `yarn changesets-add` from monorepo root and then select `@calcom/atoms` using space bar and press enter to go to the next step.
+1. Let's say you are on a development branch and just finished adding a new feature to atoms. While on the development branch, you have to add a log documenting this feature so that it later ends up in the atoms [CHANGELOG.md](https://github.com/calcom/kalo/blob/main/packages/platform/atoms/CHANGELOG.md).
+- Run `yarn changesets-add` from monorepo root and then select `@kalo/atoms` using space bar and press enter to go to the next step.
 - Then, you have to select whether this is a major, minor or patch update following semantic versioning. Since it is a feature skip major by pressing enter and then select minor by pressing space bar and press enter to go to the next step.
 - Then, you have to write a description of the change and press enter. This will generate a log file in the `.changeset` directory e.g. `.changeset/hungry-donuts-cross.md`. 
 - Commit this log file to your development branch and push it.
@@ -45,7 +45,7 @@ Atoms are tested in CI using e2e tests within the example platform app. To run t
 ```
 NEXT_PUBLIC_X_CAL_ID=""
 X_CAL_SECRET_KEY=""
-NEXT_PUBLIC_CALCOM_API_URL="https://api.cal.com/v2"
+NEXT_PUBLIC_KALO_API_URL="https://api.cal.com/v2"
 VITE_BOOKER_EMBED_OAUTH_CLIENT_ID=""
 VITE_BOOKER_EMBED_API_URL="https://api.cal.com/v2"
 ORGANIZATION_ID=""

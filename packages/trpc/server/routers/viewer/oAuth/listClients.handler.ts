@@ -1,5 +1,5 @@
-import { OAuthClientRepository } from "@calcom/features/oauth/repositories/OAuthClientRepository";
-import type { PrismaClient } from "@calcom/prisma";
+import { OAuthClientRepository } from "@kalo/features/oauth/repositories/OAuthClientRepository";
+import type { PrismaClient } from "@kalo/prisma";
 
 import type { TListClientsInputSchema } from "./listClients.schema";
 

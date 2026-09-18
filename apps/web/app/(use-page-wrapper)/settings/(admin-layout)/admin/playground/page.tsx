@@ -1,5 +1,5 @@
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { Icon } from "@calcom/ui/components/icon";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { Icon } from "@kalo/ui/components/icon";
 import { _generateMetadata, getTranslate } from "app/_utils";
 import Link from "next/link";
 

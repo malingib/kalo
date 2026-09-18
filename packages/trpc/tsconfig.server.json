@@ -1,5 +1,5 @@
 {
-  "extends": "@calcom/tsconfig/react-library.json",
+  "extends": "@kalo/tsconfig/react-library.json",
   "include": [
     "../types/@wojtekmaj__react-daterange-picker.d.ts",
     "../types/business-days-plugin.d.ts",

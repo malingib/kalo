@@ -1,8 +1,8 @@
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { prisma } from "@calcom/prisma";
-import type { SelectedCalendar } from "@calcom/prisma/client";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import type { CredentialForCalendarService, CredentialPayload } from "@calcom/types/Credential";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { prisma } from "@kalo/prisma";
+import type { SelectedCalendar } from "@kalo/prisma/client";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import type { CredentialForCalendarService, CredentialPayload } from "@kalo/types/Credential";
 
 type Host<TUser extends { id: number; email: string; credentials: CredentialPayload[] }> = {
   user: TUser;

@@ -1,16 +1,16 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookingReportReason } from "@calcom/prisma/enums";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
-import { Select, Label } from "@calcom/ui/components/form";
-import { TextArea } from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookingReportReason } from "@kalo/prisma/enums";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
+import { Select, Label } from "@kalo/ui/components/form";
+import { TextArea } from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
 
 type BookingReportStatus = "upcoming" | "past" | "cancelled" | "rejected";
 

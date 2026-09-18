@@ -1,4 +1,4 @@
-import { Prisma } from "@calcom/prisma/client";
+import { Prisma } from "@kalo/prisma/client";
 
 import type { FilterValue, SortingState } from "./types";
 import {

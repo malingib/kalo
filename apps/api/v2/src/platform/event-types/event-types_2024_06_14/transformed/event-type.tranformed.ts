@@ -12,7 +12,7 @@ import type { z } from "zod";
 import type {
   CreateEventTypeInput_2024_06_14,
   ConfirmationPolicyTransformedSchema,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export type InputEventTransformed_2024_06_14 = Omit<
   CreateEventTypeInput_2024_06_14,

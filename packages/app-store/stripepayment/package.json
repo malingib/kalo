@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
   "license": "MIT",
-  "name": "@calcom/stripepayment",
+  "name": "@kalo/stripepayment",
   "version": "0.0.0",
   "main": "./index.ts",
   "description": "A Saas company a payment processing software, and application programming interfaces for e-commerce websites and mobile applications.",
@@ -10,13 +10,13 @@
     "downgrade": "ts-node ./downgrade.ts"
   },
   "dependencies": {
-    "@calcom/app-store": "workspace:*",
-    "@calcom/dayjs": "workspace:*",
-    "@calcom/emails": "workspace:*",
-    "@calcom/features": "workspace:*",
-    "@calcom/lib": "workspace:*",
-    "@calcom/prisma": "workspace:*",
-    "@calcom/types": "workspace:*",
+    "@kalo/app-store": "workspace:*",
+    "@kalo/dayjs": "workspace:*",
+    "@kalo/emails": "workspace:*",
+    "@kalo/features": "workspace:*",
+    "@kalo/lib": "workspace:*",
+    "@kalo/prisma": "workspace:*",
+    "@kalo/types": "workspace:*",
     "@stripe/react-stripe-js": "1.10.0",
     "@stripe/stripe-js": "1.35.0",
     "stripe": "9.16.0",
@@ -24,7 +24,7 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*",
+    "@kalo/types": "workspace:*",
     "ts-node": "10.9.2"
   }
 }

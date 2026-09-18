@@ -2,7 +2,7 @@ import { BadRequestException } from "@nestjs/common";
 
 // Mock the platform-libraries module
 const mockValidateUrlForSSRFSync: jest.Mock = jest.fn();
-jest.mock("@calcom/platform-libraries", () => ({
+jest.mock("@kalo/platform-libraries", () => ({
   validateUrlForSSRFSync: (url: string) => mockValidateUrlForSSRFSync(url),
 }));
 

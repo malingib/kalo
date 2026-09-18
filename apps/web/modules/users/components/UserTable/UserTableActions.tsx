@@ -1,8 +1,8 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { ButtonGroup } from "@calcom/ui/components/buttonGroup";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { ButtonGroup } from "@kalo/ui/components/buttonGroup";
 import {
   Dropdown,
   DropdownItem,
@@ -11,9 +11,9 @@ import {
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+} from "@kalo/ui/components/dropdown";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { useSession } from "next-auth/react";
 import type { UserTableAction, UserTableUser } from "./types";
 

@@ -6,9 +6,9 @@ import Link from "next/link";
 import type { CSSProperties, SyntheticEvent } from "react";
 import React from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { EmailField } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { EmailField } from "@kalo/ui/components/form";
 
 import AuthContainer from "@components/ui/AuthContainer";
 

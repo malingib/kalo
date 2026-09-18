@@ -1,7 +1,7 @@
 "use server";
 
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import { NEXTJS_CACHE_TTL } from "@calcom/lib/constants";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import { NEXTJS_CACHE_TTL } from "@kalo/lib/constants";
 import { revalidateTag, unstable_cache } from "next/cache";
 
 const CACHE_TAGS = {

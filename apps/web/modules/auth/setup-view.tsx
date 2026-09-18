@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import AdminAppsList from "~/apps/components/AdminAppsList";
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { inferSSRProps } from "@calcom/types/inferSSRProps";
-import { WizardForm } from "@calcom/ui/components/form";
-import type { WizardStep } from "@calcom/ui/components/form/wizard/WizardForm";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { inferSSRProps } from "@kalo/types/inferSSRProps";
+import { WizardForm } from "@kalo/ui/components/form";
+import type { WizardStep } from "@kalo/ui/components/form/wizard/WizardForm";
 
 import { AdminUserContainer as AdminUser } from "@components/setup/AdminUser";
 

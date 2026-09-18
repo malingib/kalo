@@ -1,6 +1,6 @@
-import { getEventTypesByViewer } from "@calcom/features/eventtypes/lib/getEventTypesByViewer";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import type { PrismaClient } from "@calcom/prisma";
+import { getEventTypesByViewer } from "@kalo/features/eventtypes/lib/getEventTypesByViewer";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import type { PrismaClient } from "@kalo/prisma";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TEventTypeInputSchema } from "./getByViewer.schema";

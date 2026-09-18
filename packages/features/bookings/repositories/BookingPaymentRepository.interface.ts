@@ -1,5 +1,5 @@
-import type { Payment, PaymentOption, Prisma } from "@calcom/prisma/client";
-import type { JsonValue } from "@calcom/types/Json";
+import type { Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
+import type { JsonValue } from "@kalo/types/Json";
 
 export interface BookingPaymentWithCredentials {
   id: number;

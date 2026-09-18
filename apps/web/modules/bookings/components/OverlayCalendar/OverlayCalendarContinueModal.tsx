@@ -1,8 +1,8 @@
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter } from "@calcom/ui/components/dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter } from "@kalo/ui/components/dialog";
 
 interface IOverlayCalendarContinueModalProps {
   open?: boolean;

@@ -1,4 +1,4 @@
-import type { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import type { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type { WebhookSubscriber } from "../dto/types";
 import type { WebhookPayload } from "../factory/types";
 import type {
@@ -90,7 +90,7 @@ export interface IBookingWebhookService extends IBookingEventEmitter, IBookingSc
 
 export interface IRecordingWebhookService {
   emitRecordingReady(params: {
-    evt: import("@calcom/types/Calendar").CalendarEvent;
+    evt: import("@kalo/types/Calendar").CalendarEvent;
     downloadLink: string;
     booking?: {
       id: number;
@@ -104,7 +104,7 @@ export interface IRecordingWebhookService {
   }): Promise<void>;
 
   emitTranscriptionGenerated(params: {
-    evt: import("@calcom/types/Calendar").CalendarEvent;
+    evt: import("@kalo/types/Calendar").CalendarEvent;
     downloadLinks?: {
       transcription?: Array<{
         format: string;

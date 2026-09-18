@@ -1,5 +1,5 @@
-import { sanitizeValue } from "@calcom/lib/csvUtils";
-import type { UserTableUser } from "@calcom/web/modules/users/components/UserTable/types";
+import { sanitizeValue } from "@kalo/lib/csvUtils";
+import type { UserTableUser } from "@kalo/web/modules/users/components/UserTable/types";
 import type { Table } from "@tanstack/react-table";
 
 export const generateHeaderFromReactTable = (table: Table<UserTableUser>): string[] | null => {

@@ -1,9 +1,9 @@
-import { getBookingFieldsWithSystemFields } from "@calcom/features/bookings/lib/getBookingFields";
-import { bookingResponsesDbSchema } from "@calcom/features/bookings/lib/getBookingResponsesSchema";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { BookingStatus } from "@calcom/prisma/enums";
-import { EventTypeMetaDataSchema } from "@calcom/prisma/zod-utils";
+import { getBookingFieldsWithSystemFields } from "@kalo/features/bookings/lib/getBookingFields";
+import { bookingResponsesDbSchema } from "@kalo/features/bookings/lib/getBookingResponsesSchema";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { BookingStatus } from "@kalo/prisma/enums";
+import { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 export const getEventTypesFromDB = async (id: number) => {
   const userSelect = {

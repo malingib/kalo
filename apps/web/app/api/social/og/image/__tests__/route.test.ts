@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { describe, expect, test, vi, beforeEach } from "vitest";
 
-import { getOGImageVersion } from "@calcom/lib/OgImages";
+import { getOGImageVersion } from "@kalo/lib/OgImages";
 
 import { GET } from "../route";
 
@@ -18,15 +18,15 @@ vi.mock("next/og", () => ({
   }),
 }));
 
-vi.mock("@calcom/lib/OgImages", async (importOriginal) => {
+vi.mock("@kalo/lib/OgImages", async (importOriginal) => {
   return await importOriginal();
 });
 
-vi.mock(import("@calcom/lib/constants"), async (importOriginal) => {
+vi.mock(import("@kalo/lib/constants"), async (importOriginal) => {
   return await importOriginal();
 });
 
-vi.mock("@calcom/web/public/app-store/svg-hashes.json", () => ({
+vi.mock("@kalo/web/public/app-store/svg-hashes.json", () => ({
   default: {
     huddle01video: "81a0653b",
     zoomvideo: "d1c78abf",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnFilterType } from "@calcom/features/data-table/lib/types";
+import { ColumnFilterType } from "@kalo/features/data-table/lib/types";
 import type { Table } from "@tanstack/react-table";
 import { useDataTable, useFilterableColumns } from "~/data-table/hooks";
 import { DateRangeFilter } from "./DateRangeFilter";

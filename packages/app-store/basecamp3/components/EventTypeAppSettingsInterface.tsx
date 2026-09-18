@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
-import { Select } from "@calcom/ui/components/form";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
+import { Select } from "@kalo/ui/components/form";
 
 type Basecamp3Project = { label: string; value: string };
 

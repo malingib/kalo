@@ -1,4 +1,4 @@
-import { GOOGLE_CALENDAR, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { GOOGLE_CALENDAR, SUCCESS_STATUS } from "@kalo/platform-constants";
 import {
   Body,
   Controller,

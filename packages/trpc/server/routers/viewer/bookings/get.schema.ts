@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ZTextFilterValue } from "@calcom/features/data-table/lib/types";
+import { ZTextFilterValue } from "@kalo/features/data-table/lib/types";
 
 // Note: offset has .default(0), so input type has it optional but output type has it required
 type BookingStatus = "upcoming" | "recurring" | "past" | "cancelled" | "unconfirmed";

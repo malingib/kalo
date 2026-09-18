@@ -1,8 +1,8 @@
-import { sendAdminOAuthClientNotification } from "@calcom/emails/oauth-email-service";
-import { getTranslation } from "@calcom/i18n/server";
-import { OAuthClientRepository } from "@calcom/features/oauth/repositories/OAuthClientRepository";
-import { generateSecret } from "@calcom/features/oauth/utils/generateSecret";
-import type { PrismaClient } from "@calcom/prisma";
+import { sendAdminOAuthClientNotification } from "@kalo/emails/oauth-email-service";
+import { getTranslation } from "@kalo/i18n/server";
+import { OAuthClientRepository } from "@kalo/features/oauth/repositories/OAuthClientRepository";
+import { generateSecret } from "@kalo/features/oauth/utils/generateSecret";
+import type { PrismaClient } from "@kalo/prisma";
 
 import type { TSubmitClientInputSchema } from "./submitClientForReview.schema";
 

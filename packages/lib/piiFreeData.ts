@@ -1,6 +1,6 @@
-import type { Credential, SelectedCalendar, DestinationCalendar } from "@calcom/prisma/client";
-import type { EventType } from "@calcom/prisma/client";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type { Credential, SelectedCalendar, DestinationCalendar } from "@kalo/prisma/client";
+import type { EventType } from "@kalo/prisma/client";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 function getBooleanStatus(val: unknown) {
   if (process.env.NODE_ENV === "production") {

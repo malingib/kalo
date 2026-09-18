@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach } from "vitest";
 
 import { filterBlockedHosts, type HostWithEmail } from "./filter-blocked-hosts.controller";
 
-vi.mock("@calcom/features/di/watchlist/containers/watchlist", () => ({
+vi.mock("@kalo/features/di/watchlist/containers/watchlist", () => ({
   getWatchlistFeature: vi.fn(),
 }));
 
@@ -36,7 +36,7 @@ function createHost(id: number, email: string, locked: boolean): HostWithEmail {
 describe("filterBlockedHosts", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { getWatchlistFeature } = await import("@calcom/features/di/watchlist/containers/watchlist");
+    const { getWatchlistFeature } = await import("@kalo/features/di/watchlist/containers/watchlist");
     vi.mocked(getWatchlistFeature).mockResolvedValue(mockWatchlistFeature as never);
   });
 

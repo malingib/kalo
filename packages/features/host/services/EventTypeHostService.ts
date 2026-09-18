@@ -1,8 +1,8 @@
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { HostRepository } from "@calcom/features/host/repositories/HostRepository";
-import { MembershipRepository } from "@calcom/features/membership/repositories/MembershipRepository";
-import type { PrismaClient } from "@calcom/prisma/client";
-import { ErrorWithCode } from "@calcom/lib/errors";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { HostRepository } from "@kalo/features/host/repositories/HostRepository";
+import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
+import type { PrismaClient } from "@kalo/prisma/client";
+import { ErrorWithCode } from "@kalo/lib/errors";
 
 import type {
   AssignmentChild,

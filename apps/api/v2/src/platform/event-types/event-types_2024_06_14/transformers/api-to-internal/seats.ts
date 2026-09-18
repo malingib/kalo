@@ -2,7 +2,7 @@ import type {
   CreateEventTypeInput_2024_06_14,
   SeatOptionsTransformedSchema,
   SeatOptionsDisabledSchema,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export function transformSeatsApiToInternal(
   inputSeats: CreateEventTypeInput_2024_06_14["seats"]

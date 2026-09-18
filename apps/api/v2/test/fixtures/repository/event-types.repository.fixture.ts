@@ -2,7 +2,7 @@ import { PrismaReadService } from "@/modules/prisma/prisma-read.service";
 import { PrismaWriteService } from "@/modules/prisma/prisma-write.service";
 import { TestingModule } from "@nestjs/testing";
 
-import type { EventType, Prisma } from "@calcom/prisma/client";
+import type { EventType, Prisma } from "@kalo/prisma/client";
 
 export class EventTypesRepositoryFixture {
   private prismaReadClient: PrismaReadService["prisma"];

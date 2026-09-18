@@ -5,9 +5,9 @@ import { signOut } from "next-auth/react";
 import { Children, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Button } from "@calcom/ui/components/button";
-import { Logo } from "@calcom/ui/components/logo";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Button } from "@kalo/ui/components/button";
+import { Logo } from "@kalo/ui/components/logo";
 
 type OnboardingLayoutProps = {
   userEmail: string;

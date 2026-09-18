@@ -9,8 +9,8 @@
 
 import process from "node:process";
 import type { ParsedUrlQuery } from "node:querystring";
-import { FeatureProvider } from "@calcom/features/flags/context/provider";
-import { useFlags } from "@calcom/web/modules/feature-flags/hooks/useFlags";
+import { FeatureProvider } from "@kalo/features/flags/context/provider";
+import { useFlags } from "@kalo/web/modules/feature-flags/hooks/useFlags";
 import { useViewerI18n } from "@components/I18nLanguageHandler";
 import useIsBookingPage from "@lib/hooks/useIsBookingPage";
 import { useNuqsParams } from "@lib/hooks/useNuqsParams";

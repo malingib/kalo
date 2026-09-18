@@ -1,6 +1,6 @@
-import { generateSecret } from "@calcom/platform-libraries";
-import type { Membership, Team, User } from "@calcom/prisma/client";
-import { AccessScope, OAuthClientStatus, OAuthClientType } from "@calcom/prisma/enums";
+import { generateSecret } from "@kalo/platform-libraries";
+import type { Membership, Team, User } from "@kalo/prisma/client";
+import { AccessScope, OAuthClientStatus, OAuthClientType } from "@kalo/prisma/enums";
 import type { INestApplication } from "@nestjs/common";
 import type { NestExpressApplication } from "@nestjs/platform-express";
 import type { TestingModule } from "@nestjs/testing";

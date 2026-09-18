@@ -1,4 +1,4 @@
-import { BookingWebhookDataFetcher } from "@calcom/features/webhooks/lib/service/data-fetchers/BookingWebhookDataFetcher";
+import { BookingWebhookDataFetcher } from "@kalo/features/webhooks/lib/service/data-fetchers/BookingWebhookDataFetcher";
 import { createModule, type Module } from "@evyweb/ioctopus";
 import { SHARED_TOKENS } from "../../shared/shared.tokens";
 import { DI_TOKENS } from "../../tokens";

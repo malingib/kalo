@@ -1,5 +1,5 @@
-import prismaMock from "@calcom/testing/lib/__mocks__/prismaMock";
-import { EventTypeAutoTranslatedField } from "@calcom/prisma/enums";
+import prismaMock from "@kalo/testing/lib/__mocks__/prismaMock";
+import { EventTypeAutoTranslatedField } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EventTypeTranslationRepository } from "./EventTypeTranslationRepository";
 

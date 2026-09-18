@@ -5,13 +5,13 @@ import {
   getOrganizer,
   getScenarioData,
   TestData,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
 import process from "node:process";
-import { appStoreMetadata } from "@calcom/app-store/apps.metadata.generated";
-import dayjs from "@calcom/dayjs";
-import { BookingStatus, TimeUnit, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { expectWebhookToHaveBeenCalledWith } from "@calcom/testing/lib/bookingScenario/expects";
-import { setupAndTeardown } from "@calcom/testing/lib/bookingScenario/setupAndTeardown";
+import { appStoreMetadata } from "@kalo/app-store/apps.metadata.generated";
+import dayjs from "@kalo/dayjs";
+import { BookingStatus, TimeUnit, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { expectWebhookToHaveBeenCalledWith } from "@kalo/testing/lib/bookingScenario/expects";
+import { setupAndTeardown } from "@kalo/testing/lib/bookingScenario/setupAndTeardown";
 import { describe, expect, test, vi } from "vitest";
 import { WebhookVersion } from "../../../webhooks/lib/interface/IWebhookRepository";
 import { calculateMaxStartTime } from "./common";
@@ -19,11 +19,11 @@ import { getMeetingSessionsFromRoomName } from "./getMeetingSessionsFromRoomName
 import type { TSendNoShowWebhookPayloadSchema } from "./schema";
 import { triggerHostNoShow } from "./triggerHostNoShow";
 
-vi.mock("@calcom/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName", () => ({
+vi.mock("@kalo/features/tasker/tasks/triggerNoShow/getMeetingSessionsFromRoomName", () => ({
   getMeetingSessionsFromRoomName: vi.fn(),
 }));
 
-vi.mock("@calcom/features/di/containers/FeaturesRepository", () => ({
+vi.mock("@kalo/features/di/containers/FeaturesRepository", () => ({
   getFeaturesRepository: vi.fn().mockReturnValue({
     checkIfTeamHasFeature: vi.fn().mockResolvedValue(false),
   }),
@@ -53,7 +53,7 @@ describe("Trigger Host No Show:", () => {
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
       const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${uidOfBooking}@Cal.diy`;
+      const iCalUID = `${uidOfBooking}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
       const bookingStartTime = `${plus1DateString}T05:00:00.000Z`;
 
@@ -195,7 +195,7 @@ describe("Trigger Host No Show:", () => {
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
       const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${uidOfBooking}@Cal.diy`;
+      const iCalUID = `${uidOfBooking}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
       const bookingStartTime = `${plus1DateString}T05:00:00.000Z`;
 
@@ -363,12 +363,12 @@ describe("Trigger Host No Show:", () => {
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
       const uidOfBooking = "j5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${uidOfBooking}@Cal.diy`;
+      const iCalUID = `${uidOfBooking}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
       const bookingStartTime = `${plus1DateString}T05:00:00.000Z`;
 
       const newUidOfBooking = "k5Wv3eHgconAED2j4gcVhP";
-      const newiCalUID = `${newUidOfBooking}@Cal.diy`;
+      const newiCalUID = `${newUidOfBooking}@Kalo`;
       const newBookingStartTime = `${plus1DateString}T05:15:00.000Z`;
 
       await createBookingScenario(
@@ -571,7 +571,7 @@ describe("Trigger Host No Show:", () => {
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
       const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${uidOfBooking}@Cal.diy`;
+      const iCalUID = `${uidOfBooking}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
       const bookingStartTime = `${plus1DateString}T05:00:00.000Z`;
 
@@ -726,7 +726,7 @@ describe("Trigger Host No Show:", () => {
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
 
       const uidOfBooking = "n5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${uidOfBooking}@Cal.diy`;
+      const iCalUID = `${uidOfBooking}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
       const bookingStartTime = `${plus1DateString}T05:00:00.000Z`;
 

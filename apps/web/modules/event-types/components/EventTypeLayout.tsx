@@ -1,11 +1,11 @@
-import type { EventTypeSetupProps, FormValues } from "@calcom/features/eventtypes/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { ButtonGroup } from "@calcom/ui/components/buttonGroup";
-import { VerticalDivider } from "@calcom/ui/components/divider";
+import type { EventTypeSetupProps, FormValues } from "@kalo/features/eventtypes/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { ButtonGroup } from "@kalo/ui/components/buttonGroup";
+import { VerticalDivider } from "@kalo/ui/components/divider";
 import {
   Dropdown,
   DropdownItem,
@@ -13,18 +13,18 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@calcom/ui/components/dropdown";
-import { Label, Switch } from "@calcom/ui/components/form";
-import type { VerticalTabItemProps } from "@calcom/ui/components/navigation";
-import { HorizontalTabs, VerticalTabs } from "@calcom/ui/components/navigation";
-import { Skeleton } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+} from "@kalo/ui/components/dropdown";
+import { Label, Switch } from "@kalo/ui/components/form";
+import type { VerticalTabItemProps } from "@kalo/ui/components/navigation";
+import { HorizontalTabs, VerticalTabs } from "@kalo/ui/components/navigation";
+import { Skeleton } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import {
   EventTypeEmbedButton,
   EventTypeEmbedDialog,
-} from "@calcom/web/modules/embed/components/EventTypeEmbed";
-import WebShell from "@calcom/web/modules/shell/Shell";
+} from "@kalo/web/modules/embed/components/EventTypeEmbed";
+import WebShell from "@kalo/web/modules/shell/Shell";
 import { LoaderIcon } from "@coss/ui/icons";
 import { Suspense, useMemo, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";

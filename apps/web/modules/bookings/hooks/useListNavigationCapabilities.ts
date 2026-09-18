@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from "react";
 
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 
 import type { NavigationCapabilities } from "../store/bookingDetailsSheetStore";
 

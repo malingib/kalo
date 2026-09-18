@@ -1,7 +1,7 @@
 import type { Page, Frame } from "@playwright/test";
 import { expect } from "@playwright/test";
 
-import prisma from "@calcom/prisma";
+import prisma from "@kalo/prisma";
 
 // Routing forms feature removed - getQueuedFormResponse, getAllFormResponses, getLatestQueuedFormResponse no longer needed
 

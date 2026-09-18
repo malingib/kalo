@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 import { DecoyBookingSuccessCard } from "~/bookings/components/DecoyBookingSuccessCard";
 import { useDecoyBooking } from "~/bookings/hooks/useDecoyBooking";
 

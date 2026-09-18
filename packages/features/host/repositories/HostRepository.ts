@@ -1,6 +1,6 @@
-import type { PrismaClient } from "@calcom/prisma";
-import { AppCategories } from "@calcom/prisma/enums";
-import { safeCredentialSelect } from "@calcom/prisma/selects/credential";
+import type { PrismaClient } from "@kalo/prisma";
+import { AppCategories } from "@kalo/prisma/enums";
+import { safeCredentialSelect } from "@kalo/prisma/selects/credential";
 
 export class HostRepository {
   constructor(private prismaClient: PrismaClient) {}

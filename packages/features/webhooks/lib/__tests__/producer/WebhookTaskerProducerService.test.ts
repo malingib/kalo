@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { ILogger } from "../../interface/infrastructure";

@@ -1,6 +1,6 @@
 import { ApiHeaderOptions } from "@nestjs/swagger";
 
-import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
+import { X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
 
 export const OPTIONAL_X_CAL_CLIENT_ID_HEADER: ApiHeaderOptions = {
   name: X_CAL_CLIENT_ID,

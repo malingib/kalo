@@ -1,4 +1,4 @@
-import type BaseEmail from "@calcom/emails/templates/_base-email";
+import type BaseEmail from "@kalo/emails/templates/_base-email";
 
 import type { PasswordReset } from "./templates/forgot-password-email";
 import ForgotPasswordEmail from "./templates/forgot-password-email";

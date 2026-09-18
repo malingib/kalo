@@ -6,32 +6,32 @@ import { useFormContext } from "react-hook-form";
 import type { CSSObjectWithLabel } from "react-select";
 import { components } from "react-select";
 
-import { appStoreMetadata } from "@calcom/app-store/appStoreMetaData";
+import { appStoreMetadata } from "@kalo/app-store/appStoreMetaData";
 import {
   defaultLocations,
   getAppSlugFromLocationType,
   getLocationByType,
   isCalVideoLocation,
   isStaticLocationType,
-} from "@calcom/app-store/locations";
-import { getAppFromSlug } from "@calcom/app-store/utils";
-import PhoneInput from "@calcom/web/components/phone-input";
-import invertLogoOnDark from "@calcom/lib/invertLogoOnDark";
-import type { LocationOption } from "@calcom/features/form/components/LocationSelect";
-import LocationSelect from "@calcom/features/form/components/LocationSelect";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Alert } from "@calcom/ui/components/alert";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
-import { Label, TextField, Select, SettingsToggle } from "@calcom/ui/components/form";
+} from "@kalo/app-store/locations";
+import { getAppFromSlug } from "@kalo/app-store/utils";
+import PhoneInput from "@kalo/web/components/phone-input";
+import invertLogoOnDark from "@kalo/lib/invertLogoOnDark";
+import type { LocationOption } from "@kalo/features/form/components/LocationSelect";
+import LocationSelect from "@kalo/features/form/components/LocationSelect";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Alert } from "@kalo/ui/components/alert";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
+import { Label, TextField, Select, SettingsToggle } from "@kalo/ui/components/form";
 import { LoaderIcon, TriangleAlertIcon } from "@coss/ui/icons";
-import { Skeleton } from "@calcom/ui/components/skeleton";
-import { showToast } from "@calcom/ui/components/toast";
+import { Skeleton } from "@kalo/ui/components/skeleton";
+import { showToast } from "@kalo/ui/components/toast";
 
-import type { FormValues, Host, HostLocation } from "@calcom/features/eventtypes/lib/types";
+import type { FormValues, Host, HostLocation } from "@kalo/features/eventtypes/lib/types";
 import type { TLocationOptions } from "./Locations";
 
 type HostWithLocationOptions = {

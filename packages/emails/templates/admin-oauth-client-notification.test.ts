@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { TFunction } from "i18next";
-import { SUPPORT_MAIL_ADDRESS } from "@calcom/lib/constants";
+import { SUPPORT_MAIL_ADDRESS } from "@kalo/lib/constants";
 
 import AdminOAuthClientNotification from "./admin-oauth-client-notification";
 

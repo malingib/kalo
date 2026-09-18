@@ -2,15 +2,15 @@ import {
   generateGuestMeetingTokenFromOwnerMeetingToken,
   setEnableRecordingUIAndUserIdForOrganizer,
   updateMeetingTokenIfExpired,
-} from "@calcom/app-store/dailyvideo/lib/VideoApiAdapter";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
-import { EventTypeRepository } from "@calcom/features/eventtypes/repositories/eventTypeRepository";
-import { getCalVideoReference } from "@calcom/features/get-cal-video-reference";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { CAL_VIDEO_MEETING_LINK_FOR_TESTING } from "@calcom/lib/constants";
-import { isENVDev } from "@calcom/lib/env";
-import prisma from "@calcom/prisma";
+} from "@kalo/app-store/dailyvideo/lib/VideoApiAdapter";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
+import { EventTypeRepository } from "@kalo/features/eventtypes/repositories/eventTypeRepository";
+import { getCalVideoReference } from "@kalo/features/get-cal-video-reference";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { CAL_VIDEO_MEETING_LINK_FOR_TESTING } from "@kalo/lib/constants";
+import { isENVDev } from "@kalo/lib/env";
+import prisma from "@kalo/prisma";
 import MarkdownIt from "markdown-it";
 import type { GetServerSidePropsContext } from "next";
 

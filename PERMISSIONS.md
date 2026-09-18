@@ -1,4 +1,4 @@
-# Cal.diy Permission Documentation
+# Kalo Permission Documentation
 
 This document maps existing role-based permission checks to the new PBAC (Permission-Based Access Control) system's permission strings in the format `resource.action`.
 
@@ -134,7 +134,7 @@ enum ENTITY_PERMISSION_LEVEL {
 When migrating to the new PBAC system, these existing role-based checks should be replaced with permission string checks using the `permissionMatches` function:
 
 ```typescript
-import { permissionMatches } from "@calcom/features/pbac/types/permission-registry";
+import { permissionMatches } from "@kalo/features/pbac/types/permission-registry";
 
 // Instead of:
 if (!(await isTeamAdmin(ctx.user?.id, input.teamId))) throw new TRPCError({ code: "UNAUTHORIZED" });

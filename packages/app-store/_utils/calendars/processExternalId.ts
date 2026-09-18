@@ -1,4 +1,4 @@
-import type { DestinationCalendar } from "@calcom/prisma/client";
+import type { DestinationCalendar } from "@kalo/prisma/client";
 
 import { metadata as OutlookMetadata } from "../../office365calendar";
 

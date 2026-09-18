@@ -1,7 +1,7 @@
 import type { Session } from "next-auth";
 
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 type MeOptions = {
   ctx: {

@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/emails",
+  "name": "@kalo/emails",
   "sideEffects": false,
   "version": "0.0.0",
   "private": true,
@@ -7,8 +7,8 @@
     "dx": "docker compose up -d || docker-compose up -d"
   },
   "dependencies": {
-    "@calcom/dayjs": "workspace:*",
-    "@calcom/lib": "workspace:*",
+    "@kalo/dayjs": "workspace:*",
+    "@kalo/lib": "workspace:*",
     "rrule": "2.7.1"
   },
   "peerDependencies": {
@@ -16,8 +16,8 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@calcom/testing": "workspace:*",
-    "@calcom/tsconfig": "workspace:*",
-    "@calcom/types": "workspace:*"
+    "@kalo/testing": "workspace:*",
+    "@kalo/tsconfig": "workspace:*",
+    "@kalo/types": "workspace:*"
   }
 }

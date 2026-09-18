@@ -1,7 +1,7 @@
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import type { IOutOfOfficeData } from "@calcom/features/availability/lib/getUserAvailability";
-import type { Availability } from "@calcom/prisma/client";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import type { IOutOfOfficeData } from "@kalo/features/availability/lib/getUserAvailability";
+import type { Availability } from "@kalo/prisma/client";
 
 export type DateRange = {
   start: Dayjs;

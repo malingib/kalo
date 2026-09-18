@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { prisma } from "@calcom/prisma";
+import { prisma } from "@kalo/prisma";
 
 import { convertSvgToPng } from "./imageUtils";
 

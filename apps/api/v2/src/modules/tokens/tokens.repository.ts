@@ -6,7 +6,7 @@ import { Logger } from "@nestjs/common";
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
-import type { PlatformAuthorizationToken } from "@calcom/prisma/client";
+import type { PlatformAuthorizationToken } from "@kalo/prisma/client";
 
 @Injectable()
 export class TokensRepository {

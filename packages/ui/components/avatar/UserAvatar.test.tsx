@@ -1,7 +1,7 @@
 /* eslint-disable playwright/missing-playwright-await */
 import { render } from "@testing-library/react";
 
-import type { UserProfile } from "@calcom/types/UserProfile";
+import type { UserProfile } from "@kalo/types/UserProfile";
 
 import { UserAvatar } from "./UserAvatar";
 

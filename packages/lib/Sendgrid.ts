@@ -2,7 +2,7 @@ import client from "@sendgrid/client";
 import type { ClientRequest } from "@sendgrid/client/src/request";
 import type { ClientResponse } from "@sendgrid/client/src/response";
 
-import logger from "@calcom/lib/logger";
+import logger from "@kalo/lib/logger";
 
 export type SendgridFieldOptions = [string, string][];
 

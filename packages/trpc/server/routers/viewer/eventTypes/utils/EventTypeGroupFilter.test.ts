@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { MembershipRole } from "@calcom/prisma/enums";
+import { MembershipRole } from "@kalo/prisma/enums";
 
 import { filterEvents } from "./EventTypeGroupFilter";
 import type { TeamPermissions } from "./permissionUtils";

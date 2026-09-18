@@ -1,8 +1,8 @@
 import type { TFunction } from "i18next";
 import short from "short-uuid";
 
-import getLabelValueMapFromResponses from "@calcom/lib/bookings/getLabelValueMapFromResponses";
-import { Prisma } from "@calcom/prisma/client";
+import getLabelValueMapFromResponses from "@kalo/lib/bookings/getLabelValueMapFromResponses";
+import { Prisma } from "@kalo/prisma/client";
 import type {
   AdditionalInformation,
   AppsStatus,
@@ -11,7 +11,7 @@ import type {
   RecurringEvent,
   TeamMember,
   VideoCallData,
-} from "@calcom/types/Calendar";
+} from "@kalo/types/Calendar";
 
 import { WEBAPP_URL } from "./constants";
 import isSmsCalEmail from "./isSmsCalEmail";

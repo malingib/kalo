@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { RefundPolicy } from "@calcom/lib/payment/types";
+import { RefundPolicy } from "@kalo/lib/payment/types";
 
 import { eventTypeAppCardZod } from "../eventTypeAppCardZod";
 import { paymentOptions } from "./lib/constants";

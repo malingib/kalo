@@ -1,9 +1,9 @@
 import { RRule } from "rrule";
 
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { detectBrowserTimeFormat, TimeFormat } from "@calcom/lib/timeFormat";
-import type { RecurringEvent } from "@calcom/types/Calendar";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { detectBrowserTimeFormat, TimeFormat } from "@kalo/lib/timeFormat";
+import type { RecurringEvent } from "@kalo/types/Calendar";
 
 import { parseZone } from "./parse-zone";
 

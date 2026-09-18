@@ -1,8 +1,8 @@
-import { EventScheduleItemComponent } from "@calcom/features/troubleshooter/components/EventScheduleItemComponent";
-import { useTroubleshooterStore } from "@calcom/features/troubleshooter/store";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Badge } from "@calcom/ui/components/badge";
+import { EventScheduleItemComponent } from "@kalo/features/troubleshooter/components/EventScheduleItemComponent";
+import { useTroubleshooterStore } from "@kalo/features/troubleshooter/store";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Badge } from "@kalo/ui/components/badge";
 import Link from "next/link";
 
 export { EventScheduleItemComponent };

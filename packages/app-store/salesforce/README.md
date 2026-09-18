@@ -36,7 +36,7 @@ sf package create \
   --name "calcom-sfdc-package" \
   --package-type Unlocked \
   --path force-app \
-  --target-dev-hub team@cal.com
+  --target-dev-hub team@kalo
 ```
 
 This registers the package and updates `sfdx-project.json` with the package ID.
@@ -50,7 +50,7 @@ sf package version create \
   --package "calcom-sfdc-package" \
   --installation-key-bypass \
   --wait 20 \
-  --target-dev-hub team@cal.com
+  --target-dev-hub team@kalo
 ```
 
 Options:
@@ -63,7 +63,7 @@ Options:
 List all package versions:
 
 ```bash
-sf package version list --target-dev-hub team@cal.com
+sf package version list --target-dev-hub team@kalo
 ```
 
 The installation URL format is:
@@ -79,7 +79,7 @@ Beta versions can only be installed in sandboxes/scratch orgs. To allow installa
 ```bash
 sf package version promote \
   --package "calcom-sfdc-package@X.X.X-X" \
-  --target-dev-hub team@cal.com
+  --target-dev-hub team@kalo
 ```
 
 Replace `X.X.X-X` with the version number (e.g., `0.1.0-1`).

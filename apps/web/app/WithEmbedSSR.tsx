@@ -1,7 +1,7 @@
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { notFound, redirect } from "next/navigation";
 
-import { WebAppURL } from "@calcom/lib/WebAppURL";
+import { WebAppURL } from "@kalo/lib/WebAppURL";
 
 export type EmbedProps = {
   isEmbed?: boolean;

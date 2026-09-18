@@ -1,6 +1,6 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    readonly CALCOM_TELEMETRY_DISABLED: string | undefined;
+    readonly KALO_TELEMETRY_DISABLED: string | undefined;
     readonly CALENDSO_ENCRYPTION_KEY: string | undefined;
     readonly DATABASE_URL: string | undefined;
     readonly GOOGLE_API_CREDENTIALS: string | undefined;
@@ -62,8 +62,8 @@ declare namespace NodeJS {
      */
     readonly E2E_TEST_MAILHOG_ENABLED: "1" | undefined;
     readonly NEXT_PUBLIC_APP_NAME: string | "Cal";
-    readonly NEXT_PUBLIC_SUPPORT_MAIL_ADDRESS: string | "help@cal.com";
-    readonly NEXT_PUBLIC_COMPANY_NAME: string | "Cal.com, Inc.";
+    readonly NEXT_PUBLIC_SUPPORT_MAIL_ADDRESS: string | "help@kalo";
+    readonly NEXT_PUBLIC_COMPANY_NAME: string | "Kalo, Inc.";
     readonly NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL: string | undefined;
     readonly NEXT_PUBLIC_WEBSITE_TERMS_URL: string | undefined;
     /**

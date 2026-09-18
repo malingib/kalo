@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
-  "name": "@calcom/intercom",
+  "name": "@kalo/intercom",
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "@calcom/lib": "workspace:*"
+    "@kalo/lib": "workspace:*"
   },
   "devDependencies": {
-    "@calcom/types": "workspace:*"
+    "@kalo/types": "workspace:*"
   },
-  "description": "Enhance your scheduling and appointment management experience with the Intercom Integration for Cal.diy."
+  "description": "Enhance your scheduling and appointment management experience with the Intercom Integration for Kalo."
 }

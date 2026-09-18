@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import { VERSION_2024_06_14 } from "@calcom/platform-constants";
+import { VERSION_2024_06_14 } from "@kalo/platform-constants";
 
 import http from "../lib/http";
 import type { BaseCalProviderProps } from "./BaseCalProvider";

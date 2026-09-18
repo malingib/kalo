@@ -4,14 +4,14 @@ import {
   VERSION_2024_06_11,
   VERSION_2024_06_14,
   VERSION_2024_08_13,
-} from "@calcom/platform-constants";
-import { TRPCError } from "@calcom/platform-libraries";
+} from "@kalo/platform-constants";
+import { TRPCError } from "@kalo/platform-libraries";
 import {
   ApiResponse,
   GetAvailableSlotsInput_2024_04_15,
   RemoveSelectedSlotInput_2024_04_15,
   ReserveSlotInput_2024_04_15,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import { BadRequestException, Body, Controller, Delete, Get, Post, Query, Req, Res } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {

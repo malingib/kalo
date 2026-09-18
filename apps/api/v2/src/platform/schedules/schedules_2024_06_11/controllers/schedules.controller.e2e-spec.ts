@@ -1,4 +1,4 @@
-import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_06_11 } from "@calcom/platform-constants";
+import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_06_11 } from "@kalo/platform-constants";
 import type {
   CreateScheduleInput_2024_06_11,
   CreateScheduleOutput_2024_06_11,
@@ -7,8 +7,8 @@ import type {
   ScheduleOutput_2024_06_11,
   UpdateScheduleInput_2024_06_11,
   UpdateScheduleOutput_2024_06_11,
-} from "@calcom/platform-types";
-import type { User } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

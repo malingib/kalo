@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { selectOOOEntries } from "@calcom/app-store/zapier/api/subscriptions/listOOOEntries";
-import dayjs from "@calcom/dayjs";
-import { sendBookingRedirectNotification } from "@calcom/emails/workflow-email-service";
-import type { GetSubscriberOptions } from "@calcom/features/webhooks/lib/getWebhooks";
-import getWebhooks from "@calcom/features/webhooks/lib/getWebhooks";
-import type { OOOEntryPayloadType } from "@calcom/features/webhooks/lib/sendPayload";
-import sendPayload from "@calcom/features/webhooks/lib/sendPayload";
-import { getTranslation } from "@calcom/i18n/server";
-import prisma from "@calcom/prisma";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { selectOOOEntries } from "@kalo/app-store/zapier/api/subscriptions/listOOOEntries";
+import dayjs from "@kalo/dayjs";
+import { sendBookingRedirectNotification } from "@kalo/emails/workflow-email-service";
+import type { GetSubscriberOptions } from "@kalo/features/webhooks/lib/getWebhooks";
+import getWebhooks from "@kalo/features/webhooks/lib/getWebhooks";
+import type { OOOEntryPayloadType } from "@kalo/features/webhooks/lib/sendPayload";
+import sendPayload from "@kalo/features/webhooks/lib/sendPayload";
+import { getTranslation } from "@kalo/i18n/server";
+import prisma from "@kalo/prisma";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 
 import { TRPCError } from "@trpc/server";
 

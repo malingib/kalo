@@ -1,5 +1,5 @@
-import { appKeysSchemas } from "@calcom/app-store/apps.keys-schemas.generated";
-import type { Prisma } from "@calcom/prisma/client";
+import { appKeysSchemas } from "@kalo/app-store/apps.keys-schemas.generated";
+import type { Prisma } from "@kalo/prisma/client";
 /**
  * Determines if an app should be enabled based on whether it has valid keys.
  * This is used by app registration scripts to prevent enabling apps without proper configuration.

@@ -1,4 +1,4 @@
-import { CheckBookingAndDurationLimitsService } from "@calcom/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
+import { CheckBookingAndDurationLimitsService } from "@kalo/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
 
 import { createModule, bindModuleToClassOnToken, type ModuleLoader } from "../di";
 import { DI_TOKENS } from "../tokens";

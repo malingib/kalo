@@ -3,9 +3,9 @@ import type { TFunction, i18n } from "i18next";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useAtomsContext } from "@calcom/atoms/hooks/useAtomsContext";
-import { AppRouterI18nContext } from "@calcom/web/app/AppRouterI18nProvider";
-import { CustomI18nContext } from "@calcom/web/app/CustomI18nProvider";
+import { useAtomsContext } from "@kalo/atoms/hooks/useAtomsContext";
+import { AppRouterI18nContext } from "@kalo/web/app/AppRouterI18nProvider";
+import { CustomI18nContext } from "@kalo/web/app/CustomI18nProvider";
 
 type useLocaleReturnType = {
   i18n: i18n;

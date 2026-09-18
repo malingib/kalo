@@ -1,9 +1,9 @@
 "use client";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Button } from "@calcom/ui/components/button";
-import { Icon, type IconName } from "@calcom/ui/components/icon";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Button } from "@kalo/ui/components/button";
+import { Icon, type IconName } from "@kalo/ui/components/icon";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";

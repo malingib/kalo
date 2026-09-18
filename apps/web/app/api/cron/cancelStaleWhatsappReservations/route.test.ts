@@ -15,7 +15,7 @@ const { mockPrisma } = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@calcom/prisma", () => ({ default: mockPrisma, prisma: mockPrisma }));
+vi.mock("@kalo/prisma", () => ({ default: mockPrisma, prisma: mockPrisma }));
 // The wrapper only adds error handling — test the handler directly.
 vi.mock("app/api/defaultResponderForAppDir", () => ({
   defaultResponderForAppDir: (fn: (...args: unknown[]) => unknown) => fn,

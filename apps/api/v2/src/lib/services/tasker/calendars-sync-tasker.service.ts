@@ -2,7 +2,7 @@ import { Logger } from "@/lib/logger.bridge";
 import { CalendarsTaskService } from "@/lib/services/tasker/calendars-task.service";
 import { Injectable } from "@nestjs/common";
 
-import { CalendarsSyncTasker as BaseCalendarsSyncTasker } from "@calcom/platform-libraries/calendars";
+import { CalendarsSyncTasker as BaseCalendarsSyncTasker } from "@kalo/platform-libraries/calendars";
 
 @Injectable()
 export class CalendarsSyncTaskerService extends BaseCalendarsSyncTasker {

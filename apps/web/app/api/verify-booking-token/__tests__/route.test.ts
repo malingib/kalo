@@ -1,4 +1,4 @@
-import { confirmHandler } from "@calcom/trpc/server/routers/viewer/bookings/confirm.handler";
+import { confirmHandler } from "@kalo/trpc/server/routers/viewer/bookings/confirm.handler";
 import type { NextRequest } from "next/server";
 import type { Mock } from "vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -31,7 +31,7 @@ vi.mock("next/server", () => ({
   },
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {
     booking: {
       findUnique: vi.fn().mockImplementation(({ where }: { where: { oneTimePassword: string } }) => {
@@ -56,17 +56,17 @@ vi.mock("@calcom/prisma", () => ({
   },
 }));
 
-vi.mock("@calcom/trpc/server/routers/viewer/bookings/confirm.handler", () => ({
+vi.mock("@kalo/trpc/server/routers/viewer/bookings/confirm.handler", () => ({
   confirmHandler: vi.fn(),
 }));
 
-vi.mock("@calcom/lib/tracing/factory", () => ({
+vi.mock("@kalo/lib/tracing/factory", () => ({
   distributedTracing: {
     createTrace: vi.fn().mockReturnValue({}),
   },
 }));
 
-vi.mock("@calcom/features/booking-audit/lib/makeActor", () => ({
+vi.mock("@kalo/features/booking-audit/lib/makeActor", () => ({
   makeUserActor: vi.fn().mockReturnValue({ type: "user", id: "test-uuid" }),
 }));
 

@@ -1,8 +1,8 @@
-import { DEFAULT_WEBHOOK_VERSION } from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-import type { EventPayloadType } from "@calcom/features/webhooks/lib/sendPayload";
-import sendPayload from "@calcom/features/webhooks/lib/sendPayload";
-import { validateUrlForSSRFSync } from "@calcom/lib/ssrfProtection";
-import { getTranslation } from "@calcom/i18n/server";
+import { DEFAULT_WEBHOOK_VERSION } from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+import type { EventPayloadType } from "@kalo/features/webhooks/lib/sendPayload";
+import sendPayload from "@kalo/features/webhooks/lib/sendPayload";
+import { validateUrlForSSRFSync } from "@kalo/lib/ssrfProtection";
+import { getTranslation } from "@kalo/i18n/server";
 
 import type { TTestTriggerInputSchema } from "./testTrigger.schema";
 
@@ -46,7 +46,7 @@ export const testTriggerHandler = async ({ ctx: _ctx, input }: TestTriggerOption
     ],
     organizer: {
       name: "Cal",
-      email: "no-reply@cal.com",
+      email: "no-reply@kalo",
       timeZone: "Europe/London",
       language,
     },

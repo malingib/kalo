@@ -3,18 +3,18 @@
 import type { ChangeEventHandler } from "react";
 import { useState } from "react";
 
-import { AllApps } from "@calcom/web/modules/apps/components/AllApps";
-import { AppStoreCategories } from "@calcom/web/modules/apps/components/Categories";
-import { PopularAppsSlider } from "@calcom/web/modules/apps/components/PopularAppsSlider";
-import { RecentAppsSlider } from "@calcom/web/modules/apps/components/RecentAppsSlider";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { AppCategories } from "@calcom/prisma/enums";
-import type { AppFrontendPayload } from "@calcom/types/App";
-import classNames from "@calcom/ui/classNames";
-import { TextField } from "@calcom/ui/components/form";
+import { AllApps } from "@kalo/web/modules/apps/components/AllApps";
+import { AppStoreCategories } from "@kalo/web/modules/apps/components/Categories";
+import { PopularAppsSlider } from "@kalo/web/modules/apps/components/PopularAppsSlider";
+import { RecentAppsSlider } from "@kalo/web/modules/apps/components/RecentAppsSlider";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { AppCategories } from "@kalo/prisma/enums";
+import type { AppFrontendPayload } from "@kalo/types/App";
+import classNames from "@kalo/ui/classNames";
+import { TextField } from "@kalo/ui/components/form";
 import { SearchIcon } from "@coss/ui/icons";
-import type { HorizontalTabItemProps } from "@calcom/ui/components/navigation";
-import { HorizontalTabs } from "@calcom/ui/components/navigation";
+import type { HorizontalTabItemProps } from "@kalo/ui/components/navigation";
+import { HorizontalTabs } from "@kalo/ui/components/navigation";
 
 import AppsLayout from "@components/apps/layouts/AppsLayout";
 

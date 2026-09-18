@@ -1,8 +1,8 @@
-import getCrm from "@calcom/app-store/_utils/getCrm";
-import logger from "@calcom/lib/logger";
-import type { CalendarEvent, CalEventResponses } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { CRM, ContactCreateInput } from "@calcom/types/CrmService";
+import getCrm from "@kalo/app-store/_utils/getCrm";
+import logger from "@kalo/lib/logger";
+import type { CalendarEvent, CalEventResponses } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { CRM, ContactCreateInput } from "@kalo/types/CrmService";
 
 const log = logger.getSubLogger({ prefix: ["CrmManager"] });
 export default class CrmManager {

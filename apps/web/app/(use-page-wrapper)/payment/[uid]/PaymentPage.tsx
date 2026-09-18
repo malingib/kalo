@@ -1,17 +1,17 @@
 "use client";
 
-import { getPaymentAppData } from "@calcom/app-store/_utils/payments/getPaymentAppData";
-import { getSuccessPageLocationMessage } from "@calcom/app-store/locations";
-import dayjs from "@calcom/dayjs";
-import { sdkActionManager, useIsEmbed } from "@calcom/embed-core/embed-iframe";
-import { PayIcon } from "@calcom/features/bookings/components/event-meta/PayIcon";
-import { Price } from "@calcom/features/bookings/components/event-meta/Price";
-import { APP_NAME, WEBSITE_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import useTheme from "@calcom/lib/hooks/useTheme";
-import { getIs24hClockFromLocalStorage, isBrowserLocale24h } from "@calcom/lib/timeFormat";
-import { CURRENT_TIMEZONE } from "@calcom/lib/timezoneConstants";
-import { localStorage } from "@calcom/lib/webstorage";
+import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
+import { getSuccessPageLocationMessage } from "@kalo/app-store/locations";
+import dayjs from "@kalo/dayjs";
+import { sdkActionManager, useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { PayIcon } from "@kalo/features/bookings/components/event-meta/PayIcon";
+import { Price } from "@kalo/features/bookings/components/event-meta/Price";
+import { APP_NAME, WEBSITE_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import useTheme from "@kalo/lib/hooks/useTheme";
+import { getIs24hClockFromLocalStorage, isBrowserLocale24h } from "@kalo/lib/timeFormat";
+import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
+import { localStorage } from "@kalo/lib/webstorage";
 import classNames from "classnames";
 import dynamic from "next/dynamic";
 import type { FC } from "react";
@@ -29,14 +29,14 @@ type PaymentPageProps = {
 
 const PaypalPaymentComponent = dynamic(
   () =>
-    import("@calcom/web/components/apps/paypal/PaypalPaymentComponent").then((m) => m.PaypalPaymentComponent),
+    import("@kalo/web/components/apps/paypal/PaypalPaymentComponent").then((m) => m.PaypalPaymentComponent),
   {
     ssr: false,
   }
 );
 
 const AlbyPaymentComponent = dynamic(
-  () => import("@calcom/web/components/apps/alby/AlbyPaymentComponent").then((m) => m.AlbyPaymentComponent),
+  () => import("@kalo/web/components/apps/alby/AlbyPaymentComponent").then((m) => m.AlbyPaymentComponent),
   {
     ssr: false,
   }
@@ -44,7 +44,7 @@ const AlbyPaymentComponent = dynamic(
 
 const HitpayPaymentComponent = dynamic(
   () =>
-    import("@calcom/web/components/apps/hitpay/HitpayPaymentComponent").then((m) => m.HitpayPaymentComponent),
+    import("@kalo/web/components/apps/hitpay/HitpayPaymentComponent").then((m) => m.HitpayPaymentComponent),
   {
     ssr: false,
   }
@@ -52,7 +52,7 @@ const HitpayPaymentComponent = dynamic(
 
 const BtcpayPaymentComponent = dynamic(
   () =>
-    import("@calcom/web/components/apps/btcpayserver/BtcpayPaymentComponent").then(
+    import("@kalo/web/components/apps/btcpayserver/BtcpayPaymentComponent").then(
       (m) => m.BtcpayPaymentComponent
     ),
   {

@@ -1,6 +1,6 @@
 import { _generateMetadata } from "app/_utils";
 
-import { APP_NAME } from "@calcom/lib/constants";
+import { APP_NAME } from "@kalo/lib/constants";
 
 import LegacyPage from "~/maintenance/maintenance-view";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@calcom/platform-utils",
+  "name": "@kalo/platform-utils",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,8 +11,8 @@
     "post-install": "yarn build"
   },
   "dependencies": {
-    "@calcom/platform-constants": "workspace:*",
-    "@calcom/platform-types": "workspace:*"
+    "@kalo/platform-constants": "workspace:*",
+    "@kalo/platform-types": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "29.5.12",

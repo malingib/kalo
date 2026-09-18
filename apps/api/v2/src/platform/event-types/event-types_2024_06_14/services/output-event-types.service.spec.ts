@@ -4,7 +4,7 @@ import { OutputEventTypesService_2024_06_14 } from "./output-event-types.service
 import { UsersService } from "@/modules/users/services/users.service";
 import { UsersRepository } from "@/modules/users/users.repository";
 
-jest.mock("@calcom/platform-libraries/organizations", () => ({
+jest.mock("@kalo/platform-libraries/organizations", () => ({
   getBookerBaseUrlSync: jest.fn((slug: string | null) => {
     if (!slug) return "https://cal.com";
     return `https://${slug}.cal.com`;
@@ -203,7 +203,7 @@ describe("OutputEventTypesService_2024_06_14", () => {
     });
 
     it("should handle base URL with trailing slash", () => {
-      const { getBookerBaseUrlSync } = require("@calcom/platform-libraries/organizations");
+      const { getBookerBaseUrlSync } = require("@kalo/platform-libraries/organizations");
       getBookerBaseUrlSync.mockReturnValueOnce("https://acme.cal.com/");
 
       const user = {

@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 
 // eslint-disable-next-line no-restricted-imports
-import { test } from "@calcom/web/playwright/lib/fixtures";
+import { test } from "@kalo/web/playwright/lib/fixtures";
 
 import "../../src/types";
 

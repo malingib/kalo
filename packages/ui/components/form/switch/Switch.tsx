@@ -1,4 +1,4 @@
-import cx from "@calcom/ui/classNames";
+import cx from "@kalo/ui/classNames";
 import { useId } from "@radix-ui/react-id";
 import * as Label from "@radix-ui/react-label";
 import * as PrimitiveSwitch from "@radix-ui/react-switch";

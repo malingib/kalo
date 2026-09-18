@@ -1,7 +1,7 @@
-import { BookingActionMap, BookingActionType } from "@calcom/features/bookings/lib/BookingEmailSmsHandler";
-import { Tasker } from "@calcom/lib/tasker/Tasker";
-import type { ILogger } from "@calcom/lib/tasker/types";
-import { SchedulingType } from "@calcom/prisma/client";
+import { BookingActionMap, BookingActionType } from "@kalo/features/bookings/lib/BookingEmailSmsHandler";
+import { Tasker } from "@kalo/lib/tasker/Tasker";
+import type { ILogger } from "@kalo/lib/tasker/types";
+import { SchedulingType } from "@kalo/prisma/client";
 
 import { BookingEmailAndSmsSyncTasker } from "./BookingEmailAndSmsSyncTasker";
 import { BookingEmailAndSmsTriggerDevTasker } from "./BookingEmailAndSmsTriggerTasker";

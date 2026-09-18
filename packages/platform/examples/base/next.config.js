@@ -3,7 +3,7 @@
 const nextConfig = {
   turbopack: {},
   reactStrictMode: true,
-  transpilePackages: ["@calcom/platform-constants"],
+  transpilePackages: ["@kalo/platform-constants"],
   webpack: (config, { webpack, buildId }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified

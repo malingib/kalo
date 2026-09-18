@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import prisma from "@calcom/prisma";
-import type { ApiKey } from "@calcom/prisma/client";
+import prisma from "@kalo/prisma";
+import type { ApiKey } from "@kalo/prisma/client";
 
 function hashAPIKey(apiKey: string): string {
   return createHash("sha256").update(apiKey).digest("hex");

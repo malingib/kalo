@@ -1,5 +1,5 @@
-import { recurringEventType as recurringEventSchema } from "@calcom/prisma/zod-utils";
-import type { RecurringEvent } from "@calcom/types/Calendar";
+import { recurringEventType as recurringEventSchema } from "@kalo/prisma/zod-utils";
+import type { RecurringEvent } from "@kalo/types/Calendar";
 
 export function isRecurringEvent(obj: unknown): obj is RecurringEvent {
   const parsed = recurringEventSchema.safeParse(obj);

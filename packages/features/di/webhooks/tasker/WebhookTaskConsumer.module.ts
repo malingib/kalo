@@ -1,7 +1,7 @@
 import type { Container } from "@evyweb/ioctopus";
 
-import type { ModuleLoader } from "@calcom/features/di/di";
-import type { WebhookTaskConsumer } from "@calcom/features/webhooks/lib/service/WebhookTaskConsumer";
+import type { ModuleLoader } from "@kalo/features/di/di";
+import type { WebhookTaskConsumer } from "@kalo/features/webhooks/lib/service/WebhookTaskConsumer";
 
 import { moduleLoader as loggerModuleLoader } from "../../shared/services/logger.service";
 import { moduleLoader as prismaModuleLoader } from "../../modules/Prisma";

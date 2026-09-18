@@ -15,7 +15,7 @@ Technology choices must not seep through the application. The Prisma problem ill
 
 ```typescript
 // In a service file
-import { prisma } from "@calcom/prisma";
+import { prisma } from "@kalo/prisma";
 
 async function getBooking(id: number) {
   // Direct Prisma usage in service
@@ -30,7 +30,7 @@ async function getBooking(id: number) {
 
 ```typescript
 // In repository file
-import { prisma } from "@calcom/prisma";
+import { prisma } from "@kalo/prisma";
 
 export class BookingRepository {
   async findById(id: number): Promise<BookingDTO | null> {
@@ -62,4 +62,4 @@ If we ever switch from Prisma to Drizzle or another ORM, the only changes requir
 - DI container wiring for new repositories
 - Nothing else in the codebase should care or change
 
-Reference: [Cal.diy Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Blog](https://cal.com/blog/engineering-in-2026-and-beyond)

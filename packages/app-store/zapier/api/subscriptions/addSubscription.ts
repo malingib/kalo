@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { addSubscription } from "@calcom/features/webhooks/lib/scheduleTrigger";
-import { defaultHandler } from "@calcom/lib/server/defaultHandler";
-import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+import { addSubscription } from "@kalo/features/webhooks/lib/scheduleTrigger";
+import { defaultHandler } from "@kalo/lib/server/defaultHandler";
+import { defaultResponder } from "@kalo/lib/server/defaultResponder";
 
 import { validateAccountOrApiKey } from "../../lib/validateAccountOrApiKey";
 

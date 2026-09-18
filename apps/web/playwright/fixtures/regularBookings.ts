@@ -1,6 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 
-import type { MembershipRole } from "@calcom/prisma/enums";
+import type { MembershipRole } from "@kalo/prisma/enums";
 
 import { localize } from "../lib/localize";
 import { submitAndWaitForResponse } from "../lib/testUtils";

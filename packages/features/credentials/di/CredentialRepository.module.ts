@@ -1,8 +1,8 @@
-import { DI_TOKENS } from "@calcom/features/di/tokens";
-import { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
+import { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+import { moduleLoader as prismaModuleLoader } from "@kalo/features/di/modules/Prisma";
 
-import { createModule, bindModuleToClassOnToken, type ModuleLoader } from "@calcom/features/di/di";
+import { createModule, bindModuleToClassOnToken, type ModuleLoader } from "@kalo/features/di/di";
 
 export const credentialRepositoryModule = createModule();
 const token = DI_TOKENS.CREDENTIAL_REPOSITORY;

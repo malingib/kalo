@@ -3,7 +3,7 @@ import {
   BookerLayoutsOutputEnum_2024_06_14,
   ConfirmationPolicyEnum,
   NoticeThresholdUnitEnum,
-} from "@calcom/platform-enums";
+} from "@kalo/platform-enums";
 import type {
   TransformBookingLimitsSchema_2024_06_14,
   TransformFutureBookingsLimitSchema_2024_06_14,
@@ -21,7 +21,7 @@ import type {
   OutputLinkLocation_2024_06_14,
   OutputPhoneLocation_2024_06_14,
   OutputUnknownLocation_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 import {
   transformLocationsInternalToApi,

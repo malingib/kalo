@@ -1,6 +1,6 @@
-import BaseCalendarService from "@calcom/lib/CalendarService";
-import type { Calendar } from "@calcom/types/Calendar";
-import type { CredentialPayload } from "@calcom/types/Credential";
+import BaseCalendarService from "@kalo/lib/CalendarService";
+import type { Calendar } from "@kalo/types/Calendar";
+import type { CredentialPayload } from "@kalo/types/Credential";
 
 class CalDavCalendarService extends BaseCalendarService {
   constructor(credential: CredentialPayload) {

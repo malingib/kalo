@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 const i18nJson = require("../../i18n.json");
 const config = require("./next-i18next.config");
 
-describe("@calcom/i18n/next-i18next.config", () => {
+describe("@kalo/i18n/next-i18next.config", () => {
   it("exports i18n with defaultLocale and locales", () => {
     expect(config.i18n).toBeDefined();
     expect(config.i18n.defaultLocale).toBe("en");

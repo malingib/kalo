@@ -1,5 +1,5 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { Session } from "next-auth";
 import { BillingPortalServiceFactory } from "../lib/BillingPortalService";

@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { CALCOM_VERSION, COMPANY_NAME, IS_CALCOM, IS_SELF_HOSTED } from "@calcom/lib/constants";
+import { KALO_VERSION, COMPANY_NAME, IS_CALCOM, IS_SELF_HOSTED } from "@kalo/lib/constants";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const vercelCommitHash = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
 const commitHash = vercelCommitHash ? `-${vercelCommitHash.slice(0, 7)}` : "";
-const CalComVersion = `v.${CALCOM_VERSION}-${!IS_SELF_HOSTED ? "h" : "sh"}`;
+const CalComVersion = `v.${KALO_VERSION}-${!IS_SELF_HOSTED ? "h" : "sh"}`;
 
 export default function Credits() {
   const [hasMounted, setHasMounted] = useState(false);
@@ -30,7 +30,7 @@ export default function Credits() {
           </Link>
           {vercelCommitHash && IS_CALCOM ? (
             <Link
-              href={`https://github.com/calcom/cal.diy/commit/${vercelCommitHash}`}
+              href={`https://github.com/calcom/kalo/commit/${vercelCommitHash}`}
               target="_blank"
               className="hover:underline">
               {commitHash}

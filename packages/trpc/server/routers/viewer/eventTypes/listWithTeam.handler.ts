@@ -1,5 +1,5 @@
-import db from "@calcom/prisma";
-import { Prisma } from "@calcom/prisma/client";
+import db from "@kalo/prisma";
+import { Prisma } from "@kalo/prisma/client";
 import type { TrpcSessionUser } from "../../../types";
 
 type ListWithTeamOptions = {

@@ -1,4 +1,4 @@
-import { EventRepository } from "@calcom/features/eventtypes/repositories/EventRepository";
+import { EventRepository } from "@kalo/features/eventtypes/repositories/EventRepository";
 
 import type { TEventInputSchema } from "./event.schema";
 

@@ -1,4 +1,4 @@
-import { ERROR_STATUS, SUCCESS_STATUS } from "@calcom/platform-constants";
+import { ERROR_STATUS, SUCCESS_STATUS } from "@kalo/platform-constants";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import {

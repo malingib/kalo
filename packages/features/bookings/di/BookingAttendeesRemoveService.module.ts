@@ -1,5 +1,5 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
 import { BookingAttendeesRemoveService } from "../services/BookingAttendeesRemoveService";
 import { moduleLoader as bookingAttendeeRepositoryModuleLoader } from "./BookingAttendeeRepository.module";
 

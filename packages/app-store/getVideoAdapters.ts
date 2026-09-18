@@ -1,9 +1,9 @@
-import { VideoApiAdapterMap } from "@calcom/app-store/video.adapters.generated";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeCredential } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import type { CredentialPayload } from "@calcom/types/Credential";
-import type { VideoApiAdapter, VideoApiAdapterFactory } from "@calcom/types/VideoApiAdapter";
+import { VideoApiAdapterMap } from "@kalo/app-store/video.adapters.generated";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeCredential } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import type { CredentialPayload } from "@kalo/types/Credential";
+import type { VideoApiAdapter, VideoApiAdapterFactory } from "@kalo/types/VideoApiAdapter";
 
 const log = logger.getSubLogger({ prefix: ["[app-store] getVideoAdapters"] });
 

@@ -1,7 +1,7 @@
-import { sendEmailVerification } from "@calcom/features/auth/lib/verifyEmail";
-import { GlobalWatchlistRepository } from "@calcom/features/watchlist/lib/repository/GlobalWatchlistRepository";
-import { normalizeEmail } from "@calcom/features/watchlist/lib/utils/normalization";
-import { prisma } from "@calcom/prisma";
+import { sendEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
+import { GlobalWatchlistRepository } from "@kalo/features/watchlist/lib/repository/GlobalWatchlistRepository";
+import { normalizeEmail } from "@kalo/features/watchlist/lib/utils/normalization";
+import { prisma } from "@kalo/prisma";
 import type { TrpcSessionUser } from "../../../types";
 import type { TAdminLockUserAccountSchema } from "./lockUserAccount.schema";
 

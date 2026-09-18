@@ -6,15 +6,15 @@ import {
   getOrganizer,
   getScenarioData,
   TestData,
-} from "@calcom/testing/lib/bookingScenario/bookingScenario";
+} from "@kalo/testing/lib/bookingScenario/bookingScenario";
 import process from "node:process";
-import { appStoreMetadata } from "@calcom/app-store/apps.metadata.generated";
-import { getBatchProcessorJobAccessLink, getRoomNameFromRecordingId } from "@calcom/app-store/dailyvideo/lib";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
-import { BookingStatus, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import { expectWebhookToHaveBeenCalledWith } from "@calcom/testing/lib/bookingScenario/expects";
-import * as recordedDailyVideoRoute from "@calcom/web/app/api/recorded-daily-video/route";
+import { appStoreMetadata } from "@kalo/app-store/apps.metadata.generated";
+import { getBatchProcessorJobAccessLink, getRoomNameFromRecordingId } from "@kalo/app-store/dailyvideo/lib";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
+import { BookingStatus, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import { expectWebhookToHaveBeenCalledWith } from "@kalo/testing/lib/bookingScenario/expects";
+import * as recordedDailyVideoRoute from "@kalo/web/app/api/recorded-daily-video/route";
 import { NextRequest } from "next/server";
 import { createMocks } from "node-mocks-http";
 import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
@@ -61,14 +61,14 @@ beforeAll(() => {
   vi.stubEnv("SENDGRID_EMAIL", "FAKE_SENDGRID_EMAIL");
 });
 
-vi.mock("@calcom/app-store/dailyvideo/lib", () => {
+vi.mock("@kalo/app-store/dailyvideo/lib", () => {
   return {
     getRoomNameFromRecordingId: vi.fn(),
     getBatchProcessorJobAccessLink: vi.fn(),
   };
 });
 
-vi.mock("@calcom/lib/videoTokens", () => {
+vi.mock("@kalo/lib/videoTokens", () => {
   return {
     generateVideoToken: vi.fn().mockReturnValue("MOCK_TOKEN"),
   };
@@ -184,7 +184,7 @@ describe("Handler: /api/recorded-daily-video", () => {
       });
 
       const bookingUid = "n5Wv3eHgconAED2j4gcVhP";
-      const iCalUID = `${bookingUid}@Cal.diy`;
+      const iCalUID = `${bookingUid}@Kalo`;
       const subscriberUrl = "http://my-webhook.example.com";
 
       const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });

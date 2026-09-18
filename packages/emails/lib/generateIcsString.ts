@@ -3,12 +3,12 @@ import type { DateArray, ParticipationRole, EventStatus, ParticipationStatus } f
 import { createEvent } from "ics";
 import { RRule } from "rrule";
 
-import { getRichDescription } from "@calcom/lib/CalEventParser";
-import { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
-import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@calcom/lib/constants";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import { getRichDescription } from "@kalo/lib/CalEventParser";
+import { getVideoCallUrlFromCalEvent } from "@kalo/lib/CalEventParser";
+import { ORGANIZER_EMAIL_EXEMPT_DOMAINS } from "@kalo/lib/constants";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 export enum BookingAction {
   Create = "create",
@@ -84,7 +84,7 @@ const generateIcsString = ({
     organizer: {
       name: event.organizer.name,
       ...(event.hideOrganizerEmail && !isOrganizerExempt
-        ? { email: "no-reply@cal.com" }
+        ? { email: "no-reply@kalo" }
         : { email: event.organizer.email }),
     },
     ...{ recurrenceRule },

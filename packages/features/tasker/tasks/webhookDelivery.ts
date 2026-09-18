@@ -1,7 +1,7 @@
-import { getWebhookTaskConsumer } from "@calcom/features/di/webhooks/containers/webhook";
-import { webhookTaskPayloadSchema } from "@calcom/features/webhooks/lib/types/webhookTask";
-import logger from "@calcom/lib/logger";
-import type { ILogger } from "@calcom/lib/tasker/types";
+import { getWebhookTaskConsumer } from "@kalo/features/di/webhooks/containers/webhook";
+import { webhookTaskPayloadSchema } from "@kalo/features/webhooks/lib/types/webhookTask";
+import logger from "@kalo/lib/logger";
+import type { ILogger } from "@kalo/lib/tasker/types";
 
 /**
  * Webhook Delivery Task Handler

@@ -1,6 +1,6 @@
-import type { TGetTranscriptAccessLink } from "@calcom/app-store/dailyvideo/zod";
-import type { TimeUnit, WebhookTriggerEvents } from "@calcom/prisma/enums";
-import type { CalendarEvent, ConferenceData, Person } from "@calcom/types/Calendar";
+import type { TGetTranscriptAccessLink } from "@kalo/app-store/dailyvideo/zod";
+import type { TimeUnit, WebhookTriggerEvents } from "@kalo/prisma/enums";
+import type { CalendarEvent, ConferenceData, Person } from "@kalo/types/Calendar";
 import type { WebhookVersion } from "../interface/IWebhookRepository";
 
 export interface BaseEventDTO {

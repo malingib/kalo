@@ -1,20 +1,20 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
-import AppCard from "@calcom/app-store/_components/AppCard";
-import useIsAppEnabled from "@calcom/app-store/_utils/useIsAppEnabled";
-import type { EventTypeAppCardComponent } from "@calcom/app-store/types";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { SchedulingType } from "@calcom/prisma/enums";
-import { Alert } from "@calcom/ui/components/alert";
-import { Button } from "@calcom/ui/components/button";
-import { InputField, Label } from "@calcom/ui/components/form";
-import { Select } from "@calcom/ui/components/form";
-import { Switch } from "@calcom/ui/components/form";
-import { Section } from "@calcom/ui/components/section";
-import { showToast } from "@calcom/ui/components/toast";
+import { useAppContextWithSchema } from "@kalo/app-store/EventTypeAppContext";
+import AppCard from "@kalo/app-store/_components/AppCard";
+import useIsAppEnabled from "@kalo/app-store/_utils/useIsAppEnabled";
+import type { EventTypeAppCardComponent } from "@kalo/app-store/types";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { SchedulingType } from "@kalo/prisma/enums";
+import { Alert } from "@kalo/ui/components/alert";
+import { Button } from "@kalo/ui/components/button";
+import { InputField, Label } from "@kalo/ui/components/form";
+import { Select } from "@kalo/ui/components/form";
+import { Switch } from "@kalo/ui/components/form";
+import { Section } from "@kalo/ui/components/section";
+import { showToast } from "@kalo/ui/components/toast";
 
 import { SalesforceRecordEnum } from "../lib/enums";
 import type { appDataSchema, RRSkipFieldRule } from "../zod";

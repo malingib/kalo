@@ -1,16 +1,16 @@
 "use client";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { useDebounce } from "@calcom/lib/hooks/useDebounce";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { ConfirmationDialogContent, Dialog } from "@calcom/ui/components/dialog";
-import { TextField } from "@calcom/ui/components/form";
-import { DropdownActions, Table } from "@calcom/ui/components/table";
-import { showToast } from "@calcom/ui/components/toast";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { useDebounce } from "@kalo/lib/hooks/useDebounce";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { ConfirmationDialogContent, Dialog } from "@kalo/ui/components/dialog";
+import { TextField } from "@kalo/ui/components/form";
+import { DropdownActions, Table } from "@kalo/ui/components/table";
+import { showToast } from "@kalo/ui/components/toast";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";

@@ -1,5 +1,5 @@
-import { getWatchlistFeature } from "@calcom/features/di/watchlist/containers/watchlist";
-import logger from "@calcom/lib/logger";
+import { getWatchlistFeature } from "@kalo/features/di/watchlist/containers/watchlist";
+import logger from "@kalo/lib/logger";
 
 const log: ReturnType<typeof logger.getSubLogger> = logger.getSubLogger({
   prefix: ["watchlist", "check-user-blocking"],

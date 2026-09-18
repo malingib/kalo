@@ -2,14 +2,14 @@ import { defaultResponderForAppDir } from "app/api/defaultResponderForAppDir";
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { performance } from "@calcom/lib/server/perfObserver";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { performance } from "@kalo/lib/server/perfObserver";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 
 async function getHandler() {
   const prePrismaDate = performance.now();
-  const prisma = (await import("@calcom/prisma")).default;
+  const prisma = (await import("@kalo/prisma")).default;
   const preSessionDate = performance.now();
 
   // Create a legacy request object for compatibility

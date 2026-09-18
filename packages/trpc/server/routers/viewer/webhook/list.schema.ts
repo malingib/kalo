@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { WEBHOOK_TRIGGER_EVENTS } from "@calcom/features/webhooks/lib/constants";
+import { WEBHOOK_TRIGGER_EVENTS } from "@kalo/features/webhooks/lib/constants";
 
 import { webhookIdAndEventTypeIdSchema } from "./types";
 

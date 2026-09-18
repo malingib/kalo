@@ -1,6 +1,6 @@
-import { RecurringBookingService } from "@calcom/features/bookings/lib/service/RecurringBookingService";
-import { createModule, bindModuleToClassOnToken } from "@calcom/features/di/di";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
+import { RecurringBookingService } from "@kalo/features/bookings/lib/service/RecurringBookingService";
+import { createModule, bindModuleToClassOnToken } from "@kalo/features/di/di";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
 
 import { moduleLoader as regularBookingServiceModuleLoader } from "./RegularBookingService.module";
 

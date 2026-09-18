@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import type { ApiResponse, ApiSuccessResponse } from "@calcom/platform-types";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import type { ApiResponse, ApiSuccessResponse } from "@kalo/platform-types";
 
 import { useAtomsContext } from "../../hooks/useAtomsContext";
 import http from "../../lib/http";

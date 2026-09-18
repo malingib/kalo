@@ -1,9 +1,9 @@
-import { bookingResponsesDbSchema } from "@calcom/features/bookings/lib/getBookingResponsesSchema";
-import slugify from "@calcom/lib/slugify";
-import type { PrismaClient } from "@calcom/prisma";
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { MembershipRole } from "@calcom/prisma/enums";
+import { bookingResponsesDbSchema } from "@kalo/features/bookings/lib/getBookingResponsesSchema";
+import slugify from "@kalo/lib/slugify";
+import type { PrismaClient } from "@kalo/prisma";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { MembershipRole } from "@kalo/prisma/enums";
 
 type BookingSelect = {
   description: true;

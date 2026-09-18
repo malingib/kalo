@@ -1,14 +1,14 @@
 "use client";
 
-import { ErrorCode } from "@calcom/features/auth/lib/ErrorCode";
-import { HOSTED_CAL_FEATURES, WEBAPP_URL, WEBSITE_URL } from "@calcom/lib/constants";
-import { emailRegex } from "@calcom/lib/emailSchema";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
-import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { Alert } from "@calcom/ui/components/alert";
-import { Icon } from "@calcom/ui/components/icon";
-import { LastUsed, useLastUsed } from "@calcom/web/modules/auth/hooks/useLastUsed";
+import { ErrorCode } from "@kalo/features/auth/lib/ErrorCode";
+import { APP_NAME, HOSTED_CAL_FEATURES, WEBAPP_URL, WEBSITE_URL } from "@kalo/lib/constants";
+import { emailRegex } from "@kalo/lib/emailSchema";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
+import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { Alert } from "@kalo/ui/components/alert";
+import { Icon } from "@kalo/ui/components/icon";
+import { LastUsed, useLastUsed } from "@kalo/web/modules/auth/hooks/useLastUsed";
 import AddToHomescreen from "@components/AddToHomescreen";
 import BackupCode from "@components/auth/BackupCode";
 import TwoFactor from "@components/auth/TwoFactor";

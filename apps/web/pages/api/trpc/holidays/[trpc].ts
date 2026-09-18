@@ -1,4 +1,4 @@
-import { createNextApiHandler } from "@calcom/trpc/server/createNextApiHandler";
-import { holidaysRouter } from "@calcom/trpc/server/routers/viewer/holidays/_router";
+import { createNextApiHandler } from "@kalo/trpc/server/createNextApiHandler";
+import { holidaysRouter } from "@kalo/trpc/server/routers/viewer/holidays/_router";
 
 export default createNextApiHandler(holidaysRouter);

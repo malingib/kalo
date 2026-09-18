@@ -7,7 +7,7 @@ const { mockPrismaBookingUpdate, mockPrismaAttendeeUpdate, mockPrismaAttendeeFin
   mockPrismaAttendeeFindMany: vi.fn(),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {
     booking: { update: mockPrismaBookingUpdate },
     attendee: {
@@ -39,7 +39,7 @@ const {
   };
 });
 
-vi.mock("@calcom/features/bookings/repositories/BookingRepository", () => ({
+vi.mock("@kalo/features/bookings/repositories/BookingRepository", () => ({
   BookingRepository: MockBookingRepository,
 }));
 
@@ -65,7 +65,7 @@ const {
   };
 });
 
-vi.mock("@calcom/features/bookings/repositories/AttendeeRepository", () => ({
+vi.mock("@kalo/features/bookings/repositories/AttendeeRepository", () => ({
   AttendeeRepository: MockAttendeeRepository,
 }));
 
@@ -77,7 +77,7 @@ const { mockDoesUserIdHaveAccessToBooking, MockBookingAccessService } = vi.hoist
   return { mockDoesUserIdHaveAccessToBooking, MockBookingAccessService };
 });
 
-vi.mock("@calcom/features/bookings/services/BookingAccessService", () => ({
+vi.mock("@kalo/features/bookings/services/BookingAccessService", () => ({
   BookingAccessService: MockBookingAccessService,
 }));
 
@@ -86,18 +86,18 @@ const { mockWebhookServiceInit, mockSendPayload } = vi.hoisted(() => ({
   mockSendPayload: vi.fn(),
 }));
 
-vi.mock("@calcom/features/webhooks/lib/WebhookService", () => ({
+vi.mock("@kalo/features/webhooks/lib/WebhookService", () => ({
   WebhookService: {
     init: mockWebhookServiceInit,
   },
 }));
 
 
-vi.mock("@calcom/lib/getOrgIdFromMemberOrTeamId", () => ({
+vi.mock("@kalo/lib/getOrgIdFromMemberOrTeamId", () => ({
   default: vi.fn().mockResolvedValue(null),
 }));
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: vi
     .fn()
     .mockResolvedValue((key: string, opts?: { x?: string }) => (opts?.x ? `${opts.x} ${key}` : key)),

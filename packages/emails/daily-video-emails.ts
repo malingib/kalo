@@ -1,7 +1,7 @@
 // It's ensured that this file does not import any client-side code
-import type BaseEmail from "@calcom/emails/templates/_base-email";
-import { formatCalEvent } from "@calcom/lib/formatCalendarEvent";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+import type BaseEmail from "@kalo/emails/templates/_base-email";
+import { formatCalEvent } from "@kalo/lib/formatCalendarEvent";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 
 import AttendeeDailyVideoDownloadRecordingEmail from "./templates/attendee-daily-video-download-recording-email";
 import AttendeeDailyVideoDownloadTranscriptEmail from "./templates/attendee-daily-video-download-transcript-email";

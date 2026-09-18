@@ -1,4 +1,4 @@
-import type { IUserFeatureRepository } from "@calcom/features/flags/repositories/PrismaUserFeatureRepository";
+import type { IUserFeatureRepository } from "@kalo/features/flags/repositories/PrismaUserFeatureRepository";
 import { moduleLoader as cachedUserFeatureRepositoryModuleLoader } from "../../flags/di/CachedUserFeatureRepository.module";
 import { createContainer } from "../di";
 

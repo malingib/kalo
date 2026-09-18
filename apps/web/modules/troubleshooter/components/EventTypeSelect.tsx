@@ -1,5 +1,5 @@
-import { EventTypeSelectComponent } from "@calcom/features/troubleshooter/components/EventTypeSelectComponent";
-import { trpc } from "@calcom/trpc/react";
+import { EventTypeSelectComponent } from "@kalo/features/troubleshooter/components/EventTypeSelectComponent";
+import { trpc } from "@kalo/trpc/react";
 
 export { EventTypeSelectComponent };
 

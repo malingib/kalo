@@ -45,7 +45,7 @@ For simplicity sake will explain how the `InternalTasker` works:
 
   ```ts
   // /app/api/tasks/cron/route.ts
-  import { TaskProcessor } from "@calcom/features/tasker/task-processor";
+  import { TaskProcessor } from "@kalo/features/tasker/task-processor";
 
   export async function GET() {
     // authenticate the call...
@@ -63,7 +63,7 @@ For simplicity sake will explain how the `InternalTasker` works:
 
   ```ts
   // /app/api/tasks/cleanup/route.ts
-  import { TaskProcessor } from "@calcom/features/tasker/task-processor";
+  import { TaskProcessor } from "@kalo/features/tasker/task-processor";
 
   export async function GET() {
     // authenticate the call...
@@ -86,8 +86,8 @@ You can contribute by either expanding the `InternalTasker` or creating new Task
 
 You can also take some inspiration by looking into previous attempts to add various Message Queue pull requests:
 
-- [feat: Messaging Bus Implementation using AWS SQS OSSHack Challenge](https://github.com/calcom/cal.diy/pull/12663)
-- [feat: add opt-in ready-to-deploy message queue (QStash+Next.js functions)](https://github.com/calcom/cal.diy/pull/12658)
-- [feat: Implement A Message Queuing System](https://github.com/calcom/cal.diy/pull/12655)
-- [Message Queuing System](https://github.com/calcom/cal.diy/pull/12654)
-- [feat: Message Queuing System using Trigger.dev](https://github.com/calcom/cal.diy/pull/12641)
+- [feat: Messaging Bus Implementation using AWS SQS OSSHack Challenge](https://github.com/calcom/kalo/pull/12663)
+- [feat: add opt-in ready-to-deploy message queue (QStash+Next.js functions)](https://github.com/calcom/kalo/pull/12658)
+- [feat: Implement A Message Queuing System](https://github.com/calcom/kalo/pull/12655)
+- [Message Queuing System](https://github.com/calcom/kalo/pull/12654)
+- [feat: Message Queuing System using Trigger.dev](https://github.com/calcom/kalo/pull/12641)

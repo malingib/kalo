@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
 import process from "node:process";
-import type { PrismaClient } from "@calcom/prisma";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { BookingStatus, CreationSource } from "@calcom/prisma/enums";
+import type { PrismaClient } from "@kalo/prisma";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { BookingStatus, CreationSource } from "@kalo/prisma/enums";
 import { DarajaClient } from "../../mpesa/darajaClient";
 import { normalizeKenyanPhone } from "../../mpesa/normalizePhone";
 import type { WhatsAppSessionRepository } from "./sessionStore";

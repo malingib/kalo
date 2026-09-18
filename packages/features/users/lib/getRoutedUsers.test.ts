@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
 import { getRoutedUsersWithContactOwnerAndFixedUsers } from "./getRoutedUsers";
 
-vi.mock("@calcom/prisma", () => {
+vi.mock("@kalo/prisma", () => {
   return {
     default: vi.fn(),
   };
 });
 
-vi.mock("@calcom/app-store/delegationCredential", () => {
+vi.mock("@kalo/app-store/delegationCredential", () => {
   return {
     enrichHostsWithDelegationCredentials: vi.fn().mockResolvedValue([]),
   };

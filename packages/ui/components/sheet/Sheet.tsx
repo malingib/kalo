@@ -3,7 +3,7 @@
 import * as SheetPrimitives from "@radix-ui/react-dialog";
 import * as React from "react";
 
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 import { Button } from "../button";
 

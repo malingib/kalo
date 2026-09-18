@@ -1,6 +1,6 @@
 import type { z } from "zod";
 
-import { createEventTypeInput } from "@calcom/features/eventtypes/lib/schemas";
+import { createEventTypeInput } from "@kalo/features/eventtypes/lib/schemas";
 
 export const ZCreateInputSchema = createEventTypeInput;
 

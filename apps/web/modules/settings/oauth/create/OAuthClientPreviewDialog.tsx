@@ -1,16 +1,16 @@
 "use client";
 
-import { useCopy } from "@calcom/lib/hooks/useCopy";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { useCopy } from "@kalo/lib/hooks/useCopy";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
 
-import { Alert } from "@calcom/ui/components/alert";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter } from "@calcom/ui/components/dialog";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { Alert } from "@kalo/ui/components/alert";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter } from "@kalo/ui/components/dialog";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 
 import type { OAuthClientDetails } from "../view/OAuthClientDetailsDialog";
 

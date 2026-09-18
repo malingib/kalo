@@ -2,9 +2,9 @@ import "../__mocks__/CalendarAuth";
 
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import type { SelectedCalendar } from "@calcom/prisma/client";
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
+import dayjs from "@kalo/dayjs";
+import type { SelectedCalendar } from "@kalo/prisma/client";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
 
 import { GoogleCalendarSubscriptionAdapter } from "../GoogleCalendarSubscription.adapter";
 
@@ -284,7 +284,7 @@ describe("GoogleCalendarSubscriptionAdapter", () => {
 
   describe("fetchEvents", () => {
     const commonEventData = {
-      iCalUID: "event-1@cal.com",
+      iCalUID: "event-1@kalo",
       summary: "Test Event",
       description: "Test Description",
       location: "Test Location",
@@ -333,7 +333,7 @@ describe("GoogleCalendarSubscriptionAdapter", () => {
         items: [
           {
             id: "event-1",
-            iCalUID: "event-1@cal.com",
+            iCalUID: "event-1@kalo",
             start: oneWeekFromNow.toDate(),
             end: eventEndTime.toDate(),
             busy: true,

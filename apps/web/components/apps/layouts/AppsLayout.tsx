@@ -2,8 +2,8 @@ import { useRouter } from "next/navigation";
 import type { ComponentProps } from "react";
 import React from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 
 import Shell from "~/shell/Shell";
 

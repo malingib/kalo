@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { AppCategories } from "@calcom/prisma/enums";
+import { AppCategories } from "@kalo/prisma/enums";
 
 export const ZListLocalInputSchema = z.object({
   category: z.nativeEnum({ ...AppCategories, conferencing: "conferencing" }),

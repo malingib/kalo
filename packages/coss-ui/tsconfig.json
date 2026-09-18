@@ -1,5 +1,5 @@
 {
-  "extends": "@calcom/tsconfig/react-library.json",
+  "extends": "@kalo/tsconfig/react-library.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "resolveJsonModule": true,

@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { type TraceContext } from "@calcom/lib/tracing";
-import { TracedError } from "@calcom/lib/tracing/error";
-import { distributedTracing } from "@calcom/lib/tracing/factory";
+import { type TraceContext } from "@kalo/lib/tracing";
+import { TracedError } from "@kalo/lib/tracing/error";
+import { distributedTracing } from "@kalo/lib/tracing/factory";
 
 import { HttpError } from "../http-error";
 import { safeStringify } from "../safeStringify";

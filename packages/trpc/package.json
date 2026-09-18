@@ -1,8 +1,8 @@
 {
-  "name": "@calcom/trpc",
+  "name": "@kalo/trpc",
   "sideEffects": false,
   "private": true,
-  "description": "Shared tRPC library for Cal.diy",
+  "description": "Shared tRPC library for Kalo",
   "authors": "zomars",
   "version": "1.0.0",
   "main": "index.ts",
@@ -14,8 +14,8 @@
     "build:react": "yarn tsc --project tsconfig.react.json"
   },
   "dependencies": {
-    "@calcom/i18n": "workspace:*",
     "@formbricks/api": "3.0.0",
+    "@kalo/i18n": "workspace:*",
     "@trpc/client": "11.0.0-next-beta.222",
     "@trpc/next": "11.0.0-next-beta.222",
     "@trpc/react-query": "11.0.0-next-beta.222",

@@ -1,15 +1,15 @@
 openapi: 3.0.0
 info:
-  title: Calendso API
-  description: The open source Calendly alternative.
+  title: Kalo API
+  description: The open source scheduling platform.
   contact:
     name: Support
-    email: support@cal.com
+    email: support@kalo
   license:
     name: MIT License
     url: "https://opensource.org/licenses/MIT"
   version: 1.0.0
-  termsOfService: "https://cal.com/terms"
+  termsOfService: "https://github.com/malingib/kalo"
 server:
   url: "http://localhost:{port}"
   description: Local Development Server
@@ -152,7 +152,7 @@ paths:
                       integration: google_calendar
                       name: Birthdays
                     - selected: true
-                      externalId: bailey@cal.com
+                      externalId: bailey@kalo
                       integration: google_calendar
                       name: Calendso
                       primary: true
@@ -161,9 +161,9 @@ paths:
                       integration: google_calendar
                       name: Personal
                     - selected: false
-                      externalId: connor@cal.com
+                      externalId: connor@kalo
                       integration: google_calendar
-                      name: connor@cal.com
+                      name: connor@kalo
                     - selected: false
                       externalId: c_feunmui1m8el5o1oo885fu48k8@group.calendar.google.com
                       integration: google_calendar

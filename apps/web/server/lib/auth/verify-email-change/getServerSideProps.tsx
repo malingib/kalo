@@ -1,7 +1,7 @@
 import type { GetServerSidePropsContext } from "next";
 import { z } from "zod";
 
-import { WEBAPP_URL } from "@calcom/lib/constants";
+import { WEBAPP_URL } from "@kalo/lib/constants";
 
 const tokenSchema = z.object({
   token: z.string(),

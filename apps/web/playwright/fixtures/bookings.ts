@@ -2,9 +2,9 @@ import type { Page, WorkerInfo } from "@playwright/test";
 import short from "short-uuid";
 import { v5 as uuidv5 } from "uuid";
 
-import _dayjs from "@calcom/dayjs";
-import { prisma } from "@calcom/prisma";
-import type { Booking, Prisma } from "@calcom/prisma/client";
+import _dayjs from "@kalo/dayjs";
+import { prisma } from "@kalo/prisma";
+import type { Booking, Prisma } from "@kalo/prisma/client";
 
 const translator = short();
 
@@ -64,7 +64,7 @@ export const createBookingsFixture = (page: Page, workerInfo: WorkerInfo) => {
           rescheduled,
           paid,
           status,
-          iCalUID: `${uid}@cal.com`,
+          iCalUID: `${uid}@kalo`,
         },
       });
       const bookingFixture = createBookingFixture(booking, store.page);

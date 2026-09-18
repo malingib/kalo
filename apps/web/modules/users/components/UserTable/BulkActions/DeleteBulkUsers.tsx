@@ -1,8 +1,8 @@
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { ConfirmationDialogContent, DialogTrigger } from "@calcom/ui/components/dialog";
-import { showToast } from "@calcom/ui/components/toast";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { ConfirmationDialogContent, DialogTrigger } from "@kalo/ui/components/dialog";
+import { showToast } from "@kalo/ui/components/toast";
 import { DataTableSelectionBar } from "~/data-table/components";
 import type { UserTableUser } from "../types";
 

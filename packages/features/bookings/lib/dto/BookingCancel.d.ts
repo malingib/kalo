@@ -4,7 +4,7 @@
  */
 import type { z } from "zod";
 
-import type { bookingCancelInput } from "@calcom/prisma/zod-utils";
+import type { bookingCancelInput } from "@kalo/prisma/zod-utils";
 
 /**
  * The booking data required for cancellation

@@ -1,21 +1,21 @@
 import short from "short-uuid";
 import { v5 as uuidv5 } from "uuid";
 
-import { DailyLocationType } from "@calcom/app-store/constants";
-import { getDailyAppKeys } from "@calcom/app-store/dailyvideo/lib/getDailyAppKeys";
-import { getVideoAdapters } from "@calcom/app-store/getVideoAdapters";
-import { sendBrokenIntegrationEmail } from "@calcom/emails/integration-email-service";
-import { getUid } from "@calcom/lib/CalEventParser";
-import { CAL_VIDEO, CAL_VIDEO_TYPE } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { getPiiFreeCalendarEvent, getPiiFreeCredential } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { prisma } from "@calcom/prisma";
-import type { GetRecordingsResponseSchema, GetAccessLinkResponseSchema } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent, EventBusyDate } from "@calcom/types/Calendar";
-import type { CredentialPayload, CredentialForCalendarService } from "@calcom/types/Credential";
-import type { EventResult, PartialReference } from "@calcom/types/EventManager";
-import type { VideoCallData } from "@calcom/types/VideoApiAdapter";
+import { DailyLocationType } from "@kalo/app-store/constants";
+import { getDailyAppKeys } from "@kalo/app-store/dailyvideo/lib/getDailyAppKeys";
+import { getVideoAdapters } from "@kalo/app-store/getVideoAdapters";
+import { sendBrokenIntegrationEmail } from "@kalo/emails/integration-email-service";
+import { getUid } from "@kalo/lib/CalEventParser";
+import { CAL_VIDEO, CAL_VIDEO_TYPE } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { getPiiFreeCalendarEvent, getPiiFreeCredential } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { prisma } from "@kalo/prisma";
+import type { GetRecordingsResponseSchema, GetAccessLinkResponseSchema } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent, EventBusyDate } from "@kalo/types/Calendar";
+import type { CredentialPayload, CredentialForCalendarService } from "@kalo/types/Credential";
+import type { EventResult, PartialReference } from "@kalo/types/EventManager";
+import type { VideoCallData } from "@kalo/types/VideoApiAdapter";
 
 const log = logger.getSubLogger({ prefix: ["[features/conferencing/lib] videoClient"] });
 

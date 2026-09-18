@@ -1,9 +1,9 @@
-import { BookingLimitsEnum_2024_06_14 } from "@calcom/platform-enums";
+import { BookingLimitsEnum_2024_06_14 } from "@kalo/platform-enums";
 import {
   type BookingLimitsKeyOutputType_2024_06_14,
   type CreateEventTypeInput_2024_06_14,
   type TransformBookingLimitsSchema_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export function transformIntervalLimitsApiToInternal(
   inputBookingLimits: CreateEventTypeInput_2024_06_14["bookingLimitsCount"]

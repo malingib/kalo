@@ -1,6 +1,6 @@
-import { convertFacetedValuesToMap, type FacetedValue } from "@calcom/features/data-table";
-import { trpc } from "@calcom/trpc/react";
-import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
+import { convertFacetedValuesToMap, type FacetedValue } from "@kalo/features/data-table";
+import { trpc } from "@kalo/trpc/react";
+import useMeQuery from "@kalo/trpc/react/hooks/useMeQuery";
 import type { RowData, Table } from "@tanstack/react-table";
 import { useCallback } from "react";
 import { useEventTypes } from "./useEventTypes";

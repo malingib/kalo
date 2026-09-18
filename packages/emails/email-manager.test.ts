@@ -1,12 +1,12 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
-import type { EventTypeMetadata } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 import { shouldSkipAttendeeEmailWithSettings } from "./email-manager";
 import AttendeeScheduledEmail from "./templates/attendee-scheduled-email";
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   prisma: {},
 }));
 
@@ -22,11 +22,11 @@ vi.mock("./src/renderEmail", () => ({
   default: vi.fn(() => Promise.resolve("<html>mock-email</html>")),
 }));
 
-vi.mock("@calcom/lib/getReplyToHeader", () => ({
+vi.mock("@kalo/lib/getReplyToHeader", () => ({
   getReplyToHeader: vi.fn(() => ({})),
 }));
 
-vi.mock("@calcom/lib/CalEventParser", () => ({
+vi.mock("@kalo/lib/CalEventParser", () => ({
   getRichDescription: vi.fn(() => "mock-description"),
 }));
 
@@ -34,7 +34,7 @@ vi.mock("./templates/_base-email", () => {
   return {
     default: class MockBaseEmail {
       getMailerOptions() {
-        return { from: "test@cal.com" };
+        return { from: "test@kalo" };
       }
     },
   };

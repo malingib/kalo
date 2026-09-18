@@ -1,16 +1,16 @@
 "use client";
 
-import type { BulkUpdatParams } from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import { BulkEditDefaultForEventsModal } from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import { ScheduleListItem } from "@calcom/features/schedules/components/ScheduleListItem";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { HttpError } from "@calcom/lib/http-error";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { trpc } from "@calcom/trpc/react";
-import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
-import { showToast } from "@calcom/ui/components/toast";
-import { NewScheduleButton } from "@calcom/web/modules/schedules/components/NewScheduleButton";
+import type { BulkUpdatParams } from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import { BulkEditDefaultForEventsModal } from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import { ScheduleListItem } from "@kalo/features/schedules/components/ScheduleListItem";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { HttpError } from "@kalo/lib/http-error";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { trpc } from "@kalo/trpc/react";
+import useMeQuery from "@kalo/trpc/react/hooks/useMeQuery";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
+import { showToast } from "@kalo/ui/components/toast";
+import { NewScheduleButton } from "@kalo/web/modules/schedules/components/NewScheduleButton";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { revalidateAvailabilityList } from "app/(use-page-wrapper)/(main-nav)/availability/actions";
 import Link from "next/link";

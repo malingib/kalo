@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-import * as constants from "@calcom/lib/constants";
-import { BookingStatus } from "@calcom/prisma/client";
-import type { JsonValue } from "@calcom/types/Json";
+import * as constants from "@kalo/lib/constants";
+import { BookingStatus } from "@kalo/prisma/client";
+import type { JsonValue } from "@kalo/types/Json";
 
 import {
   determineReschedulePreventionRedirect,
@@ -11,8 +11,8 @@ import {
 } from "./determineReschedulePreventionRedirect";
 
 // Mock the constants module
-vi.mock("@calcom/lib/constants", async () => {
-  const actual = (await vi.importActual("@calcom/lib/constants")) as typeof import("@calcom/lib/constants");
+vi.mock("@kalo/lib/constants", async () => {
+  const actual = (await vi.importActual("@kalo/lib/constants")) as typeof import("@kalo/lib/constants");
   return {
     ...actual,
     ENV_PAST_BOOKING_RESCHEDULE_CHANGE_TEAM_IDS: undefined, // Default to undefined, will be overridden in tests

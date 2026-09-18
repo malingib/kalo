@@ -1,8 +1,8 @@
-import { buildNonDelegationCredentials } from "@calcom/lib/delegationCredential";
-import { prisma } from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";  
-import type { AppCategories } from "@calcom/prisma/client";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
+import { buildNonDelegationCredentials } from "@kalo/lib/delegationCredential";
+import { prisma } from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";  
+import type { AppCategories } from "@kalo/prisma/client";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
 
 export class PrismaCredentialRepository {
     constructor(private readonly prismaClient: typeof prisma){}

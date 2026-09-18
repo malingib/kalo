@@ -2,13 +2,13 @@ import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { z } from "zod";
 
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { MultiEmail } from "@calcom/ui/components/address";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
-import { showToast } from "@calcom/ui/components/toast";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { MultiEmail } from "@kalo/ui/components/address";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
+import { showToast } from "@kalo/ui/components/toast";
 import { TriangleAlertIcon, UserPlusIcon } from "@coss/ui/icons";
 
 interface IAddGuestsDialog {

@@ -1,7 +1,7 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
 import useAddAppMutation from "../_utils/useAddAppMutation";
 import { InstallAppButton } from "../InstallAppButton";
 import type { AppCardApp } from "../types";

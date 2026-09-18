@@ -1,10 +1,10 @@
-import prismock from "@calcom/testing/lib/__mocks__/prisma";
-import type { Prisma } from "@calcom/prisma/client";
-import { MembershipRole } from "@calcom/prisma/enums";
+import prismock from "@kalo/testing/lib/__mocks__/prisma";
+import type { Prisma } from "@kalo/prisma/client";
+import { MembershipRole } from "@kalo/prisma/enums";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LookupTarget, ProfileRepository } from "./ProfileRepository";
 
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: {
     getSubLogger: () => ({
       debug: vi.fn(),

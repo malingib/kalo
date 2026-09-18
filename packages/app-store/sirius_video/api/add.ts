@@ -1,4 +1,4 @@
-import type { AppDeclarativeHandler } from "@calcom/types/AppHandler";
+import type { AppDeclarativeHandler } from "@kalo/types/AppHandler";
 
 import { createDefaultInstallation } from "../../_utils/installation";
 import appConfig from "../config.json";

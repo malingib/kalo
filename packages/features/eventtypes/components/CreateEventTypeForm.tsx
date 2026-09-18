@@ -2,19 +2,19 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import { MAX_EVENT_DURATION_MINUTES, MIN_EVENT_DURATION_MINUTES } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { md } from "@calcom/lib/markdownIt";
-import slugify from "@calcom/lib/slugify";
-import turndown from "@calcom/lib/turndownService";
-import { Editor } from "@calcom/ui/components/editor";
-import { Form } from "@calcom/ui/components/form";
-import { TextAreaField } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import { MAX_EVENT_DURATION_MINUTES, MIN_EVENT_DURATION_MINUTES } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { md } from "@kalo/lib/markdownIt";
+import slugify from "@kalo/lib/slugify";
+import turndown from "@kalo/lib/turndownService";
+import { Editor } from "@kalo/ui/components/editor";
+import { Form } from "@kalo/ui/components/form";
+import { TextAreaField } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import type { z } from "zod";
-import { createEventTypeInput } from "@calcom/features/eventtypes/lib/types";
+import { createEventTypeInput } from "@kalo/features/eventtypes/lib/types";
 
 type CreateEventTypeFormValues = z.infer<typeof createEventTypeInput>;
 

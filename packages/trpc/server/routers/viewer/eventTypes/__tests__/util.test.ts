@@ -1,5 +1,5 @@
-import type { PrismaClient } from "@calcom/prisma";
-import { MembershipRole } from "@calcom/prisma/enums";
+import type { PrismaClient } from "@kalo/prisma";
+import { MembershipRole } from "@kalo/prisma/enums";
 import { TRPCError } from "@trpc/server";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type { authedProcedure } from "../../../procedures/authedProcedure";

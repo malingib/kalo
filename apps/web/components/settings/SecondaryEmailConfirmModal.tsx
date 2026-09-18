@@ -1,7 +1,7 @@
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { DialogContent, DialogFooter, DialogClose } from "@calcom/ui/components/dialog";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { DialogContent, DialogFooter, DialogClose } from "@kalo/ui/components/dialog";
 
 interface SecondaryEmailConfirmModalProps {
   email: string;

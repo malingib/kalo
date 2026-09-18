@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { ApiErrorResponse } from "@calcom/platform-types";
-import { Button } from "@calcom/ui/components/button";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { ApiErrorResponse } from "@kalo/platform-types";
+import { Button } from "@kalo/ui/components/button";
 
 import { AtomsWrapper } from "../../src/components/atoms-wrapper";
 import { CreateScheduleForm } from "../CreateScheduleForm";

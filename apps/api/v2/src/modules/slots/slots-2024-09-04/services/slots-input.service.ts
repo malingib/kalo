@@ -1,4 +1,4 @@
-import { dynamicEvent } from "@calcom/platform-libraries";
+import { dynamicEvent } from "@kalo/platform-libraries";
 import {
   ById_2024_09_04_type,
   ByTeamSlugAndEventTypeSlug_2024_09_04,
@@ -7,7 +7,7 @@ import {
   ByUsernameAndEventTypeSlug_2024_09_04_type,
   GetSlotsInput_2024_09_04,
   GetSlotsInputWithRouting_2024_09_04,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { DateTime } from "luxon";
 import { EventTypesRepository_2024_06_14 } from "@/platform/event-types/event-types_2024_06_14/event-types.repository";

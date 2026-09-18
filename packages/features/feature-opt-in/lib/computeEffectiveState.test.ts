@@ -1,4 +1,4 @@
-import type { FeatureState } from "@calcom/features/flags/config";
+import type { FeatureState } from "@kalo/features/flags/config";
 import { describe, expect, it } from "vitest";
 import type { OptInFeaturePolicy } from "../types";
 import { computeEffectiveStateAcrossTeams } from "./computeEffectiveState";

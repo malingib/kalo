@@ -1,6 +1,6 @@
 "use client";
 
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 import * as Popover from "@radix-ui/react-popover";
 import { format, isBefore, isSameDay } from "date-fns";
 import { type HTMLAttributes, useMemo, useState } from "react";

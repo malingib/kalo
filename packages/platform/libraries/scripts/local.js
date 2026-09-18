@@ -20,6 +20,6 @@ fs.writeFileSync(librariesPackageJsonPath, `${JSON.stringify(librariesPackageJso
 const apiV2PackageJsonPath = path.join(librariesPath, "..", "..", "..", "apps", "api", "v2", "package.json");
 const apiV2PackageJson = JSON.parse(fs.readFileSync(apiV2PackageJsonPath, "utf8"));
 
-apiV2PackageJson.dependencies["@calcom/platform-libraries"] = `npm:@calcom/platform-libraries@${VERSION}`;
+apiV2PackageJson.dependencies["@kalo/platform-libraries"] = `npm:@kalo/platform-libraries@${VERSION}`;
 
 fs.writeFileSync(apiV2PackageJsonPath, `${JSON.stringify(apiV2PackageJson, null, 2)}\n`);

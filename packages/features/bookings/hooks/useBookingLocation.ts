@@ -1,8 +1,8 @@
 import type { TFunction } from "i18next";
 import { useMemo } from "react";
 
-import { getSuccessPageLocationMessage, guessEventLocationType } from "@calcom/app-store/locations";
-import type { BookingStatus } from "@calcom/prisma/enums";
+import { getSuccessPageLocationMessage, guessEventLocationType } from "@kalo/app-store/locations";
+import type { BookingStatus } from "@kalo/prisma/enums";
 
 interface UseBookingLocationParams {
   /**

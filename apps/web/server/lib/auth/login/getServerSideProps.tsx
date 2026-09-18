@@ -1,8 +1,8 @@
 import process from "node:process";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { WEBSITE_URL } from "@calcom/lib/constants";
-import { getSafeRedirectUrl } from "@calcom/lib/getSafeRedirectUrl";
-import prisma from "@calcom/prisma";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { WEBSITE_URL } from "@kalo/lib/constants";
+import { getSafeRedirectUrl } from "@kalo/lib/getSafeRedirectUrl";
+import prisma from "@kalo/prisma";
 import { IS_GOOGLE_LOGIN_ENABLED } from "@server/lib/constants";
 import { jwtVerify } from "jose";
 import type { GetServerSidePropsContext } from "next";

@@ -1,15 +1,15 @@
 "use client";
 
-import type { AuditActorType } from "@calcom/features/booking-audit/lib/repository/IAuditActorRepository";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Avatar } from "@calcom/ui/components/avatar";
-import { Button } from "@calcom/ui/components/button";
-import { FilterSearchField, Select } from "@calcom/ui/components/form";
-import { Icon, type IconName } from "@calcom/ui/components/icon";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import type { AuditActorType } from "@kalo/features/booking-audit/lib/repository/IAuditActorRepository";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Avatar } from "@kalo/ui/components/avatar";
+import { Button } from "@kalo/ui/components/button";
+import { FilterSearchField, Select } from "@kalo/ui/components/form";
+import { Icon, type IconName } from "@kalo/ui/components/icon";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { format, formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";

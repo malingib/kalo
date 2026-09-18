@@ -1,4 +1,4 @@
-import { CalendarToggleContainerComponent } from "@calcom/features/troubleshooter/components/CalendarToggleContainerComponent";
+import { CalendarToggleContainerComponent } from "@kalo/features/troubleshooter/components/CalendarToggleContainerComponent";
 import { useConnectedCalendars } from "../../hooks/useConnectedCalendars";
 
 interface CalendarToggleContainerProps {

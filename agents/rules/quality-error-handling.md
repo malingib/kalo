@@ -24,8 +24,8 @@ Use `ErrorWithCode` for files that are not directly coupled to tRPC. The tRPC pa
 ### In Non-tRPC Files (services, repositories, utilities)
 
 ```typescript
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { ErrorWithCode } from "@calcom/lib/errors";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { ErrorWithCode } from "@kalo/lib/errors";
 
 // Option 1: Using constructor with ErrorCode enum
 throw new ErrorWithCode(ErrorCode.BookingNotFound, "Booking not found");
@@ -49,4 +49,4 @@ throw new TRPCError({
 
 ## packages/features Import Restrictions
 
-Files in `packages/features/**` should NOT import from `@calcom/trpc`. This keeps the features package decoupled from the tRPC layer, making the code more reusable and testable. Use `ErrorWithCode` for error handling in these files.
+Files in `packages/features/**` should NOT import from `@kalo/trpc`. This keeps the features package decoupled from the tRPC layer, making the code more reusable and testable. Use `ErrorWithCode` for error handling in these files.

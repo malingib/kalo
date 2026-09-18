@@ -1,4 +1,4 @@
-import { AppOnboardingSteps } from "@calcom/lib/apps/appOnboardingSteps";
+import { AppOnboardingSteps } from "@kalo/lib/apps/appOnboardingSteps";
 
 import { getAppOnboardingUrl } from "./getAppOnboardingUrl";
 

@@ -1,16 +1,16 @@
 "use client";
 
-import { sdkActionManager } from "@calcom/embed-core/embed-iframe";
-import { isCancellationReasonRequired } from "@calcom/features/bookings/lib/cancellationReason";
-import { shouldChargeNoShowCancellationFee } from "@calcom/features/bookings/lib/payment/shouldChargeNoShowCancellationFee";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { useRefreshData } from "@calcom/lib/hooks/useRefreshData";
-import type { CancellationReasonRequirement } from "@calcom/prisma/enums";
-import type { RecurringEvent } from "@calcom/types/Calendar";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { CheckboxField, Label, Select, TextArea } from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
+import { sdkActionManager } from "@kalo/embed-core/embed-iframe";
+import { isCancellationReasonRequired } from "@kalo/features/bookings/lib/cancellationReason";
+import { shouldChargeNoShowCancellationFee } from "@kalo/features/bookings/lib/payment/shouldChargeNoShowCancellationFee";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { useRefreshData } from "@kalo/lib/hooks/useRefreshData";
+import type { CancellationReasonRequirement } from "@kalo/prisma/enums";
+import type { RecurringEvent } from "@kalo/types/Calendar";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { CheckboxField, Label, Select, TextArea } from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon, XIcon } from "@coss/ui/icons";
 import { useCallback, useState } from "react";
 
@@ -178,7 +178,7 @@ export default function CancelBooking(props: Props) {
     !missingRequiredReason && !hostMissingInternalNote && !cancellationNoShowFeeNotAcknowledged;
   const cancelBookingRef = useCallback((node: HTMLTextAreaElement) => {
     if (node !== null) {
-      // eslint-disable-next-line @calcom/eslint/no-scroll-into-view-embed -- CancelBooking is not usually used in embed mode
+      // eslint-disable-next-line @kalo/eslint/no-scroll-into-view-embed -- CancelBooking is not usually used in embed mode
       node.scrollIntoView({ behavior: "smooth" });
       node.focus();
     }

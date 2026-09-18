@@ -1,6 +1,6 @@
-# Cal.diy Engineering Rules
+# Kalo Engineering Rules
 
-This directory contains modular, machine-readable engineering rules derived from [Cal.diy's Engineering Standards for 2026 and Beyond](https://cal.com/blog/engineering-in-2026-and-beyond).
+This directory contains modular, machine-readable engineering rules derived from [Kalo's Engineering Standards for 2026 and Beyond](https://cal.com/blog/engineering-in-2026-and-beyond).
 
 ## Structure
 

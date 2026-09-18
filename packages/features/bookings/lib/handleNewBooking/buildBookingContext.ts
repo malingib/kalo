@@ -1,6 +1,6 @@
-import { getUsernameList } from "@calcom/features/eventtypes/lib/defaultEvents";
-import { getFullName } from "@calcom/features/form-builder/utils";
-import { shouldIgnoreContactOwner } from "@calcom/lib/bookings/routing/utils";
+import { getUsernameList } from "@kalo/features/eventtypes/lib/defaultEvents";
+import { getFullName } from "@kalo/features/form-builder/utils";
+import { shouldIgnoreContactOwner } from "@kalo/lib/bookings/routing/utils";
 import type { getEventTypeResponse } from "./getEventTypesFromDB";
 
 type BookingContextEventType = Pick<getEventTypeResponse, "team" | "parent" | "owner">;

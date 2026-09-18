@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z, ZodError } from "zod";
 
-import { getServerErrorFromUnknown } from "@calcom/lib/server/getServerErrorFromUnknown";
+import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUnknown";
 
 import { GiphyManager } from "../lib";
 

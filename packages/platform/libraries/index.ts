@@ -1,26 +1,26 @@
-import { getBookingForReschedule } from "@calcom/features/bookings/lib/get-booking";
-import getAllUserBookings from "@calcom/features/bookings/lib/getAllUserBookings";
-import { getBookingFieldsWithSystemFields } from "@calcom/features/bookings/lib/getBookingFields";
-import getBookingInfo from "@calcom/features/bookings/lib/getBookingInfo";
-import handleCancelBooking from "@calcom/features/bookings/lib/handleCancelBooking";
-import handleMarkNoShow from "@calcom/features/handleMarkNoShow";
-import { getTranslation } from "@calcom/i18n/server";
-import { symmetricDecrypt, symmetricEncrypt } from "@calcom/lib/crypto";
-import type { Prisma } from "@calcom/prisma/client";
-import { credentialForCalendarServiceSelect } from "@calcom/prisma/selects/credential";
-import { paymentDataSelect } from "@calcom/prisma/selects/payment";
+import { getBookingForReschedule } from "@kalo/features/bookings/lib/get-booking";
+import getAllUserBookings from "@kalo/features/bookings/lib/getAllUserBookings";
+import { getBookingFieldsWithSystemFields } from "@kalo/features/bookings/lib/getBookingFields";
+import getBookingInfo from "@kalo/features/bookings/lib/getBookingInfo";
+import handleCancelBooking from "@kalo/features/bookings/lib/handleCancelBooking";
+import handleMarkNoShow from "@kalo/features/handleMarkNoShow";
+import { getTranslation } from "@kalo/i18n/server";
+import { symmetricDecrypt, symmetricEncrypt } from "@kalo/lib/crypto";
+import type { Prisma } from "@kalo/prisma/client";
+import { credentialForCalendarServiceSelect } from "@kalo/prisma/selects/credential";
+import { paymentDataSelect } from "@kalo/prisma/selects/payment";
 
-export { slugify } from "@calcom/lib/slugify";
-export { slugifyLenient } from "@calcom/lib/slugify-lenient";
+export { slugify } from "@kalo/lib/slugify";
+export { slugifyLenient } from "@kalo/lib/slugify-lenient";
 export { getBookingForReschedule };
 
-export { getWebhookProducer } from "@calcom/features/di/webhooks/containers/webhook";
-export { getUsernameList } from "@calcom/features/eventtypes/lib/defaultEvents";
+export { getWebhookProducer } from "@kalo/features/di/webhooks/containers/webhook";
+export { getUsernameList } from "@kalo/features/eventtypes/lib/defaultEvents";
 export {
   DEFAULT_WEBHOOK_VERSION,
   WebhookVersion,
-} from "@calcom/features/webhooks/lib/interface/IWebhookRepository";
-export type { IWebhookProducerService } from "@calcom/features/webhooks/lib/interface/WebhookProducerService";
+} from "@kalo/features/webhooks/lib/interface/IWebhookRepository";
+export type { IWebhookProducerService } from "@kalo/features/webhooks/lib/interface/WebhookProducerService";
 export {
   AttributeType,
   CreationSource,
@@ -29,51 +29,51 @@ export {
   SchedulingType,
   TimeUnit,
   WebhookTriggerEvents,
-} from "@calcom/prisma/enums";
-export type { CalendarEvent, EventBusyDate } from "@calcom/types/Calendar";
+} from "@kalo/prisma/enums";
+export type { CalendarEvent, EventBusyDate } from "@kalo/types/Calendar";
 
 export { handleMarkNoShow };
 
 export type {
   BookingCreateBody,
   BookingResponse,
-} from "@calcom/features/bookings/types";
-export type { ConnectedCalendar } from "@calcom/features/calendars/lib/CalendarManager";
+} from "@kalo/features/bookings/types";
+export type { ConnectedCalendar } from "@kalo/features/calendars/lib/CalendarManager";
 export {
   getBusyCalendarTimes,
   updateEvent,
-} from "@calcom/features/calendars/lib/CalendarManager";
-export type { ConnectedDestinationCalendars } from "@calcom/features/calendars/lib/getConnectedDestinationCalendars";
-export { getConnectedDestinationCalendarsAndEnsureDefaultsInDb } from "@calcom/features/calendars/lib/getConnectedDestinationCalendars";
-export type { CityTimezones } from "@calcom/features/cityTimezones/cityTimezonesHandler";
-export { cityTimezonesHandler } from "@calcom/features/cityTimezones/cityTimezonesHandler";
-export { ENABLE_ASYNC_TASKER, MINUTES_TO_BOOK } from "@calcom/lib/constants";
+} from "@kalo/features/calendars/lib/CalendarManager";
+export type { ConnectedDestinationCalendars } from "@kalo/features/calendars/lib/getConnectedDestinationCalendars";
+export { getConnectedDestinationCalendarsAndEnsureDefaultsInDb } from "@kalo/features/calendars/lib/getConnectedDestinationCalendars";
+export type { CityTimezones } from "@kalo/features/cityTimezones/cityTimezonesHandler";
+export { cityTimezonesHandler } from "@kalo/features/cityTimezones/cityTimezonesHandler";
+export { ENABLE_ASYNC_TASKER, MINUTES_TO_BOOK } from "@kalo/lib/constants";
 export { TRPCError } from "@trpc/server";
 
 export { getAllUserBookings };
 export { getBookingInfo };
 export { handleCancelBooking };
 
-export { dynamicEvent } from "@calcom/features/eventtypes/lib/defaultEvents";
-export { parseBookingLimit } from "@calcom/lib/intervalLimits/isBookingLimits";
-export { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
+export { dynamicEvent } from "@kalo/features/eventtypes/lib/defaultEvents";
+export { parseBookingLimit } from "@kalo/lib/intervalLimits/isBookingLimits";
+export { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
 export {
   bookingMetadataSchema,
   teamMetadataSchema,
   userMetadata,
-} from "@calcom/prisma/zod-utils";
+} from "@kalo/prisma/zod-utils";
 
 export { symmetricEncrypt, symmetricDecrypt };
 
 export { getTranslation };
 
-export { validateCustomEventName } from "@calcom/features/eventtypes/lib/eventNaming";
+export { validateCustomEventName } from "@kalo/features/eventtypes/lib/eventNaming";
 
 export type TeamQuery = Prisma.TeamGetPayload<{
   select: {
     id: true;
     credentials: {
-      select: typeof import("@calcom/prisma/selects/credential").credentialForCalendarServiceSelect;
+      select: typeof import("@kalo/prisma/selects/credential").credentialForCalendarServiceSelect;
     };
     name: true;
     logoUrl: true;
@@ -87,38 +87,38 @@ export type TeamQuery = Prisma.TeamGetPayload<{
 
 export { credentialForCalendarServiceSelect };
 export { paymentDataSelect };
-export { confirmHandler as confirmBookingHandler } from "@calcom/trpc/server/routers/viewer/bookings/confirm.handler";
+export { confirmHandler as confirmBookingHandler } from "@kalo/trpc/server/routers/viewer/bookings/confirm.handler";
 export { getBookingFieldsWithSystemFields };
 
-export { checkAdminOrOwner } from "@calcom/features/auth/lib/checkAdminOrOwner";
-export { sendLocationChangeEmailsAndSMS } from "@calcom/emails/email-manager";
-export { verifyCodeUnAuthenticated } from "@calcom/features/auth/lib/verifyCodeUnAuthenticated";
-export { sendEmailVerificationByCode } from "@calcom/features/auth/lib/verifyEmail";
-export { getCalendarLinks } from "@calcom/features/bookings/lib/getCalendarLinks";
-export { BookingReferenceRepository } from "@calcom/features/bookingReference/repositories/BookingReferenceRepository";
-export { BookingAccessService } from "@calcom/features/bookings/services/BookingAccessService";
-export { CredentialRepository } from "@calcom/features/credentials/repositories/CredentialRepository";
-export type { OrgMembershipLookup } from "@calcom/features/di/modules/OrgMembershipLookup";
-export type { OAuth2Tokens } from "@calcom/features/oauth/services/OAuthService";
-export { OAuthService } from "@calcom/features/oauth/services/OAuthService";
-export { generateSecret } from "@calcom/features/oauth/utils/generateSecret";
-export { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
-export { SelectedCalendarRepository } from "@calcom/features/selectedCalendar/repositories/SelectedCalendarRepository";
-export type { Tasker } from "@calcom/features/tasker/tasker";
-export { getTasker } from "@calcom/features/tasker/tasker-factory";
-export { buildCalEventFromBooking } from "@calcom/lib/buildCalEventFromBooking";
-export { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
-export { verifyCodeChallenge } from "@calcom/lib/pkce";
-export { encryptServiceAccountKey } from "@calcom/lib/server/serviceAccountKey";
-export { validateUrlForSSRFSync } from "@calcom/lib/ssrfProtection";
-export type { TraceContext } from "@calcom/lib/tracing";
-export { distributedTracing } from "@calcom/lib/tracing/factory";
+export { checkAdminOrOwner } from "@kalo/features/auth/lib/checkAdminOrOwner";
+export { sendLocationChangeEmailsAndSMS } from "@kalo/emails/email-manager";
+export { verifyCodeUnAuthenticated } from "@kalo/features/auth/lib/verifyCodeUnAuthenticated";
+export { sendEmailVerificationByCode } from "@kalo/features/auth/lib/verifyEmail";
+export { getCalendarLinks } from "@kalo/features/bookings/lib/getCalendarLinks";
+export { BookingReferenceRepository } from "@kalo/features/bookingReference/repositories/BookingReferenceRepository";
+export { BookingAccessService } from "@kalo/features/bookings/services/BookingAccessService";
+export { CredentialRepository } from "@kalo/features/credentials/repositories/CredentialRepository";
+export type { OrgMembershipLookup } from "@kalo/features/di/modules/OrgMembershipLookup";
+export type { OAuth2Tokens } from "@kalo/features/oauth/services/OAuthService";
+export { OAuthService } from "@kalo/features/oauth/services/OAuthService";
+export { generateSecret } from "@kalo/features/oauth/utils/generateSecret";
+export { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
+export { SelectedCalendarRepository } from "@kalo/features/selectedCalendar/repositories/SelectedCalendarRepository";
+export type { Tasker } from "@kalo/features/tasker/tasker";
+export { getTasker } from "@kalo/features/tasker/tasker-factory";
+export { buildCalEventFromBooking } from "@kalo/lib/buildCalEventFromBooking";
+export { getVideoCallUrlFromCalEvent } from "@kalo/lib/CalEventParser";
+export { verifyCodeChallenge } from "@kalo/lib/pkce";
+export { encryptServiceAccountKey } from "@kalo/lib/server/serviceAccountKey";
+export { validateUrlForSSRFSync } from "@kalo/lib/ssrfProtection";
+export type { TraceContext } from "@kalo/lib/tracing";
+export { distributedTracing } from "@kalo/lib/tracing/factory";
 export {
   type BookingWithUserAndEventDetails,
   bookingWithUserAndEventDetailsSelect,
-} from "@calcom/prisma/selects/booking";
-export { checkEmailVerificationRequired } from "@calcom/trpc/server/routers/publicViewer/checkIfUserEmailVerificationRequired.handler";
-export type { CredentialForCalendarService } from "@calcom/types/Credential";
+} from "@kalo/prisma/selects/booking";
+export { checkEmailVerificationRequired } from "@kalo/trpc/server/routers/publicViewer/checkIfUserEmailVerificationRequired.handler";
+export type { CredentialForCalendarService } from "@kalo/types/Credential";
 
 // === Stubs for deleted EE features still imported by API v2 ===
 

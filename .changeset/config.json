@@ -1,13 +1,13 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "calcom/cal.diy" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "malingib/kalo" }],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@calcom/platform-libraries", "@calcom/api-v2"],
+  "ignore": ["@kalo/platform-libraries", "@kalo/api-v2"],
   "privatePackages": {
     "version": false,
     "tag": false

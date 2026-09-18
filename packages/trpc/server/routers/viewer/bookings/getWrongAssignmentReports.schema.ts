@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { WrongAssignmentReportStatus } from "@calcom/prisma/enums";
+import { WrongAssignmentReportStatus } from "@kalo/prisma/enums";
 
 export const ZGetWrongAssignmentReportsInputSchema = z.object({
   teamId: z.number(),

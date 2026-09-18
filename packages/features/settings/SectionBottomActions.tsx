@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import classNames from "@calcom/ui/classNames";
+import classNames from "@kalo/ui/classNames";
 
 const SectionBottomActions = ({
   align = "start",

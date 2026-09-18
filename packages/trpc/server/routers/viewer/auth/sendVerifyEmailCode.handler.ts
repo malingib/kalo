@@ -1,8 +1,8 @@
-import { sendEmailVerificationByCode } from "@calcom/features/auth/lib/verifyEmail";
-import { getEventTypeService } from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import getIP from "@calcom/lib/getIP";
-import { hashEmail, piiHasher } from "@calcom/lib/server/PiiHasher";
+import { sendEmailVerificationByCode } from "@kalo/features/auth/lib/verifyEmail";
+import { getEventTypeService } from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import getIP from "@kalo/lib/getIP";
+import { hashEmail, piiHasher } from "@kalo/lib/server/PiiHasher";
 import type { NextApiRequest } from "next";
 import type { TRPCContext } from "../../../createContext";
 import type { TSendVerifyEmailCodeSchema } from "./sendVerifyEmailCode.schema";

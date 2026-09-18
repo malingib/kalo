@@ -7,16 +7,16 @@ import type React from "react";
 import { cloneElement } from "react";
 import { Toaster } from "sonner";
 
-import { useFormbricks } from "@calcom/web/modules/formbricks/hooks/useFormbricks";
-import { useRedirectToLoginIfUnauthenticated } from "@calcom/web/modules/auth/hooks/useRedirectToLoginIfUnauthenticated";
-import { useRedirectToOnboardingIfNeeded } from "@calcom/web/modules/auth/hooks/useRedirectToOnboardingIfNeeded";
+import { useFormbricks } from "@kalo/web/modules/formbricks/hooks/useFormbricks";
+import { useRedirectToLoginIfUnauthenticated } from "@kalo/web/modules/auth/hooks/useRedirectToLoginIfUnauthenticated";
+import { useRedirectToOnboardingIfNeeded } from "@kalo/web/modules/auth/hooks/useRedirectToOnboardingIfNeeded";
 
-import TimezoneChangeDialog from "@calcom/web/modules/settings/components/TimezoneChangeDialog";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { ErrorBoundary } from "@calcom/ui/components/errorBoundary";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import TimezoneChangeDialog from "@kalo/web/modules/settings/components/TimezoneChangeDialog";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { ErrorBoundary } from "@kalo/ui/components/errorBoundary";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 
 import { DynamicModals } from "./DynamicModals";
 import { KBarContent, KBarRoot } from "./Kbar";

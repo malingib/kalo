@@ -1,8 +1,8 @@
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import type { User } from "@calcom/prisma/client";
-import type { UserProfile } from "@calcom/types/UserProfile";
-import classNames from "@calcom/ui/classNames";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import type { User } from "@kalo/prisma/client";
+import type { UserProfile } from "@kalo/types/UserProfile";
+import classNames from "@kalo/ui/classNames";
 
 import { Avatar } from "./Avatar";
 

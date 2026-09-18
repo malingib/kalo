@@ -1,8 +1,8 @@
 import { RedisService } from "@/modules/redis/redis.service";
 import { Injectable } from "@nestjs/common";
 
-import { cityTimezonesHandler } from "@calcom/platform-libraries";
-import type { CityTimezones } from "@calcom/platform-libraries";
+import { cityTimezonesHandler } from "@kalo/platform-libraries";
+import type { CityTimezones } from "@kalo/platform-libraries";
 
 @Injectable()
 export class TimezonesService {

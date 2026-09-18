@@ -1,6 +1,6 @@
 "use client";
 
-import { trpc } from "@calcom/trpc/react";
+import { trpc } from "@kalo/trpc/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 

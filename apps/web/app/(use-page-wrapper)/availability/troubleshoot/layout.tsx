@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 
-import { ErrorBoundary } from "@calcom/ui/components/errorBoundary";
+import { ErrorBoundary } from "@kalo/ui/components/errorBoundary";
 import { LoaderIcon } from "@coss/ui/icons";
 
 export default function TroubleshooterLayout({ children }: { children: React.ReactNode }) {

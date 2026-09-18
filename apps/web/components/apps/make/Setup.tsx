@@ -2,14 +2,14 @@ import type { InferGetServerSidePropsType } from "next";
 import { useState } from "react";
 import { Toaster } from "sonner";
 
-import AppNotInstalledMessage from "@calcom/app-store/_components/AppNotInstalledMessage";
-import type { getServerSideProps } from "@calcom/app-store/make/pages/setup/_getServerSideProps";
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { showToast } from "@calcom/ui/components/toast";
-import { Tooltip } from "@calcom/ui/components/tooltip";
+import AppNotInstalledMessage from "@kalo/app-store/_components/AppNotInstalledMessage";
+import type { getServerSideProps } from "@kalo/app-store/make/pages/setup/_getServerSideProps";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { showToast } from "@kalo/ui/components/toast";
+import { Tooltip } from "@kalo/ui/components/tooltip";
 import { ClipboardIcon } from "@coss/ui/icons";
 
 const MAKE = "make";

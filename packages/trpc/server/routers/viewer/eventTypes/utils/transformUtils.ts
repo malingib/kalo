@@ -1,7 +1,7 @@
-import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
-import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
-import type { MembershipRole } from "@calcom/prisma/enums";
-import { teamMetadataSchema } from "@calcom/prisma/zod-utils";
+import { getPlaceholderAvatar } from "@kalo/lib/defaultAvatarImage";
+import { getUserAvatarUrl } from "@kalo/lib/getAvatarUrl";
+import type { MembershipRole } from "@kalo/prisma/enums";
+import { teamMetadataSchema } from "@kalo/prisma/zod-utils";
 import type { TeamPermissions } from "./permissionUtils";
 
 const getBookerBaseUrlSync = (_orgSlug?: string | number | null): string =>

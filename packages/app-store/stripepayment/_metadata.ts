@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Stripe",
@@ -14,14 +14,14 @@ export const metadata = {
   category: "payment",
   categories: ["payment"],
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   title: "Stripe",
   type: "stripe_payment",
   url: "https://cal.com/",
   docsUrl: "https://stripe.com/docs",
   variant: "payment",
   extendsFeature: "EventType",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "stripepayment",
   isOAuth: true,
 } as AppMeta;

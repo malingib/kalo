@@ -7,13 +7,13 @@ import type { NextRequest } from "next/server";
 import { authenticator } from "otplib";
 import qrcode from "qrcode";
 
-import { ErrorCode } from "@calcom/features/auth/lib/ErrorCode";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { verifyPassword } from "@calcom/features/auth/lib/verifyPassword";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import { symmetricEncrypt } from "@calcom/lib/crypto";
-import prisma from "@calcom/prisma";
-import { IdentityProvider } from "@calcom/prisma/enums";
+import { ErrorCode } from "@kalo/features/auth/lib/ErrorCode";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { verifyPassword } from "@kalo/features/auth/lib/verifyPassword";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import { symmetricEncrypt } from "@kalo/lib/crypto";
+import prisma from "@kalo/prisma";
+import { IdentityProvider } from "@kalo/prisma/enums";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 

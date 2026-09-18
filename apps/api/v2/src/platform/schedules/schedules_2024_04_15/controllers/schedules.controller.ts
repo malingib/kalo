@@ -25,8 +25,8 @@ import {
 } from "@nestjs/common";
 import { ApiExcludeController as DocsExcludeController } from "@nestjs/swagger";
 
-import { SCHEDULE_READ, SCHEDULE_WRITE, SUCCESS_STATUS } from "@calcom/platform-constants";
-import { UpdateScheduleInput_2024_04_15 } from "@calcom/platform-types";
+import { SCHEDULE_READ, SCHEDULE_WRITE, SUCCESS_STATUS } from "@kalo/platform-constants";
+import { UpdateScheduleInput_2024_04_15 } from "@kalo/platform-types";
 
 import { CreateScheduleInput_2024_04_15 } from "../inputs/create-schedule.input";
 

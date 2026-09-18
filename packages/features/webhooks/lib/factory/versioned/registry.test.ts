@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 import { DEFAULT_WEBHOOK_VERSION, WebhookVersion } from "../../interface/IWebhookRepository";
 import { createPayloadBuilderFactory } from "./registry";

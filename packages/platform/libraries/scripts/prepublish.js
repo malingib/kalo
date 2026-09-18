@@ -11,7 +11,7 @@ export function getCurrentVersion() {
   return new Promise((resolve, reject) => {
     https
       .get(
-        "https://registry.npmjs.org/@calcom/platform-libraries",
+        "https://registry.npmjs.org/@kalo/platform-libraries",
         {
           headers: { Accept: "application/json" },
         },
@@ -55,7 +55,7 @@ async function main() {
     librariesPackageJson.version = newVersion;
     fs.writeFileSync(librariesPackageJsonPath, `${JSON.stringify(librariesPackageJson, null, 2)}\n`);
 
-    console.log("Successfully incremented @calcom/platform-libraries package.json version.");
+    console.log("Successfully incremented @kalo/platform-libraries package.json version.");
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);

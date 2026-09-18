@@ -1,6 +1,6 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { ReminderMinutes } from "@calcom/trpc/server/routers/viewer/calendars/setDestinationReminder.schema";
-import { Label } from "@calcom/ui/components/form";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { ReminderMinutes } from "@kalo/trpc/server/routers/viewer/calendars/setDestinationReminder.schema";
+import { Label } from "@kalo/ui/components/form";
 
 import { cn } from "../src/lib/utils";
 import type { DestinationCalendarProps } from "./DestinationCalendarSelector";

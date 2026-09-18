@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import ServerTrans from "@calcom/lib/components/ServerTrans";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
 
 import { BaseEmailHtml, CallToAction } from "../components";
 

@@ -1,5 +1,5 @@
-import { AVATAR_FALLBACK, CAL_URL } from "@calcom/lib/constants";
-import type { User } from "@calcom/prisma/client";
+import { AVATAR_FALLBACK, CAL_URL } from "@kalo/lib/constants";
+import type { User } from "@kalo/prisma/client";
 import { z } from "zod";
 
 export const getAbsoluteAvatarUrl = (url: string): string => {

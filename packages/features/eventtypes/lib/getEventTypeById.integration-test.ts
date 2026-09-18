@@ -1,9 +1,9 @@
-import { prisma } from "@calcom/prisma";
-import type { PrismaClient } from "@calcom/prisma";
-import { CancellationReasonRequirement } from "@calcom/prisma/enums";
-import i18nMock from "@calcom/testing/lib/__mocks__/libServerI18n";
+import { prisma } from "@kalo/prisma";
+import type { PrismaClient } from "@kalo/prisma";
+import { CancellationReasonRequirement } from "@kalo/prisma/enums";
+import i18nMock from "@kalo/testing/lib/__mocks__/libServerI18n";
 
-// import { mockNoTranslations } from "@calcom/testing/lib/bookingScenario/bookingScenario";
+// import { mockNoTranslations } from "@kalo/testing/lib/bookingScenario/bookingScenario";
 
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 
@@ -19,7 +19,7 @@ export function mockNoTranslations() {
   });
 }
 
-vi.mock("@calcom/i18n/server", () => ({
+vi.mock("@kalo/i18n/server", () => ({
   getTranslation: (key: string) => () => key,
 }));
 

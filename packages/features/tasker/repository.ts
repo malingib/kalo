@@ -1,6 +1,6 @@
-import { prisma } from "@calcom/prisma";
-import type { PrismaClient } from "@calcom/prisma";
-import { Prisma } from "@calcom/prisma/client";
+import { prisma } from "@kalo/prisma";
+import type { PrismaClient } from "@kalo/prisma";
+import { Prisma } from "@kalo/prisma/client";
 
 import { type TaskTypes } from "./tasker";
 

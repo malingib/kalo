@@ -9,9 +9,9 @@ import {
   LOGO_ICON,
   MSTILE_ICON,
   WEBAPP_URL,
-} from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { isTrustedInternalUrl, logBlockedSSRFAttempt, validateUrlForSSRF } from "@calcom/lib/ssrfProtection";
+} from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { isTrustedInternalUrl, logBlockedSSRFAttempt, validateUrlForSSRF } from "@kalo/lib/ssrfProtection";
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 import { defaultResponderForAppDir } from "app/api/defaultResponderForAppDir";
 import { cookies, headers } from "next/headers";
@@ -121,7 +121,7 @@ async function getTeamLogos(subdomain: string, isValidOrgDomain: boolean) {
       throw new Error("No custom logo needed");
     }
     // load from DB
-    const { default: prisma } = await import("@calcom/prisma");
+    const { default: prisma } = await import("@kalo/prisma");
     const team = await prisma.team.findFirst({
       where: {
         slug: subdomain,
@@ -183,7 +183,7 @@ async function getHandler(request: NextRequest) {
   const [subdomain] = domains;
   const teamLogos = await getTeamLogos(subdomain, isValidOrgDomain);
 
-  // Resolve all icon types to team logos, falling back to Cal.diy defaults.
+  // Resolve all icon types to team logos, falling back to Kalo defaults.
   const type: LogoType = parsedQuery?.type && isValidLogoType(parsedQuery.type) ? parsedQuery.type : "logo";
   const logoDefinition = logoDefinitions[type];
   const filteredLogo = teamLogos[logoDefinition.source] ?? logoDefinition.fallback;
@@ -215,7 +215,7 @@ async function getHandler(request: NextRequest) {
 
     // Resize the team logos if needed
     if (teamLogos[logoDefinition.source] && logoDefinition.w) {
-      const { resizeImage } = await import("@calcom/lib/server/imageUtils");
+      const { resizeImage } = await import("@kalo/lib/server/imageUtils");
       const { buffer: outBuffer, contentType: outContentType } = await resizeImage({
         buffer,
         width: logoDefinition.w,

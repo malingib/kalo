@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import type { PrefillAndIframeAttrsConfig } from "@calcom/embed-core";
+import type { PrefillAndIframeAttrsConfig } from "@kalo/embed-core";
 
 import useEmbed from "./useEmbed";
 

@@ -1,13 +1,13 @@
-import type { MockResponse } from "@calcom/features/auth/signup/handlers/__tests__/mocks/next.mocks";
+import type { MockResponse } from "@kalo/features/auth/signup/handlers/__tests__/mocks/next.mocks";
 import {
   prismaMock,
   resetPrismaMock,
-} from "@calcom/features/auth/signup/handlers/__tests__/mocks/prisma.mocks";
-import type { SignupBody } from "@calcom/features/auth/signup/handlers/__tests__/mocks/signup.factories";
+} from "@kalo/features/auth/signup/handlers/__tests__/mocks/prisma.mocks";
+import type { SignupBody } from "@kalo/features/auth/signup/handlers/__tests__/mocks/signup.factories";
 import {
   createMockFoundToken,
   createMockTeam,
-} from "@calcom/features/auth/signup/handlers/__tests__/mocks/signup.factories";
+} from "@kalo/features/auth/signup/handlers/__tests__/mocks/signup.factories";
 import type { Mock } from "vitest";
 import { vi } from "vitest";
 
@@ -26,56 +26,56 @@ var mockCapturedHandler: InnerHandler | null;
 
 vi.mock("next/server", async () => {
   const { createNextServerMock } = await import(
-    "@calcom/features/auth/signup/handlers/__tests__/mocks/next.mocks"
+    "@kalo/features/auth/signup/handlers/__tests__/mocks/next.mocks"
   );
   return createNextServerMock();
 });
 vi.mock("next/headers", async () => {
   const { createNextHeadersMock } = await import(
-    "@calcom/features/auth/signup/handlers/__tests__/mocks/next.mocks"
+    "@kalo/features/auth/signup/handlers/__tests__/mocks/next.mocks"
   );
   return createNextHeadersMock();
 });
-vi.mock("@calcom/prisma", async () => {
+vi.mock("@kalo/prisma", async () => {
   const { createPrismaMock } = await import(
-    "@calcom/features/auth/signup/handlers/__tests__/mocks/prisma.mocks"
+    "@kalo/features/auth/signup/handlers/__tests__/mocks/prisma.mocks"
   );
   return createPrismaMock();
 });
-vi.mock("@calcom/prisma/client", async () => {
+vi.mock("@kalo/prisma/client", async () => {
   const { createPrismaMock } = await import(
-    "@calcom/features/auth/signup/handlers/__tests__/mocks/prisma.mocks"
+    "@kalo/features/auth/signup/handlers/__tests__/mocks/prisma.mocks"
   );
   return createPrismaMock();
 });
-vi.mock("@calcom/lib/logger", () => ({
+vi.mock("@kalo/lib/logger", () => ({
   default: { getSubLogger: () => ({ warn: vi.fn(), error: vi.fn(), debug: vi.fn(), info: vi.fn() }) },
 }));
-vi.mock("@calcom/lib/auth/hashPassword", () => ({ hashPassword: vi.fn().mockResolvedValue("hashed") }));
-vi.mock("@calcom/lib/constants", () => ({ WEBAPP_URL: "http://localhost:3000" }));
-vi.mock("@calcom/lib/tracking", () => ({ getTrackingFromCookies: vi.fn().mockReturnValue({}) }));
-vi.mock("@calcom/app-store/stripepayment/lib/utils", () => ({ getPremiumMonthlyPlanPriceId: vi.fn() }));
-vi.mock("@calcom/features/auth/lib/getLocaleFromRequest", () => ({
+vi.mock("@kalo/lib/auth/hashPassword", () => ({ hashPassword: vi.fn().mockResolvedValue("hashed") }));
+vi.mock("@kalo/lib/constants", () => ({ WEBAPP_URL: "http://localhost:3000" }));
+vi.mock("@kalo/lib/tracking", () => ({ getTrackingFromCookies: vi.fn().mockReturnValue({}) }));
+vi.mock("@kalo/app-store/stripepayment/lib/utils", () => ({ getPremiumMonthlyPlanPriceId: vi.fn() }));
+vi.mock("@kalo/features/auth/lib/getLocaleFromRequest", () => ({
   getLocaleFromRequest: vi.fn().mockResolvedValue("en"),
 }));
-vi.mock("@calcom/features/auth/lib/verifyEmail", () => ({ sendEmailVerification: vi.fn() }));
-vi.mock("@calcom/features/auth/signup/utils/createOrUpdateMemberships", () => ({
+vi.mock("@kalo/features/auth/lib/verifyEmail", () => ({ sendEmailVerification: vi.fn() }));
+vi.mock("@kalo/features/auth/signup/utils/createOrUpdateMemberships", () => ({
   createOrUpdateMemberships: vi.fn(),
 }));
-vi.mock("@calcom/features/auth/signup/utils/prefillAvatar", () => ({ prefillAvatar: vi.fn() }));
-vi.mock("@calcom/features/auth/signup/utils/validateUsername", () => ({
+vi.mock("@kalo/features/auth/signup/utils/prefillAvatar", () => ({ prefillAvatar: vi.fn() }));
+vi.mock("@kalo/features/auth/signup/utils/validateUsername", () => ({
   validateAndGetCorrectedUsernameAndEmail: vi.fn().mockResolvedValue({ isValid: true, username: "testuser" }),
 }));
-vi.mock("@calcom/features/watchlist/lib/telemetry", () => ({ sentrySpan: {} }));
-vi.mock("@calcom/features/watchlist/operations/check-if-email-in-watchlist.controller", () => ({
+vi.mock("@kalo/features/watchlist/lib/telemetry", () => ({ sentrySpan: {} }));
+vi.mock("@kalo/features/watchlist/operations/check-if-email-in-watchlist.controller", () => ({
   checkIfEmailIsBlockedInWatchlistController: vi.fn().mockResolvedValue(false),
 }));
-vi.mock("@calcom/features/di/containers/FeatureRepository", () => ({
+vi.mock("@kalo/features/di/containers/FeatureRepository", () => ({
   getFeatureRepository: vi.fn().mockReturnValue({
     checkIfFeatureIsEnabledGlobally: vi.fn().mockResolvedValue(false),
   }),
 }));
-vi.mock("@calcom/features/watchlist/lib/repository/GlobalWatchlistRepository", () => {
+vi.mock("@kalo/features/watchlist/lib/repository/GlobalWatchlistRepository", () => {
   return {
     GlobalWatchlistRepository: class {
       findBlockedEmail = vi.fn().mockResolvedValue(null);
@@ -83,12 +83,12 @@ vi.mock("@calcom/features/watchlist/lib/repository/GlobalWatchlistRepository", (
     },
   };
 });
-vi.mock("@calcom/features/watchlist/lib/utils/normalization", () => ({
+vi.mock("@kalo/features/watchlist/lib/utils/normalization", () => ({
   normalizeEmail: vi.fn((e: string) => e.toLowerCase()),
 }));
-vi.mock("@calcom/web/lib/buildLegacyCtx", () => ({ buildLegacyRequest: vi.fn() }));
-vi.mock("@calcom/features/auth/signup/utils/organization", () => ({ joinAnyChildTeamOnOrgInvite: vi.fn() }));
-vi.mock("@calcom/features/auth/signup/utils/token", () => ({
+vi.mock("@kalo/web/lib/buildLegacyCtx", () => ({ buildLegacyRequest: vi.fn() }));
+vi.mock("@kalo/features/auth/signup/utils/organization", () => ({ joinAnyChildTeamOnOrgInvite: vi.fn() }));
+vi.mock("@kalo/features/auth/signup/utils/token", () => ({
   findTokenByToken: (...args: unknown[]) => mockFindTokenByToken(...args),
   throwIfTokenExpired: vi.fn(),
   validateAndGetCorrectedUsernameForTeam: (...args: unknown[]) =>
@@ -96,7 +96,7 @@ vi.mock("@calcom/features/auth/signup/utils/token", () => ({
 }));
 
 // Capture inner handler from usernameHandler wrapper
-vi.mock("@calcom/lib/server/username", () => ({
+vi.mock("@kalo/lib/server/username", () => ({
   usernameHandler: (handler: InnerHandler) => {
     mockCapturedHandler = handler;
     return handler;
@@ -105,7 +105,7 @@ vi.mock("@calcom/lib/server/username", () => ({
 
 // Import after mocks
 import "./calcomSignupHandler";
-import { runP2002TestSuite } from "@calcom/features/auth/signup/handlers/__tests__/p2002.test-suite";
+import { runP2002TestSuite } from "@kalo/features/auth/signup/handlers/__tests__/p2002.test-suite";
 
 function callHandler(body: SignupBody): Promise<MockResponse> {
   if (!mockCapturedHandler) throw new Error("Handler not captured");

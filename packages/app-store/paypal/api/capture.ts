@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import z from "zod";
 
-import { findPaymentCredentials } from "@calcom/app-store/paypal/api/webhook";
-import Paypal from "@calcom/app-store/paypal/lib/Paypal";
-import { IS_PRODUCTION } from "@calcom/lib/constants";
-import prisma from "@calcom/prisma";
+import { findPaymentCredentials } from "@kalo/app-store/paypal/api/webhook";
+import Paypal from "@kalo/app-store/paypal/lib/Paypal";
+import { IS_PRODUCTION } from "@kalo/lib/constants";
+import prisma from "@kalo/prisma";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

@@ -1,18 +1,18 @@
 import { shallow } from "zustand/shallow";
 
-import type { Dayjs } from "@calcom/dayjs";
-import dayjs from "@calcom/dayjs";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import type { DatePickerClassNames } from "@calcom/features/bookings/Booker/types";
-import { DatePicker as DatePickerComponent } from "@calcom/features/calendars/components/DatePicker";
-import { useNonEmptyScheduleDays } from "@calcom/web/modules/schedules/hooks/useNonEmptyScheduleDays";
-import { weekdayToWeekIndex } from "@calcom/lib/dayjs";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { User } from "@calcom/prisma/client";
-import type { PeriodData } from "@calcom/types/Event";
-import { useSlotsViewOnSmallScreen } from "@calcom/embed-core/embed-iframe";
+import type { Dayjs } from "@kalo/dayjs";
+import dayjs from "@kalo/dayjs";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import type { DatePickerClassNames } from "@kalo/features/bookings/Booker/types";
+import { DatePicker as DatePickerComponent } from "@kalo/features/calendars/components/DatePicker";
+import { useNonEmptyScheduleDays } from "@kalo/web/modules/schedules/hooks/useNonEmptyScheduleDays";
+import { weekdayToWeekIndex } from "@kalo/lib/dayjs";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { User } from "@kalo/prisma/client";
+import type { PeriodData } from "@kalo/types/Event";
+import { useSlotsViewOnSmallScreen } from "@kalo/embed-core/embed-iframe";
 
-import type { Slots } from "@calcom/features/bookings/types";
+import type { Slots } from "@kalo/features/bookings/types";
 
 const useMoveToNextMonthOnNoAvailability = ({
   browsingDate,

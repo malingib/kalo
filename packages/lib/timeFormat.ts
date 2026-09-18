@@ -4,7 +4,7 @@
  * based on the user's preferred language
  * defaults to 'en-US' (12h) if no navigator language is found
  */
-import { localStorage } from "@calcom/lib/webstorage";
+import { localStorage } from "@kalo/lib/webstorage";
 
 const is24hLocalstorageKey = "timeOption.is24hClock";
 

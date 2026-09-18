@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { createDefaultInstallation } from "@calcom/app-store/_utils/installation";
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { WEBAPP_URL_FOR_OAUTH } from "@calcom/lib/constants";
-import { HttpError } from "@calcom/lib/http-error";
+import { createDefaultInstallation } from "@kalo/app-store/_utils/installation";
+import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
+import { WEBAPP_URL_FOR_OAUTH } from "@kalo/lib/constants";
+import { HttpError } from "@kalo/lib/http-error";
 
 import getAppKeysFromSlug from "../../_utils/getAppKeysFromSlug";
 import { encodeOAuthState } from "../../_utils/oauth/encodeOAuthState";

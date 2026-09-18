@@ -1,13 +1,13 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { describe, expect, it, vi, beforeAll, afterAll, afterEach } from "vitest";
 
-import * as shouldChargeModule from "@calcom/features/bookings/lib/payment/shouldChargeNoShowCancellationFee";
+import * as shouldChargeModule from "@kalo/features/bookings/lib/payment/shouldChargeNoShowCancellationFee";
 
 import CancelBooking from "../CancelBooking";
 
 // Mock the embed-iframe module to prevent it from scheduling timers/RAF that can cause
 // teardown issues when jsdom environment is destroyed
-vi.mock("@calcom/embed-core/embed-iframe", () => ({
+vi.mock("@kalo/embed-core/embed-iframe", () => ({
   sdkActionManager: null,
 }));
 
@@ -28,14 +28,14 @@ afterAll(() => {
     delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView;
   }
   // Clean up module mocks to avoid polluting other tests
-  vi.unmock("@calcom/embed-core/embed-iframe");
+  vi.unmock("@kalo/embed-core/embed-iframe");
 });
 
 afterEach(() => {
   cleanup();
 });
 
-vi.mock("@calcom/trpc/react", () => ({
+vi.mock("@kalo/trpc/react", () => ({
   trpc: {
     viewer: {
       bookings: {
@@ -67,7 +67,7 @@ vi.mock("next-i18next", () => ({
   }),
 }));
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => ({
     t: (key: string, options?: Record<string, unknown>) => {
       if (key === "cancel_booking_acknowledge_no_show_fee") {
@@ -84,7 +84,7 @@ vi.mock("@calcom/lib/hooks/useLocale", () => ({
   }),
 }));
 
-vi.mock("@calcom/lib/hooks/useRefreshData", () => ({
+vi.mock("@kalo/lib/hooks/useRefreshData", () => ({
   useRefreshData: () => vi.fn(),
 }));
 
@@ -95,7 +95,7 @@ vi.mock("next/router", () => ({
   }),
 }));
 
-vi.mock("@calcom/features/bookings/lib/payment/shouldChargeNoShowCancellationFee", () => ({
+vi.mock("@kalo/features/bookings/lib/payment/shouldChargeNoShowCancellationFee", () => ({
   shouldChargeNoShowCancellationFee: vi.fn(),
 }));
 

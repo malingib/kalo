@@ -1,7 +1,7 @@
 "use client";
 
-import { TOP_BANNER_HEIGHT } from "@calcom/lib/constants";
-import { trpc } from "@calcom/trpc/react";
+import { TOP_BANNER_HEIGHT } from "@kalo/lib/constants";
+import { trpc } from "@kalo/trpc/react";
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import type { AllBannerProps } from "./LayoutBanner";

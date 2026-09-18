@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
-import dayjs from "@calcom/dayjs";
-import type { CalendarAvailableTimeslots } from "@calcom/features/calendars/weeklyview/types/state";
-import type { IFromUser, IToUser } from "@calcom/features/availability/lib/getUserAvailability";
+import dayjs from "@kalo/dayjs";
+import type { CalendarAvailableTimeslots } from "@kalo/features/calendars/weeklyview/types/state";
+import type { IFromUser, IToUser } from "@kalo/features/availability/lib/getUserAvailability";
 
 export interface IGetAvailableSlots {
   slots: Record<

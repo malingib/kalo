@@ -1,7 +1,7 @@
-import type { InvalidAppCredentialBannerProps } from "@calcom/features/users/types/invalidAppCredentials";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import { TopBanner } from "@calcom/ui/components/top-banner";
+import type { InvalidAppCredentialBannerProps } from "@kalo/features/users/types/invalidAppCredentials";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import { TopBanner } from "@kalo/ui/components/top-banner";
 import { useRouter } from "next/navigation";
 
 export type InvalidAppCredentialBannersProps = {

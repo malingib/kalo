@@ -1,10 +1,10 @@
 import { expect } from "@playwright/test";
 import { createHash, randomBytes } from "node:crypto";
 
-import { OAUTH_ERROR_REASONS } from "@calcom/features/oauth/services/OAuthService";
-import { generateSecret } from "@calcom/features/oauth/utils/generateSecret";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { prisma } from "@calcom/prisma";
+import { OAUTH_ERROR_REASONS } from "@kalo/features/oauth/services/OAuthService";
+import { generateSecret } from "@kalo/features/oauth/utils/generateSecret";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { prisma } from "@kalo/prisma";
 import { getDefaultPassword } from "./lib/testUtils";
 
 import { test } from "./lib/fixtures";
@@ -156,7 +156,7 @@ test.describe("OAuth Provider", () => {
     );
 
     // check if user is redirected to login page
-    await expect(page.getByRole("heading", { name: "Cal.diy" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Kalo" })).toBeVisible();
     await expect(page.getByTestId("login-subtitle")).toBeVisible();
     await page.locator("#email").fill(user.email);
     await page.locator("#password").fill(getDefaultPassword(user.username!));

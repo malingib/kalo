@@ -1,15 +1,15 @@
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 import { TRPCError } from "@trpc/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { appByIdHandler } from "./appById.handler";
 import type { TAppByIdInputSchema } from "./appById.schema";
 
 // Mock the dependencies
-vi.mock("@calcom/app-store/delegationCredential", () => ({
+vi.mock("@kalo/app-store/delegationCredential", () => ({
   getUsersCredentialsIncludeServiceAccountKey: vi.fn(),
 }));
 
-vi.mock("@calcom/app-store/utils", () => ({
+vi.mock("@kalo/app-store/utils", () => ({
   default: vi.fn(),
   sanitizeAppForViewer: vi.fn((app) => {
     const { key: _, credential: _1, credentials: _2, ...sanitized } = app;
@@ -17,19 +17,19 @@ vi.mock("@calcom/app-store/utils", () => ({
   }),
 }));
 
-vi.mock("@calcom/app-store/_utils/getCalendar", () => ({
+vi.mock("@kalo/app-store/_utils/getCalendar", () => ({
   getCalendar: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock("@calcom/prisma", () => ({
+vi.mock("@kalo/prisma", () => ({
   default: {},
   prisma: {},
 }));
 
-import { getUsersCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import type { CredentialDataWithTeamName, LocationOption } from "@calcom/app-store/utils";
-import getApps, { sanitizeAppForViewer } from "@calcom/app-store/utils";
-import type { App } from "@calcom/types/App";
+import { getUsersCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import type { CredentialDataWithTeamName, LocationOption } from "@kalo/app-store/utils";
+import getApps, { sanitizeAppForViewer } from "@kalo/app-store/utils";
+import type { App } from "@kalo/types/App";
 
 describe("appByIdHandler", () => {
   const mockUser = {
@@ -74,9 +74,9 @@ describe("appByIdHandler", () => {
       slug: "daily-video",
       categories: ["conferencing"],
       logo: "icon.svg",
-      publisher: "Cal.diy",
+      publisher: "Kalo",
       url: "https://daily.co",
-      email: "help@cal.com",
+      email: "help@kalo",
       isGlobal: true,
       // This is the sensitive key that should NOT be exposed
       key: { apikey: secretApiKey },

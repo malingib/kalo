@@ -1,4 +1,4 @@
-import { PrismaClient } from "@calcom/prisma/client";
+import { PrismaClient } from "@kalo/prisma/client";
 import { Injectable, Logger, type OnModuleDestroy, type OnModuleInit } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PrismaPg } from "@prisma/adapter-pg";

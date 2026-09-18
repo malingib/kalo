@@ -1,10 +1,10 @@
-import { getOAuthService } from "@calcom/features/oauth/di/OAuthService.container";
-import type { OAuthErrorReason } from "@calcom/features/oauth/services/OAuthService";
-import { OAUTH_ERROR_REASONS } from "@calcom/features/oauth/services/OAuthService";
-import { ErrorWithCode } from "@calcom/lib/errors";
-import { getHttpStatusCode } from "@calcom/lib/server/getServerErrorFromUnknown";
-import { httpStatusToTrpcCode } from "@calcom/trpc/server/lib/toTRPCError";
-import type { TrpcSessionUser } from "@calcom/trpc/server/types";
+import { getOAuthService } from "@kalo/features/oauth/di/OAuthService.container";
+import type { OAuthErrorReason } from "@kalo/features/oauth/services/OAuthService";
+import { OAUTH_ERROR_REASONS } from "@kalo/features/oauth/services/OAuthService";
+import { ErrorWithCode } from "@kalo/lib/errors";
+import { getHttpStatusCode } from "@kalo/lib/server/getServerErrorFromUnknown";
+import { httpStatusToTrpcCode } from "@kalo/trpc/server/lib/toTRPCError";
+import type { TrpcSessionUser } from "@kalo/trpc/server/types";
 import { TRPCError } from "@trpc/server";
 import type { TGetClientForAuthorizationInputSchema } from "./getClientForAuthorization.schema";
 

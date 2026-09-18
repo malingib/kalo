@@ -1,12 +1,12 @@
 import type {
   EventTypeApp,
   EventTypeForAppCard,
-} from "@calcom/app-store/_components/EventTypeAppCardInterface";
-import { EventTypeAppCard } from "@calcom/app-store/_components/EventTypeAppCardInterface";
-import type { EventTypeAppsList } from "@calcom/app-store/utils";
-import useAppsData from "@calcom/features/apps/hooks/useAppsData";
-import type { EventTypeSetupProps } from "@calcom/features/eventtypes/lib/types";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+} from "@kalo/app-store/_components/EventTypeAppCardInterface";
+import { EventTypeAppCard } from "@kalo/app-store/_components/EventTypeAppCardInterface";
+import type { EventTypeAppsList } from "@kalo/app-store/utils";
+import useAppsData from "@kalo/features/apps/hooks/useAppsData";
+import type { EventTypeSetupProps } from "@kalo/features/eventtypes/lib/types";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 import { StripeConnect } from "../../connect/stripe/StripeConnect";
 import { useCheck } from "../../hooks/stripe/useCheck";
 import { useAtomsEventTypeById } from "../hooks/useAtomEventTypeAppIntegration";

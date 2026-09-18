@@ -1,12 +1,12 @@
 {
-  "name": "@calcom/embed-react",
+  "name": "@kalo/embed-react",
   "sideEffects": false,
   "version": "1.5.3",
   "description": "Embed Cal Link as a React Component",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/calcom/cal.diy",
+    "url": "https://github.com/calcom/kalo",
     "directory": "packages/embeds/embed-react"
   },
   "scripts": {
@@ -21,9 +21,9 @@
     "embed-tests-update-snapshots:ci": "yarn embed-tests-quick --update-snapshots",
     "packaged:tests": "cd test/packaged && yarn tsc --noEmit && VITEST_MODE=packaged-embed yarn run -T test",
     "withEmbedPublishEnv": "NEXT_PUBLIC_EMBED_LIB_URL='https://app.cal.com/embed/embed.js' NEXT_PUBLIC_WEBAPP_URL='https://app.cal.com' yarn",
-    "prepack": "yarn ../../../ lint --filter='@calcom/embed-react' && yarn withEmbedPublishEnv build && yarn packaged:tests",
-    "embed-web-start": "yarn workspace @calcom/web start",
-    "embed-dev": "yarn workspace @calcom/embed-react dev",
+    "prepack": "yarn ../../../ lint --filter='@kalo/embed-react' && yarn withEmbedPublishEnv build && yarn packaged:tests",
+    "embed-web-start": "yarn workspace @kalo/web start",
+    "embed-dev": "yarn workspace @kalo/embed-react dev",
     "clean": "npx rimraf .turbo node_modules dist"
   },
   "main": "./dist/Cal.umd.js",
@@ -53,7 +53,7 @@
     "vite": "6.4.2"
   },
   "dependencies": {
-    "@calcom/embed-core": "workspace:*",
-    "@calcom/embed-snippet": "workspace:*"
+    "@kalo/embed-core": "workspace:*",
+    "@kalo/embed-snippet": "workspace:*"
   }
 }

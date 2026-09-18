@@ -1,4 +1,4 @@
-import type { AppMeta } from "@calcom/types/App";
+import type { AppMeta } from "@kalo/types/App";
 
 export const metadata = {
   name: "Microsoft Exchange 2013 Calendar",
@@ -11,10 +11,10 @@ export const metadata = {
   categories: ["calendar"],
   label: "Exchange Calendar",
   logo: "icon.svg",
-  publisher: "Cal.diy",
+  publisher: "Kalo",
   slug: "exchange2013-calendar",
   url: "https://cal.com/",
-  email: "help@cal.com",
+  email: "help@kalo",
   dirName: "exchange2013calendar",
   isOAuth: false,
 } as AppMeta;

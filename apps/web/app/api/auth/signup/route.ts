@@ -4,16 +4,16 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import calcomSignupHandler from "./handlers/calcomSignupHandler";
 import selfHostedSignupHandler from "./handlers/selfHostedHandler";
-import { FeaturesRepository } from "@calcom/features/flags/features.repository";
-import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
-import { IS_PREMIUM_USERNAME_ENABLED } from "@calcom/lib/constants";
-import getIP from "@calcom/lib/getIP";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { piiHasher } from "@calcom/lib/server/PiiHasher";
-import { checkCfTurnstileToken } from "@calcom/lib/server/checkCfTurnstileToken";
-import { prisma } from "@calcom/prisma";
-import { signupSchema } from "@calcom/prisma/zod-utils";
+import { FeaturesRepository } from "@kalo/features/flags/features.repository";
+import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
+import { IS_PREMIUM_USERNAME_ENABLED } from "@kalo/lib/constants";
+import getIP from "@kalo/lib/getIP";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { piiHasher } from "@kalo/lib/server/PiiHasher";
+import { checkCfTurnstileToken } from "@kalo/lib/server/checkCfTurnstileToken";
+import { prisma } from "@kalo/prisma";
+import { signupSchema } from "@kalo/prisma/zod-utils";
 
 async function ensureSignupIsEnabled(body: Record<string, string>) {
   const { token } = signupSchema

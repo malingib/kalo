@@ -3,7 +3,7 @@ import { validateWebhookUrl } from "@/modules/webhooks/utils/validate-webhook-ur
 import { WebhooksRepository } from "@/modules/webhooks/webhooks.repository";
 import { BadRequestException, ConflictException, Injectable } from "@nestjs/common";
 
-import { WebhookTriggerEvents } from "@calcom/prisma/enums";
+import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 
 @Injectable()
 export class EventTypeWebhooksService {

@@ -2,11 +2,11 @@ import matchers from "@testing-library/jest-dom/matchers";
 import { cleanup } from "@testing-library/react";
 import { afterEach, expect, vi } from "vitest";
 
-vi.mock("@calcom/lib/OgImages", async () => {
+vi.mock("@kalo/lib/OgImages", async () => {
   return {};
 });
 
-vi.mock("@calcom/lib/hooks/useLocale", () => ({
+vi.mock("@kalo/lib/hooks/useLocale", () => ({
   useLocale: () => {
     return {
       t: (str: string) => str,
@@ -21,12 +21,12 @@ vi.mock("@calcom/lib/hooks/useLocale", () => ({
   },
 }));
 
-vi.mock("@calcom/atoms/hooks/useIsPlatform", () => ({
+vi.mock("@kalo/atoms/hooks/useIsPlatform", () => ({
   useIsPlatform: () => {
     return false;
   },
 }));
-vi.mock("@calcom/ui/classNames", () => ({
+vi.mock("@kalo/ui/classNames", () => ({
   default: (...args: string[]) => {
     return args.filter(Boolean).join(" ");
   },

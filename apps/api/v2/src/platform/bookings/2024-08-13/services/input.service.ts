@@ -1,5 +1,5 @@
-import { CreationSource } from "@calcom/platform-libraries";
-import { EventTypeMetaDataSchema } from "@calcom/platform-libraries/event-types";
+import { CreationSource } from "@kalo/platform-libraries";
+import { EventTypeMetaDataSchema } from "@kalo/platform-libraries/event-types";
 import type {
   CancelBookingInput,
   CancelBookingInput_2024_08_13,
@@ -11,10 +11,10 @@ import type {
   RescheduleBookingInput,
   RescheduleBookingInput_2024_08_13,
   RescheduleSeatedBookingInput_2024_08_13,
-} from "@calcom/platform-types";
-import type { BookingInputLocation_2024_08_13 } from "@calcom/platform-types/bookings/2024-08-13/inputs/location.input";
-import type { UpdateBookingInputLocation_2024_08_13 } from "@calcom/platform-types/bookings/2024-08-13/inputs/update-location.input";
-import type { EventType } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import type { BookingInputLocation_2024_08_13 } from "@kalo/platform-types/bookings/2024-08-13/inputs/location.input";
+import type { UpdateBookingInputLocation_2024_08_13 } from "@kalo/platform-types/bookings/2024-08-13/inputs/update-location.input";
+import type { EventType } from "@kalo/prisma/client";
 import { BadRequestException, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { isPhoneNumber, isURL } from "class-validator";

@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-import type { EventType } from "@calcom/prisma/client";
+import type { EventType } from "@kalo/prisma/client";
 
 import { test } from "./lib/fixtures";
 import { IS_STRIPE_ENABLED, selectFirstAvailableTimeSlotNextMonth } from "./lib/testUtils";

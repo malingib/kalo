@@ -1,4 +1,4 @@
-import { getTasker, type Tasker } from "@calcom/platform-libraries/tasker";
+import { getTasker, type Tasker } from "@kalo/platform-libraries/tasker";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

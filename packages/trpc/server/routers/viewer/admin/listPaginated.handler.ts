@@ -1,4 +1,4 @@
-import { getUserRepository } from "@calcom/features/di/containers/UserRepository";
+import { getUserRepository } from "@kalo/features/di/containers/UserRepository";
 
 import type { TrpcSessionUser } from "../../../types";
 import type { TListMembersSchema } from "./listPaginated.schema";

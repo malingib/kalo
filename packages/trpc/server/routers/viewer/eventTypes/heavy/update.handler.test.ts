@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { Prisma } from "@calcom/prisma/client";
+import { Prisma } from "@kalo/prisma/client";
 
 describe("update.handler", () => {
   describe("bookingFields null to Prisma.DbNull transformation", () => {

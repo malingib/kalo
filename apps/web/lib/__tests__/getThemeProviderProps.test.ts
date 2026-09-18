@@ -1,7 +1,7 @@
 import type { ReadonlyURLSearchParams } from "next/navigation";
 import { describe, expect, it } from "vitest";
 
-import { EmbedTheme } from "@calcom/features/embed/lib/constants";
+import { EmbedTheme } from "@kalo/features/embed/lib/constants";
 
 import { getThemeProviderProps } from "../getThemeProviderProps";
 import { getUniqueIdentifierForBookingPage } from "../getThemeProviderProps";

@@ -4,7 +4,7 @@ import slugify from "../slugify";
 
 /**
  * Type definition for event type location
- * Moved from @calcom/prisma/zod-utils to avoid prisma imports in non-repository code
+ * Moved from @kalo/prisma/zod-utils to avoid prisma imports in non-repository code
  */
 export type EventTypeLocation = {
   type: string;

@@ -4,11 +4,11 @@
   "slug": "plausible",
   "type": "plausible_analytics",
   "logo": "icon.svg",
-  "url": "https://cal.com/",
+  "url": "https://github.com/malingib/kalo",
   "variant": "analytics",
   "categories": ["analytics"],
-  "publisher": "Cal.com, Inc.",
-  "email": "help@cal.com",
+  "publisher": "Kalo, Inc.",
+  "email": "help@kalo",
   "extendsFeature": "EventType",
   "appData": {
     "tag": {

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ActiveFilters, FilterValue } from "@calcom/features/data-table/lib/types";
+import type { ActiveFilters, FilterValue } from "@kalo/features/data-table/lib/types";
 import debounce from "lodash/debounce";
 import { createContext, useCallback, useContext, useEffect, useMemo } from "react";
 import { useDataTableSegment } from "./DataTableSegmentContext";

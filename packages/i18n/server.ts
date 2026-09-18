@@ -1,9 +1,9 @@
 import { createInstance } from "i18next";
 import type { i18n as I18nInstance } from "i18next";
 
-const { i18n } = require("@calcom/i18n/next-i18next.config");
+const { i18n } = require("@kalo/i18n/next-i18next.config");
 
-const englishTranslations: Record<string, string> = require("@calcom/i18n/locales/en/common.json");
+const englishTranslations: Record<string, string> = require("@kalo/i18n/locales/en/common.json");
 
 const translationCache = new Map<string, Record<string, string>>();
 const i18nInstanceCache = new Map<string, I18nInstance>();
@@ -21,7 +21,7 @@ export function mergeWithEnglishFallback(localeTranslations: Record<string, stri
 /**
  * Loads translations for a specific locale and namespace with optimized caching
  * Server-side only function that loads translations directly from file system for best performance
- * Uses @calcom/config package alias for reliable access across all packages in the monorepo
+ * Uses @kalo/config package alias for reliable access across all packages in the monorepo
  * @param {string} _locale - The locale code (e.g., 'en', 'fr', 'zh')
  * @param {string} ns - The namespace for the translations
  * @returns {Promise<Record<string, string>>} Translations object or fallback translations on failure

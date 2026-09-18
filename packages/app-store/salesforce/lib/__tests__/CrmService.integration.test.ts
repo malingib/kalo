@@ -28,7 +28,7 @@ vi.mock("@urql/core", () => ({
   fetchExchange: vi.fn(),
 }));
 
-vi.mock("@calcom/lib/constants", () => {
+vi.mock("@kalo/lib/constants", () => {
   return {
     WEBAPP_URL: "https://app.cal.com",
     APP_CREDENTIAL_SHARING_ENABLED: false,
@@ -44,7 +44,7 @@ vi.mock("@jsforce/jsforce-node", () => {
   };
 });
 
-vi.mock("@calcom/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain", () => ({
+vi.mock("@kalo/features/watchlist/lib/freeEmailDomainCheck/checkIfFreeEmailDomain", () => ({
   checkIfFreeEmailDomain: vi.fn().mockResolvedValue(false),
 }));
 
@@ -59,7 +59,7 @@ vi.mock("../getSalesforceTokenLifetime", () => ({
   getSalesforceTokenLifetime: vi.fn().mockResolvedValue(7200),
 }));
 
-vi.mock("@calcom/features/credentials/repositories/CredentialRepository", () => ({
+vi.mock("@kalo/features/credentials/repositories/CredentialRepository", () => ({
   CredentialRepository: {
     updateWhereId: vi.fn().mockResolvedValue({}),
   },

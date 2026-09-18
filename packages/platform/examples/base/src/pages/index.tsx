@@ -1,9 +1,9 @@
 import { Navbar } from "@/components/Navbar";
 import { Inter, Poppins } from "next/font/google";
-// eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
+// eslint-disable-next-line @kalo/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 
-import { Connect, StripeConnect } from "@calcom/atoms";
+import { Connect, StripeConnect } from "@kalo/atoms";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "800"] });

@@ -1,14 +1,14 @@
 "use client";
 
-import SettingsHeader from "@calcom/features/settings/appDir/SettingsHeader";
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import SettingsHeader from "@kalo/features/settings/appDir/SettingsHeader";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 import {
   SkeletonButton,
   SkeletonAvatar,
   SkeletonContainer,
   SkeletonText,
-} from "@calcom/ui/components/skeleton";
+} from "@kalo/ui/components/skeleton";
 
 export const SkeletonLoader = () => {
   const { t } = useLocale();

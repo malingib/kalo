@@ -1,4 +1,4 @@
-import { SkeletonLoader } from "@calcom/web/modules/apps/components/ConferencingAppsViewWebWrapper";
+import { SkeletonLoader } from "@kalo/web/modules/apps/components/ConferencingAppsViewWebWrapper";
 
 export default function Loading() {
   return <SkeletonLoader />;

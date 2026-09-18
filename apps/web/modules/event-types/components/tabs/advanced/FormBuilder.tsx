@@ -5,21 +5,21 @@ import { Controller, useFieldArray, useForm, useFormContext } from "react-hook-f
 import type { z } from "zod";
 import { ZodError } from "zod";
 
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { LearnMoreLink } from "@calcom/features/eventtypes/components/LearnMoreLink";
-import { getCurrencySymbol } from "@calcom/lib/currencyConversions";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { md } from "@calcom/lib/markdownIt";
-import { markdownToSafeHTMLClient } from "@calcom/lib/markdownToSafeHTMLClient";
-import turndown from "@calcom/lib/turndownService";
-import { excludeOrRequireEmailSchema } from "@calcom/prisma/zod-utils";
-import classNames from "@calcom/ui/classNames";
-import { Badge } from "@calcom/ui/components/badge";
-import { Button } from "@calcom/ui/components/button";
-import { DialogContent, DialogFooter, DialogHeader, DialogClose } from "@calcom/ui/components/dialog";
-import { Editor } from "@calcom/ui/components/editor";
-import { ToggleGroup } from "@calcom/ui/components/form";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { LearnMoreLink } from "@kalo/features/eventtypes/components/LearnMoreLink";
+import { getCurrencySymbol } from "@kalo/lib/currencyConversions";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { md } from "@kalo/lib/markdownIt";
+import { markdownToSafeHTMLClient } from "@kalo/lib/markdownToSafeHTMLClient";
+import turndown from "@kalo/lib/turndownService";
+import { excludeOrRequireEmailSchema } from "@kalo/prisma/zod-utils";
+import classNames from "@kalo/ui/classNames";
+import { Badge } from "@kalo/ui/components/badge";
+import { Button } from "@kalo/ui/components/button";
+import { DialogContent, DialogFooter, DialogHeader, DialogClose } from "@kalo/ui/components/dialog";
+import { Editor } from "@kalo/ui/components/editor";
+import { ToggleGroup } from "@kalo/ui/components/form";
 import {
   Switch,
   CheckboxField,
@@ -28,15 +28,15 @@ import {
   Input,
   InputField,
   Label,
-} from "@calcom/ui/components/form";
+} from "@kalo/ui/components/form";
 import { ArrowDownIcon, ArrowUpIcon, MailIcon, PhoneIcon } from "@coss/ui/icons";
-import { showToast } from "@calcom/ui/components/toast";
+import { showToast } from "@kalo/ui/components/toast";
 
-import { fieldTypesConfigMap } from "@calcom/features/form-builder/fieldTypes";
-import { fieldsThatSupportLabelAsSafeHtml } from "@calcom/features/form-builder/fieldsThatSupportLabelAsSafeHtml";
-import type { fieldsSchema } from "@calcom/features/form-builder/schema";
-import { getFieldIdentifier } from "@calcom/features/form-builder/utils/getFieldIdentifier";
-import { getConfig as getVariantsConfig } from "@calcom/features/form-builder/utils/variantsConfig";
+import { fieldTypesConfigMap } from "@kalo/features/form-builder/fieldTypes";
+import { fieldsThatSupportLabelAsSafeHtml } from "@kalo/features/form-builder/fieldsThatSupportLabelAsSafeHtml";
+import type { fieldsSchema } from "@kalo/features/form-builder/schema";
+import { getFieldIdentifier } from "@kalo/features/form-builder/utils/getFieldIdentifier";
+import { getConfig as getVariantsConfig } from "@kalo/features/form-builder/utils/variantsConfig";
 
 type RhfForm = {
   fields: z.infer<typeof fieldsSchema>;

@@ -1,7 +1,7 @@
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { getBookingAuditTaskConsumer } from "@calcom/features/booking-audit/di/BookingAuditTaskConsumer.container";
-import { BookingAuditTaskConsumerSchema } from "@calcom/features/booking-audit/lib/types/bookingAuditTask";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { getBookingAuditTaskConsumer } from "@kalo/features/booking-audit/di/BookingAuditTaskConsumer.container";
+import { BookingAuditTaskConsumerSchema } from "@kalo/features/booking-audit/lib/types/bookingAuditTask";
 
 const log = logger.getSubLogger({ prefix: ["[tasker] bookingAudit"] });
 

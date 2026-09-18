@@ -1,11 +1,11 @@
 import { createHmac } from "node:crypto";
 import { compile } from "handlebars";
 
-import type { TGetTranscriptAccessLink } from "@calcom/app-store/dailyvideo/zod";
-import { getHumanReadableLocationValue } from "@calcom/app-store/locations";
-import type { WebhookSubscriber, PaymentData } from "@calcom/features/webhooks/lib/dto/types";
-import { getUTCOffsetByTimezone } from "@calcom/lib/dayjs";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
+import type { TGetTranscriptAccessLink } from "@kalo/app-store/dailyvideo/zod";
+import { getHumanReadableLocationValue } from "@kalo/app-store/locations";
+import type { WebhookSubscriber, PaymentData } from "@kalo/features/webhooks/lib/dto/types";
+import { getUTCOffsetByTimezone } from "@kalo/lib/dayjs";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
 
 // Minimal webhook shape for sending payloads (subset of WebhookSubscriber)
 type WebhookForPayload = Pick<WebhookSubscriber, "subscriberUrl" | "appId" | "payloadTemplate" | "version">;

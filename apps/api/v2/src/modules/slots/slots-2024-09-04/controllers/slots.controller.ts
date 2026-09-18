@@ -1,4 +1,4 @@
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
 import {
   ApiResponse,
   GetReservedSlotOutput_2024_09_04 as GetReservedSlotOutputType_2024_09_04,
@@ -6,7 +6,7 @@ import {
   GetSlotsInputPipe,
   ReserveSlotInput_2024_09_04,
   ReserveSlotOutput_2024_09_04 as ReserveSlotOutputType_2024_09_04,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 import {
   Body,
   Controller,

@@ -3,9 +3,9 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { vi } from "vitest";
 
-import dayjs from "@calcom/dayjs";
-import { BookerStoreProvider } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { PeriodType } from "@calcom/prisma/enums";
+import dayjs from "@kalo/dayjs";
+import { BookerStoreProvider } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { PeriodType } from "@kalo/prisma/enums";
 
 import { DatePicker } from "../components/DatePicker";
 

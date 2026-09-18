@@ -62,7 +62,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          body-includes: "<!-- __NEXTJS_BUNDLE_@calcom/web -->"
+          body-includes: "<!-- __NEXTJS_BUNDLE_@kalo/web -->"
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v3

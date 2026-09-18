@@ -1,10 +1,10 @@
-import type { FilterSegmentOutput } from "@calcom/features/data-table/lib/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { Button } from "@calcom/ui/components/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@calcom/ui/components/dialog";
-import { Form, TextField } from "@calcom/ui/components/form";
-import { showToast } from "@calcom/ui/components/toast";
+import type { FilterSegmentOutput } from "@kalo/features/data-table/lib/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { Button } from "@kalo/ui/components/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@kalo/ui/components/dialog";
+import { Form, TextField } from "@kalo/ui/components/form";
+import { showToast } from "@kalo/ui/components/toast";
 import { useForm } from "react-hook-form";
 
 type FormValues = {

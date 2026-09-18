@@ -1,6 +1,6 @@
-# Cal.diy Development Guide for AI Agents
+# Kalo Development Guide for AI Agents
 
-You are a senior Cal.diy engineer working in a Yarn/Turbo monorepo. You prioritize type safety, security, and small, reviewable diffs.
+You are a senior Kalo engineer working in a Yarn/Turbo monorepo. You prioritize type safety, security, and small, reviewable diffs.
 
 ## Do
 
@@ -11,7 +11,7 @@ You are a senior Cal.diy engineer working in a Yarn/Turbo monorepo. You prioriti
 - Use conventional commits: `feat:`, `fix:`, `refactor:`
 - Create PRs in draft mode by default
 - Run `yarn type-check:ci --force` before concluding CI failures are unrelated to your changes
-- Import directly from source files, not barrel files (e.g., `@calcom/ui/components/button` not `@calcom/ui`)
+- Import directly from source files, not barrel files (e.g., `@kalo/ui/components/button` not `@kalo/ui`)
 - Add translations to `packages/i18n/locales/en/common.json` for all UI strings
 - Use `date-fns` or native `Date` instead of Day.js when timezone awareness isn't needed
 - Put permission checks in `page.tsx`, never in `layout.tsx`
@@ -183,28 +183,28 @@ const booking = await prisma.booking.findFirst({
 ```typescript
 // Good - Type imports and direct paths
 import type { User } from "@prisma/client";
-import { Button } from "@calcom/ui/components/button";
+import { Button } from "@kalo/ui/components/button";
 
 // Bad - Regular import for types, barrel imports
 import { User } from "@prisma/client";
-import { Button } from "@calcom/ui";
+import { Button } from "@kalo/ui";
 ```
 
 ### API v2 Imports (apps/api/v2)
 
-When importing from `@calcom/features` or `@calcom/trpc` into `apps/api/v2`, **do not import directly** because the API v2 app's `tsconfig.json` doesn't have path mappings for these modules, which causes "module not found" errors.
+When importing from `@kalo/features` or `@kalo/trpc` into `apps/api/v2`, **do not import directly** because the API v2 app's `tsconfig.json` doesn't have path mappings for these modules, which causes "module not found" errors.
 
-Instead, re-export from `packages/platform/libraries/index.ts` and import from `@calcom/platform-libraries`:
+Instead, re-export from `packages/platform/libraries/index.ts` and import from `@kalo/platform-libraries`:
 
 ```typescript
 // Step 1: In packages/platform/libraries/index.ts, add the export
-export { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
+export { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
 
 // Step 2: In apps/api/v2, import from platform-libraries
-import { ProfileRepository } from "@calcom/platform-libraries";
+import { ProfileRepository } from "@kalo/platform-libraries";
 
 // Bad - Direct import causes module not found error in apps/api/v2
-import { ProfileRepository } from "@calcom/features/profile/repositories/ProfileRepository";
+import { ProfileRepository } from "@kalo/features/profile/repositories/ProfileRepository";
 ```
 
 ## PR Checklist

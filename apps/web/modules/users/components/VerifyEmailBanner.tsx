@@ -1,9 +1,9 @@
-import { useFlagMap } from "@calcom/features/flags/context/provider";
-import { APP_NAME } from "@calcom/lib/constants";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { trpc } from "@calcom/trpc/react";
-import { showToast } from "@calcom/ui/components/toast";
-import { TopBanner } from "@calcom/ui/components/top-banner";
+import { useFlagMap } from "@kalo/features/flags/context/provider";
+import { APP_NAME } from "@kalo/lib/constants";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { trpc } from "@kalo/trpc/react";
+import { showToast } from "@kalo/ui/components/toast";
+import { TopBanner } from "@kalo/ui/components/top-banner";
 
 export type VerifyEmailBannerProps = {
   data: boolean;

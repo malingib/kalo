@@ -1,6 +1,6 @@
 import type { z } from "zod";
 
-import type { EventTypeMetaDataSchema } from "@calcom/prisma/zod-utils";
+import type { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 import type { appDataSchemas } from "../../apps.schemas.generated";
 import type { appDataSchema, paymentOptionEnum } from "../../stripepayment/zod";

@@ -1,4 +1,4 @@
-import type { BookingAccessService } from "@calcom/features/bookings/services/BookingAccessService";
+import type { BookingAccessService } from "@kalo/features/bookings/services/BookingAccessService";
 
 import { createContainer } from "../di";
 import { moduleLoader as bookingAccessServiceModuleLoader } from "../modules/BookingAccessService";

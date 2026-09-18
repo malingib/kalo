@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { getTimeShiftFlags } from "../timeShift";
 

@@ -1,12 +1,12 @@
-import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_06_14 } from "@calcom/platform-constants";
+import { CAL_API_VERSION_HEADER, SUCCESS_STATUS, VERSION_2024_06_14 } from "@kalo/platform-constants";
 import {
   BookerLayoutsInputEnum_2024_06_14,
   BookingWindowPeriodInputTypeEnum_2024_06_14,
   ConfirmationPolicyEnum,
   FrequencyInput,
   NoticeThresholdUnitEnum,
-} from "@calcom/platform-enums";
-import { SchedulingType } from "@calcom/platform-libraries";
+} from "@kalo/platform-enums";
+import { SchedulingType } from "@kalo/platform-libraries";
 import {
   type ApiSuccessResponse,
   BaseConfirmationPolicy_2024_06_14,
@@ -19,10 +19,10 @@ import {
   supportedIntegrations,
   TeamEventTypeOutput_2024_06_14,
   type UpdateEventTypeInput_2024_06_14,
-} from "@calcom/platform-types";
-import { FAILED_RECURRING_EVENT_TYPE_WITH_BOOKER_LIMITS_ERROR_MESSAGE } from "@calcom/platform-types/event-types/event-types_2024_06_14/inputs/validators/CantHaveRecurrenceAndBookerActiveBookingsLimit";
-import { REQUIRES_AT_LEAST_ONE_PROPERTY_ERROR } from "@calcom/platform-types/utils/RequiresOneOfPropertiesWhenNotDisabled";
-import type { EventType, PlatformOAuthClient, Schedule, Team, User } from "@calcom/prisma/client";
+} from "@kalo/platform-types";
+import { FAILED_RECURRING_EVENT_TYPE_WITH_BOOKER_LIMITS_ERROR_MESSAGE } from "@kalo/platform-types/event-types/event-types_2024_06_14/inputs/validators/CantHaveRecurrenceAndBookerActiveBookingsLimit";
+import { REQUIRES_AT_LEAST_ONE_PROPERTY_ERROR } from "@kalo/platform-types/utils/RequiresOneOfPropertiesWhenNotDisabled";
+import type { EventType, PlatformOAuthClient, Schedule, Team, User } from "@kalo/prisma/client";
 import { INestApplication } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";

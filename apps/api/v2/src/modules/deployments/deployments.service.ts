@@ -11,7 +11,7 @@ export class DeploymentsService {
     private readonly redisService: RedisService
   ) {}
 
-  // Cal.diy is fully open source — no license key is required.
+  // Kalo is fully open source — no license key is required.
   async checkLicense() {
     return true;
   }

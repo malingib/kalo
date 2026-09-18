@@ -1,8 +1,8 @@
 "use client";
 
-import { ColumnFilterType, type SystemFilterSegment } from "@calcom/features/data-table";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import classNames from "@calcom/ui/classNames";
+import { ColumnFilterType, type SystemFilterSegment } from "@kalo/features/data-table";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import classNames from "@kalo/ui/classNames";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";

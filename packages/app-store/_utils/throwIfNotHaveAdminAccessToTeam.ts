@@ -1,6 +1,6 @@
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { HttpError } from "@calcom/lib/http-error";
-import prisma from "@calcom/prisma";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { HttpError } from "@kalo/lib/http-error";
+import prisma from "@kalo/prisma";
 
 export const throwIfNotHaveAdminAccessToTeam = async ({
   teamId,

@@ -1,4 +1,4 @@
-import type { IRedisService } from "@calcom/features/redis/IRedisService";
+import type { IRedisService } from "@kalo/features/redis/IRedisService";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import { Memoize } from "../Memoize";
@@ -15,7 +15,7 @@ const createMockRedis = (): IRedisService => ({
 
 let mockRedis: IRedisService;
 
-vi.mock("@calcom/features/di/containers/Redis", () => ({
+vi.mock("@kalo/features/di/containers/Redis", () => ({
   getRedisService: () => mockRedis,
 }));
 

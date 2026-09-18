@@ -1,7 +1,7 @@
 import { UsersRepository, UserWithProfile } from "@/modules/users/users.repository";
 import { Injectable } from "@nestjs/common";
 
-import type { User } from "@calcom/prisma/client";
+import type { User } from "@kalo/prisma/client";
 
 export type ProfileMinimal = {
   id: number;

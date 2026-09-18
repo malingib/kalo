@@ -1,4 +1,4 @@
-import { IdentityProvider } from "@calcom/prisma/enums";
+import { IdentityProvider } from "@kalo/prisma/enums";
 import { describe, expect, it } from "vitest";
 import { getIdentityProvider, NEXTAUTH_TO_IDENTITY_PROVIDER } from "./identityProviders";
 

@@ -1,6 +1,6 @@
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as loggerServiceModule } from "@calcom/features/di/shared/services/logger.service";
-import { WebhookTriggerTasker } from "@calcom/features/webhooks/lib/tasker/WebhookTriggerTasker";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as loggerServiceModule } from "@kalo/features/di/shared/services/logger.service";
+import { WebhookTriggerTasker } from "@kalo/features/webhooks/lib/tasker/WebhookTriggerTasker";
 
 import { WEBHOOK_TASKER_DI_TOKENS } from "./tokens";
 

@@ -1,4 +1,4 @@
-import prismock from "@calcom/testing/lib/__mocks__/prisma";
+import prismock from "@kalo/testing/lib/__mocks__/prisma";
 import "../__mocks__/features.repository";
 import "../__mocks__/getGoogleAppKeys";
 import {
@@ -17,7 +17,7 @@ import {
 import { expect, test, beforeEach, vi, describe } from "vitest";
 import "vitest-fetch-mock";
 
-import type { CredentialForCalendarServiceWithEmail } from "@calcom/types/Credential";
+import type { CredentialForCalendarServiceWithEmail } from "@kalo/types/Credential";
 
 import BuildCalendarService from "../CalendarService";
 import {

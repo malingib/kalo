@@ -1,9 +1,9 @@
-import dayjs from "@calcom/dayjs";
-import { useTimePreferences } from "@calcom/features/bookings/lib/timePreferences";
-import { TimezoneSelect } from "@calcom/web/modules/timezone/components/TimezoneSelect";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { DatePicker, SettingsToggle } from "@calcom/ui/components/form";
-import { DatePickerWithRange as DateRangePicker } from "@calcom/ui/components/form/date-range-picker/DateRangePicker";
+import dayjs from "@kalo/dayjs";
+import { useTimePreferences } from "@kalo/features/bookings/lib/timePreferences";
+import { TimezoneSelect } from "@kalo/web/modules/timezone/components/TimezoneSelect";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { DatePicker, SettingsToggle } from "@kalo/ui/components/form";
+import { DatePickerWithRange as DateRangePicker } from "@kalo/ui/components/form/date-range-picker/DateRangePicker";
 import { Button } from "@coss/ui/components/button";
 import {
   Dialog,

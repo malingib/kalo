@@ -1,6 +1,6 @@
 import type { ITimezoneOption } from "react-timezone-select";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import isProblematicTimezone from "./isProblematicTimezone";
 

@@ -1,4 +1,4 @@
-import { shouldHideBrandingForEventUsingProfile } from "@calcom/features/profile/lib/hideBranding";
+import { shouldHideBrandingForEventUsingProfile } from "@kalo/features/profile/lib/hideBranding";
 import type { EventTypeRepository } from "../repositories/eventTypeRepository";
 
 /**

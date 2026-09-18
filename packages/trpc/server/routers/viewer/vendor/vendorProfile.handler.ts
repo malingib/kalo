@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import prisma from "@calcom/prisma";
+import prisma from "@kalo/prisma";
 
 import type { TRPCAuthedContext } from "../../../procedures/authedProcedure";
 import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorProfile.schema";

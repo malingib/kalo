@@ -1,5 +1,5 @@
-import { SkeletonText } from "@calcom/ui/components/skeleton";
-import classNames from "@calcom/ui/classNames";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
+import classNames from "@kalo/ui/classNames";
 
 export const EventMetaSkeleton = () => (
   <div className="flex flex-col">

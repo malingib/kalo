@@ -5,10 +5,10 @@ import {
   SUCCESS_STATUS,
   CAL_API_VERSION_HEADER,
   VERSION_2024_06_14,
-} from "@calcom/platform-constants";
-import type { ApiResponse, ApiSuccessResponse } from "@calcom/platform-types";
-import type { CreateEventTypeInput_2024_06_14 } from "@calcom/platform-types";
-import type { EventType } from "@calcom/prisma/client";
+} from "@kalo/platform-constants";
+import type { ApiResponse, ApiSuccessResponse } from "@kalo/platform-types";
+import type { CreateEventTypeInput_2024_06_14 } from "@kalo/platform-types";
+import type { EventType } from "@kalo/prisma/client";
 
 import http from "../../../lib/http";
 

@@ -3,7 +3,7 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import type { Props as SelectProps } from "react-timezone-select";
 import { vi } from "vitest";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 
 import { TimezoneSelect } from "./TimezoneSelect";
 
@@ -30,7 +30,7 @@ const runtimeMock = async (isPending: boolean) => {
     },
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mockedLib = (await import("@calcom/trpc/react")) as any;
+  const mockedLib = (await import("@kalo/trpc/react")) as any;
   mockedLib.trpc = updatedTrcp;
 };
 
@@ -82,11 +82,11 @@ describe("Test TimezoneSelect", () => {
   describe("Test TimezoneSelect with isPending = false", () => {
     beforeAll(async () => {
       // INFO: This needs to be here before the other calls to runtimeMock. For some reason,
-      // when we moved this file from @calcom/ui, the imports started breaking, resulting in
+      // when we moved this file from @kalo/ui, the imports started breaking, resulting in
       // errors of "Cannot set property 'trpc' of [object Module] which has only a getter"
       // TODO: Update this pattern to be more consistent. Using this direct mocking in the
       // functions below breaks some tests.
-      vi.mock("@calcom/trpc/react", () => ({
+      vi.mock("@kalo/trpc/react", () => ({
         trpc: {
           viewer: {
             timezones: {

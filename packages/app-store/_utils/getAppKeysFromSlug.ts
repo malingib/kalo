@@ -1,5 +1,5 @@
-import prisma from "@calcom/prisma";
-import type { Prisma } from "@calcom/prisma/client";
+import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 
 async function getAppKeysFromSlug(slug: string) {
   const app = await prisma.app.findUnique({ where: { slug } });

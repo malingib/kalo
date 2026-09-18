@@ -1,5 +1,5 @@
-import { CONSOLE_URL, WEBAPP_URL, WEBSITE_URL, EMBED_LIB_URL } from "@calcom/lib/constants";
-import { getTldPlus1 } from "@calcom/lib/getTldPlus1";
+import { CONSOLE_URL, WEBAPP_URL, WEBSITE_URL, EMBED_LIB_URL } from "@kalo/lib/constants";
+import { getTldPlus1 } from "@kalo/lib/getTldPlus1";
 
 // It ensures that redirection URL safe where it is accepted through a query params or other means where user can change it.
 export const getSafeRedirectUrl = (url = "") => {

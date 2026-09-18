@@ -12,8 +12,8 @@ import { ApiAuthGuardUser } from "@/modules/auth/strategies/api-auth/api-auth.st
 import { Controller, Post, Logger, Body, UseGuards, Param, HttpCode, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiTags as DocsTags, ApiHeader } from "@nestjs/swagger";
 
-import { BOOKING_WRITE, SUCCESS_STATUS } from "@calcom/platform-constants";
-import { AddGuestsInput_2024_08_13 } from "@calcom/platform-types";
+import { BOOKING_WRITE, SUCCESS_STATUS } from "@kalo/platform-constants";
+import { AddGuestsInput_2024_08_13 } from "@kalo/platform-types";
 
 @Controller({
   path: "/v2/bookings/:bookingUid/guests",

@@ -1566,7 +1566,7 @@ POST /v2/slots/reservations the 'data/slotStart' response's property type/format
 POST /v2/slots/reservations the 'slotStart' request property type/format changed from 'string'/'' to 'string'/'date-time'
 POST /v2/teams/{teamId}/event-types/{eventTypeId}/create-phone-call deleted the 'path' request parameter 'orgId'
 
-# Cal.diy-specific breaking changes (intentional divergence from cal.com)
+# Kalo-specific breaking changes (intentional divergence from cal.com)
 DELETE /v2/me/ooo/{oooId} api path removed without deprecation
 DELETE /v2/notifications/subscriptions/app-push api path removed without deprecation
 DELETE /v2/oauth-clients/{clientId} the 'data/logo' response's property type/format changed from 'string'/'' to 'object'/'' for status '200'

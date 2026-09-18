@@ -3,17 +3,17 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-import ServerTrans from "@calcom/lib/components/ServerTrans";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { BookerLayouts, defaultBookerLayoutSettings } from "@calcom/prisma/zod-utils";
-import { bookerLayoutOptions, type BookerLayoutSettings } from "@calcom/prisma/zod-utils";
-import type { RouterOutputs } from "@calcom/trpc/react";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { Label } from "@calcom/ui/components/form";
-import { CheckboxField } from "@calcom/ui/components/form";
+import ServerTrans from "@kalo/lib/components/ServerTrans";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { BookerLayouts, defaultBookerLayoutSettings } from "@kalo/prisma/zod-utils";
+import { bookerLayoutOptions, type BookerLayoutSettings } from "@kalo/prisma/zod-utils";
+import type { RouterOutputs } from "@kalo/trpc/react";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { Label } from "@kalo/ui/components/form";
+import { CheckboxField } from "@kalo/ui/components/form";
 
-import SectionBottomActions from "@calcom/features/settings/SectionBottomActions";
+import SectionBottomActions from "@kalo/features/settings/SectionBottomActions";
 
 type BookerLayoutSelectorProps = {
   title?: string;

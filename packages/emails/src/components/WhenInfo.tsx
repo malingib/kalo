@@ -1,13 +1,13 @@
 import type { TFunction } from "i18next";
 import { RRule } from "rrule";
 
-import dayjs from "@calcom/dayjs";
+import dayjs from "@kalo/dayjs";
 // TODO: Use browser locale, implement Intl in Dayjs maybe?
-import "@calcom/dayjs/locales";
-import { getEveryFreqFor } from "@calcom/lib/recurringStrings";
-import type { TimeFormat } from "@calcom/lib/timeFormat";
-import type { CalendarEvent, Person } from "@calcom/types/Calendar";
-import type { RecurringEvent } from "@calcom/types/Calendar";
+import "@kalo/dayjs/locales";
+import { getEveryFreqFor } from "@kalo/lib/recurringStrings";
+import type { TimeFormat } from "@kalo/lib/timeFormat";
+import type { CalendarEvent, Person } from "@kalo/types/Calendar";
+import type { RecurringEvent } from "@kalo/types/Calendar";
 
 import { Info } from "./Info";
 

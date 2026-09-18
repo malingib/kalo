@@ -1,7 +1,7 @@
 import { createModule } from "@evyweb/ioctopus";
 
-import { bindModuleToClassOnToken, type ModuleLoader } from "@calcom/features/di/di";
-import { TriggerDevLogger } from "@calcom/lib/triggerDevLogger";
+import { bindModuleToClassOnToken, type ModuleLoader } from "@kalo/features/di/di";
+import { TriggerDevLogger } from "@kalo/lib/triggerDevLogger";
 
 import { SHARED_TOKENS } from "../shared.tokens";
 

@@ -1,6 +1,6 @@
 import { FormbricksAPI } from "@formbricks/api";
 
-import type { Feedback } from "@calcom/emails/templates/feedback-email";
+import type { Feedback } from "@kalo/emails/templates/feedback-email";
 
 enum Rating {
   "Extremely unsatisfied" = 1,

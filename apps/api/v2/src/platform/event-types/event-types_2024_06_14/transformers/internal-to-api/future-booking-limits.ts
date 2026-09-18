@@ -1,7 +1,7 @@
 import {
   BookingWindowPeriodInputTypeEnum_2024_06_14,
   BookingWindowPeriodOutputTypeEnum_2024_06_14,
-} from "@calcom/platform-enums";
+} from "@kalo/platform-enums";
 import type {
   TransformFutureBookingsLimitSchema_2024_06_14,
   BookingWindow_2024_06_14,
@@ -9,7 +9,7 @@ import type {
   CalendarDaysWindow_2024_06_14,
   BusinessDaysWindow_2024_06_14,
   Disabled_2024_06_14,
-} from "@calcom/platform-types";
+} from "@kalo/platform-types";
 
 export function transformFutureBookingLimitsInternalToApi(
   transformedFutureBookingsLimitsFields: TransformFutureBookingsLimitSchema_2024_06_14

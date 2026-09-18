@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import type EventManager from "@calcom/features/bookings/lib/EventManager";
+import type EventManager from "@kalo/features/bookings/lib/EventManager";
 
 import type { createLoggerWithEventDetails } from "../../../handleNewBooking/logger";
 import type {

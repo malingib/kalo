@@ -1,5 +1,5 @@
-import type { BookingWithUserAndEventDetails, CalendarEvent } from "@calcom/platform-libraries";
-import { buildCalEventFromBooking, sendLocationChangeEmailsAndSMS, updateEvent } from "@calcom/platform-libraries";
+import type { BookingWithUserAndEventDetails, CalendarEvent } from "@kalo/platform-libraries";
+import { buildCalEventFromBooking, sendLocationChangeEmailsAndSMS, updateEvent } from "@kalo/platform-libraries";
 import { Injectable, Logger } from "@nestjs/common";
 import { BookingsRepository_2024_08_13 } from "@/platform/bookings/2024-08-13/repositories/bookings.repository";
 import { BookingLocationCredentialService_2024_08_13 } from "@/platform/bookings/2024-08-13/services/booking-location-credential.service";

@@ -24,7 +24,7 @@ import type { WebhookTaskConsumer } from "../service/WebhookTaskConsumer";
  *
  * Usage (recommended):
  * ```typescript
- * import { getWebhookFeature } from "@calcom/features/webhooks/di";
+ * import { getWebhookFeature } from "@kalo/features/webhooks/di";
  *
  * const webhooks = getWebhookFeature();
  *

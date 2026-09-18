@@ -1,10 +1,10 @@
-import type deTranslations from "@calcom/i18n/locales/de/common.json";
-import type enTranslations from "@calcom/i18n/locales/en/common.json";
-import type esTranslations from "@calcom/i18n/locales/es/common.json";
-import type frTranslations from "@calcom/i18n/locales/fr/common.json";
-import type itTranslations from "@calcom/i18n/locales/it/common.json";
-import type nlTranslations from "@calcom/i18n/locales/nl/common.json";
-import type ptBrTranslations from "@calcom/i18n/locales/pt-BR/common.json";
+import type deTranslations from "@kalo/i18n/locales/de/common.json";
+import type enTranslations from "@kalo/i18n/locales/en/common.json";
+import type esTranslations from "@kalo/i18n/locales/es/common.json";
+import type frTranslations from "@kalo/i18n/locales/fr/common.json";
+import type itTranslations from "@kalo/i18n/locales/it/common.json";
+import type nlTranslations from "@kalo/i18n/locales/nl/common.json";
+import type ptBrTranslations from "@kalo/i18n/locales/pt-BR/common.json";
 
 export type enTranslationKeys = keyof typeof enTranslations;
 export type frTranslationKeys = keyof typeof frTranslations;

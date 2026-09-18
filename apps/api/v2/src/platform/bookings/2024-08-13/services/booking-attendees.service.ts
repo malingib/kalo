@@ -1,5 +1,5 @@
-import { ErrorCode, ErrorWithCode } from "@calcom/platform-libraries/errors";
-import type { AddAttendeeInput_2024_08_13 } from "@calcom/platform-types";
+import { ErrorCode, ErrorWithCode } from "@kalo/platform-libraries/errors";
+import type { AddAttendeeInput_2024_08_13 } from "@kalo/platform-types";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { plainToClass } from "class-transformer";
 import { BookingAttendeeOutput_2024_08_13 } from "@/platform/bookings/2024-08-13/outputs/add-attendee.output";

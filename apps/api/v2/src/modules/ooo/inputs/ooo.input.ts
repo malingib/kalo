@@ -3,7 +3,7 @@ import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsDate, IsInt, IsOptional, IsString, IsEnum, isDate } from "class-validator";
 
-import { SkipTakePagination } from "@calcom/platform-types";
+import { SkipTakePagination } from "@kalo/platform-types";
 
 export enum OutOfOfficeReason {
   UNSPECIFIED = "unspecified",

@@ -8,7 +8,7 @@ export declare module "next" {
     // args is defined by /integrations/[...args] endpoint
     query: Partial<{ [key: string]: string | string[] }> & { args: string[] };
     session?: Session | null;
-    // ⬇ These are needed by @calcom/api
+    // ⬇ These are needed by @kalo/api
     body: unknown;
     userId: number;
     method: string;

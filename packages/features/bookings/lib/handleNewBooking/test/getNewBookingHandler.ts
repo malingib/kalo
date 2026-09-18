@@ -1,8 +1,8 @@
-import type { BookingHandlerInput } from "@calcom/features/bookings/lib/dto/types";
+import type { BookingHandlerInput } from "@kalo/features/bookings/lib/dto/types";
 
 async function handler(input: BookingHandlerInput) {
   const { getRegularBookingService } = await import(
-    "@calcom/features/bookings/di/RegularBookingService.container"
+    "@kalo/features/bookings/di/RegularBookingService.container"
   );
   const regularBookingService = getRegularBookingService();
   const { bookingData, ...bookingMeta } = input;

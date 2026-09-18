@@ -1,23 +1,23 @@
 import process from "node:process";
-import { getUsersCredentialsIncludeServiceAccountKey } from "@calcom/app-store/delegationCredential";
-import { eventTypeMetaDataSchemaWithTypedApps } from "@calcom/app-store/zod-utils";
-import dayjs from "@calcom/dayjs";
-import { BookingEmailSmsHandler } from "@calcom/features/bookings/lib/BookingEmailSmsHandler";
-import EventManager from "@calcom/features/bookings/lib/EventManager";
-import { BookingRepository } from "@calcom/features/bookings/repositories/BookingRepository";
+import { getUsersCredentialsIncludeServiceAccountKey } from "@kalo/app-store/delegationCredential";
+import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
+import dayjs from "@kalo/dayjs";
+import { BookingEmailSmsHandler } from "@kalo/features/bookings/lib/BookingEmailSmsHandler";
+import EventManager from "@kalo/features/bookings/lib/EventManager";
+import { BookingRepository } from "@kalo/features/bookings/repositories/BookingRepository";
 import {
   type EventTypeBrandingData,
   getEventTypeService,
-} from "@calcom/features/eventtypes/di/EventTypeService.container";
-import { UserRepository } from "@calcom/features/users/repositories/UserRepository";
-import { getTranslation } from "@calcom/i18n/server";
-import { extractBaseEmail } from "@calcom/lib/extract-base-email";
-import { parseRecurringEvent } from "@calcom/lib/isRecurringEvent";
-import logger from "@calcom/lib/logger";
-import { prisma } from "@calcom/prisma";
-import type { BookingResponses } from "@calcom/prisma/zod-utils";
-import { eventTypeBookingFields } from "@calcom/prisma/zod-utils";
-import type { CalendarEvent } from "@calcom/types/Calendar";
+} from "@kalo/features/eventtypes/di/EventTypeService.container";
+import { UserRepository } from "@kalo/features/users/repositories/UserRepository";
+import { getTranslation } from "@kalo/i18n/server";
+import { extractBaseEmail } from "@kalo/lib/extract-base-email";
+import { parseRecurringEvent } from "@kalo/lib/isRecurringEvent";
+import logger from "@kalo/lib/logger";
+import { prisma } from "@kalo/prisma";
+import type { BookingResponses } from "@kalo/prisma/zod-utils";
+import { eventTypeBookingFields } from "@kalo/prisma/zod-utils";
+import type { CalendarEvent } from "@kalo/types/Calendar";
 import { TRPCError } from "@trpc/server";
 import type { TrpcSessionUser } from "../../../types";
 import type { TAddGuestsInputSchema } from "./addGuests.schema";

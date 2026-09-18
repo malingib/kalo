@@ -39,7 +39,7 @@ import { ApiHeader, ApiOperation, ApiParam, ApiTags as DocsTags } from "@nestjs/
 import { plainToInstance } from "class-transformer";
 import { Request } from "express";
 
-import { GOOGLE_MEET, ZOOM, SUCCESS_STATUS, OFFICE_365_VIDEO, CAL_VIDEO } from "@calcom/platform-constants";
+import { GOOGLE_MEET, ZOOM, SUCCESS_STATUS, OFFICE_365_VIDEO, CAL_VIDEO } from "@kalo/platform-constants";
 
 export type OAuthCallbackState = {
   accessToken: string;

@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 
-import type { UseSegments } from "@calcom/features/data-table/lib/types";
+import type { UseSegments } from "@kalo/features/data-table/lib/types";
 import { noop } from "lodash";
 
 export const useSegmentsNoop: UseSegments = ({}) => {

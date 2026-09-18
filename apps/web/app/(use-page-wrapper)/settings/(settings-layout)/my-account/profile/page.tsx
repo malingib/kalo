@@ -2,7 +2,7 @@ import { createRouterCaller } from "app/_trpc/context";
 import { _generateMetadata } from "app/_utils";
 import { redirect } from "next/navigation";
 
-import { meRouter } from "@calcom/trpc/server/routers/viewer/me/_router";
+import { meRouter } from "@kalo/trpc/server/routers/viewer/me/_router";
 
 import ProfileView from "~/settings/my-account/profile-view";
 

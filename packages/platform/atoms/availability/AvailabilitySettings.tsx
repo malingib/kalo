@@ -13,38 +13,38 @@ import {
 } from "react";
 import { Controller, useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form";
 
-import dayjs from "@calcom/dayjs";
-import { BookerStoreProvider } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { Dialog } from "@calcom/features/components/controlled-dialog";
-import { TimezoneSelect as WebTimezoneSelect } from "@calcom/web/modules/timezone/components/TimezoneSelect";
+import dayjs from "@kalo/dayjs";
+import { BookerStoreProvider } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { Dialog } from "@kalo/features/components/controlled-dialog";
+import { TimezoneSelect as WebTimezoneSelect } from "@kalo/web/modules/timezone/components/TimezoneSelect";
 import type {
   BulkUpdatParams,
   EventTypes,
-} from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import { BulkEditDefaultForEventsModal } from "@calcom/features/eventtypes/components/BulkEditDefaultForEventsModal";
-import DateOverrideInputDialog from "@calcom/features/schedules/components/DateOverrideInputDialog";
-import DateOverrideList from "@calcom/features/schedules/components/DateOverrideList";
+} from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import { BulkEditDefaultForEventsModal } from "@kalo/features/eventtypes/components/BulkEditDefaultForEventsModal";
+import DateOverrideInputDialog from "@kalo/features/schedules/components/DateOverrideInputDialog";
+import DateOverrideList from "@kalo/features/schedules/components/DateOverrideList";
 import {
   ScheduleComponent as PlatformSchedule,
-} from "@calcom/features/schedules/components/ScheduleComponent";
-import WebSchedule from "@calcom/web/modules/schedules/components/Schedule";
-import { availabilityAsString } from "@calcom/lib/availability";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { sortAvailabilityStrings } from "@calcom/lib/weekstart";
-import type { TravelScheduleRepository } from "@calcom/features/travelSchedule/repositories/TravelScheduleRepository";
-import type { TimeRange, WorkingHours } from "@calcom/types/schedule";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { DialogTrigger, ConfirmationDialogContent } from "@calcom/ui/components/dialog";
-import { VerticalDivider } from "@calcom/ui/components/divider";
-import { EditableHeading } from "@calcom/ui/components/editable-heading";
-import { Form } from "@calcom/ui/components/form";
-import { Label } from "@calcom/ui/components/form";
-import { Switch } from "@calcom/ui/components/form";
-import { Icon } from "@calcom/ui/components/icon";
-import { SkeletonText, SelectSkeletonLoader, Skeleton } from "@calcom/ui/components/skeleton";
-import { Tooltip } from "@calcom/ui/components/tooltip";
-import WebShell from "@calcom/web/modules/shell/Shell";
+} from "@kalo/features/schedules/components/ScheduleComponent";
+import WebSchedule from "@kalo/web/modules/schedules/components/Schedule";
+import { availabilityAsString } from "@kalo/lib/availability";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { sortAvailabilityStrings } from "@kalo/lib/weekstart";
+import type { TravelScheduleRepository } from "@kalo/features/travelSchedule/repositories/TravelScheduleRepository";
+import type { TimeRange, WorkingHours } from "@kalo/types/schedule";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { DialogTrigger, ConfirmationDialogContent } from "@kalo/ui/components/dialog";
+import { VerticalDivider } from "@kalo/ui/components/divider";
+import { EditableHeading } from "@kalo/ui/components/editable-heading";
+import { Form } from "@kalo/ui/components/form";
+import { Label } from "@kalo/ui/components/form";
+import { Switch } from "@kalo/ui/components/form";
+import { Icon } from "@kalo/ui/components/icon";
+import { SkeletonText, SelectSkeletonLoader, Skeleton } from "@kalo/ui/components/skeleton";
+import { Tooltip } from "@kalo/ui/components/tooltip";
+import WebShell from "@kalo/web/modules/shell/Shell";
 
 import { Shell as PlatformShell } from "../src/components/ui/shell";
 import { cn } from "../src/lib/utils";

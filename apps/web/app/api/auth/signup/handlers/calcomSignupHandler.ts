@@ -1,41 +1,41 @@
 import process from "node:process";
-import { getPremiumMonthlyPlanPriceId } from "@calcom/app-store/stripepayment/lib/utils";
-import { getLocaleFromRequest } from "@calcom/features/auth/lib/getLocaleFromRequest";
-import { sendEmailVerification } from "@calcom/features/auth/lib/verifyEmail";
-import { SIGNUP_ERROR_CODES } from "@calcom/features/auth/signup/constants";
-import { createOrUpdateMemberships } from "@calcom/features/auth/signup/utils/createOrUpdateMemberships";
-import { joinAnyChildTeamOnOrgInvite } from "@calcom/features/auth/signup/utils/organization";
-import { prefillAvatar } from "@calcom/features/auth/signup/utils/prefillAvatar";
+import { getPremiumMonthlyPlanPriceId } from "@kalo/app-store/stripepayment/lib/utils";
+import { getLocaleFromRequest } from "@kalo/features/auth/lib/getLocaleFromRequest";
+import { sendEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
+import { SIGNUP_ERROR_CODES } from "@kalo/features/auth/signup/constants";
+import { createOrUpdateMemberships } from "@kalo/features/auth/signup/utils/createOrUpdateMemberships";
+import { joinAnyChildTeamOnOrgInvite } from "@kalo/features/auth/signup/utils/organization";
+import { prefillAvatar } from "@kalo/features/auth/signup/utils/prefillAvatar";
 import {
   findTokenByToken,
   throwIfTokenExpired,
   validateAndGetCorrectedUsernameForTeam,
-} from "@calcom/features/auth/signup/utils/token";
-import { validateAndGetCorrectedUsernameAndEmail } from "@calcom/features/auth/signup/utils/validateUsername";
-import { getFeatureRepository } from "@calcom/features/di/containers/FeatureRepository";
-import { getUserRepository } from "@calcom/features/di/containers/UserRepository";
-import { GlobalWatchlistRepository } from "@calcom/features/watchlist/lib/repository/GlobalWatchlistRepository";
-import { sentrySpan } from "@calcom/features/watchlist/lib/telemetry";
-import { normalizeEmail } from "@calcom/features/watchlist/lib/utils/normalization";
-import { checkIfEmailIsBlockedInWatchlistController } from "@calcom/features/watchlist/operations/check-if-email-in-watchlist.controller";
-import { hashPassword } from "@calcom/lib/auth/hashPassword";
-import { WEBAPP_URL } from "@calcom/lib/constants";
-import { HttpError } from "@calcom/lib/http-error";
-import logger from "@calcom/lib/logger";
-import { isPrismaError } from "@calcom/lib/server/getServerErrorFromUnknown";
-import type { CustomNextApiHandler } from "@calcom/lib/server/username";
-import { usernameHandler } from "@calcom/lib/server/username";
-import { getTrackingFromCookies } from "@calcom/lib/tracking";
-import { prisma } from "@calcom/prisma";
+} from "@kalo/features/auth/signup/utils/token";
+import { validateAndGetCorrectedUsernameAndEmail } from "@kalo/features/auth/signup/utils/validateUsername";
+import { getFeatureRepository } from "@kalo/features/di/containers/FeatureRepository";
+import { getUserRepository } from "@kalo/features/di/containers/UserRepository";
+import { GlobalWatchlistRepository } from "@kalo/features/watchlist/lib/repository/GlobalWatchlistRepository";
+import { sentrySpan } from "@kalo/features/watchlist/lib/telemetry";
+import { normalizeEmail } from "@kalo/features/watchlist/lib/utils/normalization";
+import { checkIfEmailIsBlockedInWatchlistController } from "@kalo/features/watchlist/operations/check-if-email-in-watchlist.controller";
+import { hashPassword } from "@kalo/lib/auth/hashPassword";
+import { WEBAPP_URL } from "@kalo/lib/constants";
+import { HttpError } from "@kalo/lib/http-error";
+import logger from "@kalo/lib/logger";
+import { isPrismaError } from "@kalo/lib/server/getServerErrorFromUnknown";
+import type { CustomNextApiHandler } from "@kalo/lib/server/username";
+import { usernameHandler } from "@kalo/lib/server/username";
+import { getTrackingFromCookies } from "@kalo/lib/tracking";
+import { prisma } from "@kalo/prisma";
 import {
   CreationSource,
   IdentityProvider,
   WatchlistAction,
   WatchlistSource,
   WatchlistType,
-} from "@calcom/prisma/enums";
-import { signupSchema } from "@calcom/prisma/zod-utils";
-import { buildLegacyRequest } from "@calcom/web/lib/buildLegacyCtx";
+} from "@kalo/prisma/enums";
+import { signupSchema } from "@kalo/prisma/zod-utils";
+import { buildLegacyRequest } from "@kalo/web/lib/buildLegacyCtx";
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 

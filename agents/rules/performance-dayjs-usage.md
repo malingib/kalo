@@ -9,7 +9,7 @@ tags: performance, dates, dayjs
 
 **Impact: HIGH (Significant performance improvement in date-heavy operations)**
 
-Day.js with the `@calcom/dayjs` wrapper is heavy because it pre-loads all plugins including locale handling. Use alternatives when strict timezone awareness isn't required.
+Day.js with the `@kalo/dayjs` wrapper is heavy because it pre-loads all plugins including locale handling. Use alternatives when strict timezone awareness isn't required.
 
 **Incorrect (using Day.js unnecessarily):**
 
@@ -50,4 +50,4 @@ new Intl.DateTimeFormat(language).format(date);
 - Date formatting without timezone concerns
 - Performance-critical loops over dates
 
-Reference: [Cal.diy Engineering Standards](https://cal.com/blog/engineering-in-2026-and-beyond)
+Reference: [Kalo Engineering Standards](https://cal.com/blog/engineering-in-2026-and-beyond)

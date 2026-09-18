@@ -1,4 +1,4 @@
-import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { FileDownIcon, XIcon } from "@coss/ui/icons";
 import * as React from "react";
 import { toast } from "sonner";

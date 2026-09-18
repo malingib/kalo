@@ -1,19 +1,19 @@
 import type { Logger } from "tslog";
 
-import dayjs from "@calcom/dayjs";
-import type { Dayjs } from "@calcom/dayjs";
-import { checkForConflicts } from "@calcom/features/bookings/lib/conflictChecker/checkForConflicts";
-import { getBusyTimesService } from "@calcom/features/di/containers/BusyTimes";
-import { getUserAvailabilityService } from "@calcom/features/di/containers/GetUserAvailability";
-import { buildDateRanges } from "@calcom/features/schedules/lib/date-ranges";
-import { ErrorCode } from "@calcom/lib/errorCodes";
-import { parseBookingLimit } from "@calcom/lib/intervalLimits/isBookingLimits";
-import { parseDurationLimit } from "@calcom/lib/intervalLimits/isDurationLimits";
-import { getPiiFreeUser } from "@calcom/lib/piiFreeData";
-import { safeStringify } from "@calcom/lib/safeStringify";
-import { withReporting } from "@calcom/lib/sentryWrapper";
-import prisma from "@calcom/prisma";
-import type { CalendarFetchMode } from "@calcom/types/Calendar";
+import dayjs from "@kalo/dayjs";
+import type { Dayjs } from "@kalo/dayjs";
+import { checkForConflicts } from "@kalo/features/bookings/lib/conflictChecker/checkForConflicts";
+import { getBusyTimesService } from "@kalo/features/di/containers/BusyTimes";
+import { getUserAvailabilityService } from "@kalo/features/di/containers/GetUserAvailability";
+import { buildDateRanges } from "@kalo/features/schedules/lib/date-ranges";
+import { ErrorCode } from "@kalo/lib/errorCodes";
+import { parseBookingLimit } from "@kalo/lib/intervalLimits/isBookingLimits";
+import { parseDurationLimit } from "@kalo/lib/intervalLimits/isDurationLimits";
+import { getPiiFreeUser } from "@kalo/lib/piiFreeData";
+import { safeStringify } from "@kalo/lib/safeStringify";
+import { withReporting } from "@kalo/lib/sentryWrapper";
+import prisma from "@kalo/prisma";
+import type { CalendarFetchMode } from "@kalo/types/Calendar";
 
 import type { getEventTypeResponse } from "./getEventTypesFromDB";
 import type { BookingType } from "./originalRescheduledBookingUtils";

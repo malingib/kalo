@@ -10,10 +10,10 @@ import {
   searchTermParser,
   segmentIdParser,
   sortingParser,
-} from "@calcom/features/data-table/lib/parsers";
-import type { ActiveFilters, SegmentIdentifier } from "@calcom/features/data-table/lib/types";
-import { CTA_CONTAINER_CLASS_NAME } from "@calcom/features/data-table/lib/utils";
-import { useElementByClassName } from "@calcom/lib/hooks/useElementByClassName";
+} from "@kalo/features/data-table/lib/parsers";
+import type { ActiveFilters, SegmentIdentifier } from "@kalo/features/data-table/lib/types";
+import { CTA_CONTAINER_CLASS_NAME } from "@kalo/features/data-table/lib/utils";
+import { useElementByClassName } from "@kalo/lib/hooks/useElementByClassName";
 import type { ColumnSizingState, OnChangeFn, SortingState, VisibilityState } from "@tanstack/react-table";
 import { useQueryState } from "nuqs";
 import { createContext, useContext, useMemo, useRef } from "react";

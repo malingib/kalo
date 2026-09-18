@@ -1,10 +1,10 @@
 import Script from "next/script";
 
-import { getEventTypeAppData } from "@calcom/app-store/_utils/getEventTypeAppData";
-import { appStoreMetadata } from "@calcom/app-store/bookerAppsMetaData";
-import type { Tag } from "@calcom/app-store/types";
-import { sdkActionManager } from "@calcom/lib/sdk-event";
-import type { AppMeta } from "@calcom/types/App";
+import { getEventTypeAppData } from "@kalo/app-store/_utils/getEventTypeAppData";
+import { appStoreMetadata } from "@kalo/app-store/bookerAppsMetaData";
+import type { Tag } from "@kalo/app-store/types";
+import { sdkActionManager } from "@kalo/lib/sdk-event";
+import type { AppMeta } from "@kalo/types/App";
 
 import type { appDataSchemas } from "./apps.schemas.generated";
 

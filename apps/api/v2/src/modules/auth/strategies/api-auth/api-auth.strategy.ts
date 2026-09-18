@@ -17,7 +17,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import type { Request } from "express";
 import { getToken } from "next-auth/jwt";
 
-import { INVALID_ACCESS_TOKEN, X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@calcom/platform-constants";
+import { INVALID_ACCESS_TOKEN, X_CAL_CLIENT_ID, X_CAL_SECRET_KEY } from "@kalo/platform-constants";
 
 import type { AllowedAuthMethod } from "../../decorators/api-auth-guard-only-allow.decorator";
 

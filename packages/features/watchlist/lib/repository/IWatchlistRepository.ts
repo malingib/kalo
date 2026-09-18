@@ -1,4 +1,4 @@
-import type { WatchlistType, WatchlistAction, WatchlistSource } from "@calcom/prisma/enums";
+import type { WatchlistType, WatchlistAction, WatchlistSource } from "@kalo/prisma/enums";
 
 export interface WatchlistEntry {
   id: string;

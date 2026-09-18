@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 
-import dayjs from "@calcom/dayjs";
-import { isBookingDryRun } from "@calcom/features/bookings/Booker/utils/isBookingDryRun";
-import { getRoutedTeamMemberIdsFromSearchParams } from "@calcom/lib/bookings/getRoutedTeamMemberIdsFromSearchParams";
-import { parseRecurringDates } from "@calcom/lib/parse-dates";
+import dayjs from "@kalo/dayjs";
+import { isBookingDryRun } from "@kalo/features/bookings/Booker/utils/isBookingDryRun";
+import { getRoutedTeamMemberIdsFromSearchParams } from "@kalo/lib/bookings/getRoutedTeamMemberIdsFromSearchParams";
+import { parseRecurringDates } from "@kalo/lib/parse-dates";
 import type { BookerEvent, BookingCreateBody, RecurringBookingCreateBody } from "../../../types";
 import type { Tracking } from "../../handleNewBooking/types";
 

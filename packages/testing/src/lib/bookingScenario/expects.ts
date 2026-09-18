@@ -6,19 +6,19 @@ import ical from "node-ical";
 import { expect, vi } from "vitest";
 import "vitest-fetch-mock";
 
-import dayjs from "@calcom/dayjs";
-import { WEBAPP_URL, WEBSITE_URL } from "@calcom/lib/constants";
-import logger from "@calcom/lib/logger";
-import { safeStringify } from "@calcom/lib/safeStringify";
+import dayjs from "@kalo/dayjs";
+import { WEBAPP_URL, WEBSITE_URL } from "@kalo/lib/constants";
+import logger from "@kalo/lib/logger";
+import { safeStringify } from "@kalo/lib/safeStringify";
 import type {
   Booking,
   BookingReference,
   DestinationCalendar,
   WebhookTriggerEvents,
-} from "@calcom/prisma/client";
-import { BookingStatus } from "@calcom/prisma/enums";
-import type { AppsStatus, CalendarEvent } from "@calcom/types/Calendar";
-import type { CredentialForCalendarService } from "@calcom/types/Credential";
+} from "@kalo/prisma/client";
+import { BookingStatus } from "@kalo/prisma/enums";
+import type { AppsStatus, CalendarEvent } from "@kalo/types/Calendar";
+import type { CredentialForCalendarService } from "@kalo/types/Credential";
 import type { Fixtures } from "../fixtures/fixtures";
 import type { Tracking } from "../types";
 import { DEFAULT_TIMEZONE_BOOKER } from "./getMockRequestDataForBooking";

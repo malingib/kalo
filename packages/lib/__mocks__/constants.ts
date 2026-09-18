@@ -1,6 +1,6 @@
 import { vi, beforeEach } from "vitest";
 
-import type * as constants from "@calcom/lib/constants";
+import type * as constants from "@kalo/lib/constants";
 
 const initialConstants = {
   IS_PRODUCTION: false,
@@ -11,12 +11,12 @@ const initialConstants = {
   CLOUDFLARE_USE_TURNSTILE_IN_BOOKER: "1",
   DEFAULT_LIGHT_BRAND_COLOR: "#292929",
   DEFAULT_DARK_BRAND_COLOR: "#fafafa",
-  CALCOM_VERSION: "0.0.0",
+  KALO_VERSION: "0.0.0",
   IS_SELF_HOSTED: false,
   SEO_IMG_DEFAULT: "https://cal.com/og-image.png",
   SEO_IMG_OGIMG: "https://cal.com/og-image-wide.png",
   CURRENT_TIMEZONE: "Europe/London",
-  APP_NAME: "Cal.diy",
+  APP_NAME: "Kalo",
   BOOKER_NUMBER_OF_DAYS_TO_LOAD: 14,
   PUBLIC_QUICK_AVAILABILITY_ROLLOUT: 100,
   SINGLE_ORG_SLUG: "",
@@ -25,7 +25,7 @@ const initialConstants = {
 
 export const mockedConstants = { ...initialConstants };
 
-vi.mock("@calcom/lib/constants", () => mockedConstants);
+vi.mock("@kalo/lib/constants", () => mockedConstants);
 
 beforeEach(() => {
   Object.assign(mockedConstants, initialConstants);

@@ -19,9 +19,9 @@ import { Controller, Post, Body, UseGuards, Get, Param, Query, Delete, Patch } f
 import { ApiHeader, ApiOperation, ApiParam, ApiTags as DocsTags } from "@nestjs/swagger";
 import { plainToClass } from "class-transformer";
 
-import { SUCCESS_STATUS } from "@calcom/platform-constants";
-import { SkipTakePagination } from "@calcom/platform-types";
-import type { Webhook } from "@calcom/prisma/client";
+import { SUCCESS_STATUS } from "@kalo/platform-constants";
+import { SkipTakePagination } from "@kalo/platform-types";
+import type { Webhook } from "@kalo/prisma/client";
 
 @Controller({
   path: "/v2/webhooks",

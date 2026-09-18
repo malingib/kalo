@@ -1,14 +1,14 @@
-import { moduleLoader as bookingEventHandlerModuleLoader } from "@calcom/features/bookings/di/BookingEventHandlerService.module";
-import { RegularBookingService } from "@calcom/features/bookings/lib/service/RegularBookingService";
-import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@calcom/features/di/di";
-import { moduleLoader as bookingRepositoryModuleLoader } from "@calcom/features/di/modules/Booking";
-import { moduleLoader as checkBookingAndDurationLimitsModuleLoader } from "@calcom/features/di/modules/CheckBookingAndDurationLimits";
-import { moduleLoader as luckyUserServiceModuleLoader } from "@calcom/features/di/modules/LuckyUser";
-import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
-import { moduleLoader as userRepositoryModuleLoader } from "@calcom/features/di/modules/User";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
-import { moduleLoader as webhookProducerModuleLoader } from "@calcom/features/di/webhooks/modules/WebhookProducerService.module";
-import { moduleLoader as hashedLinkServiceModuleLoader } from "@calcom/features/hashedLink/di/HashedLinkService.module";
+import { moduleLoader as bookingEventHandlerModuleLoader } from "@kalo/features/bookings/di/BookingEventHandlerService.module";
+import { RegularBookingService } from "@kalo/features/bookings/lib/service/RegularBookingService";
+import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "@kalo/features/di/di";
+import { moduleLoader as bookingRepositoryModuleLoader } from "@kalo/features/di/modules/Booking";
+import { moduleLoader as checkBookingAndDurationLimitsModuleLoader } from "@kalo/features/di/modules/CheckBookingAndDurationLimits";
+import { moduleLoader as luckyUserServiceModuleLoader } from "@kalo/features/di/modules/LuckyUser";
+import { moduleLoader as prismaModuleLoader } from "@kalo/features/di/modules/Prisma";
+import { moduleLoader as userRepositoryModuleLoader } from "@kalo/features/di/modules/User";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
+import { moduleLoader as webhookProducerModuleLoader } from "@kalo/features/di/webhooks/modules/WebhookProducerService.module";
+import { moduleLoader as hashedLinkServiceModuleLoader } from "@kalo/features/hashedLink/di/HashedLinkService.module";
 import { moduleLoader as bookingEmailAndSmsTaskerModuleLoader } from "./tasker/BookingEmailAndSmsTasker.module";
 
 const thisModule = createModule();

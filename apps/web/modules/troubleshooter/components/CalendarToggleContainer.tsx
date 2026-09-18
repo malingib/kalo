@@ -1,5 +1,5 @@
-import { CalendarToggleContainerComponent } from "@calcom/features/troubleshooter/components/CalendarToggleContainerComponent";
-import { trpc } from "@calcom/trpc/react";
+import { CalendarToggleContainerComponent } from "@kalo/features/troubleshooter/components/CalendarToggleContainerComponent";
+import { trpc } from "@kalo/trpc/react";
 
 export function CalendarToggleContainer() {
   const { data, isLoading } = trpc.viewer.calendars.connectedCalendars.useQuery();

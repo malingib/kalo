@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import { WEBAPP_URL, APP_NAME, COMPANY_NAME } from "@calcom/lib/constants";
+import { WEBAPP_URL, APP_NAME, COMPANY_NAME } from "@kalo/lib/constants";
 
 import { V2BaseEmailHtml, CallToAction } from "../components";
 

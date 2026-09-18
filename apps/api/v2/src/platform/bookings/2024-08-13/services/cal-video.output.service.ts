@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import type { CalMeetingSession } from "@calcom/platform-libraries/conferencing";
+import type { CalMeetingSession } from "@kalo/platform-libraries/conferencing";
 
 @Injectable()
 export class CalVideoOutputService {

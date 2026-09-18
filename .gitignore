@@ -125,5 +125,8 @@ _pagefind/
 .freebuff/screens/
 .freebuff/yarn-install.log
 
+# Graphify generated output
+graphify-out/
+
 # Large demo media (not version controlled)
 packages/app-store/salesroom/static/salesroom-demo.mp4

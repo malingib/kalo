@@ -1,1 +1,1 @@
-export { type TNoShowInputSchema, ZNoShowInputSchema } from "@calcom/features/handleMarkNoShow";
+export { type TNoShowInputSchema, ZNoShowInputSchema } from "@kalo/features/handleMarkNoShow";

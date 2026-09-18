@@ -1,10 +1,10 @@
 import { AtomsWrapper } from "@/components/atoms-wrapper";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-import { ScheduleListItem } from "@calcom/features/schedules/components/ScheduleListItem";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { getScheduleListItemData } from "@calcom/lib/schedules/transformers/getScheduleListItemData";
-import { EmptyScreen } from "@calcom/ui/components/empty-screen";
+import { ScheduleListItem } from "@kalo/features/schedules/components/ScheduleListItem";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { getScheduleListItemData } from "@kalo/lib/schedules/transformers/getScheduleListItemData";
+import { EmptyScreen } from "@kalo/ui/components/empty-screen";
 
 import { useAtomDuplicateSchedule } from "../../hooks/schedules/useAtomDuplicateSchedule";
 import { useAtomGetAllSchedules } from "../../hooks/schedules/useAtomGetAllSchedules";

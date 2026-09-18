@@ -7,7 +7,7 @@ import { ExecutionContext } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Reflector } from "@nestjs/core";
 
-import { APPS_WRITE, SCHEDULE_READ, SCHEDULE_WRITE } from "@calcom/platform-constants";
+import { APPS_WRITE, SCHEDULE_READ, SCHEDULE_WRITE } from "@kalo/platform-constants";
 
 import { PermissionsGuard } from "./permissions.guard";
 

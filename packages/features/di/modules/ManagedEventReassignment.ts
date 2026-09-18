@@ -1,4 +1,4 @@
-import { DI_TOKENS } from "@calcom/features/di/tokens";
+import { DI_TOKENS } from "@kalo/features/di/tokens";
 import { bindModuleToClassOnToken, createModule, type ModuleLoader } from "../di";
 import { moduleLoader as bookingRepositoryModuleLoader } from "./Booking";
 import { moduleLoader as eventTypeRepositoryModuleLoader } from "./EventType";

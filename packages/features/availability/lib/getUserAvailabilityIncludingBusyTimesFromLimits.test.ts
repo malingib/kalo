@@ -1,23 +1,23 @@
-import dayjs from "@calcom/dayjs";
-import type { EventBusyDetails } from "@calcom/types/Calendar";
+import dayjs from "@kalo/dayjs";
+import type { EventBusyDetails } from "@kalo/types/Calendar";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { EventType, GetUserAvailabilityInitialData } from "./getUserAvailability";
 import { UserAvailabilityService } from "./getUserAvailability";
 
-vi.mock("@calcom/features/di/containers/BusyTimes", () => ({
+vi.mock("@kalo/features/di/containers/BusyTimes", () => ({
   getBusyTimesService: vi.fn(() => mockBusyTimesService),
 }));
 
-vi.mock("@calcom/features/busyTimes/lib/getBusyTimesFromLimits", () => ({
+vi.mock("@kalo/features/busyTimes/lib/getBusyTimesFromLimits", () => ({
   getBusyTimesFromLimits: vi.fn().mockResolvedValue([]),
   getBusyTimesFromTeamLimits: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock("@calcom/app-store/_utils/getCalendar", () => ({
+vi.mock("@kalo/app-store/_utils/getCalendar", () => ({
   getCalendar: vi.fn(),
 }));
 
-vi.mock("@calcom/lib/holidays", () => ({
+vi.mock("@kalo/lib/holidays", () => ({
   getHolidayService: vi.fn(() => ({
     getHolidayDatesInRange: vi.fn().mockResolvedValue([]),
   })),

@@ -1,11 +1,11 @@
-import type { EventTypeTranslationRepository } from "@calcom/features/eventTypeTranslation/repositories/EventTypeTranslationRepository";
-import { locales as i18nLocales } from "@calcom/lib/i18n";
-import logger from "@calcom/lib/logger";
+import type { EventTypeTranslationRepository } from "@kalo/features/eventTypeTranslation/repositories/EventTypeTranslationRepository";
+import { locales as i18nLocales } from "@kalo/lib/i18n";
+import logger from "@kalo/lib/logger";
 import {
   TRANSLATION_SUPPORTED_LOCALES,
   type TranslationSupportedLocale,
-} from "@calcom/lib/translationConstants";
-import { EventTypeAutoTranslatedField } from "@calcom/prisma/enums";
+} from "@kalo/lib/translationConstants";
+import { EventTypeAutoTranslatedField } from "@kalo/prisma/enums";
 import type {
   EventTypeTranslationLookupOptions,
   EventTypeTranslationLookupResult,

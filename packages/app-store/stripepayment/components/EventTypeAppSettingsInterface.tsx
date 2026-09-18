@@ -1,19 +1,19 @@
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useState, useEffect } from "react";
 
-import type { EventTypeAppSettingsComponent } from "@calcom/app-store/types";
+import type { EventTypeAppSettingsComponent } from "@kalo/app-store/types";
 import {
   convertToSmallestCurrencyUnit,
   convertFromSmallestToPresentableCurrencyUnit,
-} from "@calcom/lib/currencyConversions";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { RefundPolicy } from "@calcom/lib/payment/types";
-import classNames from "@calcom/ui/classNames";
-import { Alert } from "@calcom/ui/components/alert";
-import { Select } from "@calcom/ui/components/form";
-import { CheckboxField } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { RadioField } from "@calcom/ui/components/radio";
+} from "@kalo/lib/currencyConversions";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { RefundPolicy } from "@kalo/lib/payment/types";
+import classNames from "@kalo/ui/classNames";
+import { Alert } from "@kalo/ui/components/alert";
+import { Select } from "@kalo/ui/components/form";
+import { CheckboxField } from "@kalo/ui/components/form";
+import { TextField } from "@kalo/ui/components/form";
+import { RadioField } from "@kalo/ui/components/radio";
 
 import { paymentOptions } from "../lib/constants";
 import { currencyOptions } from "../lib/currencyOptions";

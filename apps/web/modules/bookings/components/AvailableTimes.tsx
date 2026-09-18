@@ -1,19 +1,19 @@
 // We do not need to worry about importing framer-motion here as it is lazy imported in Booker.
 
-import { getPaymentAppData } from "@calcom/app-store/_utils/payments/getPaymentAppData";
-import { useIsPlatform } from "@calcom/atoms/hooks/useIsPlatform";
-import dayjs from "@calcom/dayjs";
-import type { IOutOfOfficeData } from "@calcom/features/availability/lib/getUserAvailability";
-import { useBookerStoreContext } from "@calcom/features/bookings/Booker/BookerStoreProvider";
-import { useBookerTime } from "@calcom/features/bookings/Booker/hooks/useBookerTime";
-import { getQueryParam } from "@calcom/features/bookings/Booker/utils/query-param";
-import { useCheckOverlapWithOverlay } from "@calcom/features/bookings/lib/useCheckOverlapWithOverlay";
-import type { BookerEvent, Slots } from "@calcom/features/bookings/types";
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { localStorage } from "@calcom/lib/webstorage";
-import classNames from "@calcom/ui/classNames";
-import { Button } from "@calcom/ui/components/button";
-import { SkeletonText } from "@calcom/ui/components/skeleton";
+import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
+import { useIsPlatform } from "@kalo/atoms/hooks/useIsPlatform";
+import dayjs from "@kalo/dayjs";
+import type { IOutOfOfficeData } from "@kalo/features/availability/lib/getUserAvailability";
+import { useBookerStoreContext } from "@kalo/features/bookings/Booker/BookerStoreProvider";
+import { useBookerTime } from "@kalo/features/bookings/Booker/hooks/useBookerTime";
+import { getQueryParam } from "@kalo/features/bookings/Booker/utils/query-param";
+import { useCheckOverlapWithOverlay } from "@kalo/features/bookings/lib/useCheckOverlapWithOverlay";
+import type { BookerEvent, Slots } from "@kalo/features/bookings/types";
+import { useLocale } from "@kalo/lib/hooks/useLocale";
+import { localStorage } from "@kalo/lib/webstorage";
+import classNames from "@kalo/ui/classNames";
+import { Button } from "@kalo/ui/components/button";
+import { SkeletonText } from "@kalo/ui/components/skeleton";
 import { CalendarX2Icon } from "@coss/ui/icons";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { AnimatePresence, m } from "framer-motion";

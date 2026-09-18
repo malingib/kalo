@@ -1,6 +1,6 @@
 import { mockDeep, mockReset, type DeepMockProxy } from "vitest-mock-extended";
 
-import type { PrismaClient } from "@calcom/prisma";
+import type { PrismaClient } from "@kalo/prisma";
 
 // Prisma mock instance (singleton)
 export const prismaMock: DeepMockProxy<PrismaClient> = mockDeep<PrismaClient>();
