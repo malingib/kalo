@@ -4,14 +4,11 @@ import { useEffect } from "react";
 
 type CssVariables = Record<string, string>;
 
-// Sets up CSS Variables based on brand colours
-const useCalcomTheme = (theme: Record<string, CssVariables>) => {
+// Sets up CSS variables based on Kalo brand colours.
+const useKaloTheme = (theme: Record<string, CssVariables>) => {
   useEffect(() => {
     Object.entries(theme).forEach(([key, value]) => {
-      if (!value) {
-        // should not be reached
-        return;
-      }
+      if (!value) return;
       if (key === "root") {
         const root = document.documentElement;
         Object.entries(value).forEach(([key, value]) => {
@@ -19,7 +16,6 @@ const useCalcomTheme = (theme: Record<string, CssVariables>) => {
         });
         return;
       }
-
       const elements = document.querySelectorAll(`.${key}`);
       const nestedEntries = Object.entries(value);
       nestedEntries.forEach(([nestedKey, nestedValue]) => {
@@ -31,4 +27,7 @@ const useCalcomTheme = (theme: Record<string, CssVariables>) => {
   }, [theme]);
 };
 
-export { useCalcomTheme };
+/** @deprecated Use useKaloTheme. Kept for compatibility with existing imports. */
+const useCalcomTheme = useKaloTheme;
+
+export { useKaloTheme, useCalcomTheme };
