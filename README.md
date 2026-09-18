@@ -203,8 +203,8 @@ for Logger level to be set at info, for example.
    If you don't want to create a local DB. Then you can also consider using services like railway.app, Northflank or render.
    
 
-   - [Setup postgres DB with railway.app](https://docs.railway.app/guides/postgresql)
-   - [Setup postgres DB with Northflank](https://northflank.com/guides/deploy-postgres-database-on-northflank)
+   - [Setup postgres DB with railway.app](https://docs.railway.app/databases/)
+   - [Setup postgres DB with Northflank](https://northflank.com/docs/v1/application/databases)
    - [Setup postgres DB with render](https://render.com/docs/databases)
 
 2. Copy and paste your `DATABASE_URL` from `.env` to `.env.appStore`.
@@ -459,13 +459,13 @@ Kalo runs as standard Node.js and Next.js processes against a hosted PostgreSQL 
 
 ### Railway
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/cal)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/)
 
-You can deploy Kalo on [Railway](https://railway.app). The team at Railway also have a [detailed blog post](https://blog.railway.app/p/calendso) on deploying on their platform.
+You can deploy Kalo on [Railway](https://railway.app). The team at Railway also have a [detailed blog post](https://docs.railway.com/) on deploying on their platform.
 
 ### Northflank
 
-[![Deploy on Northflank](https://assets.northflank.com/deploy_to_northflank_smm_36700fb050.svg)](https://northflank.com/stacks/deploy-calcom)
+[![Deploy on Northflank](https://assets.northflank.com/deploy_to_northflank_smm_36700fb050.svg)](https://northflank.com/)
 
 You can deploy Kalo on [Northflank](https://northflank.com). The team at Northflank also have a [detailed blog post](https://northflank.com/guides/deploy-calcom-with-northflank) on deploying on their platform.
 
@@ -481,7 +481,7 @@ Currently Vercel Pro Plan is required to be able to Deploy this application with
 
 ### Elestio
 
-[![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/cal.com)
+[![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/)
 
 <!-- LICENSE -->
 
