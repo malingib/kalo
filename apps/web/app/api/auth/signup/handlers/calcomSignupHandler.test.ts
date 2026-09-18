@@ -116,7 +116,7 @@ function callHandler(body: SignupBody): Promise<MockResponse> {
   });
 }
 
-runP2002TestSuite("calcomHandler", callHandler, () => {
+runP2002TestSuite("kaloHandler", callHandler, () => {
   vi.clearAllMocks();
   resetPrismaMock();
   mockFindTokenByToken.mockResolvedValue(createMockFoundToken());
