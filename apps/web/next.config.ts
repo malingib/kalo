@@ -425,7 +425,7 @@ const nextConfig = (phase: string): NextConfig => {
           has: [
             {
               type: "host" as const,
-              value: "cal.com",
+              value: "(?:.*\\.)?cal\\.com",
             },
           ],
           headers: [
@@ -517,7 +517,7 @@ const nextConfig = (phase: string): NextConfig => {
         },
         {
           source: "/auth/new",
-          destination: process.env.NEXT_PUBLIC_WEBAPP_URL || "https://app.cal.com",
+          destination: process.env.NEXT_PUBLIC_WEBAPP_URL || "/",
           permanent: true,
         },
         {
@@ -639,7 +639,7 @@ const nextConfig = (phase: string): NextConfig => {
           : []),
       ];
 
-      if (process.env.NEXT_PUBLIC_WEBAPP_URL === "https://app.cal.com") {
+      if (false) {
         redirects.push(
           {
             source: "/apps/dailyvideo",
