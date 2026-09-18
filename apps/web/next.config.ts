@@ -421,21 +421,6 @@ const nextConfig = (phase: string): NextConfig => {
           headers: [CORP_CROSS_ORIGIN_HEADER],
         },
         {
-          source: "/:path*",
-          has: [
-            {
-              type: "host" as const,
-              value: "(?:.*\\.)?cal\\.com",
-            },
-          ],
-          headers: [
-            {
-              key: "Referrer-Policy",
-              value: "no-referrer-when-downgrade",
-            },
-          ],
-        },
-        {
           source: "/api/avatar/:path*",
           headers: [CORP_CROSS_ORIGIN_HEADER],
         },
@@ -638,26 +623,6 @@ const nextConfig = (phase: string): NextConfig => {
             ]
           : []),
       ];
-
-      if (false) {
-        redirects.push(
-          {
-            source: "/apps/dailyvideo",
-            destination: "/apps/daily-video",
-            permanent: true,
-          },
-          {
-            source: "/apps/huddle01_video",
-            destination: "/apps/huddle01",
-            permanent: true,
-          },
-          {
-            source: "/apps/jitsi_video",
-            destination: "/apps/jitsi",
-            permanent: true,
-          }
-        );
-      }
 
       return redirects;
     },
