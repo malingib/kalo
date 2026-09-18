@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 
 import { sessionStorage } from "@kalo/lib/webstorage";
 
-const STORAGE_KEY = "showWelcomeToCalcomModal";
+const STORAGE_KEY = "showWelcomeToKaloModal";
 const ORG_MODAL_STORAGE_KEY = "showNewOrgModal";
 
-export function useWelcomeToCalcomModal() {
-  const [welcomeToCalcomModal, setWelcomeToCalcomModal] = useQueryState(
+export function useWelcomeToKaloModal() {
+  const [welcomeToKaloModal, setWelcomeToKaloModal] = useQueryState(
     "welcomeToCalcomModal",
     parseAsBoolean.withDefault(false)
   );
@@ -46,6 +46,6 @@ export function useWelcomeToCalcomModal() {
   };
 }
 
-export function setShowWelcomeToCalcomModalFlag() {
+export function setShowWelcomeToKaloModalFlag() {
   sessionStorage.setItem(STORAGE_KEY, "true");
 }
