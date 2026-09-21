@@ -2,7 +2,7 @@ import { defaultResponderForAppDir } from "app/api/defaultResponderForAppDir";
 import { parseRequestData } from "app/api/parseRequestData";
 import { NextResponse, type NextRequest } from "next/server";
 
-import calcomSignupHandler from "./handlers/calcomSignupHandler";
+import kaloSignupHandler from "./handlers/kaloSignupHandler";
 import selfHostedSignupHandler from "./handlers/selfHostedHandler";
 import { FeaturesRepository } from "@kalo/features/flags/features.repository";
 import { checkRateLimitAndThrowError } from "@kalo/lib/checkRateLimitAndThrowError";
@@ -56,14 +56,11 @@ async function handler(req: NextRequest) {
     await ensureSignupIsEnabled(body);
 
     /**
-     * Im not sure its worth merging these two handlers. They are different enough to be separate.
-     * Calcom handles things like creating a stripe customer - which we don't need to do for self hosted.
-     * It also handles things like premium username.
-     * TODO: (SEAN) - Extract a lot of the logic from calcomHandler into a separate file and import it into both handlers.
-     * @zomars: We need to be able to test this with E2E. They way it's done RN it will never run on CI.
+     * Premium-username signup requires billing-aware handling, while
+     * self-hosted signup uses the simpler handler below.
      */
     if (IS_PREMIUM_USERNAME_ENABLED) {
-      return await calcomSignupHandler(body, query);
+      return await kaloSignupHandler(body, query);
     }
 
     return await selfHostedSignupHandler(body);

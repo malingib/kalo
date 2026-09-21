@@ -104,7 +104,7 @@ vi.mock("@kalo/lib/server/username", () => ({
 }));
 
 // Import after mocks
-import "./calcomSignupHandler";
+import "./kaloSignupHandler";
 import { runP2002TestSuite } from "@kalo/features/auth/signup/handlers/__tests__/p2002.test-suite";
 
 function callHandler(body: SignupBody): Promise<MockResponse> {
