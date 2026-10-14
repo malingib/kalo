@@ -111,7 +111,7 @@ function isValidLogoType(type: string): type is LogoType {
 async function getTeamLogos(subdomain: string, isValidOrgDomain: boolean) {
   try {
     if (
-      // if not cal.com
+      // Self-hosted installations use the configured Kalo branding.
       IS_SELF_HOSTED ||
       // missing subdomain (empty string)
       !subdomain ||
