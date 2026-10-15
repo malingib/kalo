@@ -10,27 +10,43 @@ concurrency:
 jobs:
   i18n:
     name: Run i18n
-    if: ${{ secrets.CI_LINGO_DOT_DEV_API_KEY != '' }}
     runs-on: ubuntu-latest
     permissions:
       actions: write
       contents: write
       pull-requests: write
     steps:
+      - name: Check whether i18n automation is configured
+        id: config
+        shell: bash
+        env:
+          LINGO_API_KEY: ${{ secrets.CI_LINGO_DOT_DEV_API_KEY }}
+        run: |
+          if [[ -n "$LINGO_API_KEY" ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping i18n automation because CI_LINGO_DOT_DEV_API_KEY is not configured."
+          fi
+
       - name: Generate GitHub App token
+        if: steps.config.outputs.enabled == 'true'
         id: generate-token
         uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94
         with:
           app-id: ${{ secrets.CI_CAL_APP_ID }}
           private-key: ${{ secrets.CI_CAL_APP_PRIVATE_KEY }}
-          repositories: 'cal.com'
+          repositories: 'kalo'
 
       - uses: actions/checkout@v4
+        if: steps.config.outputs.enabled == 'true'
       - uses: actions/setup-node@v4
+        if: steps.config.outputs.enabled == 'true'
         with:
           node-version: 20
           cache: 'npm'
       - uses: lingodotdev/lingo.dev@cee3eb86550ca4905fc99fe90786fb7523288a61 # main
+        if: steps.config.outputs.enabled == 'true'
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         with:
