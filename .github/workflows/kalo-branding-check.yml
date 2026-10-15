@@ -1,0 +1,50 @@
+name: Kalo branding checks
+
+on:
+  pull_request:
+    paths:
+      - "apps/web/public/**/*.svg"
+      - "apps/docs/public/**/*.svg"
+      - "README.md"
+      - "docs/branding-compatibility.md"
+      - ".github/workflows/kalo-branding-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-branding:
+    name: Validate branding assets and references
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate changed SVG files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --name-only "origin/${GITHUB_BASE_REF:-main}...HEAD" -- '*.svg' > /tmp/changed-svg-files.txt
+          if [[ ! -s /tmp/changed-svg-files.txt ]]; then
+            echo "No SVG files changed; skipping SVG parse."
+          else
+            while IFS= read -r file; do
+              [[ -f "$file" ]] || { echo "Missing SVG: $file"; exit 1; }
+              python - "$file" <<'PY'
+          import sys
+          import xml.etree.ElementTree as ET
+          ET.parse(sys.argv[1])
+          print(f"Valid SVG XML: {sys.argv[1]}")
+          PY
+            done < /tmp/changed-svg-files.txt
+          fi
+
+      - name: Verify README logo reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f apps/web/public/cal-logo-word.svg
+          grep -Fq './apps/web/public/cal-logo-word.svg' README.md
