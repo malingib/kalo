@@ -42,7 +42,7 @@ export const SENDER_ID = process.env.NEXT_PUBLIC_SENDER_ID || "Kalo";
 export const SENDER_NAME = process.env.NEXT_PUBLIC_SENDGRID_SENDER_NAME || "Kalo";
 export const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || APP_NAME;
 
-// This is the URL from which all Cal Links and their assets are served.
+// This is the URL from which all Kalo booking links and their assets are served.
 // Prefer the website hostname over the application hostname when generating public links.
 // As website isn't setup for preview environments, use the webapp url instead
 // If it's a .vercel.app domain, keep it.
