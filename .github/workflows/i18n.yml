@@ -21,12 +21,14 @@ jobs:
         shell: bash
         env:
           LINGO_API_KEY: ${{ secrets.CI_LINGO_DOT_DEV_API_KEY }}
+          APP_ID: ${{ secrets.CI_CAL_APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.CI_CAL_APP_PRIVATE_KEY }}
         run: |
-          if [[ -n "$LINGO_API_KEY" ]]; then
+          if [[ -n "$LINGO_API_KEY" && -n "$APP_ID" && -n "$APP_PRIVATE_KEY" ]]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "Skipping i18n automation because CI_LINGO_DOT_DEV_API_KEY is not configured."
+            echo "Skipping i18n automation because one or more required i18n/App credentials are not configured."
           fi
 
       - name: Generate GitHub App token
