@@ -8,6 +8,7 @@ on:
       - "README.md"
       - "docs/branding-compatibility.md"
       - ".github/workflows/kalo-branding-check.yml"
+      - ".github/workflows/i18n.yml"
   workflow_dispatch:
 
 permissions:
@@ -41,6 +42,10 @@ jobs:
           PY
             done < /tmp/changed-svg-files.txt
           fi
+
+      - name: Parse the i18n workflow YAML
+        shell: bash
+        run: ruby -e 'require "yaml"; YAML.load_file(".github/workflows/i18n.yml"); puts "i18n workflow YAML parsed successfully"'
 
       - name: Verify README logo reference
         shell: bash
