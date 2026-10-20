@@ -7,8 +7,8 @@ type BookingContextEventType = Pick<getEventTypeResponse, "team" | "parent" | "o
 
 type BookingContextBookingData = {
   eventTypeId: number;
-  eventTypeSlug: string;
-  name: string;
+  eventTypeSlug?: string;
+  name: string | { firstName: string; lastName?: string };
   email: string;
   attendeePhoneNumber?: string | null;
 };
@@ -60,7 +60,7 @@ export const buildBookingContext = ({
   if (Array.isArray(reqBody.user)) {
     dynamicUserList = reqBody.user;
   } else {
-    dynamicUserList = getUsernameList(reqBody.user ?? null);
+    dynamicUserList = getUsernameList(reqBody.user ?? undefined);
   }
 
   const eventTypeOrganizationId =
@@ -71,7 +71,7 @@ export const buildBookingContext = ({
 
   return {
     eventTypeId: bookingData.eventTypeId,
-    eventTypeSlug: bookingData.eventTypeSlug,
+    eventTypeSlug: bookingData.eventTypeSlug ?? eventType.owner?.username ?? "",
     eventTypeOrganizationId,
     bookerName: bookingData.name,
     bookerEmail: bookingData.email,
