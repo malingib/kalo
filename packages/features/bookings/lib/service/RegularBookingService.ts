@@ -227,6 +227,7 @@ export const buildDryRunBooking = ({
     creationSource: CreationSource.WEBAPP,
     references: [],
     payment: [],
+    depositReceiptUrl: null,
   } satisfies ReturnTypeCreateBooking;
 
   /**
@@ -1832,6 +1833,10 @@ async function handler(
       });
     }
     throw err;
+  }
+
+  if (!booking) {
+    throw new HttpError({ statusCode: 400, message: "Booking failed" });
   }
 
   // After polling videoBusyTimes, credentials might have been changed due to refreshment, so query them again.
