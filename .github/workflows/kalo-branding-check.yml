@@ -1,0 +1,88 @@
+name: Kalo branding checks
+
+on:
+  pull_request:
+    paths:
+      - "apps/web/public/**/*.svg"
+      - "apps/docs/public/**/*.svg"
+      - "apps/web/public/site.webmanifest"
+      - "apps/web/app/api/logo/route.ts"
+      - "README.md"
+      - "docs/branding-compatibility.md"
+      - ".github/workflows/kalo-branding-check.yml"
+      - ".github/workflows/i18n.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-branding:
+    name: Validate branding assets and references
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate changed SVG files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --name-only "origin/${GITHUB_BASE_REF:-main}...HEAD" -- '*.svg' > /tmp/changed-svg-files.txt
+          if [[ ! -s /tmp/changed-svg-files.txt ]]; then
+            echo "No SVG files changed; skipping SVG parse."
+          else
+            while IFS= read -r file; do
+              [[ -f "$file" ]] || { echo "Missing SVG: $file"; exit 1; }
+              python - "$file" <<'PY'
+          import sys
+          import xml.etree.ElementTree as ET
+          ET.parse(sys.argv[1])
+          print(f"Valid SVG XML: {sys.argv[1]}")
+          PY
+            done < /tmp/changed-svg-files.txt
+          fi
+
+      - name: Parse the i18n workflow YAML
+        shell: bash
+        run: ruby -e 'require "yaml"; YAML.load_file(".github/workflows/i18n.yml"); puts "i18n workflow YAML parsed successfully"'
+
+      - name: Validate web manifest and logo endpoint contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          manifest_path = Path("apps/web/public/site.webmanifest")
+          route_path = Path("apps/web/app/api/logo/route.ts")
+          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          route = route_path.read_text(encoding="utf-8")
+
+          assert manifest.get("name") == "Kalo", "Manifest name must be Kalo"
+          assert manifest.get("short_name") == "Kalo", "Manifest short_name must be Kalo"
+          icons = manifest.get("icons")
+          assert isinstance(icons, list) and icons, "Manifest must define at least one icon"
+
+          for icon in icons:
+              src = icon.get("src", "")
+              match = re.fullmatch(r"/api/logo\?type=([a-z0-9-]+)", src)
+              assert match, f"Unexpected manifest icon source: {src}"
+              logo_type = match.group(1)
+              assert f'"{logo_type}"' in route, f"Manifest logo type is not handled by route: {logo_type}"
+              assert icon.get("sizes"), f"Manifest icon is missing sizes: {src}"
+              assert icon.get("type") == "image/png", f"Expected PNG response for manifest icon: {src}"
+
+          print(f"Validated {len(icons)} Kalo manifest icon route(s)")
+          PY
+
+      - name: Verify README logo reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f apps/web/public/cal-logo-word.svg
+          grep -Fq './apps/web/public/cal-logo-word.svg' README.md

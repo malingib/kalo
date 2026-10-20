@@ -227,6 +227,7 @@ export const buildDryRunBooking = ({
     creationSource: CreationSource.WEBAPP,
     references: [],
     payment: [],
+    depositReceiptUrl: null,
   } satisfies ReturnTypeCreateBooking;
 
   /**
@@ -699,7 +700,7 @@ async function handler(
     const existingBooking = await deps.bookingRepository.getValidBookingFromEventTypeForAttendee({
       eventTypeId,
       bookerEmail: bookingContext.bookerEmail,
-      bookerPhoneNumber: bookingContext.bookerPhoneNumber,
+      bookerPhoneNumber: bookingContext.bookerPhoneNumber ?? undefined,
       startTime: new Date(dayjs(reqBody.start).utc().format()),
       filterForUnconfirmed: !isConfirmedByDefault,
     });
@@ -1215,7 +1216,7 @@ async function handler(
     {
       email: bookingContext.bookerEmail,
       name: bookingContext.fullName,
-      phoneNumber: bookingContext.bookerPhoneNumber,
+      phoneNumber: bookingContext.bookerPhoneNumber ?? undefined,
       firstName: (typeof bookerName === "object" && bookerName.firstName) || "",
       lastName: (typeof bookerName === "object" && bookerName.lastName) || "",
       timeZone: attendeeTimezone,
@@ -1599,8 +1600,8 @@ async function handler(
       allCredentials,
       organizerUser,
       originalRescheduledBooking,
-      bookingContext.bookerEmail,
-      bookingContext.bookerPhoneNumber,
+      bookerEmail: bookingContext.bookerEmail,
+      bookerPhoneNumber: bookingContext.bookerPhoneNumber,
       tAttendees,
       bookingSeat,
       reqUserId: input.userId,
@@ -1613,7 +1614,7 @@ async function handler(
       reqAppsStatus,
       attendeeLanguage,
       paymentAppData,
-      bookingContext.fullName,
+      fullName: bookingContext.fullName,
       smsReminderNumber,
       eventTypeInfo,
       uid,
@@ -1810,8 +1811,8 @@ async function handler(
         eventName,
         startTime: reqBody.start,
         endTime: reqBody.end,
-        contactOwnerFromReq,
-        contactOwnerEmail,
+        contactOwnerFromReq: bookingContext.contactOwnerFromReq,
+        contactOwnerEmail: bookingContext.contactOwnerEmail,
         allHostUsers: users,
         isManagedEventType,
       });
@@ -1832,6 +1833,10 @@ async function handler(
       });
     }
     throw err;
+  }
+
+  if (!booking) {
+    throw new HttpError({ statusCode: 400, message: "Booking failed" });
   }
 
   // After polling videoBusyTimes, credentials might have been changed due to refreshment, so query them again.

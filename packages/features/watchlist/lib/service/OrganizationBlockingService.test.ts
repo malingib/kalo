@@ -239,7 +239,7 @@ describe("OrganizationBlockingService", () => {
 
       vi.mocked(mockOrgRepo.findBlockingEntriesForEmailsAndDomains).mockResolvedValue([wildcardEntry]);
 
-      const result = await service.isBlocked("user@kalo", ORGANIZATION_ID);
+      const result = await service.isBlocked("user@kalo.com", ORGANIZATION_ID);
 
       expect(result.isBlocked).toBe(false);
     });
