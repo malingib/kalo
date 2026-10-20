@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 
 import prisma from "@kalo/prisma";
+import { Prisma } from "@kalo/prisma/client";
 
 import type { TRPCAuthedContext } from "../../../procedures/authedProcedure";
 import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorProfile.schema";
@@ -72,10 +73,14 @@ export const upsertVendorProfileHandler = async ({ ctx, input }: UpsertOpts) => 
     ...(input.darajaPasskey !== undefined && { darajaPasskey: input.darajaPasskey }),
     ...(input.whatsappEnabled !== undefined && { whatsappEnabled: input.whatsappEnabled }),
     ...(input.whatsappGreeting !== undefined && { whatsappGreeting: input.whatsappGreeting }),
-    ...(input.whatsappFaqJson !== undefined && { whatsappFaqJson: input.whatsappFaqJson }),
+    ...(input.whatsappFaqJson !== undefined && {
+      whatsappFaqJson: input.whatsappFaqJson === null ? Prisma.DbNull : input.whatsappFaqJson,
+    }),
     ...(input.whatsappOfflineMessage !== undefined && { whatsappOfflineMessage: input.whatsappOfflineMessage }),
     ...(input.whatsappAutoConfirm !== undefined && { whatsappAutoConfirm: input.whatsappAutoConfirm }),
-    ...(input.operatingHoursJson !== undefined && { operatingHoursJson: input.operatingHoursJson }),
+    ...(input.operatingHoursJson !== undefined && {
+      operatingHoursJson: input.operatingHoursJson === null ? Prisma.DbNull : input.operatingHoursJson,
+    }),
   };
 
   return prisma.vendorProfile.upsert({
