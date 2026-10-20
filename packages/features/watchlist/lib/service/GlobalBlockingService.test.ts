@@ -223,7 +223,7 @@ describe("GlobalBlockingService", () => {
 
       vi.mocked(mockGlobalRepo.findBlockingEntriesForEmailsAndDomains).mockResolvedValue([wildcardEntry]);
 
-      const result = await service.isBlocked("user@kalo");
+      const result = await service.isBlocked("user@kalo.com");
 
       expect(result.isBlocked).toBe(false);
     });
