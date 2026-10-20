@@ -3,7 +3,7 @@ import { getFullName } from "@kalo/features/form-builder/utils";
 import { shouldIgnoreContactOwner } from "@kalo/lib/bookings/routing/utils";
 import type { getEventTypeResponse } from "./getEventTypesFromDB";
 
-type BookingContextEventType = Pick<getEventTypeResponse, "team" | "parent" | "owner">;
+type BookingContextEventType = Pick<getEventTypeResponse, "team" | "parent" | "owner" | "slug">;
 
 type BookingContextBookingData = {
   eventTypeId: number;
@@ -71,7 +71,7 @@ export const buildBookingContext = ({
 
   return {
     eventTypeId: bookingData.eventTypeId,
-    eventTypeSlug: bookingData.eventTypeSlug ?? eventType.owner?.username ?? "",
+    eventTypeSlug: bookingData.eventTypeSlug ?? eventType.slug,
     eventTypeOrganizationId,
     bookerName: bookingData.name,
     bookerEmail: bookingData.email,
