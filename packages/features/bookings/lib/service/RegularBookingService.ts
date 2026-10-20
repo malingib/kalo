@@ -227,6 +227,7 @@ export const buildDryRunBooking = ({
     creationSource: CreationSource.WEBAPP,
     references: [],
     payment: [],
+    paymentStatus: "UNPAID",
     depositReceiptUrl: null,
   } satisfies ReturnTypeCreateBooking;
 
