@@ -73,7 +73,7 @@ export const buildBookingContext = ({
     eventTypeId: bookingData.eventTypeId,
     eventTypeSlug: bookingData.eventTypeSlug ?? eventType.slug,
     eventTypeOrganizationId,
-    bookerName: bookingData.name,
+    bookerName: getFullName(bookingData.name),
     bookerEmail: bookingData.email,
     bookerPhoneNumber: bookingData.attendeePhoneNumber ?? null,
     dynamicUserList,
