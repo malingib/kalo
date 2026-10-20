@@ -833,7 +833,7 @@ describe("getBookingResponsesSchema", () => {
       });
 
       test("should block full email match when exact email is excluded", async () => {
-        const excludedEmails = "anik@kalo";
+        const excludedEmails = "anik@kalo.com";
 
         const schema = getBookingResponsesSchema({
           bookingFields: [
@@ -855,7 +855,7 @@ describe("getBookingResponsesSchema", () => {
         // anik@kalo should be blocked
         const parsedResponses = await schema.safeParseAsync({
           name: "test",
-          email: "anik@kalo",
+          email: "anik@kalo.com",
         });
 
         expectParsingToFail(
