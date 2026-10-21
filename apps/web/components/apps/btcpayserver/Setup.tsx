@@ -1,4 +1,3 @@
-// @ts-expect-error @hookform/resolvers 2.9.7 exposes runtime code but its declaration entry is not resolved by the current Next.js/TypeScript module resolution.
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
