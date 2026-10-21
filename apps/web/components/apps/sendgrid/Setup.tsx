@@ -1,3 +1,4 @@
+// @ts-expect-error @hookform/resolvers 2.9.7 declaration entry is not resolved by the current Next.js/TypeScript module resolution.
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
