@@ -7,6 +7,7 @@ import { z } from "zod";
 import dayjs from "@kalo/dayjs";
 import { useTimePreferences } from "@kalo/features/bookings/lib";
 import { TimezoneSelect } from "@kalo/web/modules/timezone/components/TimezoneSelect";
+import type { TimezoneSelectProps } from "@kalo/web/modules/timezone/components/TimezoneSelect";
 import { FULL_NAME_LENGTH_MAX_LIMIT } from "@kalo/lib/constants";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { trpc } from "@kalo/trpc/react";
@@ -103,7 +104,9 @@ const UserSettings = (props: IUserSettingsProps) => {
           <TimezoneSelect
             id="timeZone"
             value={selectedTimeZone}
-            onChange={({ value }) => setSelectedTimeZone(value)}
+            onChange={(selection: Parameters<NonNullable<TimezoneSelectProps["onChange"]>>[0]) =>
+              setSelectedTimeZone(typeof selection === "string" ? selection : selection.value)
+            }
             className="mt-2 w-full rounded-md text-sm"
           />
 
