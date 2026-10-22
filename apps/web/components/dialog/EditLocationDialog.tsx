@@ -27,6 +27,15 @@ import { MapPinIcon } from "@coss/ui/icons";
 
 import { QueryCell } from "../../lib/QueryCell";
 
+type LocationFormValues = {
+  locationType: string;
+  credentialId?: number | null;
+  phone?: string | null;
+  locationAddress?: string;
+  locationLink?: string;
+  locationPhoneNumber?: string | null;
+};
+
 interface ISetLocationDialog {
   saveLocation: ({
     newLocation,
@@ -49,7 +58,7 @@ interface ISetLocationDialog {
 
 const LocationInput = (props: {
   eventLocationType: EventLocationType;
-  locationFormMethods: ReturnType<typeof useForm>;
+  locationFormMethods: ReturnType<typeof useForm<LocationFormValues>>;
   id: string;
   required: boolean;
   placeholder: string;
@@ -153,9 +162,9 @@ export const EditLocationDialog = (props: ISetLocationDialog) => {
 
   const [isLocationUpdating, setIsLocationUpdating] = useState(false);
 
-  const locationFormMethods = useForm({
+  const locationFormMethods = useForm<LocationFormValues>({
     mode: "onSubmit",
-    resolver: zodResolver(locationFormSchema),
+    resolver: zodResolver(locationFormSchema) as any,
   });
 
   const selectedLocation = useWatch({
