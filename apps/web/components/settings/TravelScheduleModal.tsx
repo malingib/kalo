@@ -168,7 +168,7 @@ const TravelScheduleModal = ({
               onChange={(selection: { value: string }) => setSelectedTimeZone(selection.value)}
               menuPortalTarget={typeof document === "undefined" ? undefined : document.body}
               menuPlacement={isMobile ? "top" : "auto"}
-              styles={{ menuPortal: (base) => Object.assign({}, base, { zIndex: 9999 }) }}
+              styles={{ menuPortal: (base: import("react-select").CSSObjectWithLabel) => Object.assign({}, base, { zIndex: 9999 }) }}
               className="mb-11 mt-2 w-full rounded-md text-sm"
             />
           </div>
