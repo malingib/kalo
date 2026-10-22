@@ -5,6 +5,7 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { z } from "zod";
 
 import type { LocationObject } from "@kalo/app-store/locations";
@@ -76,10 +77,12 @@ const EventTypeAppSettingsForm = forwardRef<HTMLButtonElement, EventTypeAppSetti
         seatsPerTimeSlot: eventType?.seatsPerTimeSlot ?? undefined,
       },
       resolver: zodResolver(
-        z.object({
-          locations: locationsResolver(t),
-        })
-      ),
+        z
+          .object({
+            locations: locationsResolver(t),
+          })
+          .passthrough()
+      ) as Resolver<TFormType>,
     });
 
     return (
