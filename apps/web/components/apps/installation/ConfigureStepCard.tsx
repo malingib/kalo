@@ -76,13 +76,14 @@ const EventTypeAppSettingsForm = forwardRef<HTMLButtonElement, EventTypeAppSetti
         bookingFields: eventType?.bookingFields ?? undefined,
         seatsPerTimeSlot: eventType?.seatsPerTimeSlot ?? undefined,
       },
+      // This form intentionally validates only locations; passthrough keeps the other form values intact.
       resolver: zodResolver(
         z
           .object({
             locations: locationsResolver(t),
           })
           .passthrough()
-      ) as Resolver<TFormType>,
+      ) as unknown as Resolver<TFormType>,
     });
 
     return (
