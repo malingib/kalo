@@ -34,6 +34,8 @@ type LocationFormValues = {
   locationAddress?: string;
   locationLink?: string;
   locationPhoneNumber?: string | null;
+  address?: string | null;
+  hostDefault?: string | null;
 };
 
 interface ISetLocationDialog {
