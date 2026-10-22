@@ -8,7 +8,7 @@ import { APP_NAME } from "@kalo/lib/constants";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import type { inferSSRProps } from "@kalo/types/inferSSRProps";
 import { WizardForm } from "@kalo/ui/components/form";
-import type { WizardStep } from "@kalo/ui/components/form/wizard/WizardForm";
+import type { WizardStep } from "@kalo/ui/components/form";
 
 import { AdminUserContainer as AdminUser } from "@components/setup/AdminUser";
 
