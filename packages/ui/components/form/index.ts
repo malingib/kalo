@@ -25,3 +25,5 @@ export { Steps } from "./step";
 export { WizardForm } from "./wizard";
 export { default as ColorPicker } from "./color-picker/colorpicker";
 export { SettingsToggle, Switch } from "./switch";
+
+export type { WizardStep, WizardFormProps } from "./wizard/WizardForm";
