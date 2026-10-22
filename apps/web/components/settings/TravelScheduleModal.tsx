@@ -165,7 +165,7 @@ const TravelScheduleModal = ({
             <TimezoneSelect
               id="timeZone"
               value={selectedTimeZone}
-              onChange={({ value }) => setSelectedTimeZone(value)}
+              onChange={(selection: { value: string }) => setSelectedTimeZone(selection.value)}
               menuPortalTarget={typeof document === "undefined" ? undefined : document.body}
               menuPlacement={isMobile ? "top" : "auto"}
               styles={{ menuPortal: (base) => Object.assign({}, base, { zIndex: 9999 }) }}
