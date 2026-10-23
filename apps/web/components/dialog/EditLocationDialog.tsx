@@ -82,7 +82,7 @@ const LocationInput = (props: {
         control={control}
         defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => {
-          return <PhoneInput onChange={onChange} value={value} {...rest} />;
+          return <PhoneInput onChange={onChange} value={value ?? undefined} {...rest} />;
         }}
       />
     );
