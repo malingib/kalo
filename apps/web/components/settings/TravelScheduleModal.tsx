@@ -46,6 +46,10 @@ const TravelScheduleModal = ({
   const [isDateRangeOpen, setIsDateRangeOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const timezoneSelectStyles: import("react-select").StylesConfig = {
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  };
+
   const isOverlapping = (newSchedule: { startDate: Date; endDate?: Date }) => {
     const newStart = dayjs(newSchedule.startDate);
     const newEnd = newSchedule.endDate ? dayjs(newSchedule.endDate) : null;
@@ -168,7 +172,7 @@ const TravelScheduleModal = ({
               onChange={(selection: { value: string }) => setSelectedTimeZone(selection.value)}
               menuPortalTarget={typeof document === "undefined" ? undefined : document.body}
               menuPlacement={isMobile ? "top" : "auto"}
-              styles={{ menuPortal: (base: import("react-select").CSSObjectWithLabel) => Object.assign({}, base, { zIndex: 9999 }) }}
+              styles={timezoneSelectStyles}
               className="mb-11 mt-2 w-full rounded-md text-sm"
             />
           </div>

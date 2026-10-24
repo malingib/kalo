@@ -27,6 +27,17 @@ import { MapPinIcon } from "@coss/ui/icons";
 
 import { QueryCell } from "../../lib/QueryCell";
 
+type LocationFormValues = {
+  locationType: string;
+  credentialId?: number | null;
+  phone?: string | null;
+  locationAddress?: string;
+  locationLink?: string;
+  locationPhoneNumber?: string | null;
+  address?: string | null;
+  hostDefault?: string | null;
+};
+
 interface ISetLocationDialog {
   saveLocation: ({
     newLocation,
@@ -49,7 +60,7 @@ interface ISetLocationDialog {
 
 const LocationInput = (props: {
   eventLocationType: EventLocationType;
-  locationFormMethods: ReturnType<typeof useForm>;
+  locationFormMethods: ReturnType<typeof useForm<LocationFormValues>>;
   id: string;
   required: boolean;
   placeholder: string;
@@ -71,7 +82,7 @@ const LocationInput = (props: {
         control={control}
         defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => {
-          return <PhoneInput onChange={onChange} value={value} {...rest} />;
+          return <PhoneInput onChange={onChange} value={value ?? undefined} {...rest} />;
         }}
       />
     );
@@ -153,9 +164,9 @@ export const EditLocationDialog = (props: ISetLocationDialog) => {
 
   const [isLocationUpdating, setIsLocationUpdating] = useState(false);
 
-  const locationFormMethods = useForm({
+  const locationFormMethods = useForm<LocationFormValues>({
     mode: "onSubmit",
-    resolver: zodResolver(locationFormSchema),
+    resolver: zodResolver(locationFormSchema) as any,
   });
 
   const selectedLocation = useWatch({
@@ -227,13 +238,19 @@ export const EditLocationDialog = (props: ISetLocationDialog) => {
           form={locationFormMethods}
           handleSubmit={async (values) => {
             const { locationType: newLocationType } = values;
-            let newLocation;
-            // For the locations that require organizer to type-in some values, we need the value
+            let newLocation: string | undefined;
+            // For locations that require organizer input, use the value entered by the organizer.
             if (eventLocationType?.organizerInputType) {
               newLocation = values[eventLocationType.variable];
             } else {
-              // locationType itself can be used here e.g. For zoom we use the type itself which is "integrations:zoom". For Organizer's Default Conferencing App, it is OrganizerDefaultConferencingAppType constant
+              // locationType itself can be used here e.g. for Zoom or the organizer's default conferencing app.
               newLocation = newLocationType;
+            }
+
+            // Dynamic location fields are not all represented in the static schema, so guard missing values.
+            if (typeof newLocation !== "string" || !newLocation.trim()) {
+              setIsLocationUpdating(false);
+              return;
             }
 
             setIsLocationUpdating(true);
