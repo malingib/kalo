@@ -238,13 +238,19 @@ export const EditLocationDialog = (props: ISetLocationDialog) => {
           form={locationFormMethods}
           handleSubmit={async (values) => {
             const { locationType: newLocationType } = values;
-            let newLocation;
-            // For the locations that require organizer to type-in some values, we need the value
+            let newLocation: string | undefined;
+            // For locations that require organizer input, use the value entered by the organizer.
             if (eventLocationType?.organizerInputType) {
               newLocation = values[eventLocationType.variable];
             } else {
-              // locationType itself can be used here e.g. For zoom we use the type itself which is "integrations:zoom". For Organizer's Default Conferencing App, it is OrganizerDefaultConferencingAppType constant
+              // locationType itself can be used here e.g. for Zoom or the organizer's default conferencing app.
               newLocation = newLocationType;
+            }
+
+            // Dynamic location fields are not all represented in the static schema, so guard missing values.
+            if (typeof newLocation !== "string" || !newLocation.trim()) {
+              setIsLocationUpdating(false);
+              return;
             }
 
             setIsLocationUpdating(true);
