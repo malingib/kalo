@@ -236,7 +236,7 @@ const EditKeysModal: FC<{
             className="px-4 pb-4">
             {Object.keys(keys).map((key) => (
               <Controller
-                name={key}
+                name={key as never}
                 key={key}
                 control={formMethods.control}
                 defaultValue={keys && keys[key] ? keys?.[key] : ""}
