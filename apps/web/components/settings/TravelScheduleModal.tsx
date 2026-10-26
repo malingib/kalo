@@ -47,7 +47,7 @@ const TravelScheduleModal = ({
   const [errorMessage, setErrorMessage] = useState("");
 
   const timezoneSelectStyles: import("react-select").StylesConfig = {
-    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+    menuPortal: () => ({ zIndex: 9999 }),
   };
 
   const isOverlapping = (newSchedule: { startDate: Date; endDate?: Date }) => {
