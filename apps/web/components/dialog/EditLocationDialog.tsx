@@ -241,7 +241,7 @@ export const EditLocationDialog = (props: ISetLocationDialog) => {
             let newLocation: string | undefined;
             // For locations that require organizer input, use the value entered by the organizer.
             if (eventLocationType?.organizerInputType) {
-              newLocation = values[eventLocationType.variable];
+              newLocation = values[eventLocationType.variable] ?? undefined;
             } else {
               // locationType itself can be used here e.g. for Zoom or the organizer's default conferencing app.
               newLocation = newLocationType;
