@@ -239,7 +239,7 @@ const EditKeysModal: FC<{
                 name={key as never}
                 key={key}
                 control={formMethods.control}
-                defaultValue={keys && keys[key] ? keys?.[key] : ""}
+                defaultValue={(keys && keys[key] ? keys?.[key] : "") as never}
                 render={({ field: { value } }) => (
                   <TextField
                     label={key}
