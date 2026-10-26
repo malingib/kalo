@@ -247,7 +247,7 @@ const EditKeysModal: FC<{
                     name={key}
                     value={value}
                     onChange={(e) => {
-                      formMethods.setValue(key, e?.target.value);
+                      formMethods.setValue(key as never, e?.target.value as never);
                     }}
                   />
                 )}
