@@ -120,7 +120,7 @@ export default function Login({
     })
     // Passthrough other fields like totpCode
     .passthrough();
-  const methods = useForm<LoginValues>({ resolver: zodResolver(formSchema) });
+  const methods = useForm<LoginValues>({ resolver: zodResolver(formSchema) as never });
   const { register, formState } = methods;
   const [twoFactorRequired, setTwoFactorRequired] = useState(!!totpEmail || false);
   const [twoFactorLostAccess, setTwoFactorLostAccess] = useState(false);
