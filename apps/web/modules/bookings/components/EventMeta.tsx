@@ -247,7 +247,7 @@ export const EventMeta = ({
                         ? event.lockedTimeZone || CURRENT_TIMEZONE
                         : timezone
                     }
-                    onChange={({ value }) => {
+                    onChange={({ value }: { value: string }) => {
                       setTimezone(value);
                       setBookerStoreTimezone(value);
                     }}
