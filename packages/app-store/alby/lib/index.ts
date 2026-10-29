@@ -1,4 +1,4 @@
-import type { Invoice as AlbyInvoice } from "@getalby/sdk/dist/types";
+import type { Invoice as AlbyInvoice } from "@getalby/sdk";
 
 export * from "./PaymentService";
 export * from "./albyCredentialKeysSchema";
