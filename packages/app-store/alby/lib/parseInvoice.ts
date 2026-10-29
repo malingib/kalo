@@ -1,4 +1,4 @@
-import type { Invoice } from "@getalby/sdk/dist/types";
+import type { Invoice } from "@getalby/sdk";
 import { Webhook } from "svix";
 
 export default function parseInvoice(
