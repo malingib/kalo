@@ -21,30 +21,34 @@ jobs:
     name: Type check, lint and unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      NODE_OPTIONS: --max-old-space-size=12288
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      LINGO_DOT_DEV_API_KEY: ${{ secrets.CI_LINGO_DOT_DEV_API_KEY }}
     steps:
-      - name: Check out repository
+      - name: Check out workflow configuration
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: yarn
+          sparse-checkout: .github
 
-      - name: Enable pinned Yarn
-        run: corepack enable
+      - name: Check out repository with project cache settings
+        uses: ./.github/actions/cache-checkout
 
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: Install dependencies using repository setup
+        uses: ./.github/actions/yarn-install
 
       - name: TypeScript checks
-        run: yarn type-check
+        run: yarn type-check:ci
 
       - name: Lint
         run: yarn lint
 
+      - name: Generate Prisma client
+        run: yarn prisma generate
+
       - name: Unit tests
-        run: yarn test
+        run: yarn test -- --no-isolate
         env:
           CI: true
           TZ: UTC
