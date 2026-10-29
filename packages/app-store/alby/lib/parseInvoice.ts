@@ -1,5 +1,7 @@
-import type { Invoice } from "@getalby/sdk";
+import type { LightningAddress } from "@getalby/lightning-tools";
 import { Webhook } from "svix";
+
+type Invoice = Awaited<ReturnType<LightningAddress["requestInvoice"]>>;
 
 export default function parseInvoice(
   body: string,
