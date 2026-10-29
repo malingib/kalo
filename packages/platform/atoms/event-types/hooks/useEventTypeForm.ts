@@ -15,6 +15,7 @@ import { eventTypeBookingFields as eventTypeBookingFieldsSchema } from "@kalo/pr
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { z } from "zod";
 
 type Fields = z.infer<typeof eventTypeBookingFieldsSchema>;
@@ -183,7 +184,7 @@ export const useEventTypeForm = ({
         })
         // TODO: Add schema for other fields later.
         .passthrough()
-    ),
+    ) as unknown as Resolver<FormValues>,
   });
 
   const {
