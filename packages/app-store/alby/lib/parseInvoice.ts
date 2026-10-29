@@ -1,7 +1,8 @@
-import type { LightningAddress } from "@getalby/lightning-tools";
 import { Webhook } from "svix";
 
-type Invoice = Awaited<ReturnType<LightningAddress["requestInvoice"]>>;
+export type AlbyInvoice = {
+  amount: number;
+};
 
 export default function parseInvoice(
   body: string,
@@ -11,13 +12,21 @@ export default function parseInvoice(
     "svix-signature": string;
   },
   webhookEndpointSecret: string
-): Invoice | null {
+): AlbyInvoice | null {
   try {
     const wh = new Webhook(webhookEndpointSecret);
-    return wh.verify(body, headers) as Invoice;
+    const payload: unknown = wh.verify(body, headers);
+    if (
+      typeof payload === "object" &&
+      payload !== null &&
+      "amount" in payload &&
+      typeof payload.amount === "number"
+    ) {
+      return payload as AlbyInvoice;
+    }
   } catch (err) {
-    // Looks like alby might sent multiple webhooks for the same invoice but it should only work once
-    // TODO: remove the Alby webhook when uninstalling the Alby app
+    // Alby may send multiple webhooks for the same invoice; process valid payments only.
+    // TODO: remove the Alby webhook when uninstalling the Alby app.
     console.error(err);
   }
   return null;
