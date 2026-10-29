@@ -1243,7 +1243,7 @@ export const EventAdvancedTab = ({
                           <TimezoneSelect
                             id="lockedTimeZone"
                             value={value ?? "Europe/London"}
-                            onChange={(event) => {
+                            onChange={(event: { value: string } | null) => {
                               if (event)
                                 formMethods.setValue("lockedTimeZone", event.value, { shouldDirty: true });
                             }}
