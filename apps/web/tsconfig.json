@@ -1,6 +1,7 @@
 {
   "extends": "@kalo/tsconfig/nextjs.json",
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
       "~/*": ["./modules/*"],
