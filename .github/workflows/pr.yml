@@ -162,7 +162,7 @@ jobs:
     name: Prepare
     needs: [trust-check]
     if: needs.trust-check.outputs.is-trusted == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pull-requests: read
     outputs:
