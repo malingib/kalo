@@ -21,8 +21,7 @@ export type UpdateUsersDefaultConferencingAppParams = {
 };
 
 type LocationTypeSetLinkDialogFormProps = {
-  link?: string;
-  type: EventLocationType["type"];
+  link: string;
 };
 
 export function AppSetDefaultLinkDialog({
