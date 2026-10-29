@@ -123,7 +123,7 @@ export const SlotSelectionModalHeader = ({
                     ? event.lockedTimeZone || CURRENT_TIMEZONE
                     : timezone || CURRENT_TIMEZONE
                 }
-                onChange={({ value }) => {
+                onChange={({ value }: { value: string }) => {
                   setTimezone(value);
                   setBookerStoreTimezone(value);
                 }}
