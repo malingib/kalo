@@ -48,6 +48,11 @@ jobs:
       - uses: ./.github/actions/cache-checkout
       - uses: ./.github/actions/yarn-install
       - run: yarn prisma generate
+      - name: Provide ephemeral credentials for CI build only
+        shell: bash
+        run: |
+          if [ -z "$NEXTAUTH_SECRET" ]; then echo "NEXTAUTH_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"; fi
+          if [ -z "$CALENDSO_ENCRYPTION_KEY" ]; then echo "CALENDSO_ENCRYPTION_KEY=$(openssl rand -hex 32)" >> "$GITHUB_ENV"; fi
       - name: Generate cache key
         id: cache-key
         uses: ./.github/actions/cache-build-key
