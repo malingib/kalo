@@ -50,5 +50,9 @@ jobs:
         if: inputs.DB_CACHE_HIT != 'true'
       - run: yarn prisma generate
         if: inputs.DB_CACHE_HIT != 'true'
+      # A changed schema/migration invalidates the DB cache. Build the schema before seeding on a cache miss.
+      - name: Apply database migrations
+        run: yarn prisma migrate deploy
+        if: inputs.DB_CACHE_HIT != 'true'
       - uses: ./.github/actions/cache-db
         if: inputs.DB_CACHE_HIT != 'true'
