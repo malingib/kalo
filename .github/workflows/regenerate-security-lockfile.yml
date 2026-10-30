@@ -1,4 +1,5 @@
 name: Regenerate security dependency lockfile
+# Temporary CI helper for the dependency remediation branch.
 
 on:
   push:
