@@ -11,6 +11,7 @@ jobs:
     name: Build Web App
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # CI-only build configuration; production credentials remain deployment-managed.
     env:
       ALLOWED_HOSTNAMES: ${{ vars.CI_ALLOWED_HOSTNAMES }}
       CALENDSO_ENCRYPTION_KEY: ${{ secrets.CI_CALENDSO_ENCRYPTION_KEY }}
