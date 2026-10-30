@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-      DATABASE_DIRECT_URL: ${{ secrets.CI_DATABASE_URL }}
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
+      DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/calendso
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     services:
