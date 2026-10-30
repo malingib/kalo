@@ -3,6 +3,12 @@ name: Production Build
 on:
   workflow_call:
 
+env:
+  DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+  DATABASE_DIRECT_URL: ${{ secrets.CI_DATABASE_URL }}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
 jobs:
   build:
     name: Build API v2
@@ -10,11 +16,6 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-      DATABASE_DIRECT_URL: ${{ secrets.CI_DATABASE_URL }}
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     services:
       postgres:
         image: postgres:18
