@@ -7,7 +7,8 @@ jobs:
     name: Check migrations match schema
     runs-on: ubuntu-24.04
     env:
-      DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+      # Use the disposable PostgreSQL service; CI_DATABASE_URL is optional and may be unset.
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
     services:
       postgres:
         image: postgres:18
@@ -31,7 +32,7 @@ jobs:
       - name: Check if migrations match schema
         working-directory: packages/prisma
         run: |
-          npx prisma migrate diff --exit-code \
-            --from-migrations ./migrations \
-            --to-schema-datamodel ./schema.prisma \
+          npx prisma migrate diff --exit-code \\
+            --from-migrations ./migrations \\
+            --to-schema-datamodel ./schema.prisma \\
             --shadow-database-url "${DATABASE_URL}"
