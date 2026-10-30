@@ -32,7 +32,7 @@ jobs:
       - name: Check if migrations match schema
         working-directory: packages/prisma
         run: |
-          npx prisma migrate diff --exit-code \\
-            --from-migrations ./migrations \\
-            --to-schema-datamodel ./schema.prisma \\
+          npx prisma migrate diff --exit-code \
+            --from-migrations ./migrations \
+            --to-schema-datamodel ./schema.prisma \
             --shadow-database-url "${DATABASE_URL}"
