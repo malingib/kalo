@@ -59,8 +59,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf 'NEXTAUTH_SECRET=%s\\n' "$(openssl rand -hex 32)" >> "$GITHUB_ENV"
-          printf 'CALENDSO_ENCRYPTION_KEY=%s\\n' "$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          printf 'NEXTAUTH_SECRET=%s\n' "$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          printf 'CALENDSO_ENCRYPTION_KEY=%s\n' "$(openssl rand -hex 32)" >> "$GITHUB_ENV"
       - run: yarn prisma generate
       - uses: ./.github/actions/cache-build
       - name: Analyze bundle
