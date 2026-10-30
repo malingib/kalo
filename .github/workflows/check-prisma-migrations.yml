@@ -2,19 +2,15 @@ name: Check Prisma Migrations
 on:
   workflow_call:
 
-env:
-  DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-
 jobs:
   check-prisma-migrations:
     name: Check migrations match schema
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    env:
+      DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
     services:
       postgres:
         image: postgres:18
-        credentials:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -38,4 +34,4 @@ jobs:
           npx prisma migrate diff --exit-code \
             --from-migrations ./migrations \
             --to-schema-datamodel ./schema.prisma \
-            --shadow-database-url ${{ env.DATABASE_URL }}
+            --shadow-database-url "${DATABASE_URL}"
