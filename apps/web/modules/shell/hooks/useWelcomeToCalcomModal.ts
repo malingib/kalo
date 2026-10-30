@@ -7,7 +7,7 @@ const STORAGE_KEY = "showWelcomeToKaloModal";
 const ORG_MODAL_STORAGE_KEY = "showNewOrgModal";
 
 export function useWelcomeToKaloModal() {
-  const [welcomeToKaloModal, setWelcomeToKaloModal] = useQueryState(
+  const [welcomeToCalcomModal, setWelcomeToCalcomModal] = useQueryState(
     "welcomeToCalcomModal",
     parseAsBoolean.withDefault(false)
   );

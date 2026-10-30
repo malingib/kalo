@@ -529,8 +529,8 @@ const ProfileForm = ({
       z.object({
         id: z.number(),
         email: emailSchema.toLowerCase(),
-        emailVerified: z.union([z.string(), z.null()]).optional(),
-        emailPrimary: z.boolean().optional(),
+        emailVerified: z.union([z.string(), z.null()]),
+        emailPrimary: z.boolean(),
       })
     ),
   });

@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { z } from "zod";
 
 import type { EventLocationType } from "@kalo/app-store/locations";
@@ -88,7 +89,7 @@ export const useBookingForm = ({
         // bookingFormSchema is an async schema, so inform RHF to do async validation.
         mode: "async",
       }
-    ),
+    ) as unknown as Resolver<BookingFormValues>,
   });
 
   useEffect(() => {

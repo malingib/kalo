@@ -194,7 +194,7 @@ const GeneralView = ({ user, travelSchedules }: GeneralViewProps) => {
                       <TimezoneSelect
                         id="timezone"
                         value={value}
-                        onChange={(event) => {
+                        onChange={(event: { value: string } | null) => {
                           if (event)
                             formMethods.setValue("timeZone", event.value, {
                               shouldDirty: true,

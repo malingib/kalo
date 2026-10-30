@@ -2,6 +2,7 @@
   "extends": "@kalo/tsconfig/react-library.json",
   "exclude": ["dist", "types", "build", "**/node_modules/**"],
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@prisma/client/*": ["@kalo/prisma/client/*"],
       "@kalo/testing/*": ["./../testing/src/*"]

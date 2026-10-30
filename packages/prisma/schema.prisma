@@ -16,6 +16,11 @@ generator client {
   importFileExtension = ""
 }
 
+// Keep the legacy @prisma/client entry point available for prismock-based tests.
+generator prismockClient {
+  provider = "prisma-client-js"
+}
+
 generator zod {
   provider                 = "zod-prisma-types"
   output                   = "./zod"

@@ -12,7 +12,11 @@ export const getReactSelectProps = <
 }: {
   components: SelectComponentsConfig<Option, IsMulti, Group>;
   menuPlacement?: MenuPlacement;
-}) => {
+}): {
+  menuPlacement: MenuPlacement;
+  components: SelectComponentsConfig<Option, IsMulti, Group>;
+  unstyled: true;
+} => {
   return {
     menuPlacement,
     components: {
