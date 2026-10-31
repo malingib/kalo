@@ -90,4 +90,4 @@ jobs:
           path: blob-report
           retention-days: 30
 
-# Re-run CI against the corrected reusable workflows on main.
+# Keep the PR workflow revision fresh so reusable workflows resolve the latest corrected main-branch CI configuration.
