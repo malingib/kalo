@@ -8,8 +8,8 @@ env:
   KALO_LICENSE_KEY: ${{ secrets.CI_KALO_LICENSE_KEY }}
   DAILY_API_KEY: ${{ secrets.CI_DAILY_API_KEY }}
   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
-  DATABASE_READ_URL: ${{ secrets.CI_DATABASE_URL }}
-  DATABASE_WRITE_URL: ${{ secrets.CI_DATABASE_URL }}
+  DATABASE_READ_URL: postgresql://postgres:postgres@localhost:5432/calendso
+  DATABASE_WRITE_URL: postgresql://postgres:postgres@localhost:5432/calendso
   DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/calendso
   GOOGLE_API_CREDENTIALS: ${{ secrets.CI_GOOGLE_API_CREDENTIALS }}
   IS_E2E: true
