@@ -45,7 +45,7 @@ jobs:
   e2e-embed:
     timeout-minutes: 20
     name: E2E Embed Core
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:18
