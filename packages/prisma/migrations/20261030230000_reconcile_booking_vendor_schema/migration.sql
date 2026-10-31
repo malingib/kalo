@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS "PlatformSettings" (
 );
 
 CREATE TABLE IF NOT EXISTS "VendorProfile" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "userId" INTEGER NOT NULL UNIQUE,
   "businessName" TEXT,
   "businessSlug" TEXT UNIQUE,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS "VendorProfile" (
 );
 
 CREATE TABLE IF NOT EXISTS "InventoryItem" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "vendorUserId" INTEGER NOT NULL,
   "name" TEXT NOT NULL,
   "sku" TEXT,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS "InventoryItem" (
 );
 
 CREATE TABLE IF NOT EXISTS "InventoryTransaction" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "itemId" TEXT NOT NULL,
   "type" "InventoryTxType" NOT NULL,
   "quantity" DOUBLE PRECISION NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS "InventoryTransaction" (
 );
 
 CREATE TABLE IF NOT EXISTS "MPesaTransaction" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "bookingUid" TEXT,
   "phoneNumber" TEXT NOT NULL,
   "amount" DOUBLE PRECISION NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS "MPesaTransaction" (
 );
 
 CREATE TABLE IF NOT EXISTS "Receipt" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "receiptNumber" TEXT NOT NULL UNIQUE,
   "bookingUid" TEXT,
   "vendorUserId" INTEGER NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS "Receipt" (
 );
 
 CREATE TABLE IF NOT EXISTS "WhatsAppSession" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "userId" INTEGER NOT NULL,
   "phone" TEXT NOT NULL UNIQUE,
   "sessionData" JSONB NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS "WhatsAppSession" (
 );
 
 CREATE TABLE IF NOT EXISTS "WhatsAppMessageLog" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "userId" INTEGER NOT NULL,
   "customerPhone" TEXT NOT NULL,
   "direction" TEXT NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS "WhatsAppMessageLog" (
 );
 
 CREATE TABLE IF NOT EXISTS "Alert" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "userId" INTEGER NOT NULL,
   "type" "AlertType" NOT NULL,
   "channel" "AlertChannel" NOT NULL DEFAULT 'IN_APP',
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS "Alert" (
 );
 
 CREATE TABLE IF NOT EXISTS "AlertPreference" (
-  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text PRIMARY KEY,
+  "id" TEXT NOT NULL PRIMARY KEY,
   "userId" INTEGER NOT NULL UNIQUE,
   "prefsJson" JSONB NOT NULL,
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
