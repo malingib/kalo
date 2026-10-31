@@ -37,9 +37,6 @@ jobs:
     services:
       postgres:
         image: postgres:18
-        credentials:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -54,9 +51,6 @@ jobs:
           - 5432:5432
       redis:
         image: redis:latest
-        credentials:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
         ports:
           - 6379:6379
         options: >-
@@ -69,10 +63,6 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           sparse-checkout: .github
