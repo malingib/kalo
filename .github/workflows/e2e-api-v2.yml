@@ -1,4 +1,5 @@
 name: Check breaking changes and run E2E
+# Public PostgreSQL and Redis images do not require Docker Hub authentication.
 on:
   workflow_call:
 env:
