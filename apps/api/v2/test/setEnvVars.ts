@@ -27,11 +27,19 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
   SLOTS_WORKER_POOL_SIZE: "0",
 };
 
+// Empty GitHub Actions secrets/vars are present as empty strings and must not
+// override the deterministic defaults above. Keep only non-empty inherited
+// values so CI can use real configured values when supplied, while local test
+// defaults remain effective when repository secrets are absent.
+const inheritedEnv = Object.fromEntries(
+  Object.entries(process.env).filter(([, value]) => value !== "" && value !== undefined)
+);
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 process.env = {
   ...env,
-  ...process.env,
+  ...inheritedEnv,
   // fake keys for testing
   NEXT_PUBLIC_VAPID_PUBLIC_KEY:
     "BIds0AQJ96xGBjTSMHTOqLBLutQE7Lu32KKdgSdy7A2cS4mKI2cgb3iGkhDJa5Siy-stezyuPm8qpbhmNxdNHMw",
