@@ -45,7 +45,7 @@ jobs:
   e2e:
     timeout-minutes: 20
     name: E2E (${{ matrix.shard }}/${{ strategy.job-total }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:18
