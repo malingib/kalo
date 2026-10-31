@@ -89,3 +89,5 @@ jobs:
           name: blob-report-${{ matrix.shard }}
           path: blob-report
           retention-days: 30
+
+# Re-run CI against the corrected reusable workflows on main.
