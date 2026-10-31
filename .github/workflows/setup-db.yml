@@ -1,4 +1,5 @@
 name: Setup Database
+# Keep this reusable workflow aligned with main: pull_request_target resolves workflow_call from the base branch.
 
 on:
   workflow_call:

@@ -145,7 +145,7 @@
     "axios": "1.15.0",
     "follow-redirects": "1.16.0",
     "protobufjs": "7.5.5",
-    "shell-quote": "1.8.4",
+    "shell-quote": "1.11.0",
     "jws": "4.0.1",
     "jsonwebtoken": "9.0.0",
     "sha.js": "2.4.12",
@@ -172,7 +172,7 @@
     "@adobe/css-tools": "4.3.2",
     "jsondiffpatch": "0.7.2",
     "min-document": "2.19.1",
-    "tar": "7.5.11",
+    "tar": "7.5.19",
     "lodash": "4.18.1",
     "lodash-es": "4.18.1",
     "@lingo.dev/_compiler/fast-xml-parser": "5.5.9",
@@ -208,7 +208,15 @@
     "brace-expansion@^5.0.2": "5.0.5",
     "brace-expansion@^2.0.1": "2.0.3",
     "brace-expansion@^2.0.2": "2.0.3",
-    "i18next-fs-backend": "^2.6.6"
+    "i18next-fs-backend": "^2.6.6",
+    "next@^15.5.15": "15.5.28",
+    "next@^16.0.0": "16.4.3",
+    "@sentry/nextjs": "10.75.2",
+    "handlebars": "4.7.10",
+    "proxy-addr": "2.0.8",
+    "websocket-driver": "0.7.5",
+    "@trigger.dev/sdk": "4.5.4",
+    "trigger.dev": "4.5.4"
   },
   "packageExtensions": {
     "ink@3.2.0": {
