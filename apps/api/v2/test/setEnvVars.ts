@@ -15,7 +15,9 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
   STRIPE_API_KEY: "sk_test_51J4",
   STRIPE_WEBHOOK_SECRET: "whsec_51J4",
   IS_E2E: "true",
-  API_KEY_PREFIX: "kalo_test_",
+  // Keep this aligned with the cal_test_ keys created by ApiKeysRepositoryFixture.
+  // The API strips the configured cal_ prefix before hashing the raw key.
+  API_KEY_PREFIX: "cal_",
   GET_LICENSE_KEY_URL: "",
   KALO_LICENSE_KEY: "",
   RATE_LIMIT_DEFAULT_TTL_MS: 60000,
