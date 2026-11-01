@@ -34,7 +34,9 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
 // values so CI can use real configured values when supplied, while local test
 // defaults remain effective when repository secrets are absent.
 const inheritedEnv = Object.fromEntries(
-  Object.entries(process.env).filter(([, value]) => value !== "" && value !== undefined)
+  Object.entries(process.env).filter(
+    ([key, value]) => key !== "API_KEY_PREFIX" && value !== "" && value !== undefined
+  )
 );
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
