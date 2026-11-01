@@ -47,6 +47,10 @@ jobs:
     timeout-minutes: 20
     name: E2E Embed Core
     runs-on: ubuntu-24.04
+    # Pin application URLs in the test job so the Playwright webServer inherits them.
+    env:
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
     services:
       postgres:
         image: postgres:18
