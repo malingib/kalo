@@ -29,7 +29,17 @@ const E2E_WEBAPP_URL = process.env.NEXT_PUBLIC_WEBAPP_URL || "http://localhost:3
 const IS_EMBED_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-core"));
 const IS_EMBED_REACT_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-react"));
 
-// Suppress all webServer logs to reduce noise during E2E tests
+// Supply deterministic CI-only credentials to the spawned Next.js server.
+// The build action sets these only in its own shell, so they are not inherited here.
+const e2eServerEnv = {
+  ...process.env,
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || "ci-only-kalo-nextauth-secret-not-for-production",
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || E2E_WEBAPP_URL,
+  NEXT_PUBLIC_WEBAPP_URL: E2E_WEBAPP_URL,
+  CALENDSO_ENCRYPTION_KEY:
+    process.env.CALENDSO_ENCRYPTION_KEY || "ci-only-kalo-encryption-key-not-for-production-32-bytes",
+};
+
 const webServer: PlaywrightTestConfig["webServer"] = [
   {
     command:
@@ -37,6 +47,7 @@ const webServer: PlaywrightTestConfig["webServer"] = [
     port: 3000,
     timeout: 60_000,
     reuseExistingServer: !process.env.CI,
+    env: e2eServerEnv,
     // Keep startup output visible in CI so a failed Next.js start is diagnosable.
   },
 ];
