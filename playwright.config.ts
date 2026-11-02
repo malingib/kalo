@@ -23,6 +23,9 @@ const DEFAULT_TEST_TIMEOUT = process.env.CI ? 60000 : 240000;
 
 const headless = !!process.env.CI || !!process.env.PLAYWRIGHT_HEADLESS;
 
+// Keep E2E URLs deterministic even when a CI environment or .env file omits the variable.
+const E2E_WEBAPP_URL = process.env.NEXT_PUBLIC_WEBAPP_URL || "http://localhost:3000";
+
 const IS_EMBED_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-core"));
 const IS_EMBED_REACT_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-react"));
 
@@ -108,7 +111,7 @@ const config: PlaywrightTestConfig = {
   outputDir: path.join(outputDir, "results"),
   webServer,
   use: {
-    baseURL: process.env.NEXT_PUBLIC_WEBAPP_URL,
+    baseURL: E2E_WEBAPP_URL,
     locale: "en-US",
     trace: "retain-on-failure",
     headless,
@@ -336,6 +339,6 @@ function ensureAppServerIsReadyToServeEmbed(webServer: { port?: number; url?: st
   // We shouldn't depend on an embed dependency for App's tests. So, conditionally modify App webServer.
   // Only one of port or url can be specified, so remove port.
   delete webServer.port;
-  webServer.url = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/embed/embed.js`;
+  webServer.url = `${E2E_WEBAPP_URL}/embed/embed.js`;
   console.log("Ensuring that /embed/embed.js is 200 before starting tests");
 }
