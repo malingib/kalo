@@ -37,8 +37,7 @@ const webServer: PlaywrightTestConfig["webServer"] = [
     port: 3000,
     timeout: 60_000,
     reuseExistingServer: !process.env.CI,
-    stdout: "ignore",
-    stderr: "ignore",
+    // Keep startup output visible in CI so a failed Next.js start is diagnosable.
   },
 ];
 
