@@ -26,9 +26,9 @@ runs:
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
         lookup-only: true
 
-    # Only restore cache if not in skip mode, or if skip mode but cache check missed
+    # Restore browser binaries only in install mode. Cache-check-only callers need no local files.
     - name: Cache playwright binaries
-      if: ${{ inputs.skip-install-if-cache-hit != 'true' || steps.playwright-cache-check.outputs.cache-hit != 'true' }}
+      if: ${{ inputs.skip-install-if-cache-hit != 'true' }}
       id: playwright-cache
       uses: actions/cache@v4
       with:
