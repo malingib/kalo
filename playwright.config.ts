@@ -8,6 +8,21 @@ import { WEBAPP_URL } from "@kalo/lib/constants";
 
 dotEnv.config({ path: ".env" });
 
+// CI E2E jobs may not have repository secrets configured. Use local-only values
+// for the test process; never use these credentials outside CI.
+if (process.env.CI) {
+  process.env.CALENDSO_ENCRYPTION_KEY ||= "ci-only-kalo-encryption-key-32b!";
+  process.env.NEXTAUTH_SECRET ||= "ci-only-kalo-nextauth-secret-not-for-production";
+  process.env.NEXTAUTH_URL ||= "http://localhost:3000";
+  process.env.NEXT_PUBLIC_WEBAPP_URL ||= "http://localhost:3000";
+  process.env.EMAIL_SERVER_HOST ||= "localhost";
+  process.env.EMAIL_SERVER_PORT ||= "1025";
+  process.env.EMAIL_SERVER_USER ||= "";
+  process.env.EMAIL_SERVER_PASSWORD ||= "";
+  process.env.EMAIL_FROM ||= "notifications@example.com";
+  process.env.E2E_TEST_MAILHOG_ENABLED ||= "1";
+}
+
 const outputDir = path.join(__dirname, "test-results");
 
 // Dev Server on local can be slow to start up and process requests. So, keep timeouts really high on local, so that tests run reliably locally
@@ -22,6 +37,18 @@ const DEFAULT_ACTION_TIMEOUT = process.env.CI ? 10000 : 120000;
 const DEFAULT_TEST_TIMEOUT = process.env.CI ? 60000 : 240000;
 
 const headless = !!process.env.CI || !!process.env.PLAYWRIGHT_HEADLESS;
+const E2E_WEBAPP_URL = process.env.NEXT_PUBLIC_WEBAPP_URL || "http://localhost:3000";
+
+// Ensure the spawned Next.js process receives the same deterministic CI values
+// as the Playwright runner, even when workflow-level secrets are absent.
+const e2eServerEnv = {
+  ...process.env,
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || "ci-only-kalo-nextauth-secret-not-for-production",
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || E2E_WEBAPP_URL,
+  NEXT_PUBLIC_WEBAPP_URL: E2E_WEBAPP_URL,
+  NEXT_PUBLIC_EMBED_LIB_URL: process.env.NEXT_PUBLIC_EMBED_LIB_URL || `${E2E_WEBAPP_URL}/embed/embed.js`,
+  CALENDSO_ENCRYPTION_KEY: process.env.CALENDSO_ENCRYPTION_KEY || "ci-only-kalo-encryption-key-32b!",
+};
 
 const IS_EMBED_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-core"));
 const IS_EMBED_REACT_TEST = process.argv.some((a) => a.startsWith("--project=@kalo/embed-react"));
@@ -34,8 +61,7 @@ const webServer: PlaywrightTestConfig["webServer"] = [
     port: 3000,
     timeout: 60_000,
     reuseExistingServer: !process.env.CI,
-    stdout: "ignore",
-    stderr: "ignore",
+    env: e2eServerEnv,
   },
 ];
 
@@ -108,7 +134,7 @@ const config: PlaywrightTestConfig = {
   outputDir: path.join(outputDir, "results"),
   webServer,
   use: {
-    baseURL: process.env.NEXT_PUBLIC_WEBAPP_URL,
+    baseURL: E2E_WEBAPP_URL,
     locale: "en-US",
     trace: "retain-on-failure",
     headless,
@@ -336,6 +362,6 @@ function ensureAppServerIsReadyToServeEmbed(webServer: { port?: number; url?: st
   // We shouldn't depend on an embed dependency for App's tests. So, conditionally modify App webServer.
   // Only one of port or url can be specified, so remove port.
   delete webServer.port;
-  webServer.url = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/embed/embed.js`;
+  webServer.url = `${E2E_WEBAPP_URL}/embed/embed.js`;
   console.log("Ensuring that /embed/embed.js is 200 before starting tests");
 }
