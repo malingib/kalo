@@ -8,6 +8,21 @@ import { WEBAPP_URL } from "@kalo/lib/constants";
 
 dotEnv.config({ path: ".env" });
 
+// Keep CI E2E workers and the spawned Next.js server on the same deterministic
+// local-only configuration. The reusable workflow may not have repository
+// secrets/variables configured, while the MailHog service is available in CI.
+if (process.env.CI) {
+  process.env.CALENDSO_ENCRYPTION_KEY ||= "ci-only-kalo-encryption-key-not-for-production-32-bytes";
+  process.env.NEXTAUTH_SECRET ||= "ci-only-kalo-nextauth-secret-not-for-production";
+  process.env.NEXTAUTH_URL ||= "http://localhost:3000";
+  process.env.NEXT_PUBLIC_WEBAPP_URL ||= "http://localhost:3000";
+  process.env.EMAIL_SERVER_HOST ||= "localhost";
+  process.env.EMAIL_SERVER_PORT ||= "1025";
+  process.env.EMAIL_SERVER_USER ||= "";
+  process.env.EMAIL_SERVER_PASSWORD ||= "";
+  process.env.E2E_TEST_MAILHOG_ENABLED ||= "1";
+}
+
 const outputDir = path.join(__dirname, "test-results");
 
 // Dev Server on local can be slow to start up and process requests. So, keep timeouts really high on local, so that tests run reliably locally
