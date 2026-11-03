@@ -142,7 +142,7 @@ test.describe("Booking limits", () => {
         );
 
         // try to book directly via form page
-        const availabilityResponse = page.waitForResponse((response) => response.url().includes("/slots/isAvailable"));
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("viewer.slots.isAvailable"));
 
         await page.goto(slotUrl);
 
@@ -265,7 +265,7 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-1);
 
         // try to book directly via form page
-        const availabilityResponse = page.waitForResponse((response) => response.url().includes("/slots/isAvailable"));
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("viewer.slots.isAvailable"));
 
         await page.goto(slotUrl);
 
@@ -347,7 +347,7 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-4);
 
         // try to book directly via form page
-        const availabilityResponse = page.waitForResponse((response) => response.url().includes("/slots/isAvailable"));
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("viewer.slots.isAvailable"));
 
         await page.goto(slotUrl);
 
@@ -428,7 +428,7 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
-        const availabilityResponse = page.waitForResponse((response) => response.url().includes("/slots/isAvailable"));
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("viewer.slots.isAvailable"));
 
         await page.goto(slotUrl);
 
@@ -516,7 +516,7 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
-        const availabilityResponse = page.waitForResponse((response) => response.url().includes("/slots/isAvailable"));
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("viewer.slots.isAvailable"));
 
         await page.goto(slotUrl);
 
