@@ -27,7 +27,8 @@ env:
   NEXT_PUBLIC_IS_E2E: ${{ vars.CI_NEXT_PUBLIC_IS_E2E }}
   NEXT_PUBLIC_ORG_SELF_SERVE_ENABLED: ${{ vars.CI_NEXT_PUBLIC_ORG_SELF_SERVE_ENABLED }}
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.CI_NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
-  NEXT_PUBLIC_WEBAPP_URL: ${{ vars.CI_NEXT_PUBLIC_WEBAPP_URL }}
+  NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+  NEXT_PUBLIC_EMBED_LIB_URL: http://localhost:3000/embed/embed.js
   NEXT_PUBLIC_WEBSITE_URL: ${{ vars.CI_NEXT_PUBLIC_WEBSITE_URL }}
   NODE_OPTIONS: --max-old-space-size=4096
   PAYMENT_FEE_FIXED: ${{ vars.CI_PAYMENT_FEE_FIXED }}
@@ -46,6 +47,15 @@ jobs:
     timeout-minutes: 20
     name: E2E (${{ matrix.shard }}/${{ strategy.job-total }})
     runs-on: ubuntu-24.04
+    env:
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+      NEXT_PUBLIC_EMBED_LIB_URL: http://localhost:3000/embed/embed.js
+      EMAIL_SERVER_HOST: localhost
+      EMAIL_SERVER_PORT: 1025
+      EMAIL_SERVER_USER: ""
+      EMAIL_SERVER_PASSWORD: ""
+      E2E_TEST_MAILHOG_ENABLED: "true"
     services:
       postgres:
         image: postgres:18
