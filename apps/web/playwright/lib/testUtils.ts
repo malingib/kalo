@@ -219,8 +219,6 @@ export const bookTimeSlot = async (
 };
 
 export async function expectSlotNotAllowedToBook(page: Page) {
-  // The availability request can complete during page.goto(), before this helper is called.
-  // Assert the rendered blocked state instead of waiting for a response that may already have fired.
   await expect(page.locator("[data-testid=slot-not-allowed-to-book]")).toBeVisible();
 }
 
