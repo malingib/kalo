@@ -288,6 +288,10 @@ jobs:
         if: ${{ steps.filter-exclusions.outputs.has-files-requiring-all-checks == 'true' }}
         with:
           skip-install-if-cache-hit: "true"
+      - uses: ./.github/actions/yarn-playwright-install
+        if: ${{ steps.filter-exclusions.outputs.has-files-requiring-all-checks == 'true' }}
+        with:
+          skip-install-if-cache-hit: "true"
 
   type-check:
     name: Type Checks
