@@ -36,6 +36,7 @@ const e2eServerEnv = {
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || "ci-only-kalo-nextauth-secret-not-for-production",
   NEXTAUTH_URL: process.env.NEXTAUTH_URL || E2E_WEBAPP_URL,
   NEXT_PUBLIC_WEBAPP_URL: E2E_WEBAPP_URL,
+  NEXT_PUBLIC_EMBED_LIB_URL: process.env.NEXT_PUBLIC_EMBED_LIB_URL || `${E2E_WEBAPP_URL}/embed/embed.js`,
   CALENDSO_ENCRYPTION_KEY:
     process.env.CALENDSO_ENCRYPTION_KEY || "ci-only-kalo-encryption-key-not-for-production-32-bytes",
 };
