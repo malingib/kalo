@@ -20,6 +20,7 @@ if (process.env.CI) {
   process.env.EMAIL_SERVER_PORT ||= "1025";
   process.env.EMAIL_SERVER_USER ||= "";
   process.env.EMAIL_SERVER_PASSWORD ||= "";
+  process.env.EMAIL_FROM ||= "notifications@example.com";
   process.env.E2E_TEST_MAILHOG_ENABLED ||= "1";
 }
 
