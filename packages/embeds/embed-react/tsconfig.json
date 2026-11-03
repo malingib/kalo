@@ -5,7 +5,7 @@
     "target": "ES2015",
     "moduleResolution": "bundler",
     "declaration": true,
-    "rootDir": ".",
+    "rootDir": "../..",
     "jsx": "preserve",
     "outDir": "dist",
     "paths": {
