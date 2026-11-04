@@ -15,7 +15,9 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
   STRIPE_API_KEY: "sk_test_51J4",
   STRIPE_WEBHOOK_SECRET: "whsec_51J4",
   IS_E2E: "true",
-  API_KEY_PREFIX: "kalo_test_",
+  // ApiKeysRepositoryFixture hashes the raw key and tests send it with this full prefix.
+  // The API strips cal_test_ before hashing the bearer token for lookup.
+  API_KEY_PREFIX: "cal_test_",
   GET_LICENSE_KEY_URL: "",
   KALO_LICENSE_KEY: "",
   RATE_LIMIT_DEFAULT_TTL_MS: 60000,
@@ -27,11 +29,21 @@ const env: Partial<Omit<Environment, "NODE_ENV">> = {
   SLOTS_WORKER_POOL_SIZE: "0",
 };
 
+// Empty GitHub Actions secrets/vars are present as empty strings and must not
+// override the deterministic defaults above. Keep only non-empty inherited
+// values so CI can use real configured values when supplied, while local test
+// defaults remain effective when repository secrets are absent.
+const inheritedEnv = Object.fromEntries(
+  Object.entries(process.env).filter(
+    ([key, value]) => key !== "API_KEY_PREFIX" && value !== "" && value !== undefined
+  )
+);
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 process.env = {
   ...env,
-  ...process.env,
+  ...inheritedEnv,
   // fake keys for testing
   NEXT_PUBLIC_VAPID_PUBLIC_KEY:
     "BIds0AQJ96xGBjTSMHTOqLBLutQE7Lu32KKdgSdy7A2cS4mKI2cgb3iGkhDJa5Siy-stezyuPm8qpbhmNxdNHMw",

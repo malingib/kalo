@@ -49,6 +49,8 @@ export class BookingSeatRepository {
             location: true,
             metadata: true,
             paid: true,
+            paymentStatus: true,
+            depositReceiptUrl: true,
             destinationCalendarId: true,
             cancellationReason: true,
             rejectionReason: true,
