@@ -15,5 +15,5 @@ jobs:
       - uses: ./.github/actions/yarn-install
       - name: Report all vulnerabilities
         run: yarn npm audit --all --recursive || true
-      - name: Fail on critical vulnerabilities
-        run: yarn npm audit --all --recursive --severity critical
+      - name: Fail on high and critical vulnerabilities
+        run: yarn npm audit --all --recursive --severity high
