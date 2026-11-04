@@ -1,4 +1,5 @@
 name: E2E
+# Shared E2E workflow; validate this branch through the complete PR matrix.
 on:
   workflow_call:
 permissions:
