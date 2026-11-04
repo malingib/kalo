@@ -1030,15 +1030,15 @@ export async function apiLogin(
    * This forces NextAuth to run the jwt and session callbacks that populate
    * the session with profile, org, and other important data
    */
-  await page.goto(navigateToUrl || "/e2e/session-warmup");
+  // Register before navigation: the session request can complete during page.goto.
+  // Waiting after navigation can miss it and let subsequent protected-page actions race
+  // the NextAuth session initialization.
+  const sessionResponse = page
+    .waitForResponse((response) => response.url().includes("/api/auth/session"), { timeout: 5000 })
+    .catch(() => null);
 
-  // Wait for the session API call to complete to ensure session is fully established
-  // Only wait if we're on a protected page that would trigger the session API call
-  try {
-    await page.waitForResponse("/api/auth/session", { timeout: 2000 });
-  } catch {
-    // Session API call not made (likely on a public page), continue anyway
-  }
+  await page.goto(navigateToUrl || "/e2e/session-warmup");
+  await sessionResponse;
 
   return response;
 }

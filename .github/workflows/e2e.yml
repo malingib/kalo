@@ -1,4 +1,5 @@
 name: E2E
+# Shared E2E workflow; validate this branch through the complete PR matrix.
 on:
   workflow_call:
 permissions:
@@ -17,8 +18,9 @@ env:
   EMAIL_SERVER_HOST: ${{ secrets.CI_EMAIL_SERVER_HOST }}
   EMAIL_SERVER_PORT: ${{ secrets.CI_EMAIL_SERVER_PORT }}
   EMAIL_SERVER_USER: ${{ secrets.CI_EMAIL_SERVER_USER }}
-  EMAIL_SERVER_PASSWORD: ${{ secrets.CI_EMAIL_SERVER_PASSWORD}}
+  EMAIL_SERVER_PASSWORD: ${{ secrets.CI_EMAIL_SERVER_PASSWORD }}
   GOOGLE_API_CREDENTIALS: ${{ secrets.CI_GOOGLE_API_CREDENTIALS }}
+  GOOGLE_CALENDAR_API_KEY: ${{ secrets.CI_GOOGLE_CALENDAR_API_KEY }}
   GOOGLE_LOGIN_ENABLED: ${{ vars.CI_GOOGLE_LOGIN_ENABLED }}
   NEXTAUTH_SECRET: ${{ secrets.CI_NEXTAUTH_SECRET || 'ci-only-kalo-nextauth-secret-not-for-production' }}
   NEXTAUTH_URL: ${{ secrets.CI_NEXTAUTH_URL || 'http://localhost:3000' }}
@@ -27,8 +29,9 @@ env:
   NEXT_PUBLIC_IS_E2E: ${{ vars.CI_NEXT_PUBLIC_IS_E2E }}
   NEXT_PUBLIC_ORG_SELF_SERVE_ENABLED: ${{ vars.CI_NEXT_PUBLIC_ORG_SELF_SERVE_ENABLED }}
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.CI_NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
-  # Build-time public URLs must be local in CI when no explicit CI domain is configured.
-  NEXT_PUBLIC_WEBAPP_URL: ${{ vars.CI_NEXT_PUBLIC_WEBAPP_URL || 'http://localhost:3000' }}
+  # E2E web server runs locally; do not depend on an optional repository variable.
+  NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+  NEXT_PUBLIC_EMBED_LIB_URL: http://localhost:3000/embed/embed.js
   NEXT_PUBLIC_WEBSITE_URL: ${{ vars.CI_NEXT_PUBLIC_WEBSITE_URL || vars.CI_NEXT_PUBLIC_WEBAPP_URL || 'http://localhost:3000' }}
   NODE_OPTIONS: --max-old-space-size=4096
   PAYMENT_FEE_FIXED: ${{ vars.CI_PAYMENT_FEE_FIXED }}
@@ -47,6 +50,16 @@ jobs:
     timeout-minutes: 20
     name: E2E (${{ matrix.shard }}/${{ strategy.job-total }})
     runs-on: ubuntu-24.04
+    # Pin application URLs in the test job so the Playwright webServer inherits them.
+    env:
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+      NEXT_PUBLIC_EMBED_LIB_URL: http://localhost:3000/embed/embed.js
+      EMAIL_SERVER_HOST: localhost
+      EMAIL_SERVER_PORT: 1025
+      EMAIL_SERVER_USER: ""
+      EMAIL_SERVER_PASSWORD: ""
+      E2E_TEST_MAILHOG_ENABLED: "true"
     services:
       postgres:
         image: postgres:18
@@ -90,3 +103,5 @@ jobs:
           name: blob-report-${{ matrix.shard }}
           path: blob-report
           retention-days: 30
+
+# Keep the PR workflow revision fresh so reusable workflows resolve the latest corrected main-branch CI configuration.
