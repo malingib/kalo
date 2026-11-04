@@ -9,7 +9,7 @@ permissions:
 jobs:
   build:
     name: Build Web App
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     # CI-only build configuration; production credentials remain deployment-managed.
     env:
@@ -21,7 +21,7 @@ jobs:
       E2E_TEST_APPLE_CALENDAR_PASSWORD: ${{ secrets.E2E_TEST_APPLE_CALENDAR_PASSWORD }}
       GOOGLE_API_CREDENTIALS: ${{ secrets.CI_GOOGLE_API_CREDENTIALS || '{}' }}
       GOOGLE_LOGIN_ENABLED: ${{ vars.CI_GOOGLE_LOGIN_ENABLED }}
-      NEXTAUTH_SECRET: ${{ secrets.CI_NEXTAUTH_SECRET }}
+      NEXTAUTH_SECRET: ${{ secrets.CI_NEXTAUTH_SECRET || 'ci-only-kalo-nextauth-secret-not-for-production' }}
       NEXTAUTH_URL: ${{ secrets.CI_NEXTAUTH_URL || 'http://localhost:3000' }}
       NEXT_PUBLIC_IS_E2E: ${{ vars.CI_NEXT_PUBLIC_IS_E2E }}
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.CI_NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
