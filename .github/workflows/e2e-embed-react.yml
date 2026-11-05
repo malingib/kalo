@@ -7,7 +7,8 @@ permissions:
 env:
   NODE_OPTIONS: --max-old-space-size=4096
   ALLOWED_HOSTNAMES: ${{ vars.CI_ALLOWED_HOSTNAMES }}
-  CALENDSO_ENCRYPTION_KEY: ${{ secrets.CI_CALENDSO_ENCRYPTION_KEY }}
+  # Fixed 32-byte test-only AES key; never reused by production deployments.
+  CALENDSO_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef
   DAILY_API_KEY: ${{ secrets.CI_DAILY_API_KEY }}
   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
   DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/calendso
