@@ -124,7 +124,9 @@ test.describe("free user", () => {
     await expect(page.locator("[data-testid=success-page]")).toBeVisible();
     await user.getFirstEventAsOwner();
 
+    const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
     await page.goto(bookingUrl);
+    await availabilityResponse;
 
     await expectSlotNotAllowedToBook(page);
   });

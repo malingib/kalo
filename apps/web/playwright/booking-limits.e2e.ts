@@ -142,7 +142,12 @@ test.describe("Booking limits", () => {
         );
 
         // try to book directly via form page
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
+
         await page.goto(slotUrl);
+
+        await availabilityResponse;
+
         await expectSlotNotAllowedToBook(page);
       });
 
@@ -260,7 +265,11 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-1);
 
         // try to book directly via form page
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
+
         await page.goto(slotUrl);
+
+        await availabilityResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -338,7 +347,11 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-4);
 
         // try to book directly via form page
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
+
         await page.goto(slotUrl);
+
+        await availabilityResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -415,7 +428,11 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
+
         await page.goto(slotUrl);
+
+        await availabilityResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -499,7 +516,11 @@ test.describe("Booking limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
+        const availabilityResponse = page.waitForResponse((response) => response.url().includes("getSchedule"));
+
         await page.goto(slotUrl);
+
+        await availabilityResponse;
 
         await expectSlotNotAllowedToBook(page);
       });

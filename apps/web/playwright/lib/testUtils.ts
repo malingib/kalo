@@ -219,9 +219,6 @@ export const bookTimeSlot = async (
 };
 
 export async function expectSlotNotAllowedToBook(page: Page) {
-  await page.waitForResponse((response) => {
-    return response.url().includes("/slots/isAvailable");
-  });
   await expect(page.locator("[data-testid=slot-not-allowed-to-book]")).toBeVisible();
 }
 

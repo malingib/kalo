@@ -7,7 +7,8 @@ permissions:
 env:
   NODE_OPTIONS: --max-old-space-size=4096
   ALLOWED_HOSTNAMES: ${{ vars.CI_ALLOWED_HOSTNAMES }}
-  CALENDSO_ENCRYPTION_KEY: ${{ secrets.CI_CALENDSO_ENCRYPTION_KEY }}
+  # Fixed 32-byte test-only AES key; never reused by production deployments.
+  CALENDSO_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef
   DAILY_API_KEY: ${{ secrets.CI_DAILY_API_KEY }}
   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
   DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/calendso
@@ -16,6 +17,7 @@ env:
   E2E_TEST_APPLE_CALENDAR_PASSWORD: ${{ secrets.E2E_TEST_APPLE_CALENDAR_PASSWORD }}
   E2E_TEST_MAILHOG_ENABLED: ${{ vars.E2E_TEST_MAILHOG_ENABLED }}
   GOOGLE_API_CREDENTIALS: ${{ secrets.CI_GOOGLE_API_CREDENTIALS }}
+  GOOGLE_CALENDAR_API_KEY: ${{ secrets.CI_GOOGLE_CALENDAR_API_KEY }}
   EMAIL_SERVER_HOST: ${{ secrets.CI_EMAIL_SERVER_HOST }}
   EMAIL_SERVER_PORT: ${{ secrets.CI_EMAIL_SERVER_PORT }}
   EMAIL_SERVER_USER: ${{ secrets.CI_EMAIL_SERVER_USER }}
@@ -78,6 +80,13 @@ jobs:
       - uses: ./.github/actions/yarn-playwright-install
       - run: yarn prisma generate
       - uses: ./.github/actions/cache-db
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/calendso
+          DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/calendso
+          E2E_TEST_KALO_QA_EMAIL: ${{ secrets.E2E_TEST_KALO_QA_EMAIL }}
+          E2E_TEST_KALO_QA_PASSWORD: ${{ secrets.E2E_TEST_KALO_QA_PASSWORD }}
+          E2E_TEST_KALO_QA_GCAL_CREDENTIALS: ${{ secrets.E2E_TEST_KALO_QA_GCAL_CREDENTIALS }}
+          E2E_TEST_KALO_GCAL_KEYS: ${{ secrets.E2E_TEST_KALO_GCAL_KEYS }}
       - uses: ./.github/actions/cache-build
       - name: Run Tests
         run: yarn e2e:app-store --workers=4
