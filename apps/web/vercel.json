@@ -32,6 +32,5 @@
       "path": "/api/cron/cancelStaleWhatsappReservations",
       "schedule": "*/15 * * * *"
     }
-  ],
-  "functions": {}
+  ]
 }
