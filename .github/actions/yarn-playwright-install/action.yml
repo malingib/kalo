@@ -26,9 +26,9 @@ runs:
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
         lookup-only: true
 
-    # Only restore cache if not in skip mode, or if skip mode but cache check missed
+    # Restore browser binaries only in install mode. Cache-check-only callers need no local files.
     - name: Cache playwright binaries
-      if: ${{ inputs.skip-install-if-cache-hit != 'true' || steps.playwright-cache-check.outputs.cache-hit != 'true' }}
+      if: ${{ inputs.skip-install-if-cache-hit != 'true' }}
       id: playwright-cache
       uses: actions/cache@v4
       with:
@@ -38,9 +38,9 @@ runs:
           ${{ github.workspace }}/node_modules/playwright
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
-    # In default mode: run if playwright-cache missed
-    # In skip mode: run if playwright-cache-check missed (but cache restore step was also skipped)
+    # In cache-check-only mode, do not invoke Yarn: the caller intentionally did not
+    # restore node_modules. Real E2E jobs use the default mode and install on cache miss.
     - name: Yarn playwright install
-      if: ${{ (inputs.skip-install-if-cache-hit != 'true' && steps.playwright-cache.outputs.cache-hit != 'true') || (inputs.skip-install-if-cache-hit == 'true' && steps.playwright-cache-check.outputs.cache-hit != 'true') }}
+      if: ${{ inputs.skip-install-if-cache-hit != 'true' && steps.playwright-cache.outputs.cache-hit != 'true' }}
       shell: bash
       run: yarn playwright install --with-deps

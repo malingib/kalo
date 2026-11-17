@@ -106,22 +106,25 @@ export default async function main() {
     });
   }
   await createApp("caldav-calendar", "caldavcalendar", ["calendar"], "caldav_calendar");
-  try {
-    const { client_secret, client_id, redirect_uris } = JSON.parse(
-      process.env.GOOGLE_API_CREDENTIALS || ""
-    ).web;
-    await createApp("google-calendar", "googlecalendar", ["calendar"], "google_calendar", {
-      client_id,
-      client_secret,
-      redirect_uris,
-    });
-    await createApp("google-meet", "googlevideo", ["conferencing"], "google_video", {
-      client_id,
-      client_secret,
-      redirect_uris,
-    });
-  } catch (e) {
-    if (e instanceof Error) console.error("Error adding google credentials to DB:", e.message);
+  // Google OAuth app credentials are optional in CI and local development.
+  // Do not parse an empty environment variable as JSON when the integration is not configured.
+  const googleApiCredentials = process.env.GOOGLE_API_CREDENTIALS?.trim();
+  if (googleApiCredentials) {
+    try {
+      const { client_secret, client_id, redirect_uris } = JSON.parse(googleApiCredentials).web;
+      await createApp("google-calendar", "googlecalendar", ["calendar"], "google_calendar", {
+        client_id,
+        client_secret,
+        redirect_uris,
+      });
+      await createApp("google-meet", "googlevideo", ["conferencing"], "google_video", {
+        client_id,
+        client_secret,
+        redirect_uris,
+      });
+    } catch (e) {
+      if (e instanceof Error) console.error("Error adding google credentials to DB:", e.message);
+    }
   }
   if (process.env.MS_GRAPH_CLIENT_ID && process.env.MS_GRAPH_CLIENT_SECRET) {
     await createApp("office365-calendar", "office365calendar", ["calendar"], "office365_calendar", {

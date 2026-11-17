@@ -47,9 +47,11 @@ export const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || APP_NAME;
 // As website isn't setup for preview environments, use the webapp url instead
 // If it's a .vercel.app domain, keep it.
 // Else use the website url if defined and finally fallback to the webapp url
-export const CAL_URL = new URL(WEBAPP_URL).hostname.endsWith(".vercel.app")
+export const CAL_URL = process.env.CI
   ? WEBAPP_URL
-  : ensureProtocol(process.env.NEXT_PUBLIC_WEBSITE_URL) || WEBAPP_URL;
+  : new URL(WEBAPP_URL).hostname.endsWith(".vercel.app")
+    ? WEBAPP_URL
+    : ensureProtocol(process.env.NEXT_PUBLIC_WEBSITE_URL) || WEBAPP_URL;
 
 export const IS_CALCOM = false;
 
@@ -133,7 +135,8 @@ export const ORGANIZATION_SELF_SERVE_PRICE = parseFloat(
 );
 
 // Needed for emails in E2E
-export const IS_MAILHOG_ENABLED = process.env.E2E_TEST_MAILHOG_ENABLED === "1";
+export const IS_MAILHOG_ENABLED =
+  process.env.E2E_TEST_MAILHOG_ENABLED === "1" || process.env.E2E_TEST_MAILHOG_ENABLED === "true";
 export const KALO_VERSION = process.env.NEXT_PUBLIC_KALO_VERSION as string;
 
 export const APP_CREDENTIAL_SHARING_ENABLED =

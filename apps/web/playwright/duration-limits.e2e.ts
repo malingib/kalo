@@ -132,7 +132,11 @@ test.describe("Duration limits", () => {
         );
 
         // try to book directly via form page
+        const scheduleResponse = page.waitForResponse(
+          (response) => response.url().includes("/api/trpc/slots/getSchedule") && response.status() === 200
+        );
         await page.goto(slotUrl);
+        await scheduleResponse;
         await expectSlotNotAllowedToBook(page);
       });
 
@@ -212,7 +216,11 @@ test.describe("Duration limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-1);
 
         // try to book directly via form page
+        const scheduleResponse = page.waitForResponse(
+          (response) => response.url().includes("/api/trpc/slots/getSchedule") && response.status() === 200
+        );
         await page.goto(slotUrl);
+        await scheduleResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -300,7 +308,11 @@ test.describe("Duration limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(-4);
 
         // try to book directly via form page
+        const scheduleResponse = page.waitForResponse(
+          (response) => response.url().includes("/api/trpc/slots/getSchedule") && response.status() === 200
+        );
         await page.goto(slotUrl);
+        await scheduleResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -383,7 +395,11 @@ test.describe("Duration limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
+        const scheduleResponse = page.waitForResponse(
+          (response) => response.url().includes("/api/trpc/slots/getSchedule") && response.status() === 200
+        );
         await page.goto(slotUrl);
+        await scheduleResponse;
 
         await expectSlotNotAllowedToBook(page);
       });
@@ -471,7 +487,11 @@ test.describe("Duration limits", () => {
         expect(availableDaysAfter && availableDaysAfter - availableDaysBefore).toBe(0);
 
         // try to book directly via form page
+        const scheduleResponse = page.waitForResponse(
+          (response) => response.url().includes("/api/trpc/slots/getSchedule") && response.status() === 200
+        );
         await page.goto(slotUrl);
+        await scheduleResponse;
 
         await expectSlotNotAllowedToBook(page);
       });

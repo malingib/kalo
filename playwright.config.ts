@@ -12,7 +12,7 @@ dotEnv.config({ path: ".env" });
 // local-only configuration. The reusable workflow may not have repository
 // secrets/variables configured, while the MailHog service is available in CI.
 if (process.env.CI) {
-  process.env.CALENDSO_ENCRYPTION_KEY ||= "ci-only-kalo-encryption-key-not-for-production-32-bytes";
+  process.env.CALENDSO_ENCRYPTION_KEY ||= "ci-only-kalo-encryption-key-32b!";
   process.env.NEXTAUTH_SECRET ||= "ci-only-kalo-nextauth-secret-not-for-production";
   process.env.NEXTAUTH_URL ||= "http://localhost:3000";
   process.env.NEXT_PUBLIC_WEBAPP_URL ||= "http://localhost:3000";
@@ -54,7 +54,7 @@ const e2eServerEnv = {
   NEXT_PUBLIC_WEBAPP_URL: E2E_WEBAPP_URL,
   NEXT_PUBLIC_EMBED_LIB_URL: process.env.NEXT_PUBLIC_EMBED_LIB_URL || `${E2E_WEBAPP_URL}/embed/embed.js`,
   CALENDSO_ENCRYPTION_KEY:
-    process.env.CALENDSO_ENCRYPTION_KEY || "ci-only-kalo-encryption-key-not-for-production-32-bytes",
+    process.env.CALENDSO_ENCRYPTION_KEY || "ci-only-kalo-encryption-key-32b!",
 };
 
 const webServer: PlaywrightTestConfig["webServer"] = [
