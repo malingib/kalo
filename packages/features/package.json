@@ -24,7 +24,7 @@
     "@kalo/ui": "workspace:*",
     "@tanstack/react-table": "8.20.6",
     "@tanstack/react-virtual": "3.10.9",
-    "@trigger.dev/sdk": "4.3.2",
+    "@trigger.dev/sdk": "4.5.4",
     "@vercel/functions": "1.4.0",
     "city-timezones": "1.2.1",
     "class-variance-authority": "0.7.1",
@@ -38,7 +38,8 @@
     "stripe": "9.16.0",
     "stripe-event-types": "3.1.0",
     "web-push": "3.6.7",
-    "zustand": "4.5.2"
+    "zustand": "4.5.2",
+    "trigger.dev": "4.5.4"
   },
   "peerDependencies": {
     "next": ">=14.0.0",

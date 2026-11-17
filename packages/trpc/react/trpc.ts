@@ -52,12 +52,12 @@ export const trpc: CreateTRPCNext<AppRouter, NextPageContext, null> = createTRPC
   NextPageContext
 >({
   config() {
+    const serverOrigin =
+      process.env.NEXTAUTH_URL ||
+      process.env.NEXT_PUBLIC_WEBAPP_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
     const url =
-      typeof window !== "undefined"
-        ? "/api/trpc"
-        : process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}/api/trpc`
-          : `${process.env.NEXT_PUBLIC_WEBAPP_URL}/api/trpc`;
+      typeof window !== "undefined" ? "/api/trpc" : new URL("/api/trpc", serverOrigin).toString();
 
     /**
      * If you want to use SSR, you need to use the server's full URL

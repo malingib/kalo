@@ -276,6 +276,8 @@ export class EventTypesService_2024_06_14 {
     return {
       ownerId: 0,
       ...dynamicEvent,
+      depositAmount: 0,
+      depositType: "FIXED_KES",
       users: usersFiltered,
       isInstantEvent: false,
     };

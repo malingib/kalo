@@ -31,12 +31,12 @@ const resolveEndpoint = (links: any) => {
   };
 };
 
-const url =
-  typeof window !== "undefined"
-    ? "/api/trpc"
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/api/trpc`
-      : `${process.env.NEXT_PUBLIC_WEBAPP_URL}/api/trpc`;
+const serverOrigin =
+  process.env.NEXTAUTH_URL ||
+  process.env.NEXT_PUBLIC_WEBAPP_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const url = typeof window !== "undefined" ? "/api/trpc" : new URL("/api/trpc", serverOrigin).toString();
 
 export const trpcClient = trpc.createClient({
   links: [

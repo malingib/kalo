@@ -2228,7 +2228,8 @@ describe("Event types Endpoints", () => {
         slug: "coding-class",
         description: "Let's learn how to code like a pro.",
         length: 60,
-        locations: [{ type: "integrations:daily" }],
+        // Legacy 2024-04-15 location values are rejected by the 2024-06-14 schema.
+        locations: [{ type: "Online" }],
       };
 
       return request(app.getHttpServer())

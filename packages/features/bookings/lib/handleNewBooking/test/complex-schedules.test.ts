@@ -48,7 +48,7 @@ describe("handleNewBooking", () => {
     test(
       `should be able to book the last slot before midnight`,
       async ({ emails }) => {
-        const { dateString: plus1DateString } = getDate({ dateIncrement: 1 });
+        const { dateString: plus1DateString } = getDate({ dateIncrement: 3 });
         const newYorkTimeZone = Timezones["-05:00"];
         const handleNewBooking = getNewBookingHandler();
         const booker = getBooker({
