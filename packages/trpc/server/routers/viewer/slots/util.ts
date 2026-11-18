@@ -909,16 +909,20 @@ export class AvailableSlotsService {
         (await this.dependencies.redisClient.get<number>(`slots:version:${eventType.id}`)) ?? 0;
       const cacheKey = `slots:${eventType.id}:${cacheVersion}:${JSON.stringify(args.input)}`;
 
-      return withSlotsCache(
-        this.dependencies.redisClient,
-        this._getAvailableSlots.bind(this),
-        cacheKey
-      )(args);
+      const getSlots = (scheduleOptions: GetScheduleOptions) =>
+        this._getAvailableSlots(scheduleOptions, eventType);
+      return withSlotsCache(this.dependencies.redisClient, getSlots, cacheKey)(args);
     }, "getAvailableSlots");
     return fn(options);
   }
 
-  async _getAvailableSlots({ input, ctx }: GetScheduleOptions): Promise<IGetAvailableSlots> {
+  async _getAvailableSlots(
+    { input, ctx }: GetScheduleOptions,
+    preloadedEventType?: Exclude<
+      Awaited<ReturnType<(typeof AvailableSlotsService)["prototype"]["getRegularOrDynamicEventType"]>>,
+      null
+    >
+  ): Promise<IGetAvailableSlots> {
     const {
       _enableTroubleshooter: enableTroubleshooter = false,
       _bypassCalendarBusyTimes: bypassBusyCalendarTimes = false,
@@ -936,7 +940,7 @@ export class AvailableSlotsService {
       logger.settings.minLevel = 2;
     }
 
-    const eventType = await this.getRegularOrDynamicEventType(input, orgDetails);
+    const eventType = preloadedEventType ?? (await this.getRegularOrDynamicEventType(input, orgDetails));
 
     if (!eventType) {
       throw new TRPCError({ code: "NOT_FOUND" });
