@@ -13,6 +13,7 @@ import { HttpError } from "@kalo/lib/http-error";
 import logger from "@kalo/lib/logger";
 import { safeStringify } from "@kalo/lib/safeStringify";
 import { getTranslation } from "@kalo/i18n/server";
+import { invalidateSlotsCache } from "../../invalidateSlotsCache";
 import prisma from "@kalo/prisma";
 import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
@@ -72,6 +73,8 @@ async function cancelAttendeeSeat(
       },
     });
   });
+
+  await invalidateSlotsCache(bookingToDelete.eventTypeId);
 
   const attendee = bookingToDelete?.attendees.find((attendee) => attendee.id === seatReference.attendeeId);
   const bookingToDeleteUser = bookingToDelete.user ?? null;
