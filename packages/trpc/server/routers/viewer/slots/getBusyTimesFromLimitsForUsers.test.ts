@@ -229,4 +229,91 @@ describe("AvailableSlotsService - _getBusyTimesFromLimitsForUsers", () => {
       expect(result.get(31) ?? []).toHaveLength(0);
     });
   });
+
+  describe("availability cache versioning", () => {
+    it("uses the current event version in the cached schedule key", async () => {
+      const redisClient = {
+        get: vi.fn(async (key: string) => (key.startsWith("slots:version:") ? 7 : null)),
+        set: vi.fn(async () => "OK" as const),
+        del: vi.fn(async () => 0),
+        incr: vi.fn(async () => 1),
+        expire: vi.fn(async () => 1 as const),
+        lrange: vi.fn(async () => []),
+        lpush: vi.fn(async () => 0),
+      };
+      const cacheService = new AvailableSlotsService({
+        redisClient,
+      } as unknown as IAvailableSlotsService);
+      const internals = cacheService as unknown as {
+        getRegularOrDynamicEventType: (
+          input: unknown,
+          organizationDetails: unknown
+        ) => Promise<{ id: number }>;
+        _getAvailableSlots: (options: unknown) => Promise<{ slots: Record<string, unknown> }>;
+      };
+      vi.spyOn(internals, "getRegularOrDynamicEventType").mockResolvedValue({ id: 52 });
+      vi.spyOn(internals, "_getAvailableSlots").mockResolvedValue({ slots: {} });
+
+      const options = {
+        input: {
+          usernameList: ["organizer"],
+          eventTypeSlug: "consultation",
+          startTime: "2026-01-01T00:00:00.000Z",
+          endTime: "2026-01-02T00:00:00.000Z",
+          timeZone: "UTC",
+        },
+        ctx: {},
+      } as unknown as Parameters<AvailableSlotsService["getAvailableSlots"]>[0];
+
+      await cacheService.getAvailableSlots(options);
+
+      expect(redisClient.get).toHaveBeenNthCalledWith(1, "slots:version:52");
+      expect(redisClient.get).toHaveBeenNthCalledWith(
+        2,
+        `slots:52:7:${JSON.stringify(options.input)}`
+      );
+      expect(internals._getAvailableSlots).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not cache dynamic event types without a stable event type ID", async () => {
+      const redisClient = {
+        get: vi.fn(async () => null),
+        set: vi.fn(async () => "OK" as const),
+        del: vi.fn(async () => 0),
+        incr: vi.fn(async () => 1),
+        expire: vi.fn(async () => 1 as const),
+        lrange: vi.fn(async () => []),
+        lpush: vi.fn(async () => 0),
+      };
+      const cacheService = new AvailableSlotsService({
+        redisClient,
+      } as unknown as IAvailableSlotsService);
+      const internals = cacheService as unknown as {
+        getRegularOrDynamicEventType: (
+          input: unknown,
+          organizationDetails: unknown
+        ) => Promise<{ id: null }>;
+        _getAvailableSlots: (options: unknown) => Promise<{ slots: Record<string, unknown> }>;
+      };
+      vi.spyOn(internals, "getRegularOrDynamicEventType").mockResolvedValue({ id: null });
+      vi.spyOn(internals, "_getAvailableSlots").mockResolvedValue({ slots: {} });
+
+      const options = {
+        input: {
+          usernameList: ["organizer"],
+          eventTypeSlug: "dynamic",
+          startTime: "2026-01-01T00:00:00.000Z",
+          endTime: "2026-01-02T00:00:00.000Z",
+          timeZone: "UTC",
+        },
+        ctx: {},
+      } as unknown as Parameters<AvailableSlotsService["getAvailableSlots"]>[0];
+
+      await cacheService.getAvailableSlots(options);
+
+      expect(redisClient.get).not.toHaveBeenCalled();
+      expect(redisClient.set).not.toHaveBeenCalled();
+      expect(internals._getAvailableSlots).toHaveBeenCalledTimes(1);
+    });
+  });
 });
