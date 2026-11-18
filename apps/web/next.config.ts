@@ -234,6 +234,8 @@ const nextConfig = (phase: string): NextConfig => {
       "jose",
     ],
     experimental: {
+      // Limit build workers to reduce peak memory usage on Vercel's 7 GB Hobby build machine.
+      cpus: 1,
       optimizePackageImports: ["@kalo/ui"],
     },
     productionBrowserSourceMaps: true,
