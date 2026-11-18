@@ -1,6 +1,8 @@
 import dayjs from "@kalo/dayjs";
 import { isPrismaObjOrUndefined } from "@kalo/lib/isPrismaObj";
 import { withReporting } from "@kalo/lib/sentryWrapper";
+import logger from "@kalo/lib/logger";
+import { getRedisService } from "@kalo/features/di/containers/Redis";
 import prisma from "@kalo/prisma";
 import { Prisma } from "@kalo/prisma/client";
 import type { CreationSource } from "@kalo/prisma/enums";
@@ -83,12 +85,27 @@ const _createBooking = async ({
     tracking,
   });
 
-  return await saveBooking(
+  const booking = await saveBooking(
     bookingAndAssociatedData,
     originalRescheduledBooking,
     eventType.paymentAppData,
     eventType.organizerUser
   );
+
+  if (eventType.id) {
+    try {
+      await getRedisService().incr(`slots:version:${eventType.id}`);
+    } catch (error) {
+      // The booking is already committed. Cache invalidation must never turn a successful
+      // booking into a failed response that could be retried and duplicated.
+      logger.error("Failed to invalidate available-slots cache after booking", {
+        eventTypeId: eventType.id,
+        error,
+      });
+    }
+  }
+
+  return booking;
 };
 
 export const createBooking = withReporting(_createBooking, "createBooking");
