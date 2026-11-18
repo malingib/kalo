@@ -178,6 +178,9 @@ async function superRefineField({
   }
 
   if (field.type === "multiemail") {
+    // Hidden fields can retain legacy/stale values, but they are not user-editable during this view.
+    if (field.hidden) return;
+
     const emailsParsed = emailSchema.array().safeParse(value);
 
     if (isRequired && (!value || (value as unknown[]).length === 0)) {
