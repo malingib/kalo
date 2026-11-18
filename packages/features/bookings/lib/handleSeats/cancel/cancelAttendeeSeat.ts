@@ -58,18 +58,20 @@ async function cancelAttendeeSeat(
 
   if (!seatReference) throw new HttpError({ statusCode: 400, message: "User not a part of this booking" });
 
-  await Promise.all([
-    prisma.bookingSeat.delete({
+  await prisma.$transaction(async (tx) => {
+    // The seat row references the attendee. Delete it first so the attendee delete
+    // cannot race the foreign-key constraint and fail intermittently.
+    await tx.bookingSeat.delete({
       where: {
         referenceUid: seatReferenceUid,
       },
-    }),
-    prisma.attendee.delete({
+    });
+    await tx.attendee.delete({
       where: {
         id: seatReference.attendeeId,
       },
-    }),
-  ]);
+    });
+  });
 
   const attendee = bookingToDelete?.attendees.find((attendee) => attendee.id === seatReference.attendeeId);
   const bookingToDeleteUser = bookingToDelete.user ?? null;
