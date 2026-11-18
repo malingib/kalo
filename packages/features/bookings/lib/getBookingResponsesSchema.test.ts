@@ -1398,6 +1398,29 @@ describe("getBookingResponsesSchema", () => {
       );
     });
 
+    test("should ignore invalid values for hidden multiemail fields during rescheduling", async () => {
+      const schema = getBookingResponsesSchema({
+        bookingFields: [
+          { name: "name", type: "name", required: true },
+          { name: "email", type: "email", required: true },
+          { name: "guests", type: "multiemail", required: false, hidden: true },
+        ] as z.infer<typeof eventTypeBookingFields> & z.BRAND<"HAS_SYSTEM_FIELDS">,
+        view: "reschedule",
+      });
+
+      const parsedResponses = await schema.safeParseAsync({
+        name: "Test User",
+        email: "test@example.com",
+        guests: ["legacy-invalid-value"],
+      });
+
+      expectResponsesToBe(parsedResponses, {
+        name: "Test User",
+        email: "test@example.com",
+        guests: ["legacy-invalid-value"],
+      });
+    });
+
     test("should successfully parse a multiemail type field response, even when the value is just a string[Prefill needs it]", async () => {
       const schema = getBookingResponsesSchema({
         bookingFields: [
