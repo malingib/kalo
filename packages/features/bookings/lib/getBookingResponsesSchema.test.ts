@@ -1398,6 +1398,26 @@ describe("getBookingResponsesSchema", () => {
       );
     });
 
+    test("should preserve a locked attendee email during rescheduling without revalidating it", async () => {
+      const schema = getBookingResponsesSchema({
+        bookingFields: [
+          { name: "name", type: "name", required: true },
+          { name: "email", type: "email", required: true },
+        ] as z.infer<typeof eventTypeBookingFields> & z.BRAND<"HAS_SYSTEM_FIELDS">,
+        view: "reschedule",
+      });
+
+      const parsedResponses = await schema.safeParseAsync({
+        name: "Jane Second",
+        email: "second+seats@kalo",
+      });
+
+      expectResponsesToBe(parsedResponses, {
+        name: "Jane Second",
+        email: "second+seats@kalo",
+      });
+    });
+
     test("should ignore invalid values for hidden multiemail fields during rescheduling", async () => {
       const schema = getBookingResponsesSchema({
         bookingFields: [
