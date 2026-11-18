@@ -103,10 +103,10 @@ export interface IAvailableSlotsService {
 
 function withSlotsCache(
   redisClient: IRedisService,
-  func: (args: GetScheduleOptions) => Promise<IGetAvailableSlots>
+  func: (args: GetScheduleOptions) => Promise<IGetAvailableSlots>,
+  cacheKey: string
 ) {
   return async (args: GetScheduleOptions): Promise<IGetAvailableSlots> => {
-    const cacheKey = `${JSON.stringify(args.input)}`;
     let success = false;
     let cachedResult: IGetAvailableSlots | null = null;
     const startTime = process.hrtime();
@@ -123,7 +123,6 @@ function withSlotsCache(
     }
 
     if (!success) {
-      // If the cache request fails, we proceed to call the function directly
       return await func(args);
     }
     if (cachedResult) {
@@ -132,8 +131,6 @@ function withSlotsCache(
     }
     const result = await func(args);
     const ttl = parseInt(process.env.SLOTS_CACHE_TTL ?? "", 10) || DEFAULT_SLOTS_CACHE_TTL;
-    // we do not wait for the cache to complete setting; we fire and forget, and hope it'll finish.
-    // this is to already start responding to the client.
     redisClient.set(cacheKey, result, { ttl });
     log.info("[CACHE MISS] Available slots", { cacheKey, ttl });
     return result;
@@ -887,10 +884,37 @@ export class AvailableSlotsService {
   }
 
   getAvailableSlots(options: GetScheduleOptions) {
-    const fn = withReporting(
-      withSlotsCache(this.dependencies.redisClient, this._getAvailableSlots.bind(this)),
-      "getAvailableSlots"
-    );
+    const fn = withReporting(async (args: GetScheduleOptions) => {
+      const orgDetails = args.input?.orgSlug
+        ? {
+            currentOrgDomain: args.input.orgSlug,
+            isValidOrgDomain:
+              !!args.input.orgSlug && !RESERVED_SUBDOMAINS.includes(args.input.orgSlug),
+          }
+        : { currentOrgDomain: null as string | null, isValidOrgDomain: false };
+
+      const eventType = await this.getRegularOrDynamicEventType(args.input, orgDetails);
+      if (!eventType) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      // Every successful booking bumps this event type's cache version. Including it in
+      // the key prevents a previously cached schedule from surviving a booking/seat change.
+      // Dynamic event types have no stable event type ID, so they bypass this cache.
+      if (!eventType.id) {
+        return this._getAvailableSlots(args);
+      }
+
+      const cacheVersion =
+        (await this.dependencies.redisClient.get<number>(`slots:version:${eventType.id}`)) ?? 0;
+      const cacheKey = `slots:${eventType.id}:${cacheVersion}:${JSON.stringify(args.input)}`;
+
+      return withSlotsCache(
+        this.dependencies.redisClient,
+        this._getAvailableSlots.bind(this),
+        cacheKey
+      )(args);
+    }, "getAvailableSlots");
     return fn(options);
   }
 
