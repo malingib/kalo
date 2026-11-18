@@ -10,4 +10,6 @@ export interface IRedisService {
   lpush: <TData>(key: string, ...elements: TData[]) => Promise<number>;
 
   del: (key: string) => Promise<number>;
+
+  incr: (key: string) => Promise<number>;
 }

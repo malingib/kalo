@@ -48,6 +48,7 @@ import type {
 import { getAllCredentialsIncludeServiceAccountKey } from "./getAllCredentialsForUsersOnEvent/getAllCredentials";
 import { getBookingToDelete } from "./getBookingToDelete";
 import cancelAttendeeSeat from "./handleSeats/cancel/cancelAttendeeSeat";
+import { invalidateSlotsCache } from "./invalidateSlotsCache";
 import type { IBookingCancelService } from "./interfaces/IBookingCancelService";
 import { isPrismaError } from "@kalo/lib/server/getServerErrorFromUnknown";
 
@@ -426,6 +427,8 @@ async function handler(input: CancelBookingInput, dependencies?: Dependencies) {
       }
     }
   }
+
+  await invalidateSlotsCache(bookingToDelete.eventTypeId);
 
   /** TODO: Remove this without breaking functionality */
   if (bookingToDelete.location === DailyLocationType) {

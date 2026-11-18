@@ -23,6 +23,10 @@ export class RedisService implements IRedisService {
     return this.redis.del(key);
   }
 
+  async incr(key: string): Promise<number> {
+    return this.redis.incr(key);
+  }
+
   async set<TData>(key: string, value: TData, opts?: { ttl?: number }): Promise<"OK" | TData | null> {
     return this.redis.set(
       key,

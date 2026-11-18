@@ -544,9 +544,14 @@ test.describe("Reschedule for booking with seats", () => {
       data: bookingSeats,
     });
 
-    const references = await prisma.bookingSeat.findMany({
-      where: { bookingId: booking.id },
-      orderBy: { id: "asc" },
+    const secondAttendee = bookingAttendees.find((attendee) => attendee.email === "second+seats@kalo");
+    expect(secondAttendee).toBeDefined();
+
+    const secondSeat = await prisma.bookingSeat.findFirstOrThrow({
+      where: {
+        bookingId: booking.id,
+        attendeeId: secondAttendee!.id,
+      },
     });
 
     const secondUser = await users.create({
@@ -560,26 +565,20 @@ test.describe("Reschedule for booking with seats", () => {
 
     await page.locator('[data-testid="booking-actions-dropdown"]').nth(0).click();
 
-    // Wait for the reschedule link to be visible and have an href attribute
     const rescheduleLink = page.locator('[data-testid="reschedule"]');
     await expect(rescheduleLink).toBeVisible();
-    await expect(rescheduleLink).toHaveAttribute("href", /.+/);
 
-    const href = await rescheduleLink.getAttribute("href");
-    const url = new URL(href!, page.url());
-    const seatReferenceUid = url.searchParams.get("seatReferenceUid");
-    if (!seatReferenceUid) {
-      await page.reload();
-      await page.waitForSelector('[data-testid="bookings"]');
-      await page.locator('[data-testid="booking-actions-dropdown"]').nth(0).click();
-      await expect(rescheduleLink).toBeVisible();
-      await expect(rescheduleLink).toHaveAttribute("href", /.+/);
-    }
+    // The logged-in user query resolves asynchronously; wait for the attendee-specific seat URL,
+    // not merely any reschedule href, before following it.
+    await expect(rescheduleLink).toHaveAttribute(
+      "href",
+      new RegExp(`seatReferenceUid=${secondSeat.referenceUid}`),
+      { timeout: 10_000 }
+    );
     await rescheduleLink.click();
 
     await page.waitForURL((url) => {
-      const rescheduleUid = url.searchParams.get("rescheduleUid");
-      return !!rescheduleUid && rescheduleUid === references[1].referenceUid;
+      return url.searchParams.get("rescheduleUid") === secondSeat.referenceUid;
     });
 
     await expect(page.getByText("Seats available").first()).toBeVisible();
