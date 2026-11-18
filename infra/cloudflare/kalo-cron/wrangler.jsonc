@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  "name": "kalo-cron",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-17",
+  "triggers": {
+    "crons": ["* * * * *"]
+  },
+  "vars": {
+    "KALO_BASE_URL": "https://kalo-dwaynes-projects-c48061a4.vercel.app"
+  }
+}
