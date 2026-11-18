@@ -902,7 +902,7 @@ export class AvailableSlotsService {
       // the key prevents a previously cached schedule from surviving a booking/seat change.
       // Dynamic event types have no stable event type ID, so they bypass this cache.
       if (!eventType.id) {
-        return this._getAvailableSlots(args);
+        return this._getAvailableSlots(args, eventType);
       }
 
       const cacheVersion =
