@@ -68,8 +68,6 @@ jobs:
           sparse-checkout: .github
       - uses: ./.github/actions/cache-checkout
       - uses: ./.github/actions/yarn-install
-      - name: Generate Prisma client before database seeding
-        run: yarn prisma generate
       - uses: ./.github/actions/cache-db
       - name: Build platform packages with Turbo
         run: |
