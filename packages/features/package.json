@@ -24,7 +24,7 @@
     "@kalo/ui": "workspace:*",
     "@tanstack/react-table": "8.20.6",
     "@tanstack/react-virtual": "3.10.9",
-    "@trigger.dev/sdk": "4.5.4",
+    "@trigger.dev/sdk": "4.8.5",
     "@vercel/functions": "1.4.0",
     "city-timezones": "1.2.1",
     "class-variance-authority": "0.7.1",
@@ -39,20 +39,20 @@
     "stripe-event-types": "3.1.0",
     "web-push": "3.6.7",
     "zustand": "4.5.2",
-    "trigger.dev": "4.5.4"
+    "trigger.dev": "4.8.5"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-is": "^18.2.0",
-    "zod": "^3.0.0"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@kalo/testing": "workspace:*",
     "@testing-library/react-hooks": "8.0.1",
     "@types/deasync": "^0",
     "@types/web-push": "3.6.3",
-    "trigger.dev": "4.3.2"
+    "trigger.dev": "4.8.5"
   }
 }
