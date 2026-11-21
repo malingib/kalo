@@ -173,7 +173,6 @@
     "@types/memory-cache": "0.2.2",
     "@types/micro": "7.3.7",
     "@types/module-alias": "2.0.1",
-    "@types/nodemailer": "6.4.5",
     "@types/qrcode": "1.4.3",
     "@types/react": "18.0.26",
     "@types/remove-markdown": "0.3.1",
