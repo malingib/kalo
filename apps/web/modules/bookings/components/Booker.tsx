@@ -228,15 +228,13 @@ const BookerComponent = ({
     return setBookerState("booking");
   }, [event.isPending, selectedDate, selectedTimeslot, setBookerState, skipConfirmStep, layout]);
 
-  const unavailableTimeSlots = isQuickAvailabilityCheckFeatureEnabled
-    ? allSelectedTimeslots.filter((slot) => {
-        return !isTimeSlotAvailable({
-          scheduleData: schedule?.data ?? null,
-          slotToCheckInIso: slot,
-          quickAvailabilityChecks: slots.quickAvailabilityChecks,
-        });
-      })
-    : [];
+  const unavailableTimeSlots = allSelectedTimeslots.filter((slot) => {
+    return !isTimeSlotAvailable({
+      scheduleData: schedule?.data ?? null,
+      slotToCheckInIso: slot,
+      quickAvailabilityChecks: slots.quickAvailabilityChecks,
+    });
+  });
 
   const slot = getQueryParam("slot");
 

@@ -262,5 +262,27 @@ describe("Booker", () => {
       const bookEventForm = screen.getByTestId("book-event-form");
       await expect(bookEventForm).toHaveAttribute("data-unavailable", "true");
     });
+
+    it("should mark timeslot as unavailable even when quick availability is disabled", async () => {
+      // Set quick availability rollout to 0 to disable it
+      constantsScenarios.set({
+        ...constantsScenarios.get(),
+        PUBLIC_QUICK_AVAILABILITY_ROLLOUT: "0",
+      });
+
+      const propsWithQuickChecks = {
+        ...defaultProps,
+        slots: {
+          ...defaultProps.slots,
+          quickAvailabilityChecks: [{ utcStartIso: "2024-01-01T10:00:00Z", status: "unavailable" }],
+        },
+      };
+
+      render(<Booker {...(propsWithQuickChecks as unknown as BookerProps & WrappedBookerProps)} />, {
+        mockStore: { state: "booking" },
+      });
+      const bookEventForm = screen.getByTestId("book-event-form");
+      await expect(bookEventForm).toHaveAttribute("data-unavailable", "true");
+    });
   });
 });

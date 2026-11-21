@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - gh-actions-test-branch
+      - fix/kalo-pr20-pr21-integration
 
   workflow_dispatch:
 
