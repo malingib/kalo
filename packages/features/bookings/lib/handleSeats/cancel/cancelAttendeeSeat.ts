@@ -13,6 +13,7 @@ import { HttpError } from "@kalo/lib/http-error";
 import logger from "@kalo/lib/logger";
 import { safeStringify } from "@kalo/lib/safeStringify";
 import { getTranslation } from "@kalo/i18n/server";
+import { invalidateSlotsCache } from "../../invalidateSlotsCache";
 import prisma from "@kalo/prisma";
 import { WebhookTriggerEvents } from "@kalo/prisma/enums";
 import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
@@ -58,18 +59,22 @@ async function cancelAttendeeSeat(
 
   if (!seatReference) throw new HttpError({ statusCode: 400, message: "User not a part of this booking" });
 
-  await Promise.all([
-    prisma.bookingSeat.delete({
+  await prisma.$transaction(async (tx) => {
+    // The seat row references the attendee. Delete it first so the attendee delete
+    // cannot race the foreign-key constraint and fail intermittently.
+    await tx.bookingSeat.delete({
       where: {
         referenceUid: seatReferenceUid,
       },
-    }),
-    prisma.attendee.delete({
+    });
+    await tx.attendee.delete({
       where: {
         id: seatReference.attendeeId,
       },
-    }),
-  ]);
+    });
+  });
+
+  await invalidateSlotsCache(bookingToDelete.eventTypeId);
 
   const attendee = bookingToDelete?.attendees.find((attendee) => attendee.id === seatReference.attendeeId);
   const bookingToDeleteUser = bookingToDelete.user ?? null;
@@ -187,3 +192,4 @@ async function cancelAttendeeSeat(
 }
 
 export default cancelAttendeeSeat;
+

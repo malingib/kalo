@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - security/dependency-remediation
+      - security/kalo-audit-remediation
 
 permissions:
   contents: write
@@ -15,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: security/dependency-remediation
+          ref: ${{ github.ref_name }}
           persist-credentials: true
       - uses: actions/setup-node@v4
         with:
@@ -31,10 +32,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add yarn.lock package.json apps/web/package.json
+          git add yarn.lock package.json apps/web/package.json apps/api/v2/package.json packages/features/package.json packages/lib/package.json packages/kysely/package.json packages/platform/atoms/package.json packages/embeds/embed-core/package.json packages/embeds/embed-react/package.json
           if git diff --cached --quiet; then
             echo "Lockfile already matches manifests."
             exit 0
           fi
           git commit -m "security: regenerate dependency lockfile"
-          git push origin security/dependency-remediation
+          git push origin HEAD:${GITHUB_REF_NAME}

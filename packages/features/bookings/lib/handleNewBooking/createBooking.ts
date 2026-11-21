@@ -1,6 +1,7 @@
 import dayjs from "@kalo/dayjs";
 import { isPrismaObjOrUndefined } from "@kalo/lib/isPrismaObj";
 import { withReporting } from "@kalo/lib/sentryWrapper";
+import { invalidateSlotsCache } from "../invalidateSlotsCache";
 import prisma from "@kalo/prisma";
 import { Prisma } from "@kalo/prisma/client";
 import type { CreationSource } from "@kalo/prisma/enums";
@@ -83,12 +84,16 @@ const _createBooking = async ({
     tracking,
   });
 
-  return await saveBooking(
+  const booking = await saveBooking(
     bookingAndAssociatedData,
     originalRescheduledBooking,
     eventType.paymentAppData,
     eventType.organizerUser
   );
+
+  await invalidateSlotsCache(eventType.id);
+
+  return booking;
 };
 
 export const createBooking = withReporting(_createBooking, "createBooking");
@@ -271,3 +276,4 @@ function buildNewBookingData(params: CreateBookingParams) {
 }
 
 export type Booking = Awaited<ReturnType<typeof createBooking>>;
+
