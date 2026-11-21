@@ -178,6 +178,9 @@ async function superRefineField({
   }
 
   if (field.type === "multiemail") {
+    // Hidden fields can retain legacy/stale values, but they are not user-editable during this view.
+    if (field.hidden) return;
+
     const emailsParsed = emailSchema.array().safeParse(value);
 
     if (isRequired && (!value || (value as unknown[]).length === 0)) {
@@ -453,7 +456,11 @@ function preprocess<T extends z.ZodType>({
         const views = bookingField.views;
         const isFieldApplicableToCurrentView =
           currentView === "ALL_VIEWS" ? true : views ? views.find((view) => view.id === currentView) : true;
-        let hidden = bookingField.hidden;
+        // Name and email are locked to the original attendee during rescheduling.
+        // Their persisted values must not block a reschedule if they predate current validation rules.
+        let hidden =
+          bookingField.hidden ||
+          (currentView === "reschedule" && ["name", "email"].includes(bookingField.name));
         const numOptions = bookingField.options?.length ?? 0;
         if (bookingField.hideWhenJustOneOption) {
           hidden = hidden || numOptions <= 1;
@@ -477,7 +484,7 @@ function preprocess<T extends z.ZodType>({
         let superRefineError = false;
         try {
           await superRefineField({
-            field: bookingField,
+            field: { ...bookingField, hidden },
             value,
             isPartialSchema,
             isRequired,
@@ -513,3 +520,4 @@ function preprocess<T extends z.ZodType>({
   }
   return preprocessed;
 }
+
