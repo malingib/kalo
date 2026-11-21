@@ -37,9 +37,9 @@
     "recharts": "3.0.2",
     "stripe": "9.16.0",
     "stripe-event-types": "3.1.0",
+    "trigger.dev": "4.8.5",
     "web-push": "3.6.7",
-    "zustand": "4.5.2",
-    "trigger.dev": "4.8.5"
+    "zustand": "4.5.2"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
