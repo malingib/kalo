@@ -5635,7 +5635,7 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
     stripe: ^9.0.0 || ^15.0.0
-    zod: ^3.0.0
+    zod: ^4.6.6
   languageName: unknown
   linkType: soft
 
@@ -6106,7 +6106,7 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
     react-is: ^18.2.0
-    zod: ^3.0.0
+    zod: ^4.6.6
   languageName: unknown
   linkType: soft
 
@@ -6536,7 +6536,7 @@ __metadata:
     prisma-kysely: "npm:2.2.0"
     ts-node: "npm:10.9.2"
     uuid: "npm:8.3.2"
-    zod: "npm:3.25.76"
+    zod: "npm:4.6.6"
     zod-prisma-types: "npm:3.2.4"
   bin:
     prisma-enum-generator: ./run-enum-generator.js
@@ -6724,7 +6724,7 @@ __metadata:
     superjson: "npm:1.9.1"
     typescript: "npm:5.9.3"
     uuid: "npm:8.3.2"
-    zod: "npm:3.25.76"
+    zod: "npm:4.6.6"
   peerDependencies:
     "@tanstack/react-query": ^5.0.0
     next: ">=14.0.0"
@@ -6812,7 +6812,7 @@ __metadata:
     tailwind-merge: "npm:1.13.2"
     typescript: "npm:5.9.3"
     uuid: "npm:11.1.0"
-    zod: "npm:3.25.76"
+    zod: "npm:4.6.6"
   peerDependencies:
     "@tanstack/react-query": ^5.0.0
     react: ^18.0.0 || ^19.0.0
@@ -40864,6 +40864,13 @@ __metadata:
   version: 4.5.4
   resolution: "zod@npm:4.5.4"
   checksum: 10/b2fd4aaf358359650a1f27f303a462f0f49b4e5582f517ad8894ed566fdceb9da391b59babffe3c70574c8064174883735657eb28e12db5c7021455a631866c4
+  languageName: node
+  linkType: hard
+
+"zod@npm:4.6.6":
+  version: 4.6.6
+  resolution: "zod@npm:4.6.6"
+  checksum: 10/ce628fb33400b531f48b63ad1bd9b5ab95ec3ac60d4e8025892d90af9ca5d03b168aaaf74071928345ad1b1bcd735a7d5cf33230ece7de885240bb0f2b7bb492
   languageName: node
   linkType: hard
 
