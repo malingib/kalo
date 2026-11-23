@@ -19,13 +19,13 @@
   "dependencies": {
     "@kalo/features": "workspace:*",
     "@kalo/i18n": "workspace:*",
-    "@kalo/lib": "workspace:*"
+    "@kalo/lib": "workspace:*",
+    "zod": "4.6.7"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
-    "stripe": "^9.0.0 || ^15.0.0",
-    "zod": "^3.0.0"
+    "stripe": "^9.0.0 || ^15.0.0"
   },
   "devDependencies": {
     "@types/node": "20.17.23",
