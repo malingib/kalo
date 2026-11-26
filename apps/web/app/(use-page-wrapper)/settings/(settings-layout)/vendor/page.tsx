@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { trpc } from "@kalo/trpc/react";
+import React, { useEffect, useState } from "react";
 
 type Day = { day: number; label: string; open: string; close: string; closed: boolean };
 type Faq = { question: string; answer: string };
@@ -16,6 +17,13 @@ const DAYS: Day[] = [
 ];
 
 export default function VendorProfileSettingsPage() {
+  const utils = trpc.useUtils();
+  const profileQuery = trpc.viewer.vendor.getProfile.useQuery({});
+  const saveProfile = trpc.viewer.vendor.upsertProfile.useMutation({
+    onSuccess: async () => {
+      await utils.viewer.vendor.getProfile.invalidate();
+    },
+  });
   // ── Storefront ──────────────────────────────────────────
   const [businessName, setBusinessName]   = useState("");
   const [slug, setSlug]                   = useState("");
@@ -27,10 +35,6 @@ export default function VendorProfileSettingsPage() {
   const [paybill, setPaybill]             = useState("");
   const [accountName, setAccountName]     = useState("");
   const [payoutPhone, setPayoutPhone]     = useState("");
-  const [ownDarajaKey, setOwnDarajaKey]   = useState("");
-  const [ownDarajaSecret, setOwnDarajaSecret] = useState("");
-  const [ownDarajaShortcode, setOwnDarajaShortcode] = useState("");
-  const [ownDarajaPasskey, setOwnDarajaPasskey]     = useState("");
 
   // ── WhatsApp ─────────────────────────────────────────────
   const [waEnabled, setWaEnabled]         = useState(false);
@@ -45,10 +49,48 @@ export default function VendorProfileSettingsPage() {
   const [saved, setSaved]                 = useState(false);
   const [activeTab, setActiveTab]         = useState<"storefront" | "mpesa" | "whatsapp" | "hours">("storefront");
 
+  useEffect(() => {
+    const profile = profileQuery.data;
+    if (!profile) return;
+    setBusinessName(profile.businessName ?? "");
+    setSlug(profile.businessSlug ?? "");
+    setBio(profile.businessBio ?? "");
+    setLocationText(profile.locationText ?? "");
+    setTillNumber(profile.mpesaTillNumber ?? "");
+    setPaybill(profile.mpesaPaybill ?? "");
+    setAccountName(profile.mpesaAccountName ?? "");
+    setPayoutPhone(profile.mpesaPayoutPhone ?? "");
+    setWaEnabled(profile.whatsappEnabled);
+    setGreeting(profile.whatsappGreeting ?? "");
+    setOfflineMsg(profile.whatsappOfflineMessage ?? "");
+    setAutoConfirm(profile.whatsappAutoConfirm);
+    setFaqs((profile.whatsappFaqJson as Faq[] | null) ?? []);
+    if (profile.operatingHoursJson) {
+      setHours(DAYS.map((day) => {
+        const savedDay = (profile.operatingHoursJson as Day[]).find((item) => item.day === day.day);
+        return savedDay ? { ...day, ...savedDay } : day;
+      }));
+    }
+  }, [profileQuery.data]);
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    saveProfile.mutate({
+      businessName: businessName.trim() || undefined,
+      businessSlug: slug.trim() || undefined,
+      businessBio: bio.trim() || null,
+      locationText: locationText.trim() || null,
+      mpesaTillNumber: tillNumber.trim() || null,
+      mpesaPaybill: paybill.trim() || null,
+      mpesaAccountName: accountName.trim() || null,
+      mpesaPayoutPhone: payoutPhone.trim() || null,
+      whatsappEnabled: waEnabled,
+      whatsappGreeting: greeting || null,
+      whatsappOfflineMessage: offlineMsg || null,
+      whatsappAutoConfirm: autoConfirm,
+      whatsappFaqJson: faqs.filter((faq) => faq.question.trim() || faq.answer.trim()),
+      operatingHoursJson: hours.map(({ day, open, close, closed }) => ({ day, open, close, closed })),
+    });
   };
 
   const tabs = [
@@ -67,11 +109,10 @@ export default function VendorProfileSettingsPage() {
         </p>
       </div>
 
-      {saved && (
-        <div className="p-4 rounded-lg bg-green-50 text-green-800 border border-green-200">
-          ✅ Settings saved successfully!
-        </div>
-      )}
+      {profileQuery.isLoading && <p className="text-sm text-gray-500">Loading vendor settings…</p>}
+      {profileQuery.isError && <p role="alert" className="text-sm text-red-600">Could not load vendor settings.</p>}
+      {saveProfile.isSuccess && <p role="status" className="p-3 rounded-lg border border-green-200 bg-green-50 text-sm text-green-800">Settings saved successfully.</p>}
+      {saveProfile.isError && <p role="alert" className="p-3 rounded-lg border border-red-200 bg-red-50 text-sm text-red-800">{saveProfile.error.message}</p>}
 
       {/* Tab Navigation */}
       <div className="flex gap-1 border-b border-gray-200 dark:border-gray-700">
@@ -195,34 +236,8 @@ export default function VendorProfileSettingsPage() {
               </div>
             </div>
 
-            <hr className="border-gray-200 dark:border-gray-700" />
-
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                📲 Own Daraja STK Push Credentials
-                <span className="ml-2 text-xs font-normal text-gray-500">(Pro Plan only)</span>
-              </h3>
-              <p className="text-xs text-gray-500 mb-3">
-                Leave blank to use the platform's master M-Pesa gateway instead.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  { label: "Consumer Key",    value: ownDarajaKey,       onChange: setOwnDarajaKey       },
-                  { label: "Consumer Secret", value: ownDarajaSecret,    onChange: setOwnDarajaSecret    },
-                  { label: "Shortcode",       value: ownDarajaShortcode, onChange: setOwnDarajaShortcode },
-                  { label: "Passkey",         value: ownDarajaPasskey,   onChange: setOwnDarajaPasskey   },
-                ].map(({ label, value, onChange }) => (
-                  <div key={label}>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-                    <input
-                      type="password"
-                      value={value}
-                      onChange={(e) => onChange(e.target.value)}
-                      className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    />
-                  </div>
-                ))}
-              </div>
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+              Daraja STK Push is platform-managed. Tenant API credentials are not collected or stored in this vendor profile.
             </div>
           </div>
         )}
@@ -399,9 +414,10 @@ export default function VendorProfileSettingsPage() {
         <div className="flex justify-end pt-4">
           <button
             type="submit"
-            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition"
+            disabled={profileQuery.isLoading || profileQuery.isError || saveProfile.isPending}
+            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition disabled:opacity-50"
           >
-            Save Vendor Settings
+            {saveProfile.isPending ? "Saving…" : "Save Vendor Settings"}
           </button>
         </div>
       </form>
