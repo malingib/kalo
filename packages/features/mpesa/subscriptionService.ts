@@ -100,3 +100,72 @@ export async function startPremiumUsernameSubscription(input: {
     throw new Error("M-Pesa subscription payment could not be started");
   }
 }
+
+/** Initiate a user-authorized renewal for an existing subscription. */
+export async function initiatePremiumSubscriptionRenewal(input: {
+  subscriptionId: string;
+  userId: number;
+}) {
+  const subscription = await prisma.mPesaSubscription.findFirst({
+    where: {
+      id: input.subscriptionId,
+      userId: input.userId,
+      subscriptionType: "PREMIUM_USERNAME",
+      status: { in: ["ACTIVE", "PAST_DUE"] },
+    },
+  });
+  if (!subscription) throw new Error("No renewable subscription was found");
+
+  const transaction = await prisma.mPesaTransaction.create({
+    data: {
+      subscriptionId: subscription.id,
+      phoneNumber: subscription.phoneNumber,
+      amount: subscription.amountKes,
+      source: "subscription-payment",
+      status: "INITIATING",
+    },
+  });
+
+  try {
+    const response = await DarajaClient.initiateStkPush({
+      consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
+      consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
+      businessShortCode: requiredEnv("DARAJA_SHORTCODE"),
+      passkey: requiredEnv("DARAJA_PASSKEY"),
+      phoneNumber: subscription.phoneNumber,
+      amount: subscription.amountKes,
+      accountReference: subscription.username || subscription.id,
+      transactionDesc: "Premium renewal",
+      callbackUrl: callbackUrl(),
+      isSandbox: process.env.DARAJA_ENVIRONMENT !== "production",
+    });
+
+    await prisma.$transaction(async (tx) => {
+      await tx.mPesaTransaction.update({
+        where: { id: transaction.id },
+        data: {
+          checkoutRequestId: response.CheckoutRequestID,
+          merchantRequestId: response.MerchantRequestID,
+          status: "PENDING",
+        },
+      });
+      await tx.mPesaSubscription.update({
+        where: { id: subscription.id },
+        data: { status: "PAYMENT_PENDING" },
+      });
+    });
+    return { subscriptionId: subscription.id, status: "PAYMENT_PENDING" as const };
+  } catch {
+    await prisma.$transaction([
+      prisma.mPesaTransaction.update({
+        where: { id: transaction.id },
+        data: { status: "FAILED", resultDesc: "Daraja renewal STK Push failed" },
+      }),
+      prisma.mPesaSubscription.update({
+        where: { id: subscription.id },
+        data: { status: "PAST_DUE" },
+      }),
+    ]);
+    throw new Error("M-Pesa renewal prompt could not be started");
+  }
+}
