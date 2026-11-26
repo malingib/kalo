@@ -522,6 +522,7 @@ model User {
   mpesaPasskey      String?
   whatsAppSessions  WhatsAppSession[]
   whatsAppLogs      WhatsAppMessageLog[]
+  mpesaSubscriptions MPesaSubscription[]
   vendorProfile     VendorProfile?
 
   @@unique([email])
@@ -651,6 +652,7 @@ model Team {
 
   teamBilling               TeamBilling?               @relation("TeamBilling")
   organizationBilling       OrganizationBilling?       @relation("OrganizationBilling")
+  mpesaSubscriptions        MPesaSubscription[]
   integrationAttributeSyncs IntegrationAttributeSync[]
 
   autoOptInFeatures Boolean @default(false)
@@ -2872,6 +2874,8 @@ model MPesaTransaction {
   id                 String   @id @default(uuid())
   paymentId          Int?     @unique
   payment            Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  subscriptionId     String?
+  subscription       MPesaSubscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
   bookingUid         String?
   booking            Booking? @relation(fields: [bookingUid], references: [uid], onDelete: Cascade)
   phoneNumber        String
@@ -2887,6 +2891,31 @@ model MPesaTransaction {
   @@index([bookingUid])
   @@index([phoneNumber])
   @@index([checkoutRequestId])
+}
+
+model MPesaSubscription {
+  id                 String   @id @default(uuid())
+  userId             Int?
+  user               User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId             Int?
+  team               Team?    @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  subscriptionType   String
+  planName           String
+  username           String?
+  amountKes          Int
+  phoneNumber        String
+  status             String   @default("PENDING")
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  nextBillingAt      DateTime?
+  lastPaymentAt      DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  transactions       MPesaTransaction[]
+
+  @@index([userId, status])
+  @@index([teamId, status])
+  @@index([nextBillingAt, status])
 }
 
 model WhatsAppSession {
