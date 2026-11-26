@@ -52,12 +52,8 @@ function generateFiles() {
   const crmOutput = [];
   const appDirs: { name: string; path: string }[] = [];
 
-  // Kalo's initial release intentionally exposes only Google Calendar.
-  // M-Pesa is implemented as a first-party payment flow outside the app store.
-  const ENABLED_APP_STORE_APPS = new Set(["googlecalendar"]);
-
   fs.readdirSync(`${APP_STORE_PATH}`).forEach((dir) => {
-    if (dir === "templates") {
+    if (dir === "ee" || dir === "templates") {
       fs.readdirSync(path.join(APP_STORE_PATH, dir)).forEach((subDir) => {
         if (fs.statSync(path.join(APP_STORE_PATH, dir, subDir)).isDirectory()) {
           if (getAppName(subDir)) {
@@ -69,9 +65,6 @@ function generateFiles() {
         }
       });
     } else {
-      if (!ENABLED_APP_STORE_APPS.has(dir)) {
-        return;
-      }
       if (fs.statSync(path.join(APP_STORE_PATH, dir)).isDirectory()) {
         if (!getAppName(dir)) {
           return;
