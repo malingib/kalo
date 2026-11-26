@@ -1124,6 +1124,7 @@ model Payment {
   data          Json
   externalId    String         @unique
   paymentOption PaymentOption? @default(ON_BOOKING)
+  mpesaTransaction MPesaTransaction?
 
   @@index([bookingId])
   @@index([externalId])
@@ -2869,6 +2870,8 @@ model AttributeSyncFieldMapping {
 
 model MPesaTransaction {
   id                 String   @id @default(uuid())
+  paymentId          Int?     @unique
+  payment            Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
   bookingUid         String?
   booking            Booking? @relation(fields: [bookingUid], references: [uid], onDelete: Cascade)
   phoneNumber        String
