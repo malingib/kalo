@@ -114,8 +114,8 @@ export class PaymentService implements IAbstractPaymentService {
         isSandbox: process.env.DARAJA_ENVIRONMENT !== "production",
       });
 
-      const [updatedPayment] = await prisma.$transaction([
-        prisma.payment.update({
+      return await prisma.$transaction(async (tx) => {
+        const updatedPayment = await tx.payment.update({
           where: { id: paymentRecord.id },
           data: {
             externalId: response.CheckoutRequestID,
@@ -128,17 +128,17 @@ export class PaymentService implements IAbstractPaymentService {
               customerMessage: response.CustomerMessage,
             },
           },
-        }),
-        prisma.mPesaTransaction.update({
+        });
+        await tx.mPesaTransaction.update({
           where: { id: transaction.id },
           data: {
             checkoutRequestId: response.CheckoutRequestID,
             merchantRequestId: response.MerchantRequestID,
             status: "PENDING",
           },
-        }),
-      ]);
-      return updatedPayment;
+        });
+        return updatedPayment;
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : "M-Pesa STK Push failed";
       await prisma.$transaction([
