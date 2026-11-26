@@ -5,6 +5,7 @@ import { prisma } from "@kalo/prisma";
 import type { Prisma } from "@kalo/prisma/client";
 import { BookingStatus, CreationSource } from "@kalo/prisma/enums";
 import { DarajaClient } from "../../mpesa/darajaClient";
+import { decryptMpesaSecret, encryptMpesaSecret } from "../../mpesa/credentials";
 import { normalizeKenyanPhone } from "../../mpesa/normalizePhone";
 import type { WhatsAppSessionRepository } from "./sessionStore";
 import { whatsAppSessionRepository } from "./sessionStore";
@@ -109,16 +110,35 @@ export class WhatsAppWebhookService {
     // (consumer key/secret/callback URL) too. Withhold the STK credentials when
     // the env isn't wired so the machine falls back to the honest till/paybill
     // manual-receipt path instead of promising a prompt that can never fire.
-    const darajaConfigured =
+    let decryptedPasskey: string | undefined;
+    const darajaRuntimeConfigured =
       Boolean(process.env.DARAJA_CONSUMER_KEY) &&
       Boolean(process.env.DARAJA_CONSUMER_SECRET) &&
-      Boolean(process.env.DARAJA_CALLBACK_URL);
+      Boolean(process.env.DARAJA_CALLBACK_URL) &&
+      Boolean(process.env.MPESA_CREDENTIALS_ENCRYPTION_KEY);
 
+    if (darajaRuntimeConfigured && vendor.mpesaPasskey) {
+      try {
+        const credential = decryptMpesaSecret(vendor.mpesaPasskey);
+        decryptedPasskey = credential.plaintext;
+        // Opportunistically migrate legacy plaintext credentials on first use.
+        if (!credential.encrypted) {
+          await this.db.user.update({
+            where: { id: vendor.id },
+            data: { mpesaPasskey: encryptMpesaSecret(credential.plaintext) },
+          });
+        }
+      } catch (error) {
+        console.error("Vendor M-Pesa credential could not be decrypted; STK push is disabled.", error);
+      }
+    }
+
+    const darajaConfigured = darajaRuntimeConfigured && Boolean(decryptedPasskey);
     const vendorMpesaDetails = {
       paybill: vendor.mpesaPaybill ?? undefined,
       tillNumber: vendor.mpesaTillNumber ?? undefined,
       shortcode: darajaConfigured ? (vendor.mpesaShortcode ?? undefined) : undefined,
-      passkey: darajaConfigured ? (vendor.mpesaPasskey ?? undefined) : undefined,
+      passkey: darajaConfigured ? decryptedPasskey : undefined,
     };
 
     const res = await WhatsAppStateMachine.processMessage(
@@ -153,7 +173,7 @@ export class WhatsAppWebhookService {
           consumerKey: process.env.DARAJA_CONSUMER_KEY ?? "",
           consumerSecret: process.env.DARAJA_CONSUMER_SECRET ?? "",
           businessShortCode: vendor.mpesaShortcode ?? "",
-          passkey: vendor.mpesaPasskey ?? "",
+          passkey: decryptedPasskey ?? "",
           phoneNumber: stkPushRequest.phoneNumber,
           amount: stkPushRequest.amount,
           accountReference: stkPushRequest.accountRef,
