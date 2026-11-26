@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
 
-const ENABLED_APP_SETUP_SLUGS = new Set(["googlecalendar"]);
+const ENABLED_APP_SETUP_SLUGS = new Set(["google-calendar"]);
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { slug } = ctx.params || {};
