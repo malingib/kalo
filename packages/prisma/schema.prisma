@@ -2876,6 +2876,7 @@ model MPesaTransaction {
   mpesaReceiptNumber String?  @unique
   checkoutRequestId  String?  @unique
   merchantRequestId  String?
+  source             String   @default("whatsapp-bot")
   status             String   @default("PENDING")
   resultDesc         String?
   createdAt          DateTime @default(now())
