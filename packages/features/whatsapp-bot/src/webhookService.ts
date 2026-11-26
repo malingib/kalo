@@ -201,6 +201,7 @@ export class WhatsAppWebhookService {
                 amount: stkPushRequest.amount,
                 checkoutRequestId,
                 merchantRequestId,
+                source: "whatsapp-bot",
                 status: "PENDING",
                 ...(booking ? { bookingUid: booking.uid } : {}),
               },
@@ -222,6 +223,7 @@ export class WhatsAppWebhookService {
                 amount: stkPushRequest.amount,
                 checkoutRequestId,
                 merchantRequestId,
+                source: "whatsapp-bot",
                 status: "PENDING",
               },
             });
