@@ -14,6 +14,7 @@ import { cn } from "../../src/lib/utils";
 import { useAtomsEventTypePaymentInfo } from "../hooks/useAtomEventTypePaymentInfo";
 
 const StripePaymentForm = React.lazy(() => import("./StripePaymentForm"));
+const MPesaPaymentForm = React.lazy(() => import("./MPesaPaymentForm"));
 
 export const PaymentForm = ({
   paymentUid,
@@ -109,6 +110,9 @@ export const PaymentForm = ({
                     <div>
                       {paymentInfo.payment.success && !paymentInfo.payment.refunded && (
                         <div className="mt-4 text-center text-default dark:text-gray-300">{t("paid")}</div>
+                      )}
+                      {paymentInfo.payment.appId === "mpesa" && !paymentInfo.payment.success && (
+                        <MPesaPaymentForm booking={paymentInfo.booking} payment={paymentInfo.payment} />
                       )}
                       {paymentInfo.payment.appId === "stripe" && !paymentInfo.payment.success && (
                         <StripePaymentForm
