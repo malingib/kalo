@@ -21,6 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!booking) return res.status(404).json({ message: "Booking not found" });
   const payment = booking.payment[0];
   const data = payment?.data && typeof payment.data === "object" ? payment.data as Record<string, unknown> : {};
-  const status = payment?.success || booking.paid ? "SUCCESS" : data.status === "FAILED" ? "FAILED" : "PENDING";
+  const status = payment?.success ? "SUCCESS" : data.status === "FAILED" ? "FAILED" : "PENDING";
   return res.status(200).json({ status });
 }
