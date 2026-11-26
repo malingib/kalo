@@ -10,7 +10,7 @@ import type { CredentialFrontendPayload as Credential } from "@kalo/types/Creden
 
 // Kalo's initial marketplace exposes Google Calendar only. M-Pesa is a first-party
 // payment flow and is intentionally not registered as a marketplace app.
-export const isKaloMarketplaceApp = (slug: string) => slug === "googlecalendar";
+export const isKaloMarketplaceApp = (slug: string) => slug === "google-calendar";
 
 export type TDependencyData = {
   name?: string;
