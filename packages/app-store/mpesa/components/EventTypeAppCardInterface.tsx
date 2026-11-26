@@ -8,7 +8,7 @@ import useIsAppEnabled from "../../_utils/useIsAppEnabled";
 import type { appDataSchema } from "../zod";
 import EventTypeAppSettingsInterface from "./EventTypeAppSettingsInterface";
 
-const EventTypeAppCard: EventTypeAppCardComponent = ({ app, eventType, eventTypeFormMetadata, onAppInstallSuccess }) => {
+const EventTypeAppCard: EventTypeAppCardComponent = ({ app, eventType, onAppInstallSuccess }) => {
   const { t } = useLocale();
   const pathname = usePathname();
   const { getAppData, setAppData, disabled } = useAppContextWithSchema<typeof appDataSchema>();
