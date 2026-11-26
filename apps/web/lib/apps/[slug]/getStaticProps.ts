@@ -4,7 +4,7 @@ import path from "node:path";
 import yaml from "js-yaml";
 import { z } from "zod";
 
-import { getAppWithMetadata } from "@kalo/app-store/_appRegistry";
+import { getAppWithMetadata, isKaloMarketplaceApp } from "@kalo/app-store/_appRegistry";
 import { getAppAssetFullPath } from "@kalo/app-store/getAppAssetFullPath";
 import { IS_PRODUCTION } from "@kalo/lib/constants";
 import { prisma } from "@kalo/prisma";
@@ -67,6 +67,8 @@ export const sourceSchema = z.object({
 export type AppDataProps = NonNullable<Awaited<ReturnType<typeof getStaticProps>>>;
 
 export const getStaticProps = async (slug: string) => {
+  if (!isKaloMarketplaceApp(slug)) return null;
+
   const appMeta = await getAppWithMetadata({
     slug,
   });
