@@ -88,6 +88,43 @@ describe("M-Pesa callback", () => {
     (mockPrisma.whatsAppSession.findUnique as Mock).mockResolvedValue(null);
   });
 
+  it("does not run WhatsApp side-effects for a generic M-Pesa transaction", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      source: "platform",
+      bookingUid: null,
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.whatsAppMessageLog.create).not.toHaveBeenCalled();
+    expect(mockPrisma.whatsAppSession.findUnique).not.toHaveBeenCalled();
+    expect(mockPrisma.whatsAppSession.upsert).not.toHaveBeenCalled();
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ status: "SUCCESS" }) })
+    );
+  });
+
   it("cancels a linked PENDING booking when the payment fails, idempotently", async () => {
     const res = createRes();
     await handler(
