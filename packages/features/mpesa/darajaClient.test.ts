@@ -154,6 +154,43 @@ describe("DarajaClient.initiateStkPush", () => {
     await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(/DS timeout/);
   });
 
+  it("times out a Daraja request instead of hanging indefinitely", async () => {
+    vi.useFakeTimers();
+    fetchMock.mockImplementationOnce(
+      (_url: string, init: RequestInit) =>
+        new Promise((_resolve, reject) => {
+          init.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+        })
+    );
+
+    const request = DarajaClient.initiateStkPush(baseOptions);
+    await vi.advanceTimersByTimeAsync(15_000);
+
+    await expect(request).rejects.toThrow("M-Pesa request timed out");
+  });
+
+  it("rejects an OAuth response without an access token", async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: async () => ({ expires_in: "3599" }),
+    });
+
+    await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(
+      "M-Pesa auth response did not contain an access token"
+    );
+  });
+
+  it("rejects an incomplete successful STK response", async () => {
+    fetchMock.mockResolvedValueOnce(tokenResponse()).mockResolvedValueOnce(
+      stkResponse({ CheckoutRequestID: undefined })
+    );
+
+    await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(
+      "M-Pesa STK Push response is missing required fields"
+    );
+  });
+
   it("returns the Daraja response on success", async () => {
     fetchMock.mockResolvedValueOnce(tokenResponse()).mockResolvedValueOnce(stkResponse());
 
