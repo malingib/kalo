@@ -33,7 +33,6 @@ export default function PlatformSettingsPage() {
     const settings = settingsQuery.data;
     if (!settings) return;
     setFee(settings.platformFeePercent);
-    setIsSandbox(true);
     setRequireApproval(settings.requireVendorApproval);
     setCentralWaEnabled(settings.centralWhatsappEnabled);
     setCentralWaPhone(settings.centralWhatsappPhone ?? "");
