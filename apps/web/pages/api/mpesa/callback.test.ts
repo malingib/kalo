@@ -44,6 +44,7 @@ const PENDING_TX = {
   amount: 500,
   checkoutRequestId: "ws_CO_123",
   merchantRequestId: "m-1",
+  source: "whatsapp-bot",
   status: "PENDING",
 };
 
