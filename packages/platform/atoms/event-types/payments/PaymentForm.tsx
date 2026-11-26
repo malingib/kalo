@@ -8,12 +8,11 @@ import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { isBrowserLocale24h } from "@kalo/lib/timeFormat";
 import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
 import { localStorage } from "@kalo/lib/webstorage";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { AtomsWrapper } from "../../src/components/atoms-wrapper";
 import { cn } from "../../src/lib/utils";
 import { useAtomsEventTypePaymentInfo } from "../hooks/useAtomEventTypePaymentInfo";
 
-const StripePaymentForm = React.lazy(() => import("./StripePaymentForm"));
 const MPesaPaymentForm = React.lazy(() => import("./MPesaPaymentForm"));
 
 export const PaymentForm = ({
@@ -114,19 +113,7 @@ export const PaymentForm = ({
                       {paymentInfo.payment.appId === "mpesa" && !paymentInfo.payment.success && (
                         <MPesaPaymentForm booking={paymentInfo.booking} payment={paymentInfo.payment} />
                       )}
-                      {paymentInfo.payment.appId === "stripe" && !paymentInfo.payment.success && (
-                        <StripePaymentForm
-                          clientSecret={paymentInfo.clientSecret}
-                          payment={paymentInfo.payment}
-                          eventType={paymentInfo.eventType}
-                          user={paymentInfo.user}
-                          location={paymentInfo.booking.location}
-                          booking={paymentInfo.booking}
-                          uid={paymentUid}
-                          onPaymentSuccess={onPaymentSuccess}
-                          onPaymentCancellation={onPaymentCancellation}
-                        />
-                      )}
+
                       {paymentInfo.payment.refunded && (
                         <div className="mt-4 text-center text-default dark:text-gray-300">
                           {t("refunded")}
