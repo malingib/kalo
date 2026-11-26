@@ -407,7 +407,7 @@ model TravelSchedule {
 // It holds Personal Profiles of a User plus it has email, password and other core things..
 model User {
   id                  Int                  @id @default(autoincrement())
-  uuid                String               @unique @default(uuid()) @db.Uuid
+  uuid                String               @unique @default(uuid()) @db.Uuid /// @zod.custom.use(z.string().uuid())
   username            String?
   name                String?
   /// @zod.import(["import { emailSchema } from '../../zod-utils'"]).custom.use(emailSchema)
