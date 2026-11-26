@@ -73,6 +73,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (existingTx) {
+      // A successful Daraja result is not sufficient by itself: require the
+      // complete receipt metadata and reconcile it against the original STK
+      // request before any booking, receipt, or notification side-effects.
+      if (success) {
+        const normalizedCallbackPhone = normalizeKenyanPhone(phoneNumber);
+        const normalizedRecordedPhone = normalizeKenyanPhone(existingTx.phoneNumber);
+        const metadataIsComplete =
+          Number.isFinite(amount) && amount > 0 && Boolean(mpesaReceiptNumber) && Boolean(normalizedCallbackPhone);
+        const amountMatches = amount === existingTx.amount;
+        const phoneMatches =
+          Boolean(normalizedCallbackPhone) &&
+          Boolean(normalizedRecordedPhone) &&
+          normalizedCallbackPhone === normalizedRecordedPhone;
+
+        if (!metadataIsComplete || !amountMatches || !phoneMatches) {
+          const reasons = [
+            !metadataIsComplete ? "incomplete success metadata" : null,
+            !amountMatches ? "amount mismatch" : null,
+            !phoneMatches ? "phone mismatch" : null,
+          ].filter(Boolean);
+          await prisma.mPesaTransaction.update({
+            where: { id: existingTx.id },
+            data: {
+              status: "RECONCILIATION_REQUIRED",
+              resultDesc: `Daraja success requires manual reconciliation: ${reasons.join(", ")}`,
+            },
+          });
+          console.error(
+            `M-Pesa callback requires reconciliation for ${CheckoutRequestID}: ${reasons.join(", ")}`
+          );
+          return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback received; payment pending reconciliation" });
+        }
+      }
       // The callback's phone metadata is Daraja-supplied but unverified. When it
       // contradicts the phone we recorded when initiating the push, prefer the
       // recorded one (and flag it) so a forged callback can't resolve a
