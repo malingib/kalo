@@ -5,7 +5,6 @@ import { CalUnifiedCalendarsModule } from "@/modules/cal-unified-calendars/cal-u
 import { ConferencingModule } from "@/modules/conferencing/conferencing.module";
 import { DestinationCalendarsModule } from "@/modules/destination-calendars/destination-calendars.module";
 import { OAuthClientModule } from "@/modules/oauth-clients/oauth-client.module";
-import { StripeModule } from "@/modules/stripe/stripe.module";
 import { TimezoneModule } from "@/modules/timezones/timezones.module";
 import { VerifiedResourcesModule } from "@/modules/verified-resources/verified-resources.module";
 import type { MiddlewareConsumer, NestModule } from "@nestjs/common";
@@ -24,7 +23,6 @@ import { WebhooksModule } from "./webhooks/webhooks.module";
     WebhooksModule,
     DestinationCalendarsModule,
     AtomsModule,
-    StripeModule,
     ConferencingModule,
     CalUnifiedCalendarsModule,
     VerifiedResourcesModule,
