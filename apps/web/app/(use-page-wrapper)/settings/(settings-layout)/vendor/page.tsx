@@ -64,10 +64,10 @@ export default function VendorProfileSettingsPage() {
     setGreeting(profile.whatsappGreeting ?? "");
     setOfflineMsg(profile.whatsappOfflineMessage ?? "");
     setAutoConfirm(profile.whatsappAutoConfirm);
-    setFaqs((profile.whatsappFaqJson as Faq[] | null) ?? []);
+    setFaqs((profile.whatsappFaqJson as unknown as Faq[] | null) ?? []);
     if (profile.operatingHoursJson) {
       setHours(DAYS.map((day) => {
-        const savedDay = (profile.operatingHoursJson as Day[]).find((item) => item.day === day.day);
+        const savedDay = (profile.operatingHoursJson as unknown as Day[]).find((item) => item.day === day.day);
         return savedDay ? { ...day, ...savedDay } : day;
       }));
     }
