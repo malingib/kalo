@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { trpc } from "@kalo/trpc/react";
 
 interface SubscriptionPlan {
   slug: string;
@@ -16,17 +17,39 @@ const DEFAULT_PLANS: SubscriptionPlan[] = [
 ];
 
 export default function PlatformSettingsPage() {
+  const utils = trpc.useUtils();
+  const settingsQuery = trpc.viewer.admin.getPlatformSettings.useQuery({});
+  const saveSettings = trpc.viewer.admin.updatePlatformSettings.useMutation({
+    onSuccess: async () => {
+      await utils.viewer.admin.getPlatformSettings.invalidate();
+    },
+  });
   const [fee, setFee] = useState(3);
   const [requireApproval, setRequireApproval] = useState(true);
   const [centralWaEnabled, setCentralWaEnabled] = useState(false);
   const [centralWaPhone, setCentralWaPhone] = useState("");
   const [plans, setPlans] = useState<SubscriptionPlan[]>(DEFAULT_PLANS);
-  const [saved, setSaved] = useState(false);
+  useEffect(() => {
+    const settings = settingsQuery.data;
+    if (!settings) return;
+    setFee(settings.platformFeePercent);
+    setIsSandbox(true);
+    setRequireApproval(settings.requireVendorApproval);
+    setCentralWaEnabled(settings.centralWhatsappEnabled);
+    setCentralWaPhone(settings.centralWhatsappPhone ?? "");
+    setPlans((settings.subscriptionPlans as unknown as SubscriptionPlan[] | null) ?? DEFAULT_PLANS);
+  }, [settingsQuery.data]);
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    saveSettings.mutate({
+      platformFeePercent: fee,
+      platformFeeCurrency: "KES",
+      subscriptionPlans: plans,
+      requireVendorApproval: requireApproval,
+      centralWhatsappEnabled: centralWaEnabled,
+      centralWhatsappPhone: centralWaPhone.trim() || null,
+    });
   };
 
   return (
@@ -38,11 +61,10 @@ export default function PlatformSettingsPage() {
         </p>
       </div>
 
-      {saved && (
-        <div className="p-4 rounded-lg bg-green-50 text-green-800 border border-green-200">
-          ✅ Platform settings saved.
-        </div>
-      )}
+      {settingsQuery.isLoading && <p className="text-sm text-gray-500">Loading platform settings…</p>}
+      {settingsQuery.isError && <p role="alert" className="text-sm text-red-600">Could not load platform settings.</p>}
+      {saveSettings.isSuccess && <p role="status" className="rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">Platform settings saved.</p>}
+      {saveSettings.isError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{saveSettings.error.message}</p>}
 
       <form onSubmit={handleSave} className="space-y-8">
         {/* ── Monetisation ───────────────────────────────── */}
@@ -192,9 +214,10 @@ export default function PlatformSettingsPage() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition"
+            disabled={settingsQuery.isLoading || settingsQuery.isError || saveSettings.isPending}
+            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Save Platform Settings
+            {saveSettings.isPending ? "Saving…" : "Save Platform Settings"}
           </button>
         </div>
       </form>
