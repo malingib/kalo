@@ -5,6 +5,7 @@ on:
     branches:
       - security/dependency-remediation
       - security/kalo-audit-remediation
+      - chore/integration-prune-2026-11-26
 
 permissions:
   contents: write
