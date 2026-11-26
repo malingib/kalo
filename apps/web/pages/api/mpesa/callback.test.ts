@@ -10,6 +10,9 @@ const { mockPrisma } = vi.hoisted(() => ({
       findFirst: vi.fn(),
       update: vi.fn(),
     },
+    payment: {
+      update: vi.fn(),
+    },
     booking: {
       findFirst: vi.fn(),
       update: vi.fn(),
@@ -74,6 +77,7 @@ describe("M-Pesa callback", () => {
     );
     (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue(PENDING_TX);
     (mockPrisma.mPesaTransaction.update as Mock).mockResolvedValue(PENDING_TX);
+    (mockPrisma.payment.update as Mock).mockResolvedValue({ id: 99, success: true });
     (mockPrisma.booking.updateMany as Mock).mockResolvedValue({ count: 1 });
     (mockPrisma.booking.findFirst as Mock).mockResolvedValue({
       uid: "booking-1",
@@ -86,6 +90,48 @@ describe("M-Pesa callback", () => {
     (mockPrisma.alert.create as Mock).mockResolvedValue({ id: "a-1" });
     (mockPrisma.whatsAppMessageLog.create as Mock).mockResolvedValue({ id: "l-1" });
     (mockPrisma.whatsAppSession.findUnique as Mock).mockResolvedValue(null);
+  });
+
+  it("marks the linked KALO payment successful only after a verified Daraja callback", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      source: "booking-payment",
+      paymentId: 99,
+    });
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+    expect(res._status).toBe(200);
+    expect(mockPrisma.payment.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 99 },
+        data: expect.objectContaining({
+          success: true,
+          data: expect.objectContaining({
+            provider: "mpesa",
+            status: "SUCCESS",
+            mpesaReceiptNumber: "RCD9876543",
+          }),
+        }),
+      })
+    );
   });
 
   it("does not run WhatsApp side-effects for a generic M-Pesa transaction", async () => {
