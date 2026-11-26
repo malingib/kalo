@@ -17,15 +17,9 @@ const DEFAULT_PLANS: SubscriptionPlan[] = [
 
 export default function PlatformSettingsPage() {
   const [fee, setFee] = useState(3);
-  const [isSandbox, setIsSandbox] = useState(true);
   const [requireApproval, setRequireApproval] = useState(true);
   const [centralWaEnabled, setCentralWaEnabled] = useState(false);
   const [centralWaPhone, setCentralWaPhone] = useState("");
-  const [darajaKey, setDarajaKey] = useState("");
-  const [darajaSecret, setDarajaSecret] = useState("");
-  const [darajaShortcode, setDarajaShortcode] = useState("");
-  const [darajaPasskey, setDarajaPasskey] = useState("");
-  const [darajaCallbackUrl, setDarajaCallbackUrl] = useState("");
   const [plans, setPlans] = useState<SubscriptionPlan[]>(DEFAULT_PLANS);
   const [saved, setSaved] = useState(false);
 
@@ -140,54 +134,25 @@ export default function PlatformSettingsPage() {
         </section>
 
         {/* ── Master Daraja (Platform M-Pesa) ───────────── */}
-        <section className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow p-6 space-y-4">
+        <section className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow p-6 space-y-3">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            💚 Master M-Pesa / Safaricom Daraja Credentials
+            💚 Master M-Pesa / Safaricom Daraja
           </h2>
-          <p className="text-xs text-gray-500">
-            Used by the platform for centralised STK Push and automated vendor payouts. Individual Pro vendors can
-            override with their own credentials.
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Daraja is configured through server-side deployment environment variables, not this browser form.
+            Credentials are never returned by the settings API or stored in platform settings.
           </p>
-
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isSandbox}
-              onChange={(e) => setIsSandbox(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-black focus:ring-0"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Use Daraja Sandbox (test mode)</span>
-          </label>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { label: "Consumer Key", value: darajaKey, onChange: setDarajaKey },
-              { label: "Consumer Secret", value: darajaSecret, onChange: setDarajaSecret },
-              { label: "Business Shortcode", value: darajaShortcode, onChange: setDarajaShortcode },
-              { label: "Passkey", value: darajaPasskey, onChange: setDarajaPasskey },
-            ].map(({ label, value, onChange }) => (
-              <div key={label}>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-                <input
-                  type="password"
-                  value={value}
-                  onChange={(e) => onChange(e.target.value)}
-                  placeholder={`Platform ${label}`}
-                  className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                />
-              </div>
-            ))}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Callback URL</label>
-              <input
-                type="url"
-                value={darajaCallbackUrl}
-                onChange={(e) => setDarajaCallbackUrl(e.target.value)}
-                placeholder="https://yourdomain.com/api/mpesa/callback"
-                className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-          </div>
+          <ul className="list-disc pl-5 text-xs text-gray-500 dark:text-gray-400 space-y-1">
+            <li>DARAJA_CONSUMER_KEY</li>
+            <li>DARAJA_CONSUMER_SECRET</li>
+            <li>DARAJA_CALLBACK_URL</li>
+            <li>DARAJA_CALLBACK_SECRET</li>
+            <li>DARAJA_ENVIRONMENT (sandbox or production)</li>
+          </ul>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            STK Push remains unavailable until the production credentials, callback URL, and payment reconciliation
+            are configured and verified.
+          </p>
         </section>
 
         {/* ── Central WhatsApp Gateway ───────────────────── */}
