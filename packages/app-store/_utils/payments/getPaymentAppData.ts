@@ -1,3 +1,5 @@
+import type { z } from "zod";
+
 import type { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 import type { appDataSchemas } from "../../apps.schemas.generated";
