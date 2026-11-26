@@ -25,11 +25,7 @@ export const ZUpsertVendorProfileSchema = z.object({
   mpesaPaybill: z.string().max(10).optional().nullable(),
   mpesaAccountName: z.string().max(50).optional().nullable(),
   mpesaPayoutPhone: z.string().max(15).optional().nullable(),
-  // Own Daraja keys (only for Pro plan vendors)
-  darajaConsumerKey: z.string().optional().nullable(),
-  darajaConsumerSecret: z.string().optional().nullable(),
-  darajaShortcode: z.string().optional().nullable(),
-  darajaPasskey: z.string().optional().nullable(),
+  // Daraja credentials are platform-managed until encrypted tenant credential storage is available.
 
   // WhatsApp Automation
   whatsappEnabled: z.boolean().optional(),
