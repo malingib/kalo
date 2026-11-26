@@ -260,11 +260,14 @@ describe("M-Pesa callback", () => {
       res
     );
 
-    // The receipt + session resolution must use the recorded phone, not the
-    // mismatched callback phone.
-    expect(mockPrisma.receipt.create).toHaveBeenCalledWith(
+    // A callback phone that differs from the original STK destination is
+    // not accepted as proof of payment; do not issue a receipt or confirm.
+    expect(res._status).toBe(200);
+    expect(mockPrisma.receipt.create).not.toHaveBeenCalled();
+    expect(mockPrisma.booking.update).not.toHaveBeenCalled();
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ customerPhone: "254712345678" }),
+        data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
       })
     );
   });
@@ -378,7 +381,13 @@ describe("M-Pesa callback", () => {
               CheckoutRequestID: "ws_CO_123",
               ResultCode: 0,
               ResultDesc: "Success",
-              CallbackMetadata: { Item: [{ Name: "Amount", Value: 500 }] },
+              CallbackMetadata: {
+                Item: [
+                  { Name: "Amount", Value: 500 },
+                  { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                  { Name: "PhoneNumber", Value: "254712345678" },
+                ],
+              },
             },
           },
         },
