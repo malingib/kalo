@@ -207,11 +207,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         }
 
-        // Resolve the WhatsApp bot conversation server-side for ANY successful
-        // payment: mark the customer's session paymentVerified so WAITING_MPESA_STK
-        // resolves to CONFIRMED on the next message, independent of the customer's
-        // word. This runs even when no booking is linked yet (the WhatsApp bot flow
-        // records transactions before a booking exists). It lives inside the same
+        // Resolve only WhatsApp-originated conversations server-side. Generic
+        // M-Pesa transactions must not mutate a WhatsApp session. This runs even
+        // when no booking is linked yet (the WhatsApp bot flow records transactions
+        // before a booking exists). It lives inside the same
         // transaction, bound to the tx client — so a rollback also rolls the
         // session write back, and a committed tx guarantees the session write
         // happened (Daraja's retry won't skip it after seeing status SUCCESS).
