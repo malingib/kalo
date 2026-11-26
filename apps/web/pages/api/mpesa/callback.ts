@@ -91,9 +91,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Daraja retries callbacks until it receives HTTP 200. Only run the payment
       // side-effects (receipt, alerts, WhatsApp logs, session resolution) the first
       // time we observe the transaction — otherwise retries duplicate receipts.
+      const isWhatsAppPayment = existingTx.source === "whatsapp-bot";
       const isNewOutcome = existingTx.status !== "SUCCESS";
 
-      // Booking + receipt + alert + log + session resolution + status flip are
+      // Booking + receipt + alert + optional WhatsApp side-effects + status flip are
       // atomic in one transaction: either they all succeed or none do. This keeps
       // Daraja's callback retries idempotent — a mid-block throw rolls everything
       // back, the status stays PENDING, and the retry re-runs cleanly instead of
@@ -162,7 +163,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 totalAmount: amount || existingTx.amount,
                 mpesaReceiptNumber: mpesaReceiptNumber || null,
                 paymentMethod: "M-Pesa",
-                sentViaWhatsapp: true,
+                sentViaWhatsapp: isWhatsAppPayment,
               },
             });
 
@@ -184,21 +185,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
               });
 
-              // 4. Log WhatsApp confirmation message to customer log
-              await tx.whatsAppMessageLog.create({
-                data: {
-                  userId: updatedBooking.userId,
-                  customerPhone,
-                  direction: "OUTBOUND",
-                  message:
-                    `✅ *M-Pesa Payment Received!*\n\n` +
-                    `Receipt No: *${receipt.receiptNumber}*\n` +
-                    `M-Pesa Ref: *${mpesaReceiptNumber}*\n` +
-                    `Amount Paid: *KES ${(amount || existingTx.amount).toLocaleString()}*\n\n` +
-                    `Your booking for *${updatedBooking.title}* is now CONFIRMED. Thank you!`,
-                  state: "CONFIRMED",
-                },
-              });
+              // WhatsApp-specific customer log; generic M-Pesa payments do not create bot messages.
+              if (isWhatsAppPayment) {
+                await tx.whatsAppMessageLog.create({
+                  data: {
+                    userId: updatedBooking.userId,
+                    customerPhone,
+                    direction: "OUTBOUND",
+                    message:
+                      `✅ *M-Pesa Payment Received!*\n\n` +
+                      `Receipt No: *${receipt.receiptNumber}*\n` +
+                      `M-Pesa Ref: *${mpesaReceiptNumber}*\n` +
+                      `Amount Paid: *KES ${(amount || existingTx.amount).toLocaleString()}*\n\n` +
+                      `Your booking for *${updatedBooking.title}* is now CONFIRMED. Thank you!`,
+                    state: "CONFIRMED",
+                  },
+                });
+              }
+
             }
           }
         }
@@ -211,7 +215,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // transaction, bound to the tx client — so a rollback also rolls the
         // session write back, and a committed tx guarantees the session write
         // happened (Daraja's retry won't skip it after seeing status SUCCESS).
-        if (success && isNewOutcome) {
+        if (isWhatsAppPayment && success && isNewOutcome) {
           if (customerPhone) {
             const txSessionRepository = new WhatsAppSessionRepository({ prismaClient: tx });
             for (const candidate of sessionPhoneCandidates(customerPhone)) {
@@ -276,7 +280,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // meaning a rebooked conversation's fresh session is never clobbered by a
         // stale failure callback. Runs even without a linked booking (the STK
         // resilience fallback records transactions without one).
-        if (!success && existingTx.status === "PENDING" && customerPhone) {
+        if (isWhatsAppPayment && !success && existingTx.status === "PENDING" && customerPhone) {
           const txSessionRepository = new WhatsAppSessionRepository({ prismaClient: tx });
           for (const candidate of sessionPhoneCandidates(customerPhone)) {
             const updated = await txSessionRepository.markPaymentFailed(candidate);
