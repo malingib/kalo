@@ -81,7 +81,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const normalizedRecordedPhone = normalizeKenyanPhone(existingTx.phoneNumber);
         const metadataIsComplete =
           Number.isFinite(amount) && amount > 0 && Boolean(mpesaReceiptNumber) && Boolean(normalizedCallbackPhone);
-        const amountMatches = amount === existingTx.amount;
+        // Daraja STK accepts whole KES amounts; the client rounds up when
+        // initiating the request, so reconcile against that exact submitted value.
+        const amountMatches = amount === Math.ceil(existingTx.amount);
         const phoneMatches =
           Boolean(normalizedCallbackPhone) &&
           Boolean(normalizedRecordedPhone) &&
