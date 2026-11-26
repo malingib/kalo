@@ -2972,11 +2972,7 @@ model VendorProfile {
   mpesaPaybill         String?
   mpesaAccountName     String? // Name shown to customer when paying
   mpesaPayoutPhone     String? // Vendor's M-Pesa number for receiving payouts
-  // Daraja keys: only set if vendor uses own STK Push (Pro plan)
-  darajaConsumerKey    String?
-  darajaConsumerSecret String?
-  darajaShortcode      String?
-  darajaPasskey        String?
+  // Daraja credentials are managed centrally by the platform, never stored on vendor profiles.
 
   // WhatsApp Automation Config
   whatsappEnabled        Boolean @default(false)
