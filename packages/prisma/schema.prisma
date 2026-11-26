@@ -2924,13 +2924,7 @@ model PlatformSettings {
   // e.g. [{ "slug": "basic", "maxServices": 3, "feePercent": 5 }, ...]
   subscriptionPlans Json?
 
-  // Master Safaricom Daraja credentials (platform-level STK Push)
-  darajaConsumerKey    String?
-  darajaConsumerSecret String?
-  darajaShortcode      String?
-  darajaPasskey        String?
-  darajaCallbackUrl    String?
-  darajaIsSandbox      Boolean @default(true)
+  // Daraja credentials and callback configuration are supplied as server-only environment variables.
 
   // Central WhatsApp Gateway (shared vendor discovery line)
   centralWhatsappPhone   String?
