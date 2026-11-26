@@ -322,6 +322,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         }
 
+        // Link verified Daraja outcomes to the first-party booking payment.
+        // The update is in the same DB transaction as booking confirmation and
+        // receipt creation, so retries cannot leave the payment and booking split.
+        if (existingTx.paymentId) {
+          await tx.payment.update({
+            where: { id: existingTx.paymentId },
+            data: {
+              success,
+              data: {
+                provider: "mpesa",
+                status: success ? "SUCCESS" : "FAILED",
+                checkoutRequestId: CheckoutRequestID,
+                merchantRequestId: existingTx.merchantRequestId,
+                mpesaReceiptNumber: mpesaReceiptNumber || null,
+                phoneNumber: existingTx.phoneNumber,
+                amount: success ? amount : existingTx.amount,
+                resultDesc: ResultDesc,
+                ...(success ? { paidAt: new Date().toISOString() } : {}),
+              },
+            },
+          });
+        }
+
         // Update the transaction outcome inside the same transaction, so a throw
         // above rolls back and the status stays PENDING for the retry.
         await tx.mPesaTransaction.update({
