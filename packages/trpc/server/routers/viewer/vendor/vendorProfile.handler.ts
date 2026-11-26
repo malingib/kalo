@@ -67,10 +67,6 @@ export const upsertVendorProfileHandler = async ({ ctx, input }: UpsertOpts) => 
     ...(input.mpesaPaybill !== undefined && { mpesaPaybill: input.mpesaPaybill }),
     ...(input.mpesaAccountName !== undefined && { mpesaAccountName: input.mpesaAccountName }),
     ...(input.mpesaPayoutPhone !== undefined && { mpesaPayoutPhone: input.mpesaPayoutPhone }),
-    ...(input.darajaConsumerKey !== undefined && { darajaConsumerKey: input.darajaConsumerKey }),
-    ...(input.darajaConsumerSecret !== undefined && { darajaConsumerSecret: input.darajaConsumerSecret }),
-    ...(input.darajaShortcode !== undefined && { darajaShortcode: input.darajaShortcode }),
-    ...(input.darajaPasskey !== undefined && { darajaPasskey: input.darajaPasskey }),
     ...(input.whatsappEnabled !== undefined && { whatsappEnabled: input.whatsappEnabled }),
     ...(input.whatsappGreeting !== undefined && { whatsappGreeting: input.whatsappGreeting }),
     ...(input.whatsappFaqJson !== undefined && {
