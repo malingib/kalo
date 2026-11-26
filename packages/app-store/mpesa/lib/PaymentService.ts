@@ -18,8 +18,8 @@ const requiredEnv = (name: string): string => {
 
 const getCallbackUrl = () => {
   const callbackUrl = new URL(requiredEnv("DARAJA_CALLBACK_URL"));
-  const secret = process.env.DARAJA_CALLBACK_SECRET;
-  if (secret) callbackUrl.searchParams.set("secret", secret);
+  const secret = requiredEnv("DARAJA_CALLBACK_SECRET");
+  callbackUrl.searchParams.set("secret", secret);
   return callbackUrl.toString();
 };
 
@@ -209,6 +209,7 @@ export class PaymentService implements IAbstractPaymentService {
       process.env.DARAJA_CONSUMER_KEY &&
         process.env.DARAJA_CONSUMER_SECRET &&
         process.env.DARAJA_CALLBACK_URL &&
+        process.env.DARAJA_CALLBACK_SECRET &&
         process.env.MPESA_CREDENTIALS_ENCRYPTION_KEY
     );
   }
