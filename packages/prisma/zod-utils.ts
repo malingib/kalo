@@ -1,15 +1,7 @@
 import type { UnitTypeLongPlural } from "dayjs";
 import type { TFunction } from "i18next";
-import type {
-  AnyZodObject,
-  objectInputType,
-  objectOutputType,
-  ZodNullableDef,
-  ZodOptionalDef,
-  ZodRawShape,
-  ZodTypeAny,
-} from "zod";
-import z, { ZodNullable, ZodObject, ZodOptional } from "zod";
+import type { ZodRawShape } from "zod";
+import z from "zod";
 import type { Prisma } from "./client";
 import { EventTypeCustomInputType } from "./enums";
 
@@ -546,40 +538,32 @@ export const DeploymentTheme = z
   })
   .optional();
 
-export type ZodDenullish<T extends ZodTypeAny> = T extends ZodNullable<infer U> | ZodOptional<infer U>
+export type ZodDenullish<T extends z.ZodType> = T extends z.ZodNullable<infer U> | z.ZodOptional<infer U>
   ? ZodDenullish<U>
   : T;
 
 export type ZodDenullishShape<T extends ZodRawShape> = {
-  [k in keyof T]: ZodDenullish<T[k]>;
+  [K in keyof T]: ZodDenullish<T[K]>;
 };
 
-export const denullish = <T extends ZodTypeAny>(schema: T): ZodDenullish<T> =>
-  (schema instanceof ZodNullable || schema instanceof ZodOptional
-    ? denullish((schema._def as ZodNullableDef | ZodOptionalDef).innerType)
-    : schema) as ZodDenullish<T>;
-
-type UnknownKeysParam = "passthrough" | "strict" | "strip";
+export const denullish = <T extends z.ZodType>(schema: T): ZodDenullish<T> => {
+  if (schema instanceof z.ZodNullable || schema instanceof z.ZodOptional) {
+    return denullish(schema.unwrap()) as ZodDenullish<T>;
+  }
+  return schema as ZodDenullish<T>;
+};
 
 /**
- * @see https://github.com/3x071c/lsg-remix/blob/e2a9592ba3ec5103556f2cf307c32f08aeaee32d/app/lib/util/zod.ts
+ * Remove nullable and optional wrappers from each property while preserving
+ * the source object's unknown-key and catchall configuration.
  */
-export function denullishShape<
-  T extends ZodRawShape,
-  UnknownKeys extends UnknownKeysParam = "strip",
-  Catchall extends ZodTypeAny = ZodTypeAny,
-  Output = objectOutputType<T, Catchall>,
-  Input = objectInputType<T, Catchall>,
->(
-  obj: ZodObject<T, UnknownKeys, Catchall, Output, Input>
-): ZodObject<ZodDenullishShape<T>, UnknownKeys, Catchall> {
-  const a = entries(obj.shape).map(([field, schema]) => [field, denullish(schema)] as const) as {
-    [K in keyof T]: [K, ZodDenullish<T[K]>];
-  }[keyof T][];
-  return new ZodObject({
-    ...obj._def,
-    shape: () => fromEntries(a) as unknown as ZodDenullishShape<T>, // TODO: Safely assert type
-  });
+export function denullishShape<T extends ZodRawShape>(
+  obj: z.ZodObject<T>
+): z.ZodObject<ZodDenullishShape<T>> {
+  const shape = Object.fromEntries(
+    Object.entries(obj.shape).map(([key, schema]) => [key, denullish(schema as z.ZodType)])
+  ) as ZodDenullishShape<T>;
+  return obj.extend(shape) as z.ZodObject<ZodDenullishShape<T>>;
 }
 
 /**
