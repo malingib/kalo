@@ -265,7 +265,7 @@ export async function getConnectedApps({
   // Keep previously installed integrations manageable, but only expose
   // Google Calendar as a new marketplace installation.
   if (!onlyInstalled && !extendsFeature) {
-    apps = apps.filter((app) => app.slug === "googlecalendar");
+    apps = apps.filter((app) => app.slug === "google-calendar");
   }
 
   return {
