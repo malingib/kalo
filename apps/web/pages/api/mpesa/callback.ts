@@ -3,6 +3,7 @@ import process from "node:process";
 import { normalizeKenyanPhone } from "@kalo/features/mpesa/normalizePhone";
 import { WhatsAppSessionRepository } from "@kalo/features/whatsapp-bot/src/sessionStore";
 import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 import { BookingStatus } from "@kalo/prisma/enums";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -319,6 +320,71 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           for (const candidate of sessionPhoneCandidates(customerPhone)) {
             const updated = await txSessionRepository.markPaymentFailed(candidate);
             if (updated) break;
+          }
+        }
+
+        // Apply a subscription period only on the first verified callback.
+        // Daraja STK is user-authorized on every renewal; this is not a silent
+        // recurring card debit.
+        if (existingTx.subscriptionId && isNewOutcome) {
+          const subscription = await tx.mPesaSubscription.findUnique({
+            where: { id: existingTx.subscriptionId },
+          });
+          if (subscription) {
+            if (success) {
+              const now = new Date();
+              const periodStart =
+                subscription.currentPeriodEnd && subscription.currentPeriodEnd > now
+                  ? subscription.currentPeriodEnd
+                  : now;
+              const periodEnd = new Date(periodStart);
+              periodEnd.setMonth(periodEnd.getMonth() + 1);
+
+              let subscriptionStatus = "ACTIVE";
+              if (subscription.subscriptionType === "PREMIUM_USERNAME" && subscription.userId && subscription.username) {
+                const user = await tx.user.findUnique({
+                  where: { id: subscription.userId },
+                  select: { metadata: true },
+                });
+                if (user) {
+                  try {
+                    const metadata =
+                      user.metadata && typeof user.metadata === "object" && !Array.isArray(user.metadata)
+                        ? (user.metadata as Prisma.JsonObject)
+                        : {};
+                    await tx.user.update({
+                      where: { id: subscription.userId },
+                      data: {
+                        username: subscription.username,
+                        metadata: { ...metadata, isPremium: true },
+                      },
+                    });
+                  } catch {
+                    // The customer has paid; preserve the payment and route the
+                    // username collision to manual reconciliation, not a retry.
+                    subscriptionStatus = "RECONCILIATION_REQUIRED";
+                  }
+                } else {
+                  subscriptionStatus = "RECONCILIATION_REQUIRED";
+                }
+              }
+
+              await tx.mPesaSubscription.update({
+                where: { id: subscription.id },
+                data: {
+                  status: subscriptionStatus,
+                  currentPeriodStart: periodStart,
+                  currentPeriodEnd: periodEnd,
+                  nextBillingAt: periodEnd,
+                  lastPaymentAt: now,
+                },
+              });
+            } else {
+              await tx.mPesaSubscription.update({
+                where: { id: subscription.id },
+                data: { status: "PAST_DUE" },
+              });
+            }
           }
         }
 
