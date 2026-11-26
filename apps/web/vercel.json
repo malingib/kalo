@@ -1,4 +1,9 @@
 {
   "framework": "nextjs",
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/cron/mpesa-subscriptions",
+      "schedule": "0 6 * * *"
+    }
+  ]
 }
