@@ -11,7 +11,7 @@ describe("processNoShowFeeOnCancellation", () => {
     const payment = {
       id: 1,
       uid: "legacy-hold",
-      appId: "stripe",
+      appId: "legacy-payment",
       bookingId: 1,
       amount: 5000,
       fee: 0,
