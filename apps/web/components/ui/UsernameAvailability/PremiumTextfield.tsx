@@ -58,7 +58,7 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
     readonly: disabled,
   } = props;
   const [user] = trpc.viewer.me.get.useSuspenseQuery();
-  const { data: mpesaSubscription } = trpc.viewer.loggedInViewerRouter.mpesaSubscription.useQuery({
+  const { data: mpesaSubscription } = trpc.viewer.loggedInViewerRouter.mpesaSubscription.useQuery(undefined, {
     refetchInterval: 5000,
   });
   const [usernameIsAvailable, setUsernameIsAvailable] = useState(false);
