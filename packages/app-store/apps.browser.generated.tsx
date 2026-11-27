@@ -19,7 +19,6 @@ export const AppSettingsComponentsMap = {
   zapier: dynamic(() => import("./zapier/components/AppSettingsInterface")),
 };
 export const EventTypeAddonMap = {
-  mpesa: dynamic(() => import("./mpesa/components/EventTypeAppCardInterface")),
   basecamp3: dynamic(() => import("./basecamp3/components/EventTypeAppCardInterface")),
   closecom: dynamic(() => import("./closecom/components/EventTypeAppCardInterface")),
   databuddy: dynamic(() => import("./databuddy/components/EventTypeAppCardInterface")),
@@ -31,6 +30,7 @@ export const EventTypeAddonMap = {
   insihts: dynamic(() => import("./insihts/components/EventTypeAppCardInterface")),
   matomo: dynamic(() => import("./matomo/components/EventTypeAppCardInterface")),
   metapixel: dynamic(() => import("./metapixel/components/EventTypeAppCardInterface")),
+  mpesa: dynamic(() => import("./mpesa/components/EventTypeAppCardInterface")),
   "pipedrive-crm": dynamic(() => import("./pipedrive-crm/components/EventTypeAppCardInterface")),
   plausible: dynamic(() => import("./plausible/components/EventTypeAppCardInterface")),
   posthog: dynamic(() => import("./posthog/components/EventTypeAppCardInterface")),
@@ -48,7 +48,6 @@ export const EventTypeAddonMap = {
   zohocrm: dynamic(() => import("./zohocrm/components/EventTypeAppCardInterface")),
 };
 export const EventTypeSettingsMap = {
-  mpesa: dynamic(() => import("./mpesa/components/EventTypeAppSettingsInterface")),
   basecamp3: dynamic(() => import("./basecamp3/components/EventTypeAppSettingsInterface")),
   databuddy: dynamic(() => import("./databuddy/components/EventTypeAppSettingsInterface")),
   fathom: dynamic(() => import("./fathom/components/EventTypeAppSettingsInterface")),
@@ -56,6 +55,7 @@ export const EventTypeSettingsMap = {
   giphy: dynamic(() => import("./giphy/components/EventTypeAppSettingsInterface")),
   gtm: dynamic(() => import("./gtm/components/EventTypeAppSettingsInterface")),
   metapixel: dynamic(() => import("./metapixel/components/EventTypeAppSettingsInterface")),
+  mpesa: dynamic(() => import("./mpesa/components/EventTypeAppSettingsInterface")),
   plausible: dynamic(() => import("./plausible/components/EventTypeAppSettingsInterface")),
   qr_code: dynamic(() => import("./qr_code/components/EventTypeAppSettingsInterface")),
 };

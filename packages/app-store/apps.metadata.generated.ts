@@ -61,6 +61,7 @@ import metapixel_config_json from "./metapixel/config.json";
 import millis_ai_config_json from "./millis-ai/config.json";
 import mirotalk_config_json from "./mirotalk/config.json";
 import monobot_config_json from "./monobot/config.json";
+import { metadata as mpesa__metadata_ts } from "./mpesa/_metadata";
 import n8n_config_json from "./n8n/config.json";
 import nextcloudtalk_config_json from "./nextcloudtalk/config.json";
 import { metadata as office365calendar__metadata_ts } from "./office365calendar/_metadata";
@@ -108,7 +109,6 @@ import zoho_bigin_config_json from "./zoho-bigin/config.json";
 import zohocalendar_config_json from "./zohocalendar/config.json";
 import zohocrm_config_json from "./zohocrm/config.json";
 import { metadata as zoomvideo__metadata_ts } from "./zoomvideo/_metadata";
-import { metadata as mpesa__metadata_ts } from "./mpesa/_metadata";
 export const appStoreMetadata = {
   amie: amie_config_json,
   applecalendar: applecalendar__metadata_ts,
@@ -169,6 +169,7 @@ export const appStoreMetadata = {
   "millis-ai": millis_ai_config_json,
   mirotalk: mirotalk_config_json,
   monobot: monobot_config_json,
+  mpesa: mpesa__metadata_ts,
   n8n: n8n_config_json,
   nextcloudtalk: nextcloudtalk_config_json,
   office365calendar: office365calendar__metadata_ts,
@@ -216,5 +217,4 @@ export const appStoreMetadata = {
   zohocalendar: zohocalendar_config_json,
   zohocrm: zohocrm_config_json,
   zoomvideo: zoomvideo__metadata_ts,
-  mpesa: mpesa__metadata_ts,
 };

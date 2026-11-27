@@ -24,6 +24,7 @@ import { appKeysSchema as lyra_zod_ts } from "./lyra/zod";
 import { appKeysSchema as make_zod_ts } from "./make/zod";
 import { appKeysSchema as matomo_zod_ts } from "./matomo/zod";
 import { appKeysSchema as metapixel_zod_ts } from "./metapixel/zod";
+import { appKeysSchema as mpesa_zod_ts } from "./mpesa/zod";
 import { appKeysSchema as nextcloudtalk_zod_ts } from "./nextcloudtalk/zod";
 import { appKeysSchema as office365calendar_zod_ts } from "./office365calendar/zod";
 import { appKeysSchema as office365video_zod_ts } from "./office365video/zod";
@@ -46,7 +47,6 @@ import { appKeysSchema as zoho_bigin_zod_ts } from "./zoho-bigin/zod";
 import { appKeysSchema as zohocalendar_zod_ts } from "./zohocalendar/zod";
 import { appKeysSchema as zohocrm_zod_ts } from "./zohocrm/zod";
 import { appKeysSchema as zoomvideo_zod_ts } from "./zoomvideo/zod";
-import { appKeysSchema as mpesa_zod_ts } from "./mpesa/zod";
 export const appKeysSchemas = {
   basecamp3: basecamp3_zod_ts,
   closecom: closecom_zod_ts,
@@ -70,6 +70,7 @@ export const appKeysSchemas = {
   make: make_zod_ts,
   matomo: matomo_zod_ts,
   metapixel: metapixel_zod_ts,
+  mpesa: mpesa_zod_ts,
   nextcloudtalk: nextcloudtalk_zod_ts,
   office365calendar: office365calendar_zod_ts,
   office365video: office365video_zod_ts,
@@ -92,5 +93,4 @@ export const appKeysSchemas = {
   zohocalendar: zohocalendar_zod_ts,
   zohocrm: zohocrm_zod_ts,
   zoomvideo: zoomvideo_zod_ts,
-  mpesa: mpesa_zod_ts,
 };
