@@ -219,6 +219,92 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     );
   });
 
+  it("marks a first-party booking payment paid only after verified Daraja metadata", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      source: "booking-payment",
+      paymentId: 123,
+    });
+    (mockPrisma.booking.update as Mock).mockResolvedValue({
+      uid: "booking-1",
+      title: "Executive Haircut",
+      userId: 42,
+      status: BookingStatus.PENDING,
+      user: null,
+      attendees: [{ name: "Brian Otieno" }],
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.payment.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 123 },
+        data: expect.objectContaining({
+          success: true,
+          data: expect.objectContaining({
+            provider: "mpesa",
+            status: "SUCCESS",
+            checkoutRequestId: "ws_CO_123",
+            mpesaReceiptNumber: "RCD9876543",
+          }),
+        }),
+      })
+    );
+    expect(mockPrisma.booking.update).toHaveBeenCalled();
+  });
+
+  it("requires exact callback amount before confirming a booking payment", async () => {
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 499 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.booking.update).not.toHaveBeenCalled();
+    expect(mockPrisma.receipt.create).not.toHaveBeenCalled();
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
+      })
+    );
+  });
+
   it("does not run WhatsApp side-effects for a generic M-Pesa transaction", async () => {
     (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
       ...PENDING_TX,
