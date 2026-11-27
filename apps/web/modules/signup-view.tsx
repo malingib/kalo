@@ -17,7 +17,6 @@ import {
   WEBSITE_TERMS_URL,
   WEBSITE_URL,
 } from "@kalo/lib/constants";
-import { isENVDev } from "@kalo/lib/env";
 import { fetchUsername } from "@kalo/lib/fetchUsername";
 import { pushGTMEvent } from "@kalo/lib/gtm";
 import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
@@ -34,7 +33,6 @@ import { CheckboxField, Form, PasswordField, SelectField, TextField } from "@kal
 import { Icon } from "@kalo/ui/components/icon";
 import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon, ShieldCheckIcon, StarIcon } from "@coss/ui/icons";
-import { Analytics as DubAnalytics } from "@dub/analytics/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { getServerSideProps } from "@lib/signup/getServerSideProps";
 import dynamic from "next/dynamic";
@@ -42,7 +40,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { signIn } from "next-auth/react";
-import posthog from "posthog-js";
 import { useEffect, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm, useFormContext } from "react-hook-form";
@@ -234,13 +231,6 @@ export default function Signup({
   const signUp: SubmitHandler<FormValues> = async (_data) => {
     const { cfToken, ...data } = _data;
 
-    posthog.capture("signup_form_submitted", {
-      has_token: !!token,
-      is_org_invite: isOrgInviteByLink,
-      org_slug: orgSlug,
-      is_premium_username: premiumUsername,
-      username_taken: usernameTaken,
-    });
 
     try {
       const result = await fetchSignup(
@@ -305,13 +295,6 @@ export default function Signup({
         return;
       }
 
-      posthog.capture("signup_form_submit_error", {
-        has_token: !!token,
-        is_org_invite: isOrgInviteByLink,
-        org_slug: orgSlug,
-        is_premium_username: premiumUsername,
-        error_message: errorMessage,
-      });
       formMethods.setError("apiError", { message: errorMessage });
     }
   };
@@ -344,15 +327,6 @@ export default function Signup({
               />
             </>
           )}
-          <DubAnalytics
-            apiHost="/_proxy/dub"
-            cookieOptions={{
-              domain: isENVDev ? undefined : `.${new URL(WEBSITE_URL).hostname}`,
-            }}
-            domainsConfig={{
-              refer: "refer.cal.com",
-            }}
-          />
         </>
       ) : null}
       <div
@@ -611,12 +585,7 @@ export default function Signup({
                           className={classNames("w-full justify-center rounded-md text-center")}
                           data-testid="continue-with-google-button"
                           onClick={async () => {
-                            posthog.capture("signup_google_button_clicked", {
-                              has_token: !!token,
-                              is_org_invite: isOrgInviteByLink,
-                              org_slug: orgSlug,
-                              has_prepopulated_username: !!prepopulateFormValues?.username,
-                            });
+
                             setIsGoogleLoading(true);
                             const baseUrl = process.env.NEXT_PUBLIC_WEBAPP_URL;
                             const GOOGLE_AUTH_URL = `${baseUrl}/auth/sso/google`;
@@ -662,12 +631,7 @@ export default function Signup({
                           className={classNames("w-full justify-center rounded-md text-center")}
                           data-testid="continue-with-microsoft-button"
                           onClick={async () => {
-                            posthog.capture("signup_microsoft_button_clicked", {
-                              has_token: !!token,
-                              is_org_invite: isOrgInviteByLink,
-                              org_slug: orgSlug,
-                              has_prepopulated_username: !!prepopulateFormValues?.username,
-                            });
+
                             setIsMicrosoftLoading(true);
                             const baseUrl = process.env.NEXT_PUBLIC_WEBAPP_URL;
                             const MICROSOFT_AUTH_URL = `${baseUrl}/auth/sso/microsoft`;
@@ -710,11 +674,7 @@ export default function Signup({
                         disabled={isGoogleLoading || isMicrosoftLoading}
                         className={classNames("w-full justify-center rounded-md text-center")}
                         onClick={() => {
-                          posthog.capture("signup_email_button_clicked", {
-                            has_token: !!token,
-                            is_org_invite: isOrgInviteByLink,
-                            org_slug: orgSlug,
-                          });
+
                           setDisplayEmailForm(true);
                         }}
                         data-testid="continue-with-email-button">
