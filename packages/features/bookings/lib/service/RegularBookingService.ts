@@ -1718,7 +1718,7 @@ async function handler(
         rescheduledBy: reqBody.rescheduledBy,
         reqBody: {
           user: reqBody.user,
-          metadata: reqBody.metadata as Prisma.InputJsonObject,
+          metadata: reqBody.metadata,
           recurringEventId: reqBody.recurringEventId,
         },
         eventType: {
