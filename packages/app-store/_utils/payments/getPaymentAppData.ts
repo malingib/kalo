@@ -24,7 +24,7 @@ export function getPaymentAppData(
   };
   const metadataApps = eventType.metadata?.apps;
   // Older paid event types stored payment details at the event-type level and
-  // identified Stripe only implicitly. Preserve KES booking payments by routing
+  // identified a payment provider only implicitly. Preserve KES booking payments by routing
   // that legacy shape through the native M-Pesa app, but never auto-convert a
   // non-KES price or override an explicitly configured M-Pesa app.
   const legacyMpesa = !metadataApps?.mpesa
