@@ -63,12 +63,12 @@ describe("Tests for EventTypeAppCard component", () => {
     expect(setAppDataMock).toHaveBeenCalled();
   });
 
-  test("Should render DynamicComponent with 'stripepayment' slug for stripe app", () => {
+  test("Should render DynamicComponent with 'mpesa' slug for M-Pesa app", () => {
     const stripeProps = {
       ...mockProps,
       app: {
         ...mockProps.app,
-        slug: "stripe",
+        slug: "mpesa",
       },
     };
 
@@ -76,7 +76,7 @@ describe("Tests for EventTypeAppCard component", () => {
 
     expect(DynamicComponent).toHaveBeenCalledWith(
       expect.objectContaining({
-        slug: "stripepayment",
+        slug: "mpesa",
       }),
       {}
     );
