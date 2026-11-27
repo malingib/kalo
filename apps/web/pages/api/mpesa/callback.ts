@@ -143,7 +143,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           Number.isFinite(amount) && amount > 0 && Boolean(mpesaReceiptNumber) && Boolean(normalizedCallbackPhone);
         // Daraja STK accepts whole KES amounts; the client rounds up when
         // initiating the request, so reconcile against that exact submitted value.
-        const amountMatches = amount === Math.ceil(existingTx.amount);
+        const amountMatches = amount === existingTx.amount;
         const phoneMatches =
           Boolean(normalizedCallbackPhone) &&
           Boolean(normalizedRecordedPhone) &&
