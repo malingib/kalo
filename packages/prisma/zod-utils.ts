@@ -454,7 +454,7 @@ export const bookingMetadataSchema = z
     videoCallUrl: z.string().optional(),
     platformClientId: z.string().optional(),
   })
-  .and(z.record(z.string()))
+  .and(z.record(z.string(), z.string()))
   .nullable()
   .describe("BookingMetadata");
 
@@ -538,17 +538,21 @@ export const DeploymentTheme = z
   })
   .optional();
 
-export type ZodDenullish<T extends z.ZodType> = T extends z.ZodNullable<infer U> | z.ZodOptional<infer U>
+export type ZodDenullish<T extends z.ZodType> = T extends z.ZodNullable<infer U>
   ? ZodDenullish<U>
-  : T;
+  : T extends z.ZodOptional<infer U>
+    ? ZodDenullish<U>
+    : T;
 
 export type ZodDenullishShape<T extends ZodRawShape> = {
-  [K in keyof T]: ZodDenullish<T[K]>;
+  [K in keyof T]: T[K] extends z.ZodType ? ZodDenullish<T[K]> : never;
 };
 
 export const denullish = <T extends z.ZodType>(schema: T): ZodDenullish<T> => {
   if (schema instanceof z.ZodNullable || schema instanceof z.ZodOptional) {
-    return denullish(schema.unwrap()) as ZodDenullish<T>;
+    // unwrap() is a public Zod API; the cast keeps its classic-schema type
+    // instead of widening to the lower-level Zod core interface.
+    return denullish(schema.unwrap() as z.ZodType) as ZodDenullish<T>;
   }
   return schema as ZodDenullish<T>;
 };
@@ -562,8 +566,8 @@ export function denullishShape<T extends ZodRawShape>(
 ): z.ZodObject<ZodDenullishShape<T>> {
   const shape = Object.fromEntries(
     Object.entries(obj.shape).map(([key, schema]) => [key, denullish(schema as z.ZodType)])
-  ) as ZodDenullishShape<T>;
-  return obj.extend(shape) as z.ZodObject<ZodDenullishShape<T>>;
+  ) as unknown as ZodDenullishShape<T>;
+  return obj.extend(shape) as unknown as z.ZodObject<ZodDenullishShape<T>>;
 }
 
 /**
@@ -633,7 +637,7 @@ export const optionToValueSchema = <T extends z.ZodTypeAny>(valueSchema: T) =>
  * @url https://github.com/colinhacks/zod/discussions/1655#discussioncomment-4367368
  */
 export const getParserWithGeneric =
-  <T extends AnyZodObject>(valueSchema: T) =>
+  <T extends z.ZodObject>(valueSchema: T) =>
   <Data>(data: Data) => {
     type Output = z.infer<T>;
     type SimpleFormValues = string | number | null | undefined;
@@ -1016,7 +1020,7 @@ export const baseFieldSchema = z.object({
 });
 
 export const variantsConfigSchema = z.object({
-  variants: z.record(
+  variants: z.record(z.string(),
     z.object({
       /**
        * Variant Fields schema for a variant of the main field.
@@ -1074,4 +1078,4 @@ export const fieldSchema = baseFieldSchema.merge(
 );
 
 export const eventTypeBookingFields = z.array(fieldSchema);
-export const BookingFieldTypeEnum = eventTypeBookingFields.element.shape.type.Enum;
+export const BookingFieldTypeEnum = eventTypeBookingFields.element.shape.type.enum;
