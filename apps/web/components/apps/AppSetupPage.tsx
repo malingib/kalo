@@ -1,20 +1,10 @@
 import { DynamicComponent } from "@kalo/app-store/_components/DynamicComponent";
 import dynamic from "next/dynamic";
 
+// Only Google Calendar is available for new generic setup flows. M-Pesa uses
+// its dedicated payment configuration UI; legacy integrations are retired.
 export const AppSetupMap = {
-  alby: dynamic(() => import("@kalo/web/components/apps/alby/Setup")),
-  "apple-calendar": dynamic(() => import("@kalo/web/components/apps/applecalendar/Setup")),
-  exchange: dynamic(() => import("@kalo/web/components/apps/exchangecalendar/Setup")),
-  "exchange2013-calendar": dynamic(() => import("@kalo/web/components/apps/exchange2013calendar/Setup")),
-  "exchange2016-calendar": dynamic(() => import("@kalo/web/components/apps/exchange2016calendar/Setup")),
-  "caldav-calendar": dynamic(() => import("@kalo/web/components/apps/caldavcalendar/Setup")),
-  "ics-feed": dynamic(() => import("@kalo/web/components/apps/ics-feedcalendar/Setup")),
-  make: dynamic(() => import("@kalo/web/components/apps/make/Setup")),
-  sendgrid: dynamic(() => import("@kalo/web/components/apps/sendgrid/Setup")),
-  stripe: dynamic(() => import("@kalo/web/components/apps/stripepayment/Setup")),
-  paypal: dynamic(() => import("@kalo/web/components/apps/paypal/Setup")),
-  hitpay: dynamic(() => import("@kalo/web/components/apps/hitpay/Setup")),
-  btcpayserver: dynamic(() => import("@kalo/web/components/apps/btcpayserver/Setup")),
+  "google-calendar": dynamic(() => import("@kalo/web/components/apps/googlecalendar/Setup")),
 };
 
 export const AppSetupPage = (props: { slug: string }) => {
