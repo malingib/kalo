@@ -65,7 +65,7 @@ import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUn
 import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
 import { distributedTracing } from "@kalo/lib/tracing/factory";
 import type { PrismaClient } from "@kalo/prisma";
-import type { AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@kalo/prisma/client";
+import type { AppCategories, AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@kalo/prisma/client";
 import { BookingStatus, CreationSource, SchedulingType, WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { userMetadata as userMetadataSchema } from "@kalo/prisma/zod-utils";
 import type {
