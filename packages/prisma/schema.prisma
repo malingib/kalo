@@ -1892,10 +1892,8 @@ model ManagedOrganization {
 model PlatformBilling {
   id Int @id @unique // team id
 
-  customerId     String
-  subscriptionId String?
-  priceId        String?
-  plan           String  @default("none")
+  mpesaSubscriptionId String? @unique
+  plan                 String  @default("none")
 
   billingCycleStart Int?
   billingCycleEnd   Int?
@@ -2269,11 +2267,8 @@ model OrganizationOnboarding {
   bannerUrl          String?
   isDomainConfigured Boolean @default(false)
 
-  // Set when payment intent is there.
-  stripeCustomerId         String? @unique
-  // TODO: Can we make it required
-  stripeSubscriptionId     String?
-  stripeSubscriptionItemId String?
+  // Linked after the organization subscription is paid through M-Pesa.
+  mpesaSubscriptionId String? @unique
 
   /// @zod.import(["import { orgOnboardingInvitedMembersSchema } from '../../zod-utils'"]).custom.use(orgOnboardingInvitedMembersSchema)
   invitedMembers Json @default("[]")
@@ -2629,9 +2624,8 @@ model TeamBilling {
   teamId Int    @unique
   team   Team?  @relation("TeamBilling", fields: [teamId], references: [id], onDelete: Cascade)
 
-  subscriptionId       String    @unique
-  subscriptionItemId   String
-  customerId           String
+  mpesaSubscriptionId String?             @unique
+  mpesaSubscription   MPesaSubscription? @relation("TeamMpesaBilling", fields: [mpesaSubscriptionId], references: [id], onDelete: SetNull)
   status               String
   planName             String
   subscriptionStart    DateTime?
@@ -2658,9 +2652,8 @@ model OrganizationBilling {
   teamId Int    @unique
   team   Team   @relation("OrganizationBilling", fields: [teamId], references: [id], onDelete: Cascade)
 
-  subscriptionId       String    @unique
-  subscriptionItemId   String
-  customerId           String
+  mpesaSubscriptionId String?                @unique
+  mpesaSubscription   MPesaSubscription? @relation("OrganizationMpesaBilling", fields: [mpesaSubscriptionId], references: [id], onDelete: SetNull)
   status               String
   planName             String
   subscriptionStart    DateTime?
@@ -2901,10 +2894,16 @@ model MPesaSubscription {
   team               Team?    @relation(fields: [teamId], references: [id], onDelete: Cascade)
   subscriptionType   String
   planName           String
-  username           String?
-  amountKes          Int
-  phoneNumber        String
-  status             String   @default("PENDING")
+  username            String?
+  amountKes           Int
+  phoneNumber         String
+  billingPeriod       BillingPeriod?
+  billingMode         BillingMode?
+  pricePerSeat        Int?
+  paidSeats           Int?
+  status              String   @default("PENDING")
+  teamBilling         TeamBilling?        @relation("TeamMpesaBilling")
+  organizationBilling OrganizationBilling? @relation("OrganizationMpesaBilling")
   currentPeriodStart DateTime?
   currentPeriodEnd   DateTime?
   nextBillingAt      DateTime?
