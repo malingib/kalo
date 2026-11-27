@@ -397,7 +397,7 @@ function preprocess<T extends z.ZodType<Record<string, unknown>>>({
   const log = logger.getSubLogger({ prefix: ["getBookingResponsesSchema"] });
   const preprocessed = z.preprocess(
     (responses) => {
-      const parsedResponses = z.record(z.any()).nullable().parse(responses) || {};
+      const parsedResponses = z.record(z.string(), z.unknown()).nullable().parse(responses) || {};
       const newResponses = {} as typeof parsedResponses;
       // if eventType has been deleted, we won't have bookingFields and thus we can't preprocess or validate them.
       if (!bookingFields) return parsedResponses;
