@@ -5,7 +5,7 @@ import tasker from "@kalo/features/tasker";
 import { DarajaClient, decryptMpesaSecret, encryptMpesaSecret, isDarajaStkOutcomeUncertain, normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { convertFromSmallestToPresentableCurrencyUnit } from "@kalo/lib/currencyConversions";
 import prisma from "@kalo/prisma";
-import type { Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
+import type { AlertType, Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
 import type { EventTypeMetadata } from "@kalo/prisma/zod-utils";
 import type { CalendarEvent } from "@kalo/types/Calendar";
 import type { IAbstractPaymentService } from "@kalo/types/PaymentService";
@@ -51,6 +51,7 @@ export class PaymentService implements IAbstractPaymentService {
       where: { id: bookingId },
       select: {
         uid: true,
+        title: true,
         userId: true,
         user: { select: { mpesaShortcode: true, mpesaPasskey: true } },
       },
@@ -142,17 +143,33 @@ export class PaymentService implements IAbstractPaymentService {
         // Network timeouts and malformed/5xx STK responses do not prove that
         // Daraja rejected the prompt. Keep the booking visible for reconciliation
         // and block automatic re-prompts to avoid charging the customer twice.
-        const [, updatedPayment] = await prisma.$transaction([
-          prisma.mPesaTransaction.update({
+        return prisma.$transaction(async (tx) => {
+          await tx.mPesaTransaction.update({
             where: { id: transaction.id },
             data: { status: "RECONCILIATION_REQUIRED", resultDesc: message },
-          }),
-          prisma.payment.update({
+          });
+          const updatedPayment = await tx.payment.update({
             where: { id: paymentRecord.id },
             data: { data: { provider: "mpesa", phoneNumber, status: "RECONCILIATION_REQUIRED", error: message } },
-          }),
-        ]);
-        return updatedPayment;
+          });
+          if (booking.userId) {
+            await tx.alert.create({
+              data: {
+                userId: booking.userId,
+                type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                channel: "IN_APP",
+                title: "M-Pesa payment needs verification",
+                body: "The STK request returned an uncertain result. Check the Daraja portal before confirming or requesting another payment.",
+                metadata: {
+                  bookingUid: booking.uid,
+                  paymentId: paymentRecord.id,
+                  transactionId: transaction.id,
+                },
+              },
+            });
+          }
+          return updatedPayment;
+        });
       }
       await prisma.$transaction([
         prisma.mPesaTransaction.update({
