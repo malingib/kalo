@@ -58,6 +58,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { CheckoutRequestID, ResultCode, ResultDesc, CallbackMetadata } = stkCallback;
+    if (
+      typeof CheckoutRequestID !== "string" ||
+      CheckoutRequestID.length === 0 ||
+      typeof ResultCode !== "number" ||
+      !Number.isInteger(ResultCode)
+    ) {
+      return res.status(400).json({ message: "Invalid M-Pesa callback identifiers" });
+    }
     const success = ResultCode === 0;
 
     let amount = 0;
@@ -78,6 +86,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (existingTx) {
+      // A terminal Daraja result cannot be silently reversed by a conflicting
+      // callback. Flag the conflict for manual reconciliation instead.
+      if (
+        (existingTx.status === "SUCCESS" && !success) ||
+        (existingTx.status === "FAILED" && success)
+      ) {
+        await prisma.mPesaTransaction.update({
+          where: { id: existingTx.id },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "Conflicting callback received after a terminal payment result",
+          },
+        });
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback received; payment pending reconciliation" });
+      }
+
+      // Daraja retries callbacks. A duplicate with the same terminal result
+      // must not repeat booking, receipt, or subscription side-effects.
+      if (
+        (existingTx.status === "SUCCESS" && success) ||
+        (existingTx.status === "FAILED" && !success)
+      ) {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Duplicate callback acknowledged" });
+      }
+
       // A successful Daraja result is not sufficient by itself: require the
       // complete receipt metadata and reconcile it against the original STK
       // request before any booking, receipt, or notification side-effects.
@@ -140,6 +173,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // back, the status stays PENDING, and the retry re-runs cleanly instead of
       // duplicating receipts.
       await prisma.$transaction(async (tx) => {
+        // Claim the pending/reconciliation transaction before side-effects. This
+        // row-level conditional update serializes concurrent Daraja retries.
+        const claim = await tx.mPesaTransaction.updateMany({
+          where: { id: existingTx.id, status: existingTx.status },
+          data: { status: "PROCESSING" },
+        });
+        if (claim.count !== 1) return;
+
         if (success && existingTx.bookingUid) {
           // The customer did pay, so the booking is paid regardless of its
           // current status (the webhook service creates it as a PENDING
