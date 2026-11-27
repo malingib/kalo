@@ -46,6 +46,13 @@ import type { z } from "zod";
 import type { getMockRequestDataForBooking } from "./getMockRequestDataForBooking";
 import { getMockPaymentService } from "./MockPaymentService";
 
+const mockPaymentServiceFactory = vi.hoisted(() => vi.fn());
+vi.mock("@kalo/app-store/payment.services.generated", () => ({
+  PaymentServiceMap: {
+    mpesa: Promise.resolve({ BuildPaymentService: mockPaymentServiceFactory }),
+  },
+}));
+
 type NonNullableVideoApiAdapter = NonNullable<VideoApiAdapter>;
 
 // Shared map of mock calendar service constructors accessible to both the vi.mock factory and mockCalendar.
@@ -1388,6 +1395,10 @@ export const TestData = {
         redirect_uris: ["http://localhost:3000/auth/callback"],
       },
     },
+    mpesa: {
+      ...appStoreMetadata.mpesa,
+      keys: {},
+    },
     zoomvideo: {
       ...appStoreMetadata.zoomvideo,
       keys: {
@@ -2011,7 +2022,8 @@ export function mockPaymentApp({
   appStoreLookupKey?: string;
 }) {
   const _appStoreLookupKey = appStoreLookupKey || metadataLookupKey;
-  const { paymentUid, externalId } = getMockPaymentService();
+  const { paymentUid, externalId, MockPaymentService } = getMockPaymentService();
+  mockPaymentServiceFactory.mockImplementation(() => new MockPaymentService());
 
   return {
     paymentUid,
