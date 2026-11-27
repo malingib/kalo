@@ -2946,6 +2946,7 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });          const organizer = getOrganizer({
             name: "Organizer",
             email: "organizer@example.com",
@@ -3089,6 +3090,7 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });
 
           const organizer = getOrganizer({
@@ -3236,6 +3238,7 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });
 
           const organizerOtherEmail = "organizer2@example.com";
