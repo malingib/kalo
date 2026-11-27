@@ -114,9 +114,26 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
   });
 
   const usernameChangeCondition = obtainNewUsernameChangeCondition({
-    userIsPremium: isCurrentUsernamePremium,
+    userIsPremium: isCurrentUsernamePremium && mpesaSubscription?.status === "ACTIVE",
     isNewUsernamePremium: isInputUsernamePremium,
   });
+
+  const renewPremiumSubscription = async () => {
+    if (!mpesaSubscription?.id) return;
+    setSubscriptionError(null);
+    try {
+      const response = await fetch("/api/mpesa/subscription-renew", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subscriptionId: mpesaSubscription.id }),
+      });
+      const result = (await response.json()) as { message?: string };
+      if (!response.ok) throw new Error(result.message || "M-Pesa renewal could not be started");
+      setSubscriptionPromptSent(true);
+    } catch (error) {
+      setSubscriptionError(error instanceof Error ? error.message : "M-Pesa renewal could not be started");
+    }
+  };
 
   const startPremiumSubscription = async () => {
     setSubscriptionError(null);
@@ -172,10 +189,12 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
   let paymentMsg = !currentUsername ? (
     <span className="text-xs text-orange-400">Premium usernames require a monthly M-Pesa subscription.</span>
   ) : null;
-  if (mpesaSubscription?.status === "PAYMENT_PENDING") {
+  if (mpesaSubscription?.status === "PAYMENT_PENDING" || mpesaSubscription?.status === "RENEWAL_INITIATING") {
     paymentMsg = <span className="text-xs text-orange-400">M-Pesa prompt sent. Enter your PIN to authorize payment.</span>;
   } else if (mpesaSubscription?.status === "PAST_DUE") {
     paymentMsg = <span className="text-xs text-red-500">Your premium subscription is past due. Renew to keep premium username access.</span>;
+  } else if (mpesaSubscription?.status === "RECONCILIATION_REQUIRED") {
+    paymentMsg = <span className="text-xs text-orange-400">Your M-Pesa payment needs reconciliation. Please contact support; do not retry yet.</span>;
   } else if (subscriptionPromptSent) {
     paymentMsg = <span className="text-xs text-orange-400">M-Pesa prompt sent. Complete payment to reserve your username.</span>;
   }
@@ -231,6 +250,15 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
         )}
       </div>
       {paymentMsg}
+      {mpesaSubscription?.status === "PAST_DUE" && (
+        <div className="mt-2">
+          <Button type="button" color="primary" size="sm" onClick={() => void renewPremiumSubscription()}>
+            Renew premium username with M-Pesa
+          </Button>
+          {subscriptionError && <p className="mt-1 text-xs text-red-500">{subscriptionError}</p>}
+          {subscriptionPromptSent && <p className="mt-1 text-xs text-orange-400">Renewal prompt sent. Enter your M-Pesa PIN.</p>}
+        </div>
+      )}
       {markAsError && <p className="mt-1 text-xs text-red-500">{t("username_already_taken")}</p>}
 
       <Dialog open={openDialogSaveUsername}>
