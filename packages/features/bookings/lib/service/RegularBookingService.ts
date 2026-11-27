@@ -2268,29 +2268,30 @@ async function handler(
   if (bookingRequiresPayment) {
     tracingLogger.debug(`Booking ${organizerUser.username} requires payment`);
     // Load credentials.app.categories
-    const credentialPaymentAppCategories = await deps.prismaClient.credential.findMany({
-      where: {
-        ...(paymentAppData.credentialId ? { id: paymentAppData.credentialId } : { userId: organizerUser.id }),
-        app: {
-          categories: {
-            hasSome: ["payment"],
-          },
-        },
-      },
-      select: {
-        key: true,
-        appId: true,
-        app: {
-          select: {
-            categories: true,
-            dirName: true,
-          },
-        },
-      },
-    });
-    const eventTypePaymentAppCredential = credentialPaymentAppCategories.find((credential) => {
-      return credential.appId === paymentAppData.appId;
-    });
+    // Native M-Pesa credentials are stored on the host's User record and
+    // encrypted at rest; they are not third-party Credential rows.
+    const eventTypePaymentAppCredential =
+      paymentAppData.appId === "mpesa"
+        ? {
+            key: {},
+            appId: "mpesa",
+            app: { categories: ["payment"] as AppCategories[], dirName: "mpesa" },
+          }
+        : (
+            await deps.prismaClient.credential.findMany({
+              where: {
+                ...(paymentAppData.credentialId
+                  ? { id: paymentAppData.credentialId }
+                  : { userId: organizerUser.id }),
+                app: { categories: { hasSome: ["payment"] } },
+              },
+              select: {
+                key: true,
+                appId: true,
+                app: { select: { categories: true, dirName: true } },
+              },
+            })
+          ).find((credential) => credential.appId === paymentAppData.appId);
 
     if (!eventTypePaymentAppCredential) {
       throw new HttpError({
