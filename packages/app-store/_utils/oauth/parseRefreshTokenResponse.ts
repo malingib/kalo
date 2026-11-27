@@ -17,9 +17,7 @@ export const minimumTokenResponseSchema = z
     }
   });
 
-export type ParseRefreshTokenResponse<S extends z.ZodType> =
-  | z.infer<S>
-  | z.infer<typeof minimumTokenResponseSchema>;
+export type ParseRefreshTokenResponse<S extends z.ZodType> = z.infer<S>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const parseRefreshTokenResponse = <S extends z.ZodType>(response: unknown, schema: S): ParseRefreshTokenResponse<S> => {
