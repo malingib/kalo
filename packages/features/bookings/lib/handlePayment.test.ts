@@ -135,7 +135,7 @@ describe("handlePayment", () => {
     });
 
     expect(result?.amount).toBe(1000);
-    expect(result?.currency).toBe("USD");
+    expect(result?.currency).toBe("KES");
   });
 
   it("should calculate total amount with number field addon", async () => {
@@ -165,7 +165,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(2000); // Base 1000 cents + (2 * $5 * 100 cents)
+    expect(result?.amount).toBe(2000); // Base 1000 cents + (2 * KES 5 * 100 cents)
   });
 
   it("should calculate total amount with boolean field addon", async () => {
@@ -195,7 +195,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(2500); // Base 1000 cents + ($15 * 100 cents)
+    expect(result?.amount).toBe(2500); // Base 1000 cents + (KES 15 * 100 cents)
   });
 
   it("should calculate total amount with select field addon", async () => {
@@ -228,7 +228,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(3000); // Base 1000 cents + ($20 * 100 cents)
+    expect(result?.amount).toBe(3000); // Base 1000 cents + (KES 20 * 100 cents)
   });
 
   it("should calculate total amount with multiple addons", async () => {
@@ -275,14 +275,14 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(5500); // Base 1000 cents + (2 * $5 * 100 cents) + ($15 * 100 cents) + ($20 * 100 cents)
+    expect(result?.amount).toBe(5500); // Base 1000 cents + (2 * KES 5 * 100 cents) + (KES 15 * 100 cents) + (KES 20 * 100 cents)
   });
 
   it("should calculate total amount with radio field addon using locale", async () => {
     const mockEventWithResponse = {
       ...mockEvent,
       responses: {
-        mealChoice: { value: "premium ($20.00)" }, // Formatted with price
+        mealChoice: { value: "premium (KES 20.00)" }, // Formatted with price
       },
     };
 
@@ -309,6 +309,6 @@ describe("handlePayment", () => {
       locale: "en",
     });
 
-    expect(result?.amount).toBe(3000); // Base 1000 cents + ($20 * 100 cents)
+    expect(result?.amount).toBe(3000); // Base 1000 cents + (KES 20 * 100 cents)
   });
 });
