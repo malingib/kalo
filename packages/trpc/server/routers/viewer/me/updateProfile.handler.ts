@@ -1,9 +1,7 @@
-import { getPremiumMonthlyPlanPriceId } from "@kalo/app-store/stripepayment/lib/utils";
 import { sendChangeOfEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
 import { FeaturesRepository } from "@kalo/features/flags/features.repository";
 import { checkUsername } from "@kalo/features/profile/lib/checkUsername";
 import { ScheduleRepository } from "@kalo/features/schedules/repositories/ScheduleRepository";
-import hasKeyInMetadata from "@kalo/lib/hasKeyInMetadata";
 import { HttpError } from "@kalo/lib/http-error";
 import logger from "@kalo/lib/logger";
 import { uploadAvatar } from "@kalo/lib/server/avatar";
@@ -21,12 +19,6 @@ import { keyBy } from "lodash";
 import type { GetServerSidePropsContext, NextApiResponse } from "next";
 import { type TUpdateProfileInputSchema, updateUserMetadataAllowedKeys } from "./updateProfile.schema";
 
-const getBillingProviderService = async (..._args: unknown[]) => ({
-  createCustomer: async (..._a: unknown[]) => null,
-  getCustomer: async (..._a: unknown[]) => null,
-  getSubscriptions: async (..._a: unknown[]): Promise<{ items: { data: { price: { id: string } }[] }; status: string }[]> => [],
-  updateCustomer: async (..._a: unknown[]) => null,
-});
 const updateNewTeamMemberEventTypes = async (..._args: unknown[]) => {};
 
 const log = logger.getSubLogger({ prefix: ["updateProfile"] });
@@ -40,7 +32,6 @@ type UpdateProfileOptions = {
 
 export const updateProfileHandler = async ({ ctx, input }: UpdateProfileOptions) => {
   const { user } = ctx;
-  const billingService = await getBillingProviderService();
   const userMetadata = handleUserMetadata({ ctx, input });
   const locale = input.locale || user.locale;
   const featuresRepository = new FeaturesRepository(prisma);
@@ -82,36 +73,24 @@ export const updateProfileHandler = async ({ ctx, input }: UpdateProfileOptions)
     delete data.username;
   }
 
+  let premiumSubscriptionId: string | null = null;
   if (isPremiumUsername) {
-    const stripeCustomerId = userMetadata?.stripeCustomerId;
-    const isPremium = userMetadata?.isPremium;
-    if (!isPremium || !stripeCustomerId) {
-      throw new TRPCError({ code: "BAD_REQUEST", message: "User is not premium" });
-    }
-
-    const stripeSubscriptions = await billingService.getSubscriptions(stripeCustomerId);
-
-    if (!stripeSubscriptions || !stripeSubscriptions.length) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "No stripeSubscription found",
-      });
-    }
-
-    // Iterate over subscriptions and look for premium product id and status active
-    // @TODO: iterate if stripeSubscriptions.hasMore is true
-    const isPremiumUsernameSubscriptionActive = stripeSubscriptions.some(
-      (subscription) =>
-        subscription.items.data[0].price.id === getPremiumMonthlyPlanPriceId() &&
-        subscription.status === "active"
-    );
-
-    if (!isPremiumUsernameSubscriptionActive) {
+    const premiumSubscription = await prisma.mPesaSubscription.findFirst({
+      where: {
+        userId: user.id,
+        subscriptionType: "PREMIUM_USERNAME",
+        status: "ACTIVE",
+        currentPeriodEnd: { gt: new Date() },
+      },
+      select: { id: true },
+    });
+    if (!premiumSubscription) {
       throw new TRPCError({
         code: "BAD_REQUEST",
-        message: "You need to pay for premium username",
+        message: "An active M-Pesa premium username subscription is required",
       });
     }
+    premiumSubscriptionId = premiumSubscription.id;
   }
   const hasEmailBeenChanged = data.email && user.email !== data.email;
 
@@ -262,12 +241,38 @@ export const updateProfileHandler = async ({ ctx, input }: UpdateProfileOptions)
   let updatedUser: UpdatedUserResult;
 
   try {
-    updatedUser = await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data,
-      ...updatedUserSelect,
+    updatedUser = await prisma.$transaction(async (tx) => {
+      const savedUser = await tx.user.update({
+        where: {
+          id: user.id,
+        },
+        data,
+        ...updatedUserSelect,
+      });
+
+      // Keep the premium entitlement ledger aligned with a username change.
+      // The active-period predicate is repeated in the write to close the race
+      // with a renewal expiry or callback changing the subscription state.
+      if (premiumSubscriptionId && savedUser.username) {
+        const updatedSubscription = await tx.mPesaSubscription.updateMany({
+          where: {
+            id: premiumSubscriptionId,
+            userId: user.id,
+            subscriptionType: "PREMIUM_USERNAME",
+            status: "ACTIVE",
+            currentPeriodEnd: { gt: new Date() },
+          },
+          data: { username: savedUser.username },
+        });
+        if (updatedSubscription.count !== 1) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Your M-Pesa premium username subscription is no longer active",
+          });
+        }
+      }
+
+      return savedUser;
     });
   } catch (e) {
     // Catch unique constraint failure on email field.
@@ -304,16 +309,6 @@ export const updateProfileHandler = async ({ ctx, input }: UpdateProfileOptions)
       data: {
         timeZone: data.timeZone,
       },
-    });
-  }
-
-  // Notify stripe about the change
-  if (updatedUser?.metadata && hasKeyInMetadata(updatedUser, "stripeCustomerId")) {
-    const stripeCustomerId = `${updatedUser.metadata.stripeCustomerId}`;
-    await billingService.updateCustomer({
-      customerId: stripeCustomerId,
-      email: updatedUser.email,
-      userId: updatedUser.id,
     });
   }
 
