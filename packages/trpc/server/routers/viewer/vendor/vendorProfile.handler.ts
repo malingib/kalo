@@ -148,7 +148,7 @@ export const getMpesaCredentialsStatusHandler = async ({ ctx }: Ctx) => {
   });
   return {
     shortcode: user?.mpesaShortcode ?? "",
-    shortcodeType: user?.mpesaShortcodeType ?? "PAYBILL",
+    shortcodeType: user?.mpesaShortcodeType === "BUY_GOODS" ? ("BUY_GOODS" as const) : ("PAYBILL" as const),
     tillNumber: user?.mpesaTillNumber ?? "",
     hasShortcode: Boolean(user?.mpesaShortcode),
     hasPasskey: Boolean(user?.mpesaPasskey),
