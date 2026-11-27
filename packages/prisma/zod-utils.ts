@@ -538,9 +538,9 @@ export const DeploymentTheme = z
   })
   .optional();
 
-export type ZodDenullish<T> = T extends z.ZodNullable<infer U>
+export type ZodDenullish<T> = T extends z.ZodNullable<infer U extends z.ZodType>
   ? ZodDenullish<U>
-  : T extends z.ZodOptional<infer U>
+  : T extends z.ZodOptional<infer U extends z.ZodType>
     ? ZodDenullish<U>
     : T;
 
