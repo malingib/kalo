@@ -538,14 +538,14 @@ export const DeploymentTheme = z
   })
   .optional();
 
-export type ZodDenullish<T extends z.ZodType> = T extends z.ZodNullable<infer U>
+export type ZodDenullish<T extends z.ZodType> = T extends z.ZodNullable<infer U extends z.ZodType>
   ? ZodDenullish<U>
-  : T extends z.ZodOptional<infer U>
+  : T extends z.ZodOptional<infer U extends z.ZodType>
     ? ZodDenullish<U>
     : T;
 
 export type ZodDenullishShape<T extends ZodRawShape> = {
-  [K in keyof T]: T[K] extends z.ZodType ? ZodDenullish<T[K]> : never;
+  [K in keyof T]: ZodDenullish<T[K]>;
 };
 
 export const denullish = <T extends z.ZodType>(schema: T): ZodDenullish<T> => {
@@ -643,7 +643,7 @@ export const getParserWithGeneric =
     type SimpleFormValues = string | number | null | undefined;
     return valueSchema.parse(data) as {
       // TODO: Invesitage why this broke on zod 3.22.2 upgrade
-      [key in keyof Data]: Data[key] extends SimpleFormValues ? Data[key] : Output[key];
+      [key in keyof Data]: Data[key] extends SimpleFormValues ? Data[key] : key extends keyof Output ? Output[key] : never;
     };
   };
 export const sendDailyVideoRecordingEmailsSchema = z.object({
@@ -985,7 +985,7 @@ export const baseFieldSchema = z.object({
    * e.g. If user is given a list of locations and he selects "Phone", then he will be shown a phone input
    */
   optionsInputs: z
-    .record(
+    .record(z.string(),
       z.object({
         // Support all types as needed
         // Must be a subset of `fieldTypeEnum`.TODO: Enforce it in TypeScript
