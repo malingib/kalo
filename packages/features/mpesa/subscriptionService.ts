@@ -264,7 +264,7 @@ export async function initiatePremiumSubscriptionRenewal(input: {
 
 const workspaceSubscriptionPlansSchema = z.record(
   z.string(),
-  z.record(z.string(), z.record(z.enum(["MONTHLY", "ANNUALLY"]), z.number().int().positive()))
+  z.record(z.string(), z.record(z.string(), z.number().int().positive()))
 );
 
 export type WorkspaceSubscriptionType = "TEAM" | "ORGANIZATION";
