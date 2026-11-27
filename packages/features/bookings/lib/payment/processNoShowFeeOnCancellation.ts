@@ -1,82 +1,23 @@
-import { eventTypeMetaDataSchemaWithTypedApps } from "@kalo/app-store/zod-utils";
-import { MembershipRepository } from "@kalo/features/membership/repositories/MembershipRepository";
 import logger from "@kalo/lib/logger";
 import type { Payment } from "@kalo/prisma/client";
-import { MembershipRole } from "@kalo/prisma/enums";
 
-import { handleNoShowFee } from "./handleNoShowFee";
-import { shouldChargeNoShowCancellationFee } from "./shouldChargeNoShowCancellationFee";
-
+/**
+ * M-Pesa STK Push is an upfront, customer-authorized payment flow. It cannot
+ * collect a card hold or silently charge a no-show fee later. Legacy HOLD
+ * payments are therefore never charged after cancellation.
+ */
 export const processNoShowFeeOnCancellation = async ({
   booking,
   payments,
-  cancelledByUserId,
 }: {
-  booking: Parameters<typeof handleNoShowFee>[0]["booking"];
+  booking: { uid: string };
   payments: Payment[];
   cancelledByUserId?: number;
 }) => {
-  const log = logger.getSubLogger({ prefix: ["processNoShowFeeOnCancellation"] });
-
-  // Skip no-show fee if the booking was cancelled by the organizer or team/org admin
-  if (cancelledByUserId && booking.userId === cancelledByUserId) {
-    log.info(
-      `Booking ${booking.uid} was cancelled by the organizer (${cancelledByUserId}), skipping no-show fee`
-    );
-    return;
-  }
-
-  // Skip no-show fee if the booking was cancelled by a team/org admin
-  if (cancelledByUserId && booking.eventType?.teamId) {
-    const membershipRepository = new MembershipRepository();
-    const membership = await membershipRepository.findUniqueByUserIdAndTeamId({
-      userId: cancelledByUserId,
-      teamId: booking.eventType.teamId,
-    });
-
-    if (
-      membership &&
-      (membership.role === MembershipRole.OWNER || membership.role === MembershipRole.ADMIN)
-    ) {
-      log.info(
-        `Booking ${booking.uid} was cancelled by team admin/owner (${cancelledByUserId}), skipping no-show fee`
-      );
-      return;
-    }
-  }
-
-  const paymentToCharge = payments.find(
-    (payment) => payment.paymentOption === "HOLD" && payment.success === false
-  );
-
-  if (!paymentToCharge) {
-    log.info(`No payment found to charge for booking ${booking.uid}`);
-    return;
-  }
-
-  // Parse the event type metadata
-  const eventTypeMetadata = eventTypeMetaDataSchemaWithTypedApps.parse(booking.eventType?.metadata ?? {});
-
-  // Determine if we need to charge the no-show fee
-  const shouldChargeNoShowFee = shouldChargeNoShowCancellationFee({
-    booking,
-    eventTypeMetadata,
-    payment: paymentToCharge,
-  });
-
-  if (!shouldChargeNoShowFee) {
-    log.info(`Date is not valid for no-show fee to charge for booking ${booking.uid}`);
-    return;
-  }
-
-  // Process charging the no show fee
-  try {
-    await handleNoShowFee({
-      booking,
-      payment: paymentToCharge,
-    });
-  } catch (error) {
-    log.error(`Error charging no-show fee for booking ${booking.uid}`, error);
-    throw new Error(`Failed to charge no-show fee with error ${error}`);
+  const hasLegacyHold = payments.some((payment) => payment.paymentOption === "HOLD" && !payment.success);
+  if (hasLegacyHold) {
+    logger
+      .getSubLogger({ prefix: ["processNoShowFeeOnCancellation"] })
+      .info(`Skipping automatic no-show charge for booking ${booking.uid}: M-Pesa does not support card holds or delayed charges`);
   }
 };
