@@ -26,20 +26,17 @@ import {
 } from "@kalo/lib/constants";
 import { symmetricDecrypt, symmetricEncrypt } from "@kalo/lib/crypto";
 import { defaultCookies } from "@kalo/lib/default-cookies";
-import { isENVDev } from "@kalo/lib/env";
 import logger from "@kalo/lib/logger";
 import { randomString } from "@kalo/lib/random";
 import { safeStringify } from "@kalo/lib/safeStringify";
 import { hashEmail } from "@kalo/lib/server/PiiHasher";
 import slugify from "@kalo/lib/slugify";
-import type { TrackingData } from "@kalo/lib/tracking";
 import prisma from "@kalo/prisma";
 import type { Membership, Team } from "@kalo/prisma/client";
 import { CreationSource, IdentityProvider, MembershipRole, UserPermissionRole } from "@kalo/prisma/enums";
 import { teamMetadataSchema, userMetadata } from "@kalo/prisma/zod-utils";
 import type { UserProfile } from "@kalo/types/UserProfile";
 import { calendar_v3 } from "@googleapis/calendar";
-import { waitUntil } from "@vercel/functions";
 import { OAuth2Client } from "googleapis-common";
 import type { Account, AuthOptions, Profile, Session, User } from "next-auth";
 import type { JWT } from "next-auth/jwt";
@@ -50,7 +47,6 @@ import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
 import type { Provider } from "next-auth/providers/index";
 import { getOrgUsernameFromEmail } from "../signup/utils/getOrgUsernameFromEmail";
-import { dub } from "./dub";
 import { ErrorCode } from "./ErrorCode";
 import CalComAdapter from "./next-auth-custom-adapter";
 import { verifyPassword } from "./verifyPassword";
@@ -371,15 +367,7 @@ function isNumber(n: string) {
 
 const calcomAdapter = CalComAdapter(prisma);
 
-export const getOptions = ({
-  getDubId,
-  getTrackingData,
-}: {
-  /** so we can extract the Dub cookie in both pages and app routers */
-  getDubId: () => string | undefined;
-  /** Ad tracking data for Stripe customer metadata */
-  getTrackingData: () => TrackingData;
-}): AuthOptions => ({
+export const getOptions = (): AuthOptions => ({
   adapter: calcomAdapter,
   session: {
     strategy: "jwt",
@@ -1170,44 +1158,7 @@ export const getOptions = ({
       return baseUrl;
     },
   },
-  events: {
-    async signIn(message) {
-      /* only run this code if:
-         - it's a hosted cal account
-         - DUB_API_KEY is configured
-         - it's a new user
-      */
-      const user = message.user as User & {
-        username: string;
-        createdDate: string;
-      };
-      // check if the user was created in the last 10 minutes
-      // this is a workaround – in the future once we move to use the Account model in the DB
-      // we should use NextAuth's isNewUser flag instead: https://next-auth.js.org/configuration/events#signin
-      const isNewUser = new Date(user.createdDate) > new Date(Date.now() - 10 * 60 * 1000);
-      if ((isENVDev || IS_CALCOM) && isNewUser) {
-        if (process.env.DUB_API_KEY) {
-          const clickId = getDubId();
-          // check if there's a clickId (dub_id) cookie set by @dub/analytics
-          if (clickId) {
-            // here we use waitUntil – meaning this code will run async to not block the main thread
-            waitUntil(
-              // if so, send a lead event to Dub
-              // @see https://d.to/conversions/next-auth
-              dub.track.lead({
-                clickId,
-                eventName: "Sign Up",
-                externalId: user.id.toString(),
-                customerName: user.name,
-                customerEmail: user.email,
-                customerAvatar: user.image,
-              })
-            );
-          }
-        }
-      }
-    },
-  },
+
 });
 
 /**
