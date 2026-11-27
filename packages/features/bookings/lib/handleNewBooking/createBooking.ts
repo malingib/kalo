@@ -131,7 +131,11 @@ async function saveBooking(
     }
   }
 
-  if (typeof paymentAppData.price === "number" && paymentAppData.price > 0) {
+  if (
+    typeof paymentAppData.price === "number" &&
+    paymentAppData.price > 0 &&
+    paymentAppData.appId !== "mpesa"
+  ) {
     await prisma.credential.findFirstOrThrow({
       where: {
         appId: paymentAppData.appId,
