@@ -167,16 +167,21 @@ export async function startPremiumUsernameSubscription(input: {
   const phoneNumber = normalizeKenyanPhone(input.phoneNumber);
   if (!phoneNumber) throw new Error("A valid Kenyan mobile number is required");
 
-  const existing = await prisma.mPesaSubscription.findFirst({
-    where: {
-      userId: input.userId,
-      subscriptionType: "PREMIUM_USERNAME",
-      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
-    },
-  });
-  if (existing) throw new Error("An active or pending premium subscription already exists");
-
   const { subscription, transaction } = await prisma.$transaction(async (tx) => {
+    // Serialize first-time purchase attempts for this user. Without the
+    // transaction-scoped lock, two simultaneous signup requests could both
+    // pass the active-subscription check and create duplicate subscriptions.
+    await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('kalo:mpesa:premium-username'), ${input.userId})`;
+    const existing = await tx.mPesaSubscription.findFirst({
+      where: {
+        userId: input.userId,
+        subscriptionType: "PREMIUM_USERNAME",
+        status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
+      },
+      select: { id: true },
+    });
+    if (existing) throw new Error("An active or pending premium subscription already exists");
+
     const subscription = await tx.mPesaSubscription.create({
       data: {
         userId: input.userId,
@@ -346,16 +351,20 @@ export async function startWorkspaceSubscription(input: {
     input.billingPeriod
   );
 
-  const existing = await prisma.mPesaSubscription.findFirst({
-    where: {
-      teamId: input.teamId,
-      subscriptionType: input.subscriptionType,
-      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
-    },
-  });
-  if (existing) throw new Error("A pending or active subscription already exists for this workspace");
-
   const { subscription, transaction } = await prisma.$transaction(async (tx) => {
+    // One pending/active subscription per workspace, even under concurrent
+    // onboarding requests from different administrators.
+    await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('kalo:mpesa:workspace-subscription'), ${input.teamId})`;
+    const existing = await tx.mPesaSubscription.findFirst({
+      where: {
+        teamId: input.teamId,
+        subscriptionType: input.subscriptionType,
+        status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
+      },
+      select: { id: true },
+    });
+    if (existing) throw new Error("A pending or active subscription already exists for this workspace");
+
     const subscription = await tx.mPesaSubscription.create({
       data: {
         teamId: input.teamId,
