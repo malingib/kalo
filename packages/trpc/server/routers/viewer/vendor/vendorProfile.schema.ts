@@ -66,7 +66,9 @@ export type TApproveVendorSchema = z.infer<typeof ZApproveVendorSchema>;
 
 
 export const ZUpdateMpesaCredentialsSchema = z.object({
-  shortcode: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid M-Pesa shortcode"),
+  shortcode: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid M-Pesa business shortcode"),
+  shortcodeType: z.enum(["PAYBILL", "BUY_GOODS"]).default("PAYBILL"),
+  tillNumber: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid Buy Goods Till number").optional(),
   passkey: z.string().trim().min(1).max(256).optional(),
 });
 
