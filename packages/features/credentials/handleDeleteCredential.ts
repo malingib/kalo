@@ -205,7 +205,7 @@ const handleDeleteCredential = async ({
                 apps: {
                   ...appMetadata,
                 },
-              },
+              } as Prisma.InputJsonObject,
             },
           });
 
@@ -400,11 +400,10 @@ const handleDeleteCredential = async ({
             hidden: true,
             metadata: {
               ...metadata,
-              apps: {
-                ...metadata?.apps,
-                [appSlug]: undefined,
-              },
-            },
+              apps: Object.fromEntries(
+                Object.entries(metadata?.apps ?? {}).filter(([slug]) => slug !== appSlug)
+              ),
+            } as Prisma.InputJsonObject,
           },
         });
       }
