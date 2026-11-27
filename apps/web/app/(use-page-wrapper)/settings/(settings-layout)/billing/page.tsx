@@ -48,7 +48,7 @@ export default function WorkspaceBillingPage() {
   }, [refresh]);
 
   useEffect(() => {
-    if (!workspaces.some((workspace) => workspace.subscription?.status === "PAYMENT_PENDING" ||
+    if (!workspaces.some((workspace) => workspace.subscription?.status === "PENDING" || workspace.subscription?.status === "PAYMENT_PENDING" ||
       workspace.subscription?.status === "RENEWAL_INITIATING")) return;
     const interval = setInterval(() => {
       void refresh().catch(() => undefined);
@@ -163,7 +163,7 @@ export default function WorkspaceBillingPage() {
               </div>
             )}
 
-            {(subscription?.status === "PAYMENT_PENDING" || subscription?.status === "RENEWAL_INITIATING") && (
+            {(subscription?.status === "PENDING" || subscription?.status === "PAYMENT_PENDING" || subscription?.status === "RENEWAL_INITIATING") && (
               <p className="text-sm text-subtle" role="status">
                 Payment prompt sent to the registered phone. Enter your M-Pesa PIN and wait for confirmation.
               </p>
@@ -271,7 +271,7 @@ export default function WorkspaceBillingPage() {
                 Daraja returned an uncertain payment result. Workspace owners and administrators have been notified. Do not send another prompt until this payment is reconciled.
               </p>
             )}
-            {subscription && !["ACTIVE", "PAYMENT_PENDING", "RENEWAL_INITIATING", "PAST_DUE", "RECONCILIATION_REQUIRED", "FAILED", "PAYMENT_FAILED", "CANCELLED"].includes(subscription.status) && (
+            {subscription && !["ACTIVE", "PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "PAST_DUE", "RECONCILIATION_REQUIRED", "FAILED", "PAYMENT_FAILED", "CANCELLED"].includes(subscription.status) && (
               <p className="text-sm text-amber-700">Subscription status: {subscription.status}. Contact the platform administrator if this does not resolve.</p>
             )}
           </section>
