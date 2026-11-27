@@ -96,6 +96,13 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
   }, [debouncedUsername, currentUsername]);
 
   useEffect(() => {
+    if (mpesaSubscription?.status === "ACTIVE") {
+      setSubscriptionPromptSent(false);
+      setSubscriptionError(null);
+    }
+  }, [mpesaSubscription?.status]);
+
+  useEffect(() => {
     if (mpesaSubscription?.status === "ACTIVE" && mpesaSubscription.username && !currentUsername) {
       setCurrentUsername(mpesaSubscription.username);
       setInputUsernameValue(mpesaSubscription.username);
