@@ -237,9 +237,9 @@ model EventType {
   schedule                                 Schedule?              @relation(fields: [scheduleId], references: [id])
   scheduleId                               Int?
   allowReschedulingCancelledBookings       Boolean?               @default(false)
-  // price is deprecated. It has now moved to metadata.apps.stripe.price. Plan to drop this column.
+  // price is deprecated. It has now moved to metadata.apps.mpesa.price. Plan to drop this column.
   price                                    Int                    @default(0)
-  // currency is deprecated. It has now moved to metadata.apps.stripe.currency. Plan to drop this column.
+  // currency is deprecated. Payment currency is now configured with the native M-Pesa app.
   currency                                 String                 @default("usd")
   slotInterval                             Int?
   /// @zod.import(["import { EventTypeMetaDataSchema } from '../../zod-utils'"]).custom.use(EventTypeMetaDataSchema)
@@ -2281,7 +2281,6 @@ model OrganizationOnboarding {
   isComplete Boolean @default(false)
 
   @@index([orgOwnerEmail])
-  @@index([stripeCustomerId])
 }
 
 model InternalNotePreset {
@@ -2604,8 +2603,6 @@ model CalAiPhoneNumber {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  stripeCustomerId     String?
-  stripeSubscriptionId String?                        @unique
   subscriptionStatus   PhoneNumberSubscriptionStatus?
 
   // Agent associations
@@ -2769,7 +2766,7 @@ model MonthlyProration {
 
 enum ProrationStatus {
   PENDING // Created, waiting to be processed
-  INVOICE_CREATED // Stripe invoice item created
+  INVOICE_CREATED // Billing invoice item created
   CHARGED // Payment succeeded
   FAILED // Payment failed
   CANCELLED // Cancelled (e.g., subscription ended before charge)
