@@ -25,6 +25,7 @@ import EventManager, { placeholderCreatedEvent } from "@kalo/features/bookings/l
 import { getAssignmentReasonCategory } from "@kalo/features/bookings/lib/getAssignmentReasonCategory";
 import type { CheckBookingAndDurationLimitsService } from "@kalo/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
 import { handlePayment } from "@kalo/features/bookings/lib/handlePayment";
+import { normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { handleWebhookTrigger } from "@kalo/features/bookings/lib/handleWebhookTrigger";
 import { isEventTypeLoggingEnabled } from "@kalo/features/bookings/lib/isEventTypeLoggingEnabled";
 import type { BookingEmailAndSmsTasker } from "@kalo/features/bookings/lib/tasker/BookingEmailAndSmsTasker";
@@ -697,6 +698,41 @@ async function handler(
     eventType.schedulingType === SchedulingType.ROUND_ROBIN
   ) {
     const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
+    if (requiresPayment && paymentAppData.appId === "mpesa") {
+      if (paymentAppData.currency.toUpperCase() !== "KES") {
+        throw new HttpError({
+          statusCode: 400,
+          message: "Native M-Pesa checkout requires the event price to be set in KES.",
+        });
+      }
+      if (!bookingContext.bookerPhoneNumber || !normalizeKenyanPhone(bookingContext.bookerPhoneNumber)) {
+        throw new HttpError({
+          statusCode: 400,
+          message: "A valid Kenyan attendee mobile number is required for M-Pesa STK Push.",
+        });
+      }
+      const hostMpesaConfig = await deps.prismaClient.user.findUnique({
+        where: { id: organizerUser.id },
+        select: {
+          mpesaShortcode: true,
+          mpesaShortcodeType: true,
+          mpesaTillNumber: true,
+          mpesaPasskey: true,
+        },
+      });
+      if (!hostMpesaConfig?.mpesaShortcode || !hostMpesaConfig.mpesaPasskey) {
+        throw new HttpError({
+          statusCode: 400,
+          message: "The booking host must complete M-Pesa Daraja setup before accepting paid bookings.",
+        });
+      }
+      if (hostMpesaConfig.mpesaShortcodeType === "BUY_GOODS" && !hostMpesaConfig.mpesaTillNumber) {
+        throw new HttpError({
+          statusCode: 400,
+          message: "The booking host must configure a Buy Goods Till number for STK Push.",
+        });
+      }
+    }
 
     const existingBooking = await deps.bookingRepository.getValidBookingFromEventTypeForAttendee({
       eventTypeId,
