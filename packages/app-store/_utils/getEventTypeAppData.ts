@@ -37,10 +37,10 @@ export const getEventTypeAppData = <T extends EventTypeAppsList>(
   // Migration isn't being done right now, to allow a revert if needed
   const legacyAppsData = {
     mpesa: {
-      enabled: !!eventType.price,
-      // Legacy paid event types now use the native M-Pesa adapter.
+      // Do not silently convert legacy USD/EUR amounts to KES.
+      enabled: !!eventType.price && eventType.currency.toUpperCase() === "KES",
       price: eventType.price,
-      currency: eventType.currency || "KES",
+      currency: "KES",
       paymentOption: "ON_BOOKING",
     },
     giphy: {
