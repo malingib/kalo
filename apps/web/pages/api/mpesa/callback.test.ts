@@ -51,7 +51,10 @@ const PENDING_TX = {
   status: "PENDING",
 };
 
-function createReq(body: unknown, query: Record<string, unknown> = {}): NextApiRequest {
+function createReq(
+  body: unknown,
+  query: Record<string, unknown> = { secret: "test-secret" }
+): NextApiRequest {
   return { method: "POST", body, query } as unknown as NextApiRequest;
 }
 
@@ -72,6 +75,7 @@ describe("M-Pesa callback", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.unstubAllEnvs();
+    vi.stubEnv("DARAJA_CALLBACK_SECRET", "test-secret");
     (mockPrisma.$transaction as Mock).mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) =>
       fn(mockPrisma)
     );
@@ -401,7 +405,7 @@ describe("M-Pesa callback", () => {
     vi.stubEnv("DARAJA_CALLBACK_SECRET", "topsecret");
 
     const res = createRes();
-    await handler(createReq({ Body: { stkCallback: {} } }), res);
+    await handler(createReq({ Body: { stkCallback: {} } }, {}), res);
 
     expect(res._status).toBe(401);
     expect(mockPrisma.mPesaTransaction.findFirst).not.toHaveBeenCalled();
