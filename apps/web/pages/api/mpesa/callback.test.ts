@@ -13,6 +13,7 @@ const { mockPrisma, mockHandlePaymentSuccess } = vi.hoisted(() => ({
       updateMany: vi.fn(),
     },
     payment: {
+      findFirst: vi.fn(),
       update: vi.fn(),
     },
     mPesaSubscription: {
@@ -174,6 +175,7 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue(PENDING_TX);
     (mockPrisma.mPesaTransaction.update as Mock).mockResolvedValue(PENDING_TX);
     (mockPrisma.mPesaTransaction.updateMany as Mock).mockResolvedValue({ count: 1 });
+    (mockPrisma.payment.findFirst as Mock).mockResolvedValue(null);
     (mockPrisma.payment.update as Mock).mockResolvedValue({ id: 99, success: true });
     mockHandlePaymentSuccess.mockResolvedValue(undefined);
     (mockPrisma.mPesaTransaction.updateMany as Mock).mockResolvedValue({ count: 1 });
@@ -388,6 +390,49 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
         ],
       })
     );
+  });
+
+  it("recovers a callback when the payment row persisted the checkout ID before the transaction row", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock)
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({
+        ...PENDING_TX,
+        checkoutRequestId: null,
+        source: "booking-payment",
+        paymentId: 99,
+      });
+    (mockPrisma.payment.findFirst as Mock).mockResolvedValue({ id: 99 });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            MerchantRequestID: "m-1",
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: "tx-1" },
+        data: expect.objectContaining({ checkoutRequestId: "ws_CO_123", merchantRequestId: "m-1" }),
+      })
+    );
+    expect(mockHandlePaymentSuccess).toHaveBeenCalled();
   });
 
   it("does not run WhatsApp side-effects for a generic M-Pesa transaction", async () => {
