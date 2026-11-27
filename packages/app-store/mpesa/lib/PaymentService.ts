@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import dayjs from "@kalo/dayjs";
 import tasker from "@kalo/features/tasker";
-import { DarajaClient, normalizeKenyanPhone } from "@kalo/features/mpesa";
+import { DarajaClient, decryptMpesaSecret, encryptMpesaSecret, normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { convertFromSmallestToPresentableCurrencyUnit } from "@kalo/lib/currencyConversions";
 import prisma from "@kalo/prisma";
 import type { Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
@@ -47,14 +47,29 @@ export class PaymentService implements IAbstractPaymentService {
     const phoneNumber = bookerPhoneNumber ? normalizeKenyanPhone(bookerPhoneNumber) : null;
     if (!phoneNumber) throw new Error("A valid Kenyan mobile number is required for M-Pesa");
 
-    const booking = await prisma.booking.findUnique({ where: { id: bookingId }, select: { uid: true } });
+    const booking = await prisma.booking.findUnique({
+      where: { id: bookingId },
+      select: {
+        uid: true,
+        userId: true,
+        user: { select: { mpesaShortcode: true, mpesaPasskey: true } },
+      },
+    });
     if (!booking) throw new Error("Booking not found");
+    if (!booking.userId || !booking.user?.mpesaShortcode || !booking.user.mpesaPasskey) {
+      throw new Error("The booking host has not configured M-Pesa STK credentials");
+    }
 
-    // Public booking checkout uses the platform's centrally managed Daraja
-    // shortcode/passkey. Tenant Till/Paybill details are payout/settlement
-    // destinations, not credentials for initiating an STK push.
-    const businessShortCode = requiredEnv("DARAJA_SHORTCODE");
-    const passkey = requiredEnv("DARAJA_PASSKEY");
+    // Booking payments use the host's own Daraja shortcode and encrypted
+    // passkey. Platform credentials are reserved for KALO subscription billing.
+    const businessShortCode = booking.user.mpesaShortcode;
+    const storedPasskey = decryptMpesaSecret(booking.user.mpesaPasskey);
+    if (!storedPasskey.encrypted) {
+      await prisma.user.update({
+        where: { id: booking.userId },
+        data: { mpesaPasskey: encryptMpesaSecret(storedPasskey.plaintext) },
+      });
+    }
 
     const amountKes = convertFromSmallestToPresentableCurrencyUnit(payment.amount, payment.currency);
     if (!Number.isFinite(amountKes) || amountKes <= 0) throw new Error("Invalid M-Pesa payment amount");
@@ -91,7 +106,7 @@ export class PaymentService implements IAbstractPaymentService {
       const response = await DarajaClient.initiateStkPush({
         consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
         consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
-        businessShortCode: vendor.mpesaShortcode,
+        businessShortCode,
         passkey: storedPasskey.plaintext,
         phoneNumber,
         amount: amountKes,
@@ -197,8 +212,6 @@ export class PaymentService implements IAbstractPaymentService {
         process.env.DARAJA_CONSUMER_SECRET &&
         process.env.DARAJA_CALLBACK_URL &&
         process.env.DARAJA_CALLBACK_SECRET &&
-        process.env.DARAJA_SHORTCODE &&
-        process.env.DARAJA_PASSKEY &&
         process.env.MPESA_CREDENTIALS_ENCRYPTION_KEY
     );
   }
