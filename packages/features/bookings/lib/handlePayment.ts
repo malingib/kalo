@@ -74,7 +74,7 @@ const handlePayment = async ({
   const paymentOption = (appData?.paymentOption || "ON_BOOKING") as PaymentOption;
   const paymentCurrency = appData?.currency;
   // Ensure we have a valid currency - fallback to USD if undefined
-  const currency = paymentCurrency || "USD";
+  const currency = paymentCurrency || (paymentAppCredentials.appId === "mpesa" ? "KES" : "USD");
 
   let totalAmount = appData?.price || 0;
 
