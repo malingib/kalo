@@ -255,7 +255,12 @@ export default function WorkspaceBillingPage() {
               </div>
             )}
 
-            {subscription && !["ACTIVE", "PAYMENT_PENDING", "RENEWAL_INITIATING", "PAST_DUE", "FAILED", "PAYMENT_FAILED", "CANCELLED"].includes(subscription.status) && (
+            {subscription?.status === "RECONCILIATION_REQUIRED" && (
+              <p className="text-sm text-amber-700" role="status">
+                Daraja returned an uncertain payment result. Workspace owners and administrators have been notified. Do not send another prompt until this payment is reconciled.
+              </p>
+            )}
+            {subscription && !["ACTIVE", "PAYMENT_PENDING", "RENEWAL_INITIATING", "PAST_DUE", "RECONCILIATION_REQUIRED", "FAILED", "PAYMENT_FAILED", "CANCELLED"].includes(subscription.status) && (
               <p className="text-sm text-amber-700">Subscription status: {subscription.status}. Contact the platform administrator if this does not resolve.</p>
             )}
           </section>
