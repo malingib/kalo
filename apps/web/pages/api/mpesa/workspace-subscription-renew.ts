@@ -33,7 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const result = await initiateWorkspaceSubscriptionRenewal(parsed.data);
     return res.status(202).json({
       ...result,
-      message: "M-Pesa renewal prompt sent. Enter your PIN to authorize payment.",
+      message: result.status === "RECONCILIATION_REQUIRED"
+        ? "Safaricom accepted the renewal prompt, but the local transaction needs reconciliation. Do not retry the payment."
+        : "M-Pesa renewal prompt sent. Enter your PIN to authorize payment.",
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Renewal could not be started";
