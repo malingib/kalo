@@ -35,17 +35,6 @@ const formatOutput = (source: string) => source;
 
 const getVariableName = (appName: string) => appName.replace(/[-./]/g, "_");
 
-// Third-party payment gateways are disabled in this deployment. First-party M-Pesa
-// checkout and reconciliation are implemented in the platform payment layer.
-const DISABLED_PAYMENT_APP_IDS = new Set([
-  "alby",
-  "btcpayserver",
-  "hitpay",
-  "mock-payment-app",
-  "paypal",
-  "stripepayment",
-]);
-
 const getAppId = (app: { name: string }) => app.name;
 
 type App = Partial<AppMetaType> & {
@@ -63,7 +52,6 @@ function generateFiles() {
   const appDirs: { name: string; path: string }[] = [];
 
   fs.readdirSync(`${APP_STORE_PATH}`).forEach((dir) => {
-    if (DISABLED_PAYMENT_APP_IDS.has(dir)) return;
     if (dir === "ee" || dir === "templates") {
       fs.readdirSync(path.join(APP_STORE_PATH, dir)).forEach((subDir) => {
         if (fs.statSync(path.join(APP_STORE_PATH, dir, subDir)).isDirectory()) {
