@@ -1,10 +1,7 @@
 "use client";
 
-import getStripe from "@kalo/app-store/stripepayment/lib/client";
-import { getPremiumPlanPriceValue } from "@kalo/app-store/stripepayment/lib/utils";
 import {
   fetchSignup,
-  hasCheckoutSession,
   isAccountUnderReview,
   isUserAlreadyExistsError,
 } from "@kalo/features/auth/signup/lib/fetchSignup";
@@ -52,9 +49,9 @@ import { useForm, useFormContext } from "react-hook-form";
 import { Toaster } from "sonner";
 import { z } from "zod";
 
-const signupSchema = apiSignupSchema.extend({
-  apiError: z.string().optional(), // Needed to display API errors doesn't get passed to the API
+const signupSchema = apiSignupSchema.extend({  apiError: z.string().optional(), // Needed to display API errors doesn't get passed to the API
   cfToken: z.string().optional(),
+  phoneNumber: z.string().optional(),
 });
 
 const TurnstileCaptcha = dynamic(() => import("@kalo/web/modules/auth/components/Turnstile"), {
@@ -169,10 +166,7 @@ function UsernameField({
               <div data-testid="premium-username-warning" className="flex items-center">
                 <StarIcon className="mr-1 inline-block h-4 w-4" />
                 <p>
-                  {t("premium_username", {
-                    price: getPremiumPlanPriceValue(),
-                    interpolation: { escapeValue: false },
-                  })}
+                  {t("premium_username")}
                 </p>
               </div>
             ) : null}
@@ -267,18 +261,6 @@ export default function Signup({
           }, 3000);
           return;
         }
-
-        if (hasCheckoutSession(result)) {
-          const stripe = await getStripe();
-          if (stripe) {
-            const { error } = await stripe.redirectToCheckout({
-              sessionId: result.error.checkoutSessionId,
-            });
-            if (error) console.warn(error.message);
-          }
-          return;
-        }
-
         throw new Error(result.error.message);
       }
 
@@ -522,7 +504,17 @@ export default function Signup({
                                 )
                           }
                         />
-                      ) : null}
+                      ) : null}{premiumUsername && (
+                        <TextField
+                          id="signup-phone-number"
+                          {...register("phoneNumber")}
+                          label={t("phone_number")}
+                          placeholder="+2547XXXXXXXX"
+                          type="tel"
+                          autoComplete="tel"
+                          required
+                        />
+                      )}
                       {/* Email */}
                       <TextField
                         id="signup-email"
@@ -584,13 +576,12 @@ export default function Signup({
                           !!formMethods.formState.errors.email ||
                           !formMethods.getValues("email") ||
                           !formMethods.getValues("password") ||
+                          (premiumUsername && !formMethods.getValues("phoneNumber")) ||
                           (CLOUDFLARE_SITE_ID && !process.env.NEXT_PUBLIC_IS_E2E && !watch("cfToken")) ||
                           isSubmitting ||
                           usernameTaken
                         }>
-                        {premiumUsername && !usernameTaken
-                          ? `${t("get_started")} (${getPremiumPlanPriceValue()})`
-                          : t("get_started")}
+                        {t("get_started")}
                       </Button>
                     </Form>
                   </div>
