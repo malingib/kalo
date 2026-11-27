@@ -199,7 +199,7 @@ function buildNewBookingData(params: CreateBookingParams) {
     location: evt.location,
     eventType: eventTypeRel,
     smsReminderNumber: input.smsReminderNumber,
-    metadata: reqBody.metadata,
+    metadata: reqBody.metadata as Prisma.InputJsonObject,
     attendees: {
       createMany: {
         data: attendeesData,
@@ -231,9 +231,14 @@ function buildNewBookingData(params: CreateBookingParams) {
   let originalBookingUpdateDataForCancellation: Prisma.BookingUpdateArgs | undefined;
 
   if (originalRescheduledBooking) {
+    const originalMetadata = originalRescheduledBooking.metadata;
     newBookingData.metadata = {
-      ...(typeof originalRescheduledBooking.metadata === "object" && originalRescheduledBooking.metadata),
-      ...reqBody.metadata,
+      ...(originalMetadata &&
+      typeof originalMetadata === "object" &&
+      !Array.isArray(originalMetadata)
+        ? (originalMetadata as Prisma.InputJsonObject)
+        : {}),
+      ...(reqBody.metadata as Prisma.InputJsonObject),
     };
     newBookingData.paid = originalRescheduledBooking.paid;
     newBookingData.fromReschedule = originalRescheduledBooking.uid;
