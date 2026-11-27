@@ -29,7 +29,7 @@ const ALERT_CHANNELS = ["IN_APP", "WHATSAPP", "EMAIL", "SMS"] as const;
 
 export const ZUpdateAlertPreferencesSchema = z.object({
   // e.g. { LOW_STOCK: ["IN_APP","WHATSAPP"], NEW_BOOKING: ["IN_APP","WHATSAPP","EMAIL"] }
-  prefs: z.record(
+  prefs: z.partialRecord(
     z.enum(ALERT_TYPES),
     z.array(z.enum(ALERT_CHANNELS))
   ),
