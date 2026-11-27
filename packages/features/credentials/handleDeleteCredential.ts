@@ -176,7 +176,7 @@ const handleDeleteCredential = async ({
                 apps: {
                   ...appMetadata,
                 },
-              },
+              } as Prisma.InputJsonObject,
             },
           });
         });
