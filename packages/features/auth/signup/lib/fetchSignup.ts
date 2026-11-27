@@ -6,17 +6,16 @@ type SignupData = {
   password: string;
   language: string;
   token?: string;
+  phoneNumber?: string;
 };
 
 type SignupSuccessResponse = {
   message: string;
-  stripeCustomerId?: string;
   accountUnderReview?: boolean;
 };
 
 type SignupErrorResponse = {
   message: string;
-  checkoutSessionId?: string;
 };
 
 type SignupResponse = SignupSuccessResponse | SignupErrorResponse;
@@ -85,12 +84,6 @@ export function isUserAlreadyExistsError(result: SignupResult): boolean {
   return (
     !result.ok && result.status === 409 && result.error.message === SIGNUP_ERROR_CODES.USER_ALREADY_EXISTS
   );
-}
-
-export function hasCheckoutSession(
-  result: SignupResult
-): result is { ok: false; status: number; error: SignupErrorResponse & { checkoutSessionId: string } } {
-  return !result.ok && !!result.error.checkoutSessionId;
 }
 
 export function isAccountUnderReview(result: SignupResult): boolean {
