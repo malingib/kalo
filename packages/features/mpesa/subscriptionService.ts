@@ -1,4 +1,6 @@
-import { DarajaClient, normalizeKenyanPhone } from "./index";
+import { DarajaClient } from "./darajaClient";
+import { normalizeKenyanPhone } from "./normalizePhone";
+import { z } from "zod";
 import prisma from "@kalo/prisma";
 
 const requiredEnv = (name: string): string => {
@@ -168,4 +170,165 @@ export async function initiatePremiumSubscriptionRenewal(input: {
     ]);
     throw new Error("M-Pesa renewal prompt could not be started");
   }
+}
+
+
+const workspaceSubscriptionPlansSchema = z.record(
+  z.string(),
+  z.record(z.string(), z.record(z.enum(["MONTHLY", "ANNUALLY"]), z.number().int().positive()))
+);
+
+export type WorkspaceSubscriptionType = "TEAM" | "ORGANIZATION";
+export type WorkspaceBillingPeriod = "MONTHLY" | "ANNUALLY";
+
+/** Resolve prices only from server configuration; never trust a client-supplied amount. */
+export function getWorkspaceSubscriptionAmount(
+  subscriptionType: WorkspaceSubscriptionType,
+  planName: string,
+  billingPeriod: WorkspaceBillingPeriod
+): number {
+  let raw: unknown;
+  try {
+    raw = JSON.parse(requiredEnv("MPESA_SUBSCRIPTION_PLANS_JSON"));
+  } catch {
+    throw new Error("MPESA_SUBSCRIPTION_PLANS_JSON must contain valid server-side plan pricing");
+  }
+  const parsed = workspaceSubscriptionPlansSchema.safeParse(raw);
+  if (!parsed.success) {
+    throw new Error("MPESA_SUBSCRIPTION_PLANS_JSON has an invalid plan pricing structure");
+  }
+  const amount = parsed.data[subscriptionType]?.[planName]?.[billingPeriod];
+  if (!amount || !Number.isSafeInteger(amount)) {
+    throw new Error("The requested M-Pesa subscription plan is not configured");
+  }
+  return amount;
+}
+
+async function sendWorkspaceSubscriptionPrompt(input: {
+  subscriptionId: string;
+  phoneNumber: string;
+  amountKes: number;
+  accountReference: string;
+  transactionDesc: string;
+}) {
+  const transaction = await prisma.mPesaTransaction.create({
+    data: {
+      subscriptionId: input.subscriptionId,
+      phoneNumber: input.phoneNumber,
+      amount: input.amountKes,
+      source: "subscription-payment",
+      status: "INITIATING",
+    },
+  });
+
+  try {
+    const response = await DarajaClient.initiateStkPush({
+      consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
+      consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
+      businessShortCode: requiredEnv("DARAJA_SHORTCODE"),
+      passkey: requiredEnv("DARAJA_PASSKEY"),
+      phoneNumber: input.phoneNumber,
+      amount: input.amountKes,
+      accountReference: input.accountReference,
+      transactionDesc: input.transactionDesc,
+      callbackUrl: callbackUrl(),
+      isSandbox: process.env.DARAJA_ENVIRONMENT !== "production",
+    });
+
+    await prisma.$transaction(async (tx) => {
+      await tx.mPesaTransaction.update({
+        where: { id: transaction.id },
+        data: {
+          checkoutRequestId: response.CheckoutRequestID,
+          merchantRequestId: response.MerchantRequestID,
+          status: "PENDING",
+        },
+      });
+      await tx.mPesaSubscription.update({
+        where: { id: input.subscriptionId },
+        data: { status: "PAYMENT_PENDING" },
+      });
+    });
+    return { subscriptionId: input.subscriptionId, status: "PAYMENT_PENDING" as const };
+  } catch {
+    await prisma.$transaction([
+      prisma.mPesaTransaction.update({
+        where: { id: transaction.id },
+        data: { status: "FAILED", resultDesc: "Daraja subscription STK Push failed" },
+      }),
+      prisma.mPesaSubscription.update({
+        where: { id: input.subscriptionId },
+        data: { status: "PAST_DUE" },
+      }),
+    ]);
+    throw new Error("M-Pesa subscription payment could not be started");
+  }
+}
+
+/** Start a first-party M-Pesa subscription for a team or organization. */
+export async function startWorkspaceSubscription(input: {
+  teamId: number;
+  subscriptionType: WorkspaceSubscriptionType;
+  planName: string;
+  billingPeriod: WorkspaceBillingPeriod;
+  phoneNumber: string;
+}) {
+  const phoneNumber = normalizeKenyanPhone(input.phoneNumber);
+  if (!phoneNumber) throw new Error("A valid Kenyan mobile number is required");
+  const amountKes = getWorkspaceSubscriptionAmount(
+    input.subscriptionType,
+    input.planName,
+    input.billingPeriod
+  );
+
+  const existing = await prisma.mPesaSubscription.findFirst({
+    where: {
+      teamId: input.teamId,
+      subscriptionType: input.subscriptionType,
+      status: { in: ["PENDING", "PAYMENT_PENDING", "ACTIVE"] },
+    },
+  });
+  if (existing) throw new Error("A pending or active subscription already exists for this workspace");
+
+  const subscription = await prisma.mPesaSubscription.create({
+    data: {
+      teamId: input.teamId,
+      subscriptionType: input.subscriptionType,
+      planName: input.planName,
+      amountKes,
+      phoneNumber,
+      billingPeriod: input.billingPeriod,
+      billingMode: "SEATS",
+      status: "PENDING",
+    },
+  });
+
+  return sendWorkspaceSubscriptionPrompt({
+    subscriptionId: subscription.id,
+    phoneNumber,
+    amountKes,
+    accountReference: `${input.subscriptionType === "ORGANIZATION" ? "ORG" : "TEAM"}-${input.teamId}`,
+    transactionDesc: "KALO workspace subscription",
+  });
+}
+
+/** Send a new customer-authorized STK prompt for a due workspace subscription. */
+export async function initiateWorkspaceSubscriptionRenewal(input: { subscriptionId: string; teamId: number }) {
+  const subscription = await prisma.mPesaSubscription.findFirst({
+    where: {
+      id: input.subscriptionId,
+      teamId: input.teamId,
+      subscriptionType: { in: ["TEAM", "ORGANIZATION"] },
+      status: { in: ["ACTIVE", "PAST_DUE"] },
+    },
+  });
+  if (!subscription) throw new Error("No renewable workspace subscription was found");
+
+  return sendWorkspaceSubscriptionPrompt({
+    subscriptionId: subscription.id,
+    phoneNumber: subscription.phoneNumber,
+    amountKes: subscription.amountKes,
+    accountReference: `${subscription.subscriptionType}-${subscription.teamId}`,
+    transactionDesc: "KALO subscription renewal",
+  });
 }
