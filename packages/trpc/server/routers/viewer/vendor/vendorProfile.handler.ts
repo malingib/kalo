@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 
 import prisma from "@kalo/prisma";
 import { Prisma } from "@kalo/prisma/client";
+import { encryptMpesaSecret } from "@kalo/features/mpesa";
 
 import type { TRPCAuthedContext } from "../../../procedures/authedProcedure";
 import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorProfile.schema";
@@ -9,6 +10,7 @@ import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorP
 type Ctx = { ctx: TRPCAuthedContext };
 type UpsertOpts = { ctx: TRPCAuthedContext; input: TUpsertVendorProfileSchema };
 type ApproveOpts = { ctx: TRPCAuthedContext; input: TApproveVendorSchema };
+type UpdateMpesaCredentialsOpts = { ctx: TRPCAuthedContext; input: import("./vendorProfile.schema").TUpdateMpesaCredentialsSchema };
 
 const VENDOR_PROFILE_SELECT = {
   id: true,
@@ -130,4 +132,38 @@ export const listVendorsHandler = async ({ ctx }: Ctx) => {
     orderBy: { createdAt: "desc" },
     take: 100,
   });
+};
+
+
+/** Return configuration state only; never expose a stored shortcode secret or passkey. */
+export const getMpesaCredentialsStatusHandler = async ({ ctx }: Ctx) => {
+  const user = await prisma.user.findUnique({
+    where: { id: ctx.user.id },
+    select: { mpesaShortcode: true, mpesaPasskey: true },
+  });
+  return {
+    hasShortcode: Boolean(user?.mpesaShortcode),
+    hasPasskey: Boolean(user?.mpesaPasskey),
+  };
+};
+
+/** Store a vendor's Daraja passkey encrypted at rest. */
+export const updateMpesaCredentialsHandler = async ({ ctx, input }: UpdateMpesaCredentialsOpts) => {
+  const current = await prisma.user.findUnique({
+    where: { id: ctx.user.id },
+    select: { mpesaPasskey: true },
+  });
+  if (!input.passkey && !current?.mpesaPasskey) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Enter your Daraja passkey to complete M-Pesa setup",
+    });
+  }
+
+  const data = {
+    mpesaShortcode: input.shortcode,
+    ...(input.passkey ? { mpesaPasskey: encryptMpesaSecret(input.passkey) } : {}),
+  };
+  await prisma.user.update({ where: { id: ctx.user.id }, data });
+  return { saved: true, hasShortcode: true, hasPasskey: true };
 };
