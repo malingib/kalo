@@ -161,6 +161,10 @@ const handlePayment = async ({
     totalAmount += convertToSmallestCurrencyUnit(addonsPrice, currency);
   }
 
+  if (paymentAppCredentials.appId === "mpesa" && totalAmount % 100 !== 0) {
+    throw new Error("M-Pesa booking totals must be whole KES amounts, including priced booking fields");
+  }
+
   const paymentPriceAndCurrency = {
     amount: totalAmount,
     currency: currency,
