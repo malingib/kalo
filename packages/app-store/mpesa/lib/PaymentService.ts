@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import dayjs from "@kalo/dayjs";
 import tasker from "@kalo/features/tasker";
-import { DarajaClient, decryptMpesaSecret, encryptMpesaSecret, normalizeKenyanPhone } from "@kalo/features/mpesa";
+import { DarajaClient, decryptMpesaSecret, encryptMpesaSecret, isDarajaStkOutcomeUncertain, normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { convertFromSmallestToPresentableCurrencyUnit } from "@kalo/lib/currencyConversions";
 import prisma from "@kalo/prisma";
 import type { Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
@@ -138,6 +138,22 @@ export class PaymentService implements IAbstractPaymentService {
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "M-Pesa STK Push failed";
+      if (isDarajaStkOutcomeUncertain(error)) {
+        // Network timeouts and malformed/5xx STK responses do not prove that
+        // Daraja rejected the prompt. Keep the booking visible for reconciliation
+        // and block automatic re-prompts to avoid charging the customer twice.
+        const [, updatedPayment] = await prisma.$transaction([
+          prisma.mPesaTransaction.update({
+            where: { id: transaction.id },
+            data: { status: "RECONCILIATION_REQUIRED", resultDesc: message },
+          }),
+          prisma.payment.update({
+            where: { id: paymentRecord.id },
+            data: { data: { provider: "mpesa", phoneNumber, status: "RECONCILIATION_REQUIRED", error: message } },
+          }),
+        ]);
+        return updatedPayment;
+      }
       await prisma.$transaction([
         prisma.mPesaTransaction.update({
           where: { id: transaction.id },
