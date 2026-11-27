@@ -13,27 +13,12 @@ export type UpdateAppCredentialsOptions = {
   input: TUpdateAppCredentialsInputSchema;
 };
 
-const validators = {
-  paypal: () => import("@kalo/paypal/lib/updateAppCredentials.validator"),
-};
-
 export const handleCustomValidations = async ({
   input,
   appId,
 }: UpdateAppCredentialsOptions & { appId: string }) => {
-  const { key } = input;
-  const validatorGetter = validators[appId as keyof typeof validators];
-  // If no validator is found, return the key as is
-  if (!validatorGetter) return key;
-  try {
-    const validator = (await validatorGetter()).default;
-    return await validator({ input });
-  } catch (error) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: error instanceof Error ? error.message : "Validation failed",
-    });
-  }
+  // No third-party payment app credential validators remain in this deployment.
+  return input.key;
 };
 
 export const updateAppCredentialsHandler = async ({ ctx, input }: UpdateAppCredentialsOptions) => {
