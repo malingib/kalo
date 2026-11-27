@@ -38,8 +38,25 @@ export default function MPesaPaymentForm({
             result.status === "RECONCILIATION_REQUIRED")
         ) {
           setStatus(result.status);
-          if (result.status === "SUCCESS") onPaymentSuccess?.(paymentInfo);
-          if (result.status === "FAILED") onPaymentCancellation?.(paymentInfo);
+          if (result.status === "SUCCESS") {
+            onPaymentSuccess?.({
+              ...paymentInfo,
+              payment: {
+                ...paymentInfo.payment,
+                success: true,
+                data: { ...paymentInfo.payment.data, status: "SUCCESS" },
+              },
+            });
+          }
+          if (result.status === "FAILED") {
+            onPaymentCancellation?.({
+              ...paymentInfo,
+              payment: {
+                ...paymentInfo.payment,
+                data: { ...paymentInfo.payment.data, status: "FAILED" },
+              },
+            });
+          }
         }
       } catch {
         // Keep waiting through transient network failures.
@@ -54,7 +71,7 @@ export default function MPesaPaymentForm({
       active = false;
       clearInterval(interval);
     };
-  }, [booking.uid, status]);
+  }, [booking.uid, onPaymentCancellation, onPaymentSuccess, paymentInfo, status]);
 
   return (
     <div className="mt-4 text-center" role="status" aria-live="polite">
