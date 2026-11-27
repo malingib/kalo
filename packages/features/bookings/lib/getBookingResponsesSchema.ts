@@ -13,7 +13,7 @@ type TranslationFunction = (key: string, options?: Record<string, unknown>) => s
 type CommonParams = { bookingFields: BookingFields; view: View; translateFn?: TranslationFunction };
 
 export const bookingResponse = dbReadResponseSchema;
-export const bookingResponsesDbSchema = z.record(dbReadResponseSchema);
+export const bookingResponsesDbSchema = z.record(z.string(), dbReadResponseSchema);
 
 const catchAllSchema = bookingResponsesDbSchema;
 
@@ -333,7 +333,7 @@ export function getBookingResponsesSchemaWithOptionalChecks({
   view,
   translateFn,
 }: CommonParams) {
-  const schema = bookingResponses.and(z.record(z.any()));
+  const schema = bookingResponses.and(z.record(z.string(), z.any()));
   return preprocess({
     schema,
     bookingFields,
@@ -513,9 +513,9 @@ function preprocess<T extends z.ZodType>({
   );
   if (isPartialSchema) {
     // Query Params can be completely invalid, try to preprocess as much of it in correct format but in worst case simply don't prefill instead of crashing
-    return preprocessed.catch((res?: { error?: unknown[] }) => {
-      console.error("Failed to validate query params, prefilling will be skipped entirely", res?.error);
-      return {};
+    return preprocessed.catch(() => {
+      console.error("Failed to validate query params, prefilling will be skipped entirely");
+      return {} as z.infer<T>;
     });
   }
   return preprocessed;
