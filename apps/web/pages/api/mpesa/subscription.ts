@@ -22,6 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { intentUsername, phoneNumber } = parsed.data;
   const availability = await usernameCheck(intentUsername);
   if (!availability.available) return res.status(409).json({ message: "Username is not available" });
+  if (!availability.premium) {
+    return res.status(400).json({ message: "This username does not require a premium subscription" });
+  }
 
   try {
     const result = await startPremiumUsernameSubscription({ userId, username: intentUsername, phoneNumber });
