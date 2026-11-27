@@ -17,12 +17,12 @@ export const minimumTokenResponseSchema = z
     }
   });
 
-export type ParseRefreshTokenResponse<S extends z.ZodTypeAny> =
+export type ParseRefreshTokenResponse<S extends z.ZodType> =
   | z.infer<S>
   | z.infer<typeof minimumTokenResponseSchema>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const parseRefreshTokenResponse = (response: any, schema: z.ZodTypeAny) => {
+const parseRefreshTokenResponse = <S extends z.ZodType>(response: unknown, schema: S): ParseRefreshTokenResponse<S> => {
   let refreshTokenResponse;
   const credentialSyncingEnabled =
     APP_CREDENTIAL_SHARING_ENABLED && process.env.KALO_CREDENTIAL_SYNC_ENDPOINT;
@@ -36,11 +36,12 @@ const parseRefreshTokenResponse = (response: any, schema: z.ZodTypeAny) => {
     throw new Error("Invalid refreshed tokens were returned");
   }
 
-  if (!refreshTokenResponse.data.refresh_token && credentialSyncingEnabled) {
-    refreshTokenResponse.data.refresh_token = "refresh_token";
+  const parsedData = refreshTokenResponse.data as { refresh_token?: string; [key: string]: unknown };
+  if (!parsedData.refresh_token && credentialSyncingEnabled) {
+    parsedData.refresh_token = "refresh_token";
   }
 
-  return refreshTokenResponse.data;
+  return refreshTokenResponse.data as ParseRefreshTokenResponse<S>;
 };
 
 export default parseRefreshTokenResponse;
