@@ -1151,15 +1151,6 @@ export function getZoomAppCredential() {
   });
 }
 
-export function getStripeAppCredential() {
-  return getMockedCredential({
-    metadataLookupKey: "stripepayment",
-    key: {
-      scope: "read_write",
-    },
-  });
-}
-
 export const TestData = {
   selectedCalendars: {
     google: {
@@ -1399,17 +1390,6 @@ export const TestData = {
     },
     zoomvideo: {
       ...appStoreMetadata.zoomvideo,
-      keys: {
-        expiry_date: Infinity,
-        api_key: "",
-        scale_plan: "false",
-        client_id: "client_id",
-        client_secret: "client_secret",
-        redirect_uris: ["http://localhost:3000/auth/callback"],
-      },
-    },
-    "stripe-payment": {
-      ...appStoreMetadata.stripepayment,
       keys: {
         expiry_date: Infinity,
         api_key: "",
