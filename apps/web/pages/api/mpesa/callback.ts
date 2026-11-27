@@ -86,13 +86,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!existingTx) {
-      // The Daraja callback can arrive immediately after STK acceptance, before
-      // the initiating request commits its CheckoutRequestID. Do not acknowledge
-      // and discard it; a non-200 response asks the provider to retry delivery.
-      console.warn(`M-Pesa callback arrived before transaction ${CheckoutRequestID} was persisted.`);
-      return res.status(503).json({
-        ResultCode: 1,
-        ResultDesc: "Transaction is not yet available; retry callback",
+      // Safaricom does not guarantee callback retries. Acknowledge the callback
+      // to avoid repeated delivery attempts, but log the unmatched checkout ID
+      // for operator reconciliation rather than inventing a payment record.
+      console.error(`M-Pesa callback has no matching transaction: ${CheckoutRequestID}`);
+      return res.status(200).json({
+        ResultCode: 0,
+        ResultDesc: "Callback acknowledged; transaction requires reconciliation",
       });
     }
 
