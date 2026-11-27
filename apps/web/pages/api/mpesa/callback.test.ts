@@ -14,6 +14,13 @@ const { mockPrisma } = vi.hoisted(() => ({
     payment: {
       update: vi.fn(),
     },
+    mPesaSubscription: {
+      findUnique: vi.fn(),
+      updateMany: vi.fn(),
+    },
+    membership: {
+      findMany: vi.fn(),
+    },
     booking: {
       findFirst: vi.fn(),
       update: vi.fn(),
@@ -25,6 +32,7 @@ const { mockPrisma } = vi.hoisted(() => ({
     },
     alert: {
       create: vi.fn(),
+      createMany: vi.fn(),
     },
     whatsAppMessageLog: {
       create: vi.fn(),
@@ -173,6 +181,10 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     (mockPrisma.receipt.count as Mock).mockResolvedValue(0);
     (mockPrisma.receipt.create as Mock).mockResolvedValue({ id: "r-1", receiptNumber: "RCP-20260806-0001" });
     (mockPrisma.alert.create as Mock).mockResolvedValue({ id: "a-1" });
+    (mockPrisma.alert.createMany as Mock).mockResolvedValue({ count: 1 });
+    (mockPrisma.mPesaSubscription.findUnique as Mock).mockResolvedValue(null);
+    (mockPrisma.mPesaSubscription.updateMany as Mock).mockResolvedValue({ count: 1 });
+    (mockPrisma.membership.findMany as Mock).mockResolvedValue([]);
     (mockPrisma.whatsAppMessageLog.create as Mock).mockResolvedValue({ id: "l-1" });
     (mockPrisma.whatsAppSession.findUnique as Mock).mockResolvedValue(null);
   });
@@ -301,6 +313,60 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
+      })
+    );
+  });
+
+  it("moves a subscription to reconciliation when callback metadata does not match", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      source: "subscription-payment",
+      bookingUid: null,
+      subscriptionId: "sub-1",
+    });
+    (mockPrisma.mPesaSubscription.findUnique as Mock).mockResolvedValue({
+      id: "sub-1",
+      userId: 42,
+      teamId: null,
+      subscriptionType: "TEAM",
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 499 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.mPesaSubscription.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: expect.objectContaining({ id: "sub-1" }),
+        data: { status: "RECONCILIATION_REQUIRED" },
+      })
+    );
+    expect(mockPrisma.alert.createMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: [
+          expect.objectContaining({
+            userId: 42,
+            title: "M-Pesa subscription payment needs verification",
+          }),
+        ],
       })
     );
   });
