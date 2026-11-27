@@ -1,6 +1,5 @@
 "use client";
 
-import { createPaymentLink } from "@kalo/app-store/stripepayment/lib/client";
 import { useHandleBookEvent } from "@kalo/atoms/hooks/bookings/useHandleBookEvent";
 import dayjs from "@kalo/dayjs";
 import { sdkActionManager } from "@kalo/embed-core/embed-iframe";
@@ -180,7 +179,7 @@ export const useBookings = ({ event, hashedLink, bookingForm, metadata, isBookin
         return;
       }
 
-      const { uid, paymentUid } = booking;
+      const { uid } = booking;
       const fullName = getFullName(bookingForm.getValues("responses.name"));
 
       const users = event.data?.subsetOfHosts?.length
@@ -234,19 +233,6 @@ export const useBookings = ({ event, hashedLink, bookingForm, metadata, isBookin
             isRecurring: false,
           })
         );
-      }
-
-      if (paymentUid) {
-        router.push(
-          createPaymentLink({
-            paymentUid,
-            date: timeslot,
-            name: fullName,
-            email: bookingForm.getValues("responses.email"),
-            absolute: false,
-          })
-        );
-        return;
       }
 
       if (!uid) {
