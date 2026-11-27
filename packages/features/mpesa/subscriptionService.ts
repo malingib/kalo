@@ -217,17 +217,19 @@ async function sendWorkspaceSubscriptionPrompt(input: {
   accountReference: string;
   transactionDesc: string;
 }) {
-  const transaction = await prisma.mPesaTransaction.create({
-    data: {
-      subscriptionId: input.subscriptionId,
-      phoneNumber: input.phoneNumber,
-      amount: input.amountKes,
-      source: "subscription-payment",
-      status: "INITIATING",
-    },
-  });
-
+  let transactionId: string | undefined;
   try {
+    const transaction = await prisma.mPesaTransaction.create({
+      data: {
+        subscriptionId: input.subscriptionId,
+        phoneNumber: input.phoneNumber,
+        amount: input.amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+    transactionId = transaction.id;
+
     const response = await DarajaClient.initiateStkPush({
       consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
       consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
@@ -258,10 +260,14 @@ async function sendWorkspaceSubscriptionPrompt(input: {
     return { subscriptionId: input.subscriptionId, status: "PAYMENT_PENDING" as const };
   } catch {
     await prisma.$transaction([
-      prisma.mPesaTransaction.update({
-        where: { id: transaction.id },
-        data: { status: "FAILED", resultDesc: "Daraja subscription STK Push failed" },
-      }),
+      ...(transactionId
+        ? [
+            prisma.mPesaTransaction.update({
+              where: { id: transactionId },
+              data: { status: "FAILED", resultDesc: "Daraja subscription STK Push failed" },
+            }),
+          ]
+        : []),
       prisma.mPesaSubscription.update({
         where: { id: input.subscriptionId },
         data: { status: "PAST_DUE" },
