@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { MPesaStkPushOptions } from "./darajaClient";
-import { DarajaClient } from "./darajaClient";
+import { DarajaClient, isDarajaStkOutcomeUncertain } from "./darajaClient";
 
 const baseOptions: MPesaStkPushOptions = {
   consumerKey: "test-consumer-key",
@@ -123,15 +123,42 @@ describe("DarajaClient.initiateStkPush", () => {
   it("throws a descriptive error when the OAuth token request fails", async () => {
     fetchMock.mockResolvedValueOnce(errorResponse(401, "Unauthorized"));
 
-    await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(/M-Pesa auth failed: 401/);
+    await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(/M-Pesa auth failed: HTTP 401/);
   });
 
   it("throws when the STK push request itself fails", async () => {
     fetchMock.mockResolvedValueOnce(tokenResponse()).mockResolvedValueOnce(errorResponse(500, "Oops"));
 
     await expect(DarajaClient.initiateStkPush(baseOptions)).rejects.toThrow(
-      /M-Pesa STK Push request failed: 500/
+      /M-Pesa STK Push request failed: HTTP 500/
     );
+  });
+
+  it("classifies an STK HTTP 5xx response as uncertain", async () => {
+    fetchMock.mockResolvedValueOnce(tokenResponse()).mockResolvedValueOnce(errorResponse(500, "Oops"));
+
+    let error: unknown;
+    try {
+      await DarajaClient.initiateStkPush(baseOptions);
+    } catch (caught) {
+      error = caught;
+    }
+    expect(isDarajaStkOutcomeUncertain(error)).toBe(true);
+  });
+
+  it("classifies an STK transport timeout as uncertain", async () => {
+    vi.useFakeTimers();
+    fetchMock.mockResolvedValueOnce(tokenResponse()).mockImplementationOnce(
+      (_url: string, init: RequestInit) =>
+        new Promise((_resolve, reject) => {
+          init.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+        })
+    );
+
+    const request = DarajaClient.initiateStkPush(baseOptions);
+    await vi.advanceTimersByTimeAsync(15_000);
+    await expect(request).rejects.toThrow("M-Pesa STK Push request timed out");
+    expect(isDarajaStkOutcomeUncertain(new Error("M-Pesa STK Push request timed out"))).toBe(true);
   });
 
   it("throws when the STK response is not JSON", async () => {
@@ -166,7 +193,7 @@ describe("DarajaClient.initiateStkPush", () => {
     const request = DarajaClient.initiateStkPush(baseOptions);
     await vi.advanceTimersByTimeAsync(15_000);
 
-    await expect(request).rejects.toThrow("M-Pesa request timed out");
+    await expect(request).rejects.toThrow("M-Pesa auth request timed out");
   });
 
   it("rejects an OAuth response without an access token", async () => {
