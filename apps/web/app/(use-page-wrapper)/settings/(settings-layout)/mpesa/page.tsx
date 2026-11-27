@@ -52,14 +52,17 @@ export default function MpesaSettingsPage() {
     });
   };
 
+  const inputClass =
+    "mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white";
+
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
-      <div>
+      <header>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">M-Pesa payment settings</h1>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Save your business's M-Pesa settlement details for reconciliation and vendor payouts.
+          Manage your business settlement details and the Daraja credentials used for booking STK Push.
         </p>
-      </div>
+      </header>
 
       {profileQuery.isLoading && <p className="text-sm text-gray-500">Loading payment settings…</p>}
       {profileQuery.isError && (
@@ -67,23 +70,13 @@ export default function MpesaSettingsPage() {
           Could not load payment settings. Please refresh and try again.
         </p>
       )}
-      {saveProfile.isSuccess && (
-        <p role="status" className="rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">
-          Payment details saved.
-        </p>
-      )}
-      {saveProfile.isError && (
-        <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {saveProfile.error.message}
-        </p>
-      )}
 
       <section className="rounded-xl border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
         <form onSubmit={handleSave} className="space-y-5">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Business payment details</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Business settlement details</h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Enter your business Till or Paybill and the phone number used for settlements. These details are stored on your vendor profile.
+              These details are stored on your vendor profile for settlement records and reconciliation.
             </p>
           </div>
 
@@ -92,11 +85,11 @@ export default function MpesaSettingsPage() {
               Buy Goods / Till number
               <input
                 value={tillNumber}
-                onChange={(event) => setTillNumber(event.target.value.replace(/\\D/g, "").slice(0, 10))}
+                onChange={(event) => setTillNumber(event.target.value.replace(/\D/g, "").slice(0, 10))}
                 inputMode="numeric"
                 autoComplete="off"
                 placeholder="e.g. 892341"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className={inputClass}
               />
             </label>
 
@@ -104,11 +97,11 @@ export default function MpesaSettingsPage() {
               Paybill number
               <input
                 value={paybill}
-                onChange={(event) => setPaybill(event.target.value.replace(/\\D/g, "").slice(0, 10))}
+                onChange={(event) => setPaybill(event.target.value.replace(/\D/g, "").slice(0, 10))}
                 inputMode="numeric"
                 autoComplete="off"
                 placeholder="e.g. 522522"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className={inputClass}
               />
             </label>
 
@@ -119,8 +112,8 @@ export default function MpesaSettingsPage() {
                 onChange={(event) => setAccountName(event.target.value)}
                 maxLength={50}
                 autoComplete="organization"
-                placeholder="Name shown to the customer"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                placeholder="Business account name"
+                className={inputClass}
               />
             </label>
 
@@ -128,65 +121,108 @@ export default function MpesaSettingsPage() {
               Payout phone number
               <input
                 value={payoutPhone}
-                onChange={(event) => setPayoutPhone(event.target.value.replace(/[^+\\d]/g, "").slice(0, 15))}
+                onChange={(event) => setPayoutPhone(event.target.value.replace(/[^+\d]/g, "").slice(0, 15))}
                 inputMode="tel"
                 autoComplete="tel"
                 placeholder="e.g. 0712345678"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className={inputClass}
               />
             </label>
           </div>
 
-          <div className="rounded-lg border border-gray-200 p-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Daraja STK Push credentials</h2>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Enter the shortcode and passkey issued for your business. The passkey is encrypted before storage and is never returned to the browser.
+          {saveProfile.isSuccess && (
+            <p role="status" className="text-sm text-green-700">
+              Business settlement details saved.
             </p>
-            <p className="mt-2 text-xs text-gray-500">
-              Configuration status: {credentialsStatus.data?.hasShortcode && credentialsStatus.data?.hasPasskey ? "Configured" : "Not configured"}
+          )}
+          {saveProfile.isError && (
+            <p role="alert" className="text-sm text-red-600">
+              {saveProfile.error.message}
             </p>
-            <form onSubmit={handleSaveCredentials} className="mt-4 space-y-3">
-              <label className="block text-sm font-medium">
-                Daraja Business Shortcode
-                <input
-                  value={darajaShortcode}
-                  onChange={(event) => setDarajaShortcode(event.target.value.replace(/\\D/g, "").slice(0, 10))}
-                  inputMode="numeric"
-                  autoComplete="off"
-                  required
-                  placeholder="Business shortcode"
-                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700"
-                />
-              </label>
-              <label className="block text-sm font-medium">
-                Daraja Passkey
-                <input
-                  type="password"
-                  value={darajaPasskey}
-                  onChange={(event) => setDarajaPasskey(event.target.value)}
-                  autoComplete="new-password"
-                  required={!credentialsStatus.data?.hasPasskey}
-                  placeholder={credentialsStatus.data?.hasPasskey ? "Saved securely — leave blank to keep current" : "Enter passkey"}
-                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700"
-                />
-              </label>
-              {saveCredentials.isError && <p role="alert" className="text-sm text-red-600">{saveCredentials.error.message}</p>}
-              {saveCredentials.isSuccess && <p role="status" className="text-sm text-green-700">Daraja credentials saved securely.</p>}
-              <div className="flex justify-end">
-                <button type="submit" disabled={saveCredentials.isPending || !darajaShortcode.trim()} className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
-                  {saveCredentials.isPending ? "Saving…" : "Save Daraja credentials"}
-                </button>
-              </div>
-            </form>
-          </div>
-
+          )}
           <div className="flex justify-end">
             <button
               type="submit"
               disabled={profileQuery.isLoading || profileQuery.isError || saveProfile.isPending}
               className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black"
             >
-              {saveProfile.isPending ? "Saving…" : "Save payment details"}
+              {saveProfile.isPending ? "Saving…" : "Save settlement details"}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+        <form onSubmit={handleSaveCredentials} className="space-y-4">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Daraja STK Push credentials</h2>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              Enter the shortcode and passkey issued for your business. The passkey is encrypted before storage and is never returned to the browser.
+            </p>
+            <p className="mt-2 text-xs text-gray-500">
+              Configuration status:{" "}
+              {credentialsStatus.isLoading
+                ? "Checking…"
+                : credentialsStatus.data?.hasShortcode && credentialsStatus.data?.hasPasskey
+                  ? "Configured"
+                  : "Not configured"}
+            </p>
+          </div>
+
+          {credentialsStatus.isError && (
+            <p role="alert" className="text-sm text-red-600">
+              Could not load Daraja credential status.
+            </p>
+          )}
+
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Daraja Business Shortcode
+            <input
+              value={darajaShortcode}
+              onChange={(event) => setDarajaShortcode(event.target.value.replace(/\D/g, "").slice(0, 10))}
+              inputMode="numeric"
+              autoComplete="off"
+              required
+              placeholder="Re-enter your business shortcode"
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Daraja Passkey
+            <input
+              type="password"
+              value={darajaPasskey}
+              onChange={(event) => setDarajaPasskey(event.target.value)}
+              autoComplete="new-password"
+              required={!credentialsStatus.data?.hasPasskey}
+              placeholder={credentialsStatus.data?.hasPasskey ? "Saved securely — leave blank to keep current" : "Enter passkey"}
+              className={inputClass}
+            />
+          </label>
+
+          {saveCredentials.isError && (
+            <p role="alert" className="text-sm text-red-600">
+              {saveCredentials.error.message}
+            </p>
+          )}
+          {saveCredentials.isSuccess && (
+            <p role="status" className="text-sm text-green-700">
+              Daraja credentials saved securely.
+            </p>
+          )}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={
+                saveCredentials.isPending ||
+                credentialsStatus.isLoading ||
+                !darajaShortcode.trim() ||
+                (!credentialsStatus.data?.hasPasskey && !darajaPasskey.trim())
+              }
+              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            >
+              {saveCredentials.isPending ? "Saving…" : "Save Daraja credentials"}
             </button>
           </div>
         </form>
