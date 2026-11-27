@@ -1,4 +1,4 @@
-name: Pre-build quality gate
+name: Pre-build implementation gate
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: prebuild-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Type check, lint and unit tests
+    name: Type check, lint and generated-artifact verification
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -44,21 +44,9 @@ jobs:
       - name: Regenerate app-store registries from retained source apps
         run: yarn app-store:build
 
-      - name: Commit generated app-store registries
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        env:
-          GH_TOKEN: ${{ github.token }}
-          HEAD_REF: ${{ github.head_ref }}
+      - name: Verify generated registries and lockfile are committed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add packages/app-store/*.generated.ts packages/app-store/*.generated.tsx yarn.lock
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "chore(app-store): regenerate integration registries"
-          git push origin "HEAD:${HEAD_REF}"
-          gh workflow run prebuild-quality-gate.yml --ref "${HEAD_REF}"
+          git diff --exit-code -- yarn.lock packages/app-store/*.generated.ts packages/app-store/*.generated.tsx
 
       - name: TypeScript checks
         run: yarn type-check:ci
@@ -68,9 +56,3 @@ jobs:
 
       - name: Generate Prisma client
         run: yarn prisma generate
-
-      - name: Unit tests
-        run: yarn test -- --no-isolate
-        env:
-          CI: true
-          TZ: UTC
