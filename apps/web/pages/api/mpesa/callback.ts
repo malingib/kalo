@@ -275,15 +275,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // attendee/organizer emails, and BOOKING_PAID / BOOKING_REQUESTED webhooks.
       // WhatsApp-originated transactions have no Payment row and keep their
       // dedicated booking + receipt path below.
-      if (success && existingTx.paymentId) {
+      if (success && existingTx.source === "booking-payment" && existingTx.paymentId) {
         const linkedBooking = existingTx.bookingUid
           ? await prisma.booking.findFirst({
               where: { uid: existingTx.bookingUid },
-              select: { id: true },
+              select: { id: true, userId: true, status: true },
             })
           : null;
         if (!linkedBooking) {
           throw new Error("M-Pesa booking payment has no linked booking");
+        }
+        // Never resurrect a cancelled, rejected, or already-confirmed booking
+        // from a late callback. The funds are real, but the booking/payment
+        // relationship needs an operator to reconcile it safely.
+        if (linkedBooking.status !== BookingStatus.PENDING) {
+          await prisma.mPesaTransaction.update({
+            where: { id: existingTx.id },
+            data: {
+              status: "RECONCILIATION_REQUIRED",
+              resultDesc: `Payment succeeded after booking left PENDING state (${linkedBooking.status})`,
+            },
+          });
+          if (linkedBooking.userId) {
+            await prisma.alert.create({
+              data: {
+                userId: linkedBooking.userId,
+                type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                channel: "IN_APP",
+                title: "M-Pesa payment needs booking review",
+                body: "A payment arrived after the booking changed status. Verify the payment and booking before taking further action.",
+                metadata: { bookingUid: existingTx.bookingUid, transactionId: existingTx.id },
+              },
+            });
+          }
+          return res.status(200).json({
+            ResultCode: 0,
+            ResultDesc: "Callback acknowledged; booking payment requires reconciliation",
+          });
         }
         try {
           await handlePaymentSuccess({
@@ -315,7 +343,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const updatedBooking = await tx.booking.update({
             where: { uid: existingTx.bookingUid },
             data: {
-              paymentStatus: "DEPOSIT_PAID",
+              paymentStatus: isFirstPartyBookingPayment ? "PAID" : "DEPOSIT_PAID",
               paid: true,
             },
             select: {
