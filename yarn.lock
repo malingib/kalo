@@ -3317,22 +3317,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@getalby/lightning-tools@npm:5.1.2":
-  version: 5.1.2
-  resolution: "@getalby/lightning-tools@npm:5.1.2"
-  checksum: 10/169f13e76bab25468b8ae36f5b551de9898326d51a044c5b937b5940e1100102db53f460005ad70a416fff6334709502ddfab81c2491f2d3377b4bff174c86b6
-  languageName: node
-  linkType: hard
-
-"@getalby/sdk@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@getalby/sdk@npm:4.0.0"
-  dependencies:
-    nostr-tools: "npm:2.9.4"
-  checksum: 10/a52a935940eab701adc1ce2f4f00962fe894472fe1c75458183ca7e1b0369ec236623db8644b3585771942e24b18b704baaf866598e5a58edd598c58150e5d6e
-  languageName: node
-  linkType: hard
-
 "@gitbeaker/core@npm:^39.34.3":
   version: 39.34.3
   resolution: "@gitbeaker/core@npm:39.34.3"
@@ -5491,20 +5475,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kalo/alby@workspace:packages/app-store/alby":
-  version: 0.0.0-use.local
-  resolution: "@kalo/alby@workspace:packages/app-store/alby"
-  dependencies:
-    "@getalby/lightning-tools": "npm:5.1.2"
-    "@getalby/sdk": "npm:4.0.0"
-    "@kalo/lib": "workspace:*"
-    "@kalo/types": "workspace:*"
-    "@webbtc/webln-types": "npm:3.0.0"
-    react-qr-code: "npm:2.0.18"
-    svix: "npm:0.85.1"
-  languageName: unknown
-  linkType: soft
-
 "@kalo/api-proxy@workspace:apps/api":
   version: 0.0.0-use.local
   resolution: "@kalo/api-proxy@workspace:apps/api"
@@ -5729,15 +5699,6 @@ __metadata:
 "@kalo/basecamp3@workspace:packages/app-store/basecamp3":
   version: 0.0.0-use.local
   resolution: "@kalo/basecamp3@workspace:packages/app-store/basecamp3"
-  dependencies:
-    "@kalo/lib": "workspace:*"
-    "@kalo/types": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
-"@kalo/btcpayserver@workspace:packages/app-store/btcpayserver":
-  version: 0.0.0-use.local
-  resolution: "@kalo/btcpayserver@workspace:packages/app-store/btcpayserver"
   dependencies:
     "@kalo/lib": "workspace:*"
     "@kalo/types": "workspace:*"
@@ -6162,16 +6123,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kalo/hitpay@workspace:packages/app-store/hitpay":
-  version: 0.0.0-use.local
-  resolution: "@kalo/hitpay@workspace:packages/app-store/hitpay"
-  dependencies:
-    "@kalo/lib": "workspace:*"
-    "@kalo/prisma": "workspace:*"
-    "@kalo/types": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "@kalo/horizon-workrooms@workspace:packages/app-store/horizon-workrooms":
   version: 0.0.0-use.local
   resolution: "@kalo/horizon-workrooms@workspace:packages/app-store/horizon-workrooms"
@@ -6370,15 +6321,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kalo/mock-payment-app@workspace:packages/app-store/mock-payment-app":
-  version: 0.0.0-use.local
-  resolution: "@kalo/mock-payment-app@workspace:packages/app-store/mock-payment-app"
-  dependencies:
-    "@kalo/lib": "workspace:*"
-    "@kalo/types": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "@kalo/nextcloudtalk@workspace:packages/app-store/nextcloudtalk":
   version: 0.0.0-use.local
   resolution: "@kalo/nextcloudtalk@workspace:packages/app-store/nextcloudtalk"
@@ -6406,15 +6348,6 @@ __metadata:
   dependencies:
     "@kalo/lib": "workspace:*"
     "@kalo/prisma": "workspace:*"
-    "@kalo/types": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
-"@kalo/paypal@workspace:packages/app-store/paypal":
-  version: 0.0.0-use.local
-  resolution: "@kalo/paypal@workspace:packages/app-store/paypal"
-  dependencies:
-    "@kalo/lib": "workspace:*"
     "@kalo/types": "workspace:*"
   languageName: unknown
   linkType: soft
@@ -17120,13 +17053,6 @@ __metadata:
     "@webassemblyjs/ast": "npm:1.14.1"
     "@xtuc/long": "npm:4.2.2"
   checksum: 10/cef09aad2fcd291bfcf9efdae2ea1e961a1ba0f925d1d9dcdd8c746d32fbaf431b6d26a0241699c0e39f82139018aa720b4ceb84ac6f4c78f13072747480db69
-  languageName: node
-  linkType: hard
-
-"@webbtc/webln-types@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@webbtc/webln-types@npm:3.0.0"
-  checksum: 10/683b3074495ac3447bd9ef00dcea7ad4edb393c72553580e89f0fb6f683169bc23b8f3e1b799755bd3efd6e5f8d910adc9296a50b084de40869b1cbb4ad23f43
   languageName: node
   linkType: hard
 
@@ -34003,18 +33929,6 @@ __metadata:
     react: ">=16.8"
     react-dom: ">=16.8"
   checksum: 10/e964b115b2988263b5b6c7778d99c6d97a14a49782d3e398fe506b082be6f96025475e5412db615fed02bdfa55e78d91c70a0a1d4361c08a89a8879cb863b8da
-  languageName: node
-  linkType: hard
-
-"react-qr-code@npm:2.0.18":
-  version: 2.0.18
-  resolution: "react-qr-code@npm:2.0.18"
-  dependencies:
-    prop-types: "npm:^15.8.1"
-    qr.js: "npm:0.0.0"
-  peerDependencies:
-    react: "*"
-  checksum: 10/c90164aac6c124d6a7aba2d9426859072d2233bb8d06102d23ef0c1831048e94cebc7608b821ff2b79f3a1cadf454305c727fd3e1d7742fd71f816cdeac04053
   languageName: node
   linkType: hard
 
