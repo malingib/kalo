@@ -13,7 +13,7 @@ import { handleCustomInputs } from "./handleCustomInputs";
 type ReqBodyWithEnd = TgetBookingDataSchema & { end: string };
 
 // Define the function with underscore prefix
-const _getBookingData = async <T extends z.ZodType>({
+const _getBookingData = async <T extends z.ZodType<TgetBookingDataSchema>>({
   reqBody,
   eventType,
   schema,
