@@ -23,18 +23,41 @@ export function getPaymentAppData(
     metadata: eventTypeMetaDataSchemaWithTypedApps.parse(_eventType.metadata),
   };
   const metadataApps = eventType.metadata?.apps;
+  // Older paid event types stored payment details at the event-type level and
+  // identified Stripe only implicitly. Preserve KES booking payments by routing
+  // that legacy shape through the native M-Pesa app, but never auto-convert a
+  // non-KES price or override an explicitly configured M-Pesa app.
+  const legacyMpesa = !metadataApps?.mpesa
+    ? (getEventTypeAppData(eventType, "mpesa", forcedGet) as PaymentAppConfig | null)
+    : null;
+  const legacyPaymentAppData = legacyMpesa
+    ? {
+        enabled: true,
+        price: legacyMpesa.price ?? 0,
+        currency: "KES",
+        appId: "mpesa" as const,
+        paymentOption: "ON_BOOKING" as const,
+        credentialId: undefined,
+        refundPolicy: undefined,
+        refundDaysCount: undefined,
+        refundCountCalendarDays: undefined,
+      }
+    : null;
+
   if (!metadataApps) {
-    return {
-      enabled: false,
-      price: 0,
-      currency: _eventType.currency || "KES",
-      appId: null,
-      paymentOption: "ON_BOOKING" as const,
-      credentialId: undefined,
-      refundPolicy: undefined,
-      refundDaysCount: undefined,
-      refundCountCalendarDays: undefined,
-    };
+    return (
+      legacyPaymentAppData || {
+        enabled: false,
+        price: 0,
+        currency: _eventType.currency || "KES",
+        appId: null,
+        paymentOption: "ON_BOOKING" as const,
+        credentialId: undefined,
+        refundPolicy: undefined,
+        refundDaysCount: undefined,
+        refundCountCalendarDays: undefined,
+      }
+    );
   }
   type appId = keyof typeof metadataApps;
   // @TODO: a lot of unknowns types here can be improved later
@@ -76,7 +99,8 @@ export function getPaymentAppData(
   // This is the current expectation of system to have price and currency set always(using DB Level defaults).
   // Newly added apps code should assume that their app data might not be set.
   return (
-    paymentAppData || {
+    paymentAppData ||
+    legacyPaymentAppData || {
       enabled: false,
       price: 0,
       currency: _eventType.currency || "KES",
