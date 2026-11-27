@@ -154,7 +154,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const subscription = existingTx.subscriptionId
             ? await prisma.mPesaSubscription.findUnique({
                 where: { id: existingTx.subscriptionId },
-                select: { userId: true, teamId: true, subscriptionType: true },
+                select: { id: true, userId: true, teamId: true, subscriptionType: true },
               })
             : null;
           const subscriptionRecipients = subscription?.userId
@@ -182,7 +182,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (subscription) {
               await tx.mPesaSubscription.updateMany({
                 where: {
-                  id: existingTx.subscriptionId!,
+                  id: subscription.id,
                   status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
                 },
                 data: { status: "RECONCILIATION_REQUIRED" },
