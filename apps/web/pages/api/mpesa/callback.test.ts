@@ -435,6 +435,51 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     expect(mockHandlePaymentSuccess).toHaveBeenCalled();
   });
 
+  it("does not resurrect a cancelled booking after a late successful STK callback", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      source: "booking-payment",
+      paymentId: 99,
+    });
+    (mockPrisma.booking.findFirst as Mock).mockResolvedValue({
+      id: 1,
+      uid: "booking-1",
+      userId: 42,
+      status: BookingStatus.CANCELLED,
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockHandlePaymentSuccess).not.toHaveBeenCalled();
+    expect(mockPrisma.payment.update).not.toHaveBeenCalled();
+    expect(mockPrisma.receipt.create).not.toHaveBeenCalled();
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
+      })
+    );
+  });
+
   it("does not run WhatsApp side-effects for a generic M-Pesa transaction", async () => {
     (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
       ...PENDING_TX,
