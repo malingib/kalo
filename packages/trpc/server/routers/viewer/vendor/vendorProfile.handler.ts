@@ -81,11 +81,27 @@ export const upsertVendorProfileHandler = async ({ ctx, input }: UpsertOpts) => 
     }),
   };
 
-  return prisma.vendorProfile.upsert({
-    where: { userId: ctx.user.id },
-    create: { userId: ctx.user.id, ...data },
-    update: data,
-    select: VENDOR_PROFILE_SELECT,
+  return prisma.$transaction(async (tx) => {
+    const profile = await tx.vendorProfile.upsert({
+      where: { userId: ctx.user.id },
+      create: { userId: ctx.user.id, ...data },
+      update: data,
+      select: VENDOR_PROFILE_SELECT,
+    });
+
+    // Keep the legacy User-level M-Pesa fields used by the WhatsApp bot and
+    // STK routing in sync with the vendor's settlement settings.
+    if (input.mpesaTillNumber !== undefined || input.mpesaPaybill !== undefined) {
+      await tx.user.update({
+        where: { id: ctx.user.id },
+        data: {
+          ...(input.mpesaTillNumber !== undefined && { mpesaTillNumber: input.mpesaTillNumber }),
+          ...(input.mpesaPaybill !== undefined && { mpesaPaybill: input.mpesaPaybill }),
+        },
+      });
+    }
+
+    return profile;
   });
 };
 
