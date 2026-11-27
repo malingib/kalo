@@ -85,10 +85,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    // Find existing transaction by CheckoutRequestID
-    const existingTx = await prisma.mPesaTransaction.findFirst({
+    // Find existing transaction by CheckoutRequestID.
+    let existingTx = await prisma.mPesaTransaction.findFirst({
       where: { checkoutRequestId: CheckoutRequestID },
     });
+
+    if (!existingTx) {
+      // Recover the narrow case where Daraja accepted the prompt and the
+      // Payment row stored CheckoutRequestID, but the paired transaction
+      // update failed. Payment.externalId is written in the same update.
+      const linkedPayment = await prisma.payment.findFirst({
+        where: { appId: "mpesa", externalId: CheckoutRequestID },
+        select: { id: true },
+      });
+      if (linkedPayment) {
+        const pendingTransaction = await prisma.mPesaTransaction.findFirst({
+          where: { paymentId: linkedPayment.id },
+        });
+        if (pendingTransaction) {
+          existingTx = pendingTransaction.checkoutRequestId
+            ? pendingTransaction
+            : await prisma.mPesaTransaction.update({
+                where: { id: pendingTransaction.id },
+                data: {
+                  checkoutRequestId: CheckoutRequestID,
+                  merchantRequestId: stkCallback.MerchantRequestID ?? pendingTransaction.merchantRequestId,
+                },
+              });
+        }
+      }
+    }
 
     if (!existingTx) {
       // Safaricom does not guarantee callback retries. Acknowledge the callback
