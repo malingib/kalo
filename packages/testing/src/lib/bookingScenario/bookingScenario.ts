@@ -1355,6 +1355,10 @@ export const TestData = {
       username: "example.username",
       defaultScheduleId: 1,
       timeZone: Timezones["+5:30"],
+      mpesaShortcode: "174379",
+      mpesaShortcodeType: "PAYBILL",
+      mpesaPasskey: "test-passkey",
+      mpesaTillNumber: null,
     },
   },
   apps: {
