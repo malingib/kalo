@@ -31,13 +31,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const transactionStatus = payment?.mpesaTransaction?.status;
   const rawStatus = typeof data.status === "string" ? data.status : null;
 
-  const status = payment?.success
-    ? "SUCCESS"
-    : transactionStatus === "RECONCILIATION_REQUIRED" || rawStatus === "RECONCILIATION_REQUIRED"
+  const status =
+    transactionStatus === "RECONCILIATION_REQUIRED" || rawStatus === "RECONCILIATION_REQUIRED"
       ? "RECONCILIATION_REQUIRED"
-      : transactionStatus === "FAILED" || rawStatus === "FAILED"
-        ? "FAILED"
-        : "PENDING";
+      : payment?.success
+        ? "SUCCESS"
+        : transactionStatus === "FAILED" || rawStatus === "FAILED"
+          ? "FAILED"
+          : "PENDING";
 
   return res.status(200).json({ status });
 }
