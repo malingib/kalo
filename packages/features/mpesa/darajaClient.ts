@@ -25,16 +25,20 @@ export class DarajaClient {
   private static readonly REQUEST_TIMEOUT_MS = 15_000;
 
   /** Daraja calls must not hold a serverless request open indefinitely. */
-  private static async request(url: string, init: RequestInit): Promise<Response> {
+  private static async request(
+    url: string,
+    init: RequestInit,
+    operation: "M-Pesa auth" | "M-Pesa STK Push"
+  ): Promise<Response> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), DarajaClient.REQUEST_TIMEOUT_MS);
     try {
       return await fetch(url, { ...init, signal: controller.signal });
     } catch (error) {
       if (controller.signal.aborted) {
-        throw new Error("M-Pesa request timed out");
+        throw new Error(`${operation} request timed out`);
       }
-      throw error;
+      throw new Error(`${operation} transport failed`);
     } finally {
       clearTimeout(timeout);
     }
@@ -72,7 +76,7 @@ export class DarajaClient {
       headers: {
         Authorization: `Basic ${auth}`,
       },
-    });
+    }, "M-Pesa auth");
 
     if (!response.ok) {
       throw new Error(`M-Pesa auth failed: HTTP ${response.status}`);
@@ -137,7 +141,7 @@ export class DarajaClient {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    });
+    }, "M-Pesa STK Push");
 
     if (!response.ok) {
       throw new Error(`M-Pesa STK Push request failed: HTTP ${response.status}`);
@@ -167,4 +171,17 @@ export class DarajaClient {
 
     return data;
   }
+}
+
+
+/** True when Daraja may have accepted an STK request but the client did not receive a reliable result. */
+export function isDarajaStkOutcomeUncertain(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes("M-Pesa STK Push request timed out") ||
+    message.includes("M-Pesa STK Push transport failed") ||
+    message.includes("M-Pesa STK Push returned a non-JSON response") ||
+    message.includes("M-Pesa STK Push response is missing required fields") ||
+    /M-Pesa STK Push request failed: HTTP 5\d\d/.test(message)
+  );
 }
