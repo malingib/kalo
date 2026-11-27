@@ -137,6 +137,13 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
 
   const startPremiumSubscription = async () => {
     setSubscriptionError(null);
+    if (
+      mpesaSubscription?.status === "PAST_DUE" &&
+      mpesaSubscription.username === inputUsernameValue
+    ) {
+      await renewPremiumSubscription();
+      return;
+    }
     if (!inputUsernameValue || !phoneNumber.trim()) {
       setSubscriptionError("Enter the username and Kenyan mobile number to continue.");
       return;
