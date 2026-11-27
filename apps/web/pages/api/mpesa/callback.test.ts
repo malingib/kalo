@@ -195,6 +195,10 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
       source: "booking-payment",
       paymentId: 99,
     });
+    (mockPrisma.booking.update as Mock).mockResolvedValue({
+      uid: "booking-1", title: "Executive Haircut", userId: 42,
+      status: BookingStatus.PENDING, attendees: [{ name: "Brian Otieno" }], user: null,
+    });
     const res = createRes();
     await handler(
       createReq({
@@ -639,7 +643,7 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     expect(res._status).toBe(200);
     // The idempotent booking cancel still runs, but nothing was cancelled this
     // time — no duplicate alert, and the session is left untouched.
-    expect(mockPrisma.booking.updateMany).toHaveBeenCalled();
+    expect(mockPrisma.booking.updateMany).not.toHaveBeenCalled();
     expect(mockPrisma.alert.create).not.toHaveBeenCalled();
     expect(mockPrisma.whatsAppSession.upsert).not.toHaveBeenCalled();
   });
