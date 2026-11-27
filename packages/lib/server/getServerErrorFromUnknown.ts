@@ -7,7 +7,6 @@ import { Prisma } from "@kalo/prisma/client";
 
 import { HttpError } from "../http-error";
 import { redactError } from "../redactError";
-import { stripeInvalidRequestErrorSchema } from "../stripe-error";
 import { TracedError } from "../tracing/error";
 
 function hasName(cause: unknown): cause is { name: string } {
@@ -33,7 +32,7 @@ function parseZodErrorIssues(issues: ZodIssue[]): string {
   return issues
     .map((i) =>
       i.code === "invalid_union"
-        ? i.unionErrors.map((ue) => parseZodErrorIssues(ue.issues)).join("; ")
+        ? i.errors.map((issues) => parseZodErrorIssues(issues)).join("; ")
         : i.code === "unrecognized_keys"
           ? i.message
           : `${i.path.length ? `${i.code} in '${i.path}': ` : ""}${i.message}`
@@ -43,7 +42,7 @@ function parseZodErrorIssues(issues: ZodIssue[]): string {
 
 /**
  * Converts unknown error types to HttpError with proper status code mapping and error redaction.
- * SERVER-ONLY: This function imports Prisma and Stripe schemas and should only be used in server-side code.
+ * SERVER-ONLY: This function imports Prisma and should only be used in server-side code.
  * Use in API routes, webhooks, and server-side services.
  * For client-side code, use getErrorFromUnknown from @kalo/lib/errors instead.
  *
@@ -78,12 +77,6 @@ export function getServerErrorFromUnknown(cause: unknown): HttpError {
   }
   if (isPrismaError(cause)) {
     return getServerErrorFromPrismaError(cause, traceId, tracedData);
-  }
-  const parsedStripeError = stripeInvalidRequestErrorSchema.safeParse(cause);
-  if (parsedStripeError.success) {
-    const stripeErrorObj = new Error(parsedStripeError.data.message || "Stripe error");
-    stripeErrorObj.name = parsedStripeError.data.type || "StripeInvalidRequestError";
-    return getHttpError({ statusCode: 400, cause: stripeErrorObj, traceId, tracedData });
   }
   if (cause instanceof ErrorWithCode) {
     const statusCode = getHttpStatusCode(cause);
