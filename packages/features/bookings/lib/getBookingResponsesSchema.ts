@@ -345,7 +345,7 @@ export function getBookingResponsesSchemaWithOptionalChecks({
 }
 
 type FieldZodCtxState = {
-  issues: z.IssueData[];
+  issues: Parameters<FieldZodCtx["addIssue"]>[0][];
 } | null;
 
 const buildFieldZodCtx = ({
@@ -364,7 +364,7 @@ const buildFieldZodCtx = ({
     };
     return {
       fieldZodCtx: {
-        addIssue: (issue: z.IssueData) => {
+        addIssue: (issue: Parameters<FieldZodCtx["addIssue"]>[0]) => {
           state.issues.push(issue);
         },
       },
