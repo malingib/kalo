@@ -15,13 +15,15 @@ export const mpesaSubscriptionHandler = async ({ ctx }: Options) => {
   const subscription = await prisma.mPesaSubscription.findFirst({
     where: { userId: ctx.user.id, subscriptionType: "PREMIUM_USERNAME" },
     orderBy: { createdAt: "desc" },
-    select: { username: true, status: true, currentPeriodEnd: true },
+    select: { id: true, username: true, status: true, currentPeriodEnd: true, phoneNumber: true },
   });
   const metadata = userMetadata.parse(user.metadata);
   return {
     isPremium: !!metadata?.isPremium,
+    id: subscription?.id ?? null,
     username: subscription?.username ?? null,
     status: subscription?.status ?? null,
     currentPeriodEnd: subscription?.currentPeriodEnd ?? null,
+    phoneNumber: subscription?.phoneNumber ?? null,
   };
 };
