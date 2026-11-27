@@ -127,25 +127,28 @@ export async function startPremiumUsernameSubscription(input: {
   });
   if (existing) throw new Error("An active or pending premium subscription already exists");
 
-  const subscription = await prisma.mPesaSubscription.create({
-    data: {
-      userId: input.userId,
-      subscriptionType: "PREMIUM_USERNAME",
-      planName: "Premium username",
-      username: input.username,
-      amountKes,
-      phoneNumber,
-      status: "PENDING",
-    },
-  });
-  const transaction = await prisma.mPesaTransaction.create({
-    data: {
-      subscriptionId: subscription.id,
-      phoneNumber,
-      amount: amountKes,
-      source: "subscription-payment",
-      status: "INITIATING",
-    },
+  const { subscription, transaction } = await prisma.$transaction(async (tx) => {
+    const subscription = await tx.mPesaSubscription.create({
+      data: {
+        userId: input.userId,
+        subscriptionType: "PREMIUM_USERNAME",
+        planName: "Premium username",
+        username: input.username,
+        amountKes,
+        phoneNumber,
+        status: "PENDING",
+      },
+    });
+    const transaction = await tx.mPesaTransaction.create({
+      data: {
+        subscriptionId: subscription.id,
+        phoneNumber,
+        amount: amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+    return { subscription, transaction };
   });
 
   return initiateSubscriptionStkPush({
@@ -249,24 +252,15 @@ export function listWorkspaceSubscriptionPlans(subscriptionType: WorkspaceSubscr
 
 async function sendWorkspaceSubscriptionPrompt(input: {
   subscriptionId: string;
+  transactionId: string;
   phoneNumber: string;
   amountKes: number;
   accountReference: string;
   transactionDesc: string;
 }) {
-  const transaction = await prisma.mPesaTransaction.create({
-    data: {
-      subscriptionId: input.subscriptionId,
-      phoneNumber: input.phoneNumber,
-      amount: input.amountKes,
-      source: "subscription-payment",
-      status: "INITIATING",
-    },
-  });
-
   return initiateSubscriptionStkPush({
     subscriptionId: input.subscriptionId,
-    transactionId: transaction.id,
+    transactionId: input.transactionId,
     phoneNumber: input.phoneNumber,
     amountKes: input.amountKes,
     accountReference: input.accountReference,
@@ -300,21 +294,34 @@ export async function startWorkspaceSubscription(input: {
   });
   if (existing) throw new Error("A pending or active subscription already exists for this workspace");
 
-  const subscription = await prisma.mPesaSubscription.create({
-    data: {
-      teamId: input.teamId,
-      subscriptionType: input.subscriptionType,
-      planName: input.planName,
-      amountKes,
-      phoneNumber,
-      billingPeriod: input.billingPeriod,
-      billingMode: "SEATS",
-      status: "PENDING",
-    },
+  const { subscription, transaction } = await prisma.$transaction(async (tx) => {
+    const subscription = await tx.mPesaSubscription.create({
+      data: {
+        teamId: input.teamId,
+        subscriptionType: input.subscriptionType,
+        planName: input.planName,
+        amountKes,
+        phoneNumber,
+        billingPeriod: input.billingPeriod,
+        billingMode: "SEATS",
+        status: "PENDING",
+      },
+    });
+    const transaction = await tx.mPesaTransaction.create({
+      data: {
+        subscriptionId: subscription.id,
+        phoneNumber,
+        amount: amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+    return { subscription, transaction };
   });
 
   return sendWorkspaceSubscriptionPrompt({
     subscriptionId: subscription.id,
+    transactionId: transaction.id,
     phoneNumber,
     amountKes,
     accountReference: `${input.subscriptionType === "ORGANIZATION" ? "ORG" : "TEAM"}-${input.teamId}`,
@@ -344,8 +351,28 @@ export async function initiateWorkspaceSubscriptionRenewal(input: { subscription
   });
   if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
 
+  let transaction;
+  try {
+    transaction = await prisma.mPesaTransaction.create({
+      data: {
+        subscriptionId: subscription.id,
+        phoneNumber: subscription.phoneNumber,
+        amount: subscription.amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+  } catch (error) {
+    await prisma.mPesaSubscription.updateMany({
+      where: { id: subscription.id, status: "RENEWAL_INITIATING" },
+      data: { status: "PAST_DUE" },
+    });
+    throw error;
+  }
+
   return sendWorkspaceSubscriptionPrompt({
     subscriptionId: subscription.id,
+    transactionId: transaction.id,
     phoneNumber: subscription.phoneNumber,
     amountKes: subscription.amountKes,
     accountReference: `${subscription.subscriptionType}-${subscription.teamId}`,
