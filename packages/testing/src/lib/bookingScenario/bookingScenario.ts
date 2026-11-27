@@ -192,7 +192,16 @@ type InputSelectedCalendar = (typeof TestData.selectedCalendars)[keyof typeof Te
   eventTypeId?: number | null;
 };
 
-type InputUser = Omit<typeof TestData.users.example, "defaultScheduleId"> & {
+type InputUser = Omit<
+  typeof TestData.users.example,
+  "defaultScheduleId" | "mpesaShortcode" | "mpesaShortcodeType" | "mpesaPasskey" | "mpesaTillNumber"
+> & {
+  // M-Pesa credentials are optional in booking fixtures; most tests exercise
+  // calendar and scheduling behavior and should not need payment-host secrets.
+  mpesaShortcode?: typeof TestData.users.example.mpesaShortcode;
+  mpesaShortcodeType?: typeof TestData.users.example.mpesaShortcodeType;
+  mpesaPasskey?: typeof TestData.users.example.mpesaPasskey;
+  mpesaTillNumber?: typeof TestData.users.example.mpesaTillNumber;
   id: number;
   defaultScheduleId?: number | null;
   credentials?: InputCredential[];
