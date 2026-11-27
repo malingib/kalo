@@ -5,9 +5,18 @@ type PaymentStatus = "PENDING" | "SUCCESS" | "FAILED" | "RECONCILIATION_REQUIRED
 type Props = {
   booking: { uid: string };
   payment: { success: boolean };
+  paymentInfo: PaymentPageProps;
+  onPaymentSuccess?: (input: PaymentPageProps) => void;
+  onPaymentCancellation?: (input: PaymentPageProps) => void;
 };
 
-export default function MPesaPaymentForm({ booking, payment }: Props) {
+export default function MPesaPaymentForm({
+  booking,
+  payment,
+  paymentInfo,
+  onPaymentSuccess,
+  onPaymentCancellation,
+}: Props) {
   const [status, setStatus] = useState<PaymentStatus>(payment.success ? "SUCCESS" : "PENDING");
 
   useEffect(() => {
@@ -29,6 +38,8 @@ export default function MPesaPaymentForm({ booking, payment }: Props) {
             result.status === "RECONCILIATION_REQUIRED")
         ) {
           setStatus(result.status);
+          if (result.status === "SUCCESS") onPaymentSuccess?.(paymentInfo);
+          if (result.status === "FAILED") onPaymentCancellation?.(paymentInfo);
         }
       } catch {
         // Keep waiting through transient network failures.
