@@ -323,7 +323,7 @@ export const getBookingResponsesPartialSchema = ({ bookingFields, view, translat
 // - Can happen when we are parsing the prefill query string
 // - Can happen when we are parsing a booking's responses (which was created before we added a new required field)
 export default function getBookingResponsesSchema({ bookingFields, view, translateFn }: CommonParams) {
-  const schema = bookingResponses.and(z.record(z.any()));
+  const schema = bookingResponses.and(z.record(z.string(), z.any()));
   return preprocess({ schema, bookingFields, isPartialSchema: false, view, translateFn });
 }
 
