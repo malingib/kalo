@@ -342,7 +342,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                   ? subscription.currentPeriodEnd
                   : now;
               const periodEnd = new Date(periodStart);
-              periodEnd.setMonth(periodEnd.getMonth() + 1);
+              if (subscription.billingPeriod === "ANNUALLY") {
+                periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+              } else {
+                periodEnd.setMonth(periodEnd.getMonth() + 1);
+              }
 
               let subscriptionStatus = "ACTIVE";
               if (subscription.subscriptionType === "PREMIUM_USERNAME" && subscription.userId && subscription.username) {
@@ -383,11 +387,80 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                   lastPaymentAt: now,
                 },
               });
+
+              if (subscription.teamId && subscription.subscriptionType === "TEAM") {
+                const billingData = {
+                  mpesaSubscriptionId: subscription.id,
+                  status: subscriptionStatus,
+                  planName: subscription.planName,
+                  subscriptionStart: periodStart,
+                  subscriptionEnd: periodEnd,
+                  billingPeriod: subscription.billingPeriod ?? "MONTHLY",
+                  billingMode: subscription.billingMode ?? "SEATS",
+                  pricePerSeat: subscription.pricePerSeat,
+                  paidSeats: subscription.paidSeats,
+                };
+                await tx.teamBilling.upsert({
+                  where: { teamId: subscription.teamId },
+                  create: { teamId: subscription.teamId, ...billingData },
+                  update: billingData,
+                });
+              }
+
+              if (subscription.teamId && subscription.subscriptionType === "ORGANIZATION") {
+                const billingData = {
+                  mpesaSubscriptionId: subscription.id,
+                  status: subscriptionStatus,
+                  planName: subscription.planName,
+                  subscriptionStart: periodStart,
+                  subscriptionEnd: periodEnd,
+                  billingPeriod: subscription.billingPeriod ?? "MONTHLY",
+                  billingMode: subscription.billingMode ?? "SEATS",
+                  pricePerSeat: subscription.pricePerSeat,
+                  paidSeats: subscription.paidSeats,
+                };
+                await tx.organizationBilling.upsert({
+                  where: { teamId: subscription.teamId },
+                  create: { teamId: subscription.teamId, ...billingData },
+                  update: billingData,
+                });
+              }
+
+              if (subscription.teamId) {
+                await tx.platformBilling.updateMany({
+                  where: { id: subscription.teamId },
+                  data: {
+                    mpesaSubscriptionId: subscription.id,
+                    plan: subscription.planName,
+                    overdue: false,
+                    billingCycleStart: Math.floor(periodStart.getTime() / 1000),
+                    billingCycleEnd: Math.floor(periodEnd.getTime() / 1000),
+                  },
+                });
+              }
             } else {
               await tx.mPesaSubscription.update({
                 where: { id: subscription.id },
                 data: { status: "PAST_DUE" },
               });
+              if (subscription.teamId && subscription.subscriptionType === "TEAM") {
+                await tx.teamBilling.updateMany({
+                  where: { teamId: subscription.teamId },
+                  data: { status: "PAST_DUE" },
+                });
+              }
+              if (subscription.teamId && subscription.subscriptionType === "ORGANIZATION") {
+                await tx.organizationBilling.updateMany({
+                  where: { teamId: subscription.teamId },
+                  data: { status: "PAST_DUE" },
+                });
+              }
+              if (subscription.teamId) {
+                await tx.platformBilling.updateMany({
+                  where: { id: subscription.teamId },
+                  data: { overdue: true },
+                });
+              }
             }
           }
         }
