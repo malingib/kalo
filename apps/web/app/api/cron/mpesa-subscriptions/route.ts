@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   const staleBefore = new Date(Date.now() - 30 * 60 * 1000);
   const staleSubscriptions = await prisma.mPesaSubscription.findMany({
     where: {
-      status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
+      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING"] },
       updatedAt: { lte: staleBefore },
     },
     select: { id: true, userId: true, teamId: true, subscriptionType: true },
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
         const claimed = await tx.mPesaSubscription.updateMany({
           where: {
             id: subscription.id,
-            status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
+            status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING"] },
             updatedAt: { lte: staleBefore },
           },
           data: { status: "RECONCILIATION_REQUIRED" },
