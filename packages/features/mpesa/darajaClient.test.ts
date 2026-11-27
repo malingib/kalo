@@ -120,6 +120,32 @@ describe("DarajaClient.initiateStkPush", () => {
     expect(payload.TransactionDesc).toBe("Barber depos");
   });
 
+  it("routes Buy Goods STK prompts to the Till number", async () => {
+    fetchMock.mockResolvedValueOnce(tokenResponse()).mockResolvedValueOnce(stkResponse());
+
+    await DarajaClient.initiateStkPush({
+      ...baseOptions,
+      transactionType: "CustomerBuyGoodsOnline",
+      partyB: "123456",
+    });
+
+    const [, stkRequest] = fetchMock.mock.calls;
+    const payload = JSON.parse((stkRequest[1] as { body: string }).body);
+    expect(payload.BusinessShortCode).toBe("174379");
+    expect(payload.TransactionType).toBe("CustomerBuyGoodsOnline");
+    expect(payload.PartyB).toBe("123456");
+  });
+
+  it("requires a Till number for Buy Goods STK prompts", async () => {
+    await expect(
+      DarajaClient.initiateStkPush({
+        ...baseOptions,
+        transactionType: "CustomerBuyGoodsOnline",
+      })
+    ).rejects.toThrow("A Buy Goods Till number is required for M-Pesa STK Push");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("throws a descriptive error when the OAuth token request fails", async () => {
     fetchMock.mockResolvedValueOnce(errorResponse(401, "Unauthorized"));
 
