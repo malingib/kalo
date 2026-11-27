@@ -4,7 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 type Mock = ReturnType<typeof vi.fn>;
 
-const { mockPrisma } = vi.hoisted(() => ({
+const { mockPrisma, mockHandlePaymentSuccess } = vi.hoisted(() => ({
+  mockHandlePaymentSuccess: vi.fn(),
   mockPrisma: {
     mPesaTransaction: {
       findFirst: vi.fn(),
@@ -46,6 +47,9 @@ const { mockPrisma } = vi.hoisted(() => ({
 }));
 
 vi.mock("@kalo/prisma", () => ({ default: mockPrisma, prisma: mockPrisma }));
+vi.mock("@kalo/app-store/_utils/payments/handlePaymentSuccess", () => ({
+  handlePaymentSuccess: mockHandlePaymentSuccess,
+}));
 
 import handler from "./callback";
 
@@ -171,8 +175,12 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     (mockPrisma.mPesaTransaction.update as Mock).mockResolvedValue(PENDING_TX);
     (mockPrisma.mPesaTransaction.updateMany as Mock).mockResolvedValue({ count: 1 });
     (mockPrisma.payment.update as Mock).mockResolvedValue({ id: 99, success: true });
+    mockHandlePaymentSuccess.mockResolvedValue(undefined);
+    (mockPrisma.mPesaTransaction.updateMany as Mock).mockResolvedValue({ count: 1 });
+    (mockPrisma.payment.update as Mock).mockResolvedValue({ id: 99, success: true });
     (mockPrisma.booking.updateMany as Mock).mockResolvedValue({ count: 1 });
     (mockPrisma.booking.findFirst as Mock).mockResolvedValue({
+      id: 1,
       uid: "booking-1",
       title: "Executive Haircut",
       userId: 42,
