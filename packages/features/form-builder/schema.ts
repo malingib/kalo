@@ -293,6 +293,4 @@ export const fieldTypesSchemaMap = {
   }),
 };
 
-export type FieldZodCtx = {
-  addIssue: (issue: z.IssueData) => void;
-};
+export type FieldZodCtx = Pick<z.RefinementCtx, "addIssue">;
