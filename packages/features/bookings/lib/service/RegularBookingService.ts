@@ -682,6 +682,7 @@ async function handler(
     ...eventType,
     metadata: eventTypeMetaDataSchemaWithTypedApps.parse(eventType.metadata),
   });
+  const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
 
   const { userReschedulingIsOwner, isConfirmedByDefault } = await getRequiresConfirmationFlags({
     eventType,
@@ -697,8 +698,6 @@ async function handler(
     (!isConfirmedByDefault && !userReschedulingIsOwner) ||
     eventType.schedulingType === SchedulingType.ROUND_ROBIN
   ) {
-    const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
-
     const existingBooking = await deps.bookingRepository.getValidBookingFromEventTypeForAttendee({
       eventTypeId,
       bookerEmail: bookingContext.bookerEmail,
