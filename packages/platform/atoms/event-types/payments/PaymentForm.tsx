@@ -17,8 +17,6 @@ const MPesaPaymentForm = React.lazy(() => import("./MPesaPaymentForm"));
 
 export const PaymentForm = ({
   paymentUid,
-  onPaymentSuccess,
-  onPaymentCancellation,
   onEventTypePaymentInfoSuccess,
   onEventTypePaymentInfoFailure,
 }: {
