@@ -169,6 +169,17 @@ export default function WorkspaceBillingPage() {
               </p>
             )}
 
+            {subscription?.status === "RECONCILIATION_REQUIRED" && (
+              <div className="space-y-1 text-sm" role="alert">
+                <p className="font-medium text-amber-700">Payment requires verification.</p>
+                <p className="text-subtle">
+                  Do not request another STK prompt yet. The previous payment may have completed without a callback.
+                  Check the M-Pesa statement or contact support before retrying.
+                </p>
+                <p className="text-subtle">Registered phone: {subscription.phoneNumber}</p>
+              </div>
+            )}
+
             {subscription?.status === "PAST_DUE" && (
               <div className="space-y-2 text-sm">
                 <p className="text-amber-700">Subscription payment is due. A new STK prompt requires your authorization.</p>
