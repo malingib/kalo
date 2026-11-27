@@ -171,7 +171,7 @@ export async function startPremiumUsernameSubscription(input: {
     where: {
       userId: input.userId,
       subscriptionType: "PREMIUM_USERNAME",
-      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE"] },
+      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
     },
   });
   if (existing) throw new Error("An active or pending premium subscription already exists");
@@ -262,9 +262,12 @@ export async function initiatePremiumSubscriptionRenewal(input: {
 }
 
 
-const workspaceSubscriptionPlansSchema = z.record(
-  z.string(),
-  z.record(z.string(), z.record(z.string(), z.number().int().positive()))
+const workspaceSubscriptionPlansSchema = z.partialRecord(
+  z.enum(["TEAM", "ORGANIZATION"]),
+  z.record(
+    z.string().min(1),
+    z.partialRecord(z.enum(["MONTHLY", "ANNUALLY"]), z.number().int().positive())
+  )
 );
 
 export type WorkspaceSubscriptionType = "TEAM" | "ORGANIZATION";
