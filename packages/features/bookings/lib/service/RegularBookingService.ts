@@ -1165,44 +1165,47 @@ async function handler(
     ? (users.find((user) => user.email === reqBody.teamMemberEmail) ?? users[0])
     : users[0];
 
-  if (organizerUser && isNormalBookingOrFirstRecurringSlot && !originalRescheduledBooking?.paid && paymentAppData.appId === "mpesa" && paymentAppData.price > 0) {
-    if (requiresPayment && !originalRescheduledBooking?.paid && paymentAppData.appId === "mpesa") {
-      if (paymentAppData.currency.toUpperCase() !== "KES") {
-        throw new HttpError({
-          statusCode: 400,
-          message: "Native M-Pesa checkout requires the event price to be set in KES.",
-        });
-      }
-      if (!bookingContext.bookerPhoneNumber || !normalizeKenyanPhone(bookingContext.bookerPhoneNumber)) {
-        throw new HttpError({
-          statusCode: 400,
-          message: "A valid Kenyan attendee mobile number is required for M-Pesa STK Push.",
-        });
-      }
-      const hostMpesaConfig = await deps.prismaClient.user.findUnique({
-        where: { id: organizerUser.id },
-        select: {
-          mpesaShortcode: true,
-          mpesaShortcodeType: true,
-          mpesaTillNumber: true,
-          mpesaPasskey: true,
-        },
+  if (isNormalBookingOrFirstRecurringSlot && requiresPayment && !originalRescheduledBooking?.paid && paymentAppData.appId === "mpesa") {
+    if (!organizerUser) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "A booking host is required to accept M-Pesa payments.",
       });
-      if (!hostMpesaConfig?.mpesaShortcode || !hostMpesaConfig.mpesaPasskey) {
-        throw new HttpError({
-          statusCode: 400,
-          message: "The booking host must complete M-Pesa Daraja setup before accepting paid bookings.",
-        });
-      }
-      if (hostMpesaConfig.mpesaShortcodeType === "BUY_GOODS" && !hostMpesaConfig.mpesaTillNumber) {
-        throw new HttpError({
-          statusCode: 400,
-          message: "The booking host must configure a Buy Goods Till number for STK Push.",
-        });
-      }
+    }
+    if (paymentAppData.currency.toUpperCase() !== "KES") {
+      throw new HttpError({
+        statusCode: 400,
+        message: "Native M-Pesa checkout requires the event price to be set in KES.",
+      });
+    }
+    if (!bookingContext.bookerPhoneNumber || !normalizeKenyanPhone(bookingContext.bookerPhoneNumber)) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "A valid Kenyan attendee mobile number is required for M-Pesa STK Push.",
+      });
+    }
+    const hostMpesaConfig = await deps.prismaClient.user.findUnique({
+      where: { id: organizerUser.id },
+      select: {
+        mpesaShortcode: true,
+        mpesaShortcodeType: true,
+        mpesaTillNumber: true,
+        mpesaPasskey: true,
+      },
+    });
+    if (!hostMpesaConfig?.mpesaShortcode || !hostMpesaConfig.mpesaPasskey) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "The booking host must complete M-Pesa Daraja setup before accepting paid bookings.",
+      });
+    }
+    if (hostMpesaConfig.mpesaShortcodeType === "BUY_GOODS" && !hostMpesaConfig.mpesaTillNumber) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "The booking host must configure a Buy Goods Till number for STK Push.",
+      });
     }
   }
-
 
   const tOrganizer = await getTranslation(organizerUser?.locale ?? "en", "common");
   const allCredentials = await getAllCredentialsIncludeServiceAccountKey(organizerUser, eventType);
