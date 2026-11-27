@@ -40,7 +40,7 @@ export default function MpesaSettingsPage() {
       <div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">M-Pesa payment settings</h1>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Save the Till or Paybill details customers use to pay your business.
+          Save your business's M-Pesa settlement details for reconciliation and vendor payouts.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default function MpesaSettingsPage() {
           <div>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Business payment details</h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Enter one or both payment destinations. These details are stored on your vendor profile.
+              Enter your business Till or Paybill and the phone number used for settlements. These details are stored on your vendor profile.
             </p>
           </div>
 
