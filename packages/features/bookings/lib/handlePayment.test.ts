@@ -10,7 +10,7 @@ vi.mock("@kalo/app-store/zod-utils", () => ({
 
 vi.mock("@kalo/app-store/payment.services.generated", () => ({
   PaymentServiceMap: {
-    stripepayment: Promise.resolve({
+    mpesa: Promise.resolve({
       BuildPaymentService: () => ({
         create: async (paymentData: { amount: number; currency: string }) => ({
           ...paymentData,
@@ -48,10 +48,10 @@ describe("handlePayment", () => {
     title: "Test Event",
     metadata: {
       apps: {
-        stripe: {
+        mpesa: {
           enabled: true,
           price: 1000,
-          currency: "USD",
+          currency: "KES",
           paymentOption: "ON_BOOKING",
         },
       },
@@ -60,9 +60,9 @@ describe("handlePayment", () => {
 
   const mockPaymentCredentials = {
     key: {},
-    appId: "stripe" as const,
+    appId: "mpesa" as const,
     app: {
-      dirName: "stripepayment",
+      dirName: "mpesa",
       categories: ["payment"],
     },
   };
