@@ -84,7 +84,7 @@ describe("BookingPageTagManager", () => {
         eventType={{
           metadata: {
             apps: {
-              zoomvideo: {
+              mpesa: {
                 enabled: true,
               },
             },
