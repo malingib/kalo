@@ -36,12 +36,11 @@ export const getEventTypeAppData = <T extends EventTypeAppsList>(
   // TODO: After the new AppStore EventType App flow is stable, write a migration to migrate metadata to new format which will let us remove this compatibility code
   // Migration isn't being done right now, to allow a revert if needed
   const legacyAppsData = {
-    stripe: {
+    mpesa: {
       enabled: !!eventType.price,
-      // Price default is 0 in DB. So, it would always be non nullish.
+      // Legacy paid event types now use the native M-Pesa adapter.
       price: eventType.price,
-      // Currency default is "usd" in DB.So, it would also be available always
-      currency: eventType.currency,
+      currency: eventType.currency || "KES",
       paymentOption: "ON_BOOKING",
     },
     giphy: {
