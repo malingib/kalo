@@ -193,12 +193,7 @@ const workspaceSubscriptionPlansSchema = z.record(
 export type WorkspaceSubscriptionType = "TEAM" | "ORGANIZATION";
 export type WorkspaceBillingPeriod = "MONTHLY" | "ANNUALLY";
 
-/** Resolve prices only from server configuration; never trust a client-supplied amount. */
-export function getWorkspaceSubscriptionAmount(
-  subscriptionType: WorkspaceSubscriptionType,
-  planName: string,
-  billingPeriod: WorkspaceBillingPeriod
-): number {
+function loadWorkspaceSubscriptionPlans() {
   let raw: unknown;
   try {
     raw = JSON.parse(requiredEnv("MPESA_SUBSCRIPTION_PLANS_JSON"));
@@ -209,11 +204,31 @@ export function getWorkspaceSubscriptionAmount(
   if (!parsed.success) {
     throw new Error("MPESA_SUBSCRIPTION_PLANS_JSON has an invalid plan pricing structure");
   }
-  const amount = parsed.data[subscriptionType]?.[planName]?.[billingPeriod];
+  return parsed.data;
+}
+
+/** Resolve prices only from server configuration; never trust a client-supplied amount. */
+export function getWorkspaceSubscriptionAmount(
+  subscriptionType: WorkspaceSubscriptionType,
+  planName: string,
+  billingPeriod: WorkspaceBillingPeriod
+): number {
+  const amount = loadWorkspaceSubscriptionPlans()[subscriptionType]?.[planName]?.[billingPeriod];
   if (!amount || !Number.isSafeInteger(amount)) {
     throw new Error("The requested M-Pesa subscription plan is not configured");
   }
   return amount;
+}
+
+export function listWorkspaceSubscriptionPlans(subscriptionType: WorkspaceSubscriptionType) {
+  const plans = loadWorkspaceSubscriptionPlans()[subscriptionType] ?? {};
+  return Object.entries(plans).flatMap(([planName, periods]) =>
+    Object.entries(periods).map(([billingPeriod, amountKes]) => ({
+      planName,
+      billingPeriod: billingPeriod as WorkspaceBillingPeriod,
+      amountKes,
+    }))
+  );
 }
 
 async function sendWorkspaceSubscriptionPrompt(input: {
@@ -303,7 +318,7 @@ export async function startWorkspaceSubscription(input: {
     where: {
       teamId: input.teamId,
       subscriptionType: input.subscriptionType,
-      status: { in: ["PENDING", "PAYMENT_PENDING", "ACTIVE"] },
+      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "ACTIVE", "PAST_DUE"] },
     },
   });
   if (existing) throw new Error("A pending or active subscription already exists for this workspace");
