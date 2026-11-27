@@ -303,7 +303,11 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
         }),
       })
     );
-    expect(mockPrisma.booking.update).toHaveBeenCalled();
+    expect(mockPrisma.booking.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ paymentStatus: "PAID", paid: true }),
+      })
+    );
   });
 
   it("requires exact callback amount before confirming a booking payment", async () => {
