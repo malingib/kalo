@@ -184,6 +184,7 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
       uid: "booking-1",
       title: "Executive Haircut",
       userId: 42,
+      status: BookingStatus.PENDING,
       startTime: new Date(),
     });
     (mockPrisma.receipt.count as Mock).mockResolvedValue(0);
