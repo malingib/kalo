@@ -85,6 +85,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       where: { checkoutRequestId: CheckoutRequestID },
     });
 
+    if (!existingTx) {
+      // The Daraja callback can arrive immediately after STK acceptance, before
+      // the initiating request commits its CheckoutRequestID. Do not acknowledge
+      // and discard it; a non-200 response asks the provider to retry delivery.
+      console.warn(`M-Pesa callback arrived before transaction ${CheckoutRequestID} was persisted.`);
+      return res.status(503).json({
+        ResultCode: 1,
+        ResultDesc: "Transaction is not yet available; retry callback",
+      });
+    }
+
     if (existingTx) {
       // A terminal Daraja result cannot be silently reversed by a conflicting
       // callback. Flag the conflict for manual reconciliation instead.
