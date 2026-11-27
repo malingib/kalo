@@ -110,6 +110,11 @@ export class DarajaClient {
       );
     }
 
+    const transactionType = options.transactionType ?? "CustomerPayBillOnline";
+    if (transactionType === "CustomerBuyGoodsOnline" && !options.partyB) {
+      throw new Error("A Buy Goods Till number is required for M-Pesa STK Push");
+    }
+
     const accessToken = await DarajaClient.getAccessToken(
       options.consumerKey,
       options.consumerSecret,
@@ -123,11 +128,6 @@ export class DarajaClient {
     );
 
     const baseUrl = DarajaClient.getBaseUrl(options.isSandbox);
-
-    const transactionType = options.transactionType ?? "CustomerPayBillOnline";
-    if (transactionType === "CustomerBuyGoodsOnline" && !options.partyB) {
-      throw new Error("A Buy Goods Till number is required for M-Pesa STK Push");
-    }
 
     const payload = {
       BusinessShortCode: options.businessShortCode,
