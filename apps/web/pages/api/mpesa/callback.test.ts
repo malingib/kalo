@@ -9,6 +9,7 @@ const { mockPrisma } = vi.hoisted(() => ({
     mPesaTransaction: {
       findFirst: vi.fn(),
       update: vi.fn(),
+      updateMany: vi.fn(),
     },
     payment: {
       update: vi.fn(),
@@ -71,7 +72,86 @@ function createRes() {
   return res;
 }
 
-describe("M-Pesa callback", () => {
+describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout request ID before querying transactions", async () => {
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            ResultCode: 0,
+            ResultDesc: "Success",
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(400);
+    expect(mockPrisma.mPesaTransaction.findFirst).not.toHaveBeenCalled();
+  });
+
+  it("does not repeat side-effects for duplicate successful callbacks", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      status: "SUCCESS",
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 0,
+            ResultDesc: "Success",
+            CallbackMetadata: {
+              Item: [
+                { Name: "Amount", Value: 500 },
+                { Name: "MpesaReceiptNumber", Value: "RCD9876543" },
+                { Name: "PhoneNumber", Value: "254712345678" },
+              ],
+            },
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.$transaction).not.toHaveBeenCalled();
+    expect(mockPrisma.receipt.create).not.toHaveBeenCalled();
+    expect(mockPrisma.booking.update).not.toHaveBeenCalled();
+  });
+
+  it("flags a conflicting callback after a terminal success for reconciliation", async () => {
+    (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue({
+      ...PENDING_TX,
+      status: "SUCCESS",
+    });
+
+    const res = createRes();
+    await handler(
+      createReq({
+        Body: {
+          stkCallback: {
+            CheckoutRequestID: "ws_CO_123",
+            ResultCode: 1032,
+            ResultDesc: "Request cancelled",
+          },
+        },
+      }),
+      res
+    );
+
+    expect(res._status).toBe(200);
+    expect(mockPrisma.mPesaTransaction.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
+      })
+    );
+  });
+
+
   beforeEach(() => {
     vi.clearAllMocks();
     vi.unstubAllEnvs();
@@ -81,6 +161,7 @@ describe("M-Pesa callback", () => {
     );
     (mockPrisma.mPesaTransaction.findFirst as Mock).mockResolvedValue(PENDING_TX);
     (mockPrisma.mPesaTransaction.update as Mock).mockResolvedValue(PENDING_TX);
+    (mockPrisma.mPesaTransaction.updateMany as Mock).mockResolvedValue({ count: 1 });
     (mockPrisma.payment.update as Mock).mockResolvedValue({ id: 99, success: true });
     (mockPrisma.booking.updateMany as Mock).mockResolvedValue({ count: 1 });
     (mockPrisma.booking.findFirst as Mock).mockResolvedValue({
