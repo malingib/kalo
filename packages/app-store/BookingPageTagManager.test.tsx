@@ -94,7 +94,7 @@ describe("BookingPageTagManager", () => {
         }}
       />
     );
-    const scripts = screen.queryAllByTestId("cal-analytics-app-zoomvideo");
+    const scripts = screen.queryAllByTestId("cal-analytics-app-mpesa");
     expect(scripts.length).toBe(0);
   });
 
