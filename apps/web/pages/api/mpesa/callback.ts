@@ -1,6 +1,9 @@
 import crypto from "node:crypto";
 import process from "node:process";
 import { normalizeKenyanPhone } from "@kalo/features/mpesa/normalizePhone";
+import { handlePaymentSuccess } from "@kalo/app-store/_utils/payments/handlePaymentSuccess";
+import { HttpError } from "@kalo/lib/http-error";
+import { distributedTracing } from "@kalo/lib/tracing/factory";
 import { WhatsAppSessionRepository } from "@kalo/features/whatsapp-bot/src/sessionStore";
 import prisma from "@kalo/prisma";
 import type { Prisma } from "@kalo/prisma/client";
@@ -33,6 +36,7 @@ function sessionPhoneCandidates(phone: string): string[] {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  let claimedTransactionId: string | null = null;
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
@@ -121,6 +125,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         (existingTx.status === "FAILED" && !success)
       ) {
         return res.status(200).json({ ResultCode: 0, ResultDesc: "Duplicate callback acknowledged" });
+      }
+      // A callback worker already owns this transaction. Never process the
+      // same STK result concurrently; stale PROCESSING rows require manual
+      // reconciliation rather than a second booking confirmation.
+      if (existingTx.status === "PROCESSING") {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback processing is already in progress" });
       }
 
       // A successful Daraja result is not sufficient by itself: require the
@@ -248,27 +258,60 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Duplicate callback deliveries must be idempotent. Only run the payment
       // side-effects (receipt, alerts, WhatsApp logs, session resolution) the first
       // time we observe the transaction — otherwise receipts and alerts duplicate.
+      // Claim the callback before invoking booking side-effects. This conditional
+      // update serializes concurrent Safaricom retries and leaves an explicit
+      // PROCESSING marker if downstream work cannot be completed.
+      const claim = await prisma.mPesaTransaction.updateMany({
+        where: { id: existingTx.id, status: existingTx.status },
+        data: { status: "PROCESSING" },
+      });
+      if (claim.count !== 1) {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback already claimed" });
+      }
+      claimedTransactionId = existingTx.id;
+
+      // Reuse KALO's standard paid-booking pipeline for first-party booking
+      // payments. It handles confirmation requirements, calendar events,
+      // attendee/organizer emails, and BOOKING_PAID / BOOKING_REQUESTED webhooks.
+      // WhatsApp-originated transactions have no Payment row and keep their
+      // dedicated booking + receipt path below.
+      if (success && existingTx.paymentId) {
+        const linkedBooking = existingTx.bookingUid
+          ? await prisma.booking.findFirst({
+              where: { uid: existingTx.bookingUid },
+              select: { id: true },
+            })
+          : null;
+        if (!linkedBooking) {
+          throw new Error("M-Pesa booking payment has no linked booking");
+        }
+        try {
+          await handlePaymentSuccess({
+            paymentId: existingTx.paymentId,
+            bookingId: linkedBooking.id,
+            appSlug: "mpesa",
+            traceContext: distributedTracing.createTrace("mpesa_payment_callback"),
+          });
+        } catch (error) {
+          // handlePaymentSuccess intentionally throws HTTP 200 after completing
+          // all success work so its legacy webhook caller can stop processing.
+          if (!(error instanceof HttpError) || error.statusCode !== 200) throw error;
+        }
+      }
+
       const isWhatsAppPayment = existingTx.source === "whatsapp-bot";
       const isNewOutcome = existingTx.status !== "SUCCESS";
 
-      // Booking + receipt + alert + optional WhatsApp side-effects + status flip are
-      // atomic in one transaction: either they all succeed or none do. This keeps
-      // Daraja's callback retries idempotent — a mid-block throw rolls everything
-      // back, the status stays PENDING, and the retry re-runs cleanly instead of
-      // duplicating receipts.
+      // Receipt + alert + optional WhatsApp side-effects + status flip are
+      // committed atomically after the booking/payment pipeline has succeeded.
       await prisma.$transaction(async (tx) => {
-        // Claim the pending/reconciliation transaction before side-effects. This
-        // row-level conditional update serializes concurrent Daraja retries.
-        const claim = await tx.mPesaTransaction.updateMany({
-          where: { id: existingTx.id, status: existingTx.status },
-          data: { status: "PROCESSING" },
-        });
-        if (claim.count !== 1) return;
 
         if (success && existingTx.bookingUid) {
           // The customer did pay, so the booking is paid regardless of its
           // current status (the webhook service creates it as a PENDING
           // reservation when the STK push fires).
+          const isFirstPartyBookingPayment =
+            existingTx.source === "booking-payment" && Boolean(existingTx.paymentId);
           const updatedBooking = await tx.booking.update({
             where: { uid: existingTx.bookingUid },
             data: {
@@ -285,10 +328,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
           });
 
-          // Confirming the payment confirms the reservation — but only promote a
-          // still-pending booking; one the vendor already cancelled or rejected
-          // before the payment landed must not be resurrected.
-          if (updatedBooking.status === BookingStatus.PENDING) {
+          // First-party payments use the standard KALO booking pipeline above,
+          // which preserves event-type confirmation requirements. The WhatsApp
+          // bot's own reservation flow is auto-confirmed after verified payment.
+          if (!isFirstPartyBookingPayment && updatedBooking.status === BookingStatus.PENDING) {
             await tx.booking.update({
               where: { uid: updatedBooking.uid },
               data: { status: BookingStatus.ACCEPTED },
@@ -631,6 +674,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback accepted" });
   } catch (error) {
     console.error("Error processing M-Pesa callback:", error);
+    if (claimedTransactionId) {
+      try {
+        await prisma.mPesaTransaction.update({
+          where: { id: claimedTransactionId },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "Callback processing failed after claim; verify Daraja and KALO booking records before retrying",
+          },
+        });
+      } catch (reconciliationError) {
+        console.error("Could not mark the claimed M-Pesa callback for reconciliation.", reconciliationError);
+      }
+      return res.status(200).json({
+        ResultCode: 0,
+        ResultDesc: "Callback acknowledged; payment requires reconciliation",
+      });
+    }
     return res.status(500).json({ ResultCode: 1, ResultDesc: "Internal Server Error" });
   }
 }
