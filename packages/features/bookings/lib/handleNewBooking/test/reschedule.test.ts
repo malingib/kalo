@@ -5,7 +5,6 @@ import {
   getDate,
   getGoogleCalendarCredential,
   getGoogleMeetCredential,
-  getStripeAppCredential,
   TestData,
   getOrganizer,
   getBooker,
@@ -1792,7 +1791,7 @@ describe("handleNewBooking", () => {
               schedules: [TestData.schedules.IstWorkHours],
               credentials: [
                 getGoogleCalendarCredential(),
-                getStripeAppCredential(),
+                
               ],
               selectedCalendars: [TestData.selectedCalendars.google],
             });
@@ -1822,10 +1821,10 @@ describe("handleNewBooking", () => {
                     requiresConfirmation: false,
                     metadata: {
                       apps: {
-                        stripe: {
+                        mpesa: {
                           price: 100,
                           enabled: true,
-                          currency: "usd",
+                          currency: "KES",
                         },
                       },
                     },
@@ -1866,7 +1865,7 @@ describe("handleNewBooking", () => {
                 apps: [
                   TestData.apps["google-calendar"],
                   TestData.apps["daily-video"],
-                  TestData.apps["stripe-payment"],
+                  TestData.apps["mpesa"],
                 ],
               });
             await createBookingScenario(scenarioData);
@@ -1881,12 +1880,12 @@ describe("handleNewBooking", () => {
                   bookingId: existingBooking.id,
                   amount: 100,
                   fee: 0,
-                  currency: "usd",
+                  currency: "KES",
                   success: true,
                   refunded: false,
                   data: {},
                   externalId: "ext-reschedule-paid-1",
-                  appId: "stripepayment",
+                  appId: "mpesa",
                 },
               });
               await prismaMock.booking.update({
@@ -1970,7 +1969,7 @@ describe("handleNewBooking", () => {
               schedules: [TestData.schedules.IstWorkHours],
               credentials: [
                 getGoogleCalendarCredential(),
-                getStripeAppCredential(),
+                
               ],
               selectedCalendars: [TestData.selectedCalendars.google],
             });
@@ -1998,10 +1997,10 @@ describe("handleNewBooking", () => {
                   requiresConfirmation: true,
                   metadata: {
                     apps: {
-                      stripe: {
+                      mpesa: {
                         price: 100,
                         enabled: true,
-                        currency: "usd",
+                        currency: "KES",
                       },
                     },
                   },
@@ -2041,7 +2040,7 @@ describe("handleNewBooking", () => {
               apps: [
                 TestData.apps["google-calendar"],
                 TestData.apps["daily-video"],
-                TestData.apps["stripe-payment"],
+                TestData.apps["mpesa"],
               ],
             });
             await createBookingScenario(scenarioData);
@@ -2056,12 +2055,12 @@ describe("handleNewBooking", () => {
                   bookingId: existingBookingForConfirmation.id,
                   amount: 100,
                   fee: 0,
-                  currency: "usd",
+                  currency: "KES",
                   success: true,
                   refunded: false,
                   data: {},
                   externalId: "ext-reschedule-confirm-1",
-                  appId: "stripepayment",
+                  appId: "mpesa",
                 },
               });
               await prismaMock.booking.update({
