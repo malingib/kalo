@@ -102,7 +102,9 @@ export class PaymentService implements IAbstractPaymentService {
     }
 
     const amountKes = convertFromSmallestToPresentableCurrencyUnit(payment.amount, payment.currency);
-    if (!Number.isFinite(amountKes) || amountKes <= 0) throw new Error("Invalid M-Pesa payment amount");
+    if (!Number.isSafeInteger(amountKes) || amountKes <= 0) {
+      throw new Error("M-Pesa checkout requires a positive whole-KES amount");
+    }
 
     const paymentUid = uuidv4();
     const { paymentRecord, transaction } = await prisma.$transaction(async (tx) => {
