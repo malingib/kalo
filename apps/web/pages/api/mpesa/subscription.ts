@@ -28,7 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(202).json({
       subscriptionId: result.subscriptionId,
       status: result.status,
-      message: "M-Pesa prompt sent. Enter your PIN to authorize the subscription payment.",
+      message: result.status === "RECONCILIATION_REQUIRED"
+        ? "Safaricom accepted the payment prompt, but the local transaction needs reconciliation. Do not retry the payment."
+        : "M-Pesa prompt sent. Enter your PIN to authorize the subscription payment.",
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Subscription payment could not be started";
