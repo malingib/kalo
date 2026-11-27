@@ -118,6 +118,12 @@ export async function initiatePremiumSubscriptionRenewal(input: {
   });
   if (!subscription) throw new Error("No renewable subscription was found");
 
+  const claimed = await prisma.mPesaSubscription.updateMany({
+    where: { id: subscription.id, userId: input.userId, status: { in: ["ACTIVE", "PAST_DUE"] } },
+    data: { status: "RENEWAL_INITIATING" },
+  });
+  if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
+
   const transaction = await prisma.mPesaTransaction.create({
     data: {
       subscriptionId: subscription.id,
@@ -323,6 +329,16 @@ export async function initiateWorkspaceSubscriptionRenewal(input: { subscription
     },
   });
   if (!subscription) throw new Error("No renewable workspace subscription was found");
+
+  const claimed = await prisma.mPesaSubscription.updateMany({
+    where: {
+      id: subscription.id,
+      teamId: input.teamId,
+      status: { in: ["ACTIVE", "PAST_DUE"] },
+    },
+    data: { status: "RENEWAL_INITIATING" },
+  });
+  if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
 
   return sendWorkspaceSubscriptionPrompt({
     subscriptionId: subscription.id,
