@@ -34,7 +34,7 @@ export class DarajaClient {
     const timeout = setTimeout(() => controller.abort(), DarajaClient.REQUEST_TIMEOUT_MS);
     try {
       return await fetch(url, { ...init, signal: controller.signal });
-    } catch (error) {
+    } catch {
       if (controller.signal.aborted) {
         throw new Error(`${operation} request timed out`);
       }
