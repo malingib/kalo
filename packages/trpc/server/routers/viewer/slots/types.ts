@@ -23,8 +23,8 @@ export const getScheduleSchemaObject = z.object({
   // to handle event types with multiple duration options
   duration: z
     .string()
-    .optional()
-    .transform((val) => val && parseInt(val)),
+    .transform((val) => (val ? parseInt(val, 10) : undefined))
+    .optional(),
   rescheduleUid: z.string().nullish(),
   // whether to do team event or user event
   isTeamEvent: z.boolean().optional().default(false),
@@ -82,7 +82,7 @@ export interface ContextForGetSchedule extends Record<string, unknown> {
   req?: (IncomingMessage & { cookies: Partial<{ [key: string]: string }> }) | undefined;
 }
 
-export type TGetScheduleInputSchema = z.input<typeof getScheduleSchemaObject>;
+export type TGetScheduleInputSchema = z.output<typeof getScheduleSchema>;
 export const ZGetScheduleInputSchema = getScheduleSchema;
 
 export type GetScheduleOptions = {
