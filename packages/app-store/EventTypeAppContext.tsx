@@ -31,7 +31,7 @@ type GetAppDataGeneric<TAppData extends ZodType> = <TKey extends keyof z.infer<T
   key: TKey
 ) => z.infer<TAppData>[TKey];
 
-export const useAppContextWithSchema = <TAppData extends ZodType>() => {
+export const useAppContextWithSchema = <TAppData extends ZodType = ZodType<any>>() => {
   type GetAppData = GetAppDataGeneric<TAppData>;
   type SetAppData = SetAppDataGeneric<TAppData>;
   // TODO: Not able to do it without type assertion here
