@@ -10,7 +10,7 @@ const CUSTOM_EMAIL_VALIDATION_ERROR_MSG = "email_validation_error";
 const CUSTOM_URL_VALIDATION_ERROR_MSG = "url_validation_error";
 const CUSTOM_EMAIL_EXCLUDED_ERROR_MSG = "exclude_emails_match_found_error_message";
 const CUSTOM_EMAIL_REQUIRED_ERROR_MSG = "require_emails_no_match_found_error_message";
-const ZOD_REQUIRED_FIELD_ERROR_MSG = "Required";
+const ZOD_REQUIRED_FIELD_ERROR_MSG = "Invalid input: expected string, received undefined";
 
 function expectResponsesToBe(
   parsedResponses: z.SafeParseReturnType<typeof getBookingResponsesSchema, unknown>,
