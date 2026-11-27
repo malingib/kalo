@@ -182,6 +182,7 @@ export function isDarajaStkOutcomeUncertain(error: unknown): boolean {
     message.includes("M-Pesa STK Push transport failed") ||
     message.includes("M-Pesa STK Push returned a non-JSON response") ||
     message.includes("M-Pesa STK Push response is missing required fields") ||
+    message.includes("Invalid Daraja STK Push response") ||
     /M-Pesa STK Push request failed: HTTP 5\d\d/.test(message)
   );
 }
