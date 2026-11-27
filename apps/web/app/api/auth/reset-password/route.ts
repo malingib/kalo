@@ -15,9 +15,9 @@ import { IdentityProvider } from "@kalo/prisma/enums";
 
 const passwordResetRequestSchema = z.object({
   csrfToken: z.string(),
-  password: z.string().refine(validPassword, () => ({
+  password: z.string().refine(validPassword, {
     message: "Password does not meet the requirements",
-  })),
+  }),
   requestId: z.string(), // format doesn't matter.
 });
 
