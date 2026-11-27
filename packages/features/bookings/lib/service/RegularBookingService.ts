@@ -698,7 +698,7 @@ async function handler(
     eventType.schedulingType === SchedulingType.ROUND_ROBIN
   ) {
     const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
-    if (requiresPayment && paymentAppData.appId === "mpesa") {
+    if (requiresPayment && !originalRescheduledBooking?.paid && paymentAppData.appId === "mpesa") {
       if (paymentAppData.currency.toUpperCase() !== "KES") {
         throw new HttpError({
           statusCode: 400,
