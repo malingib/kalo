@@ -182,15 +182,24 @@ export async function initiatePremiumSubscriptionRenewal(input: {
   });
   if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
 
-  const transaction = await prisma.mPesaTransaction.create({
-    data: {
-      subscriptionId: subscription.id,
-      phoneNumber: subscription.phoneNumber,
-      amount: subscription.amountKes,
-      source: "subscription-payment",
-      status: "INITIATING",
-    },
-  });
+  let transaction: { id: string };
+  try {
+    transaction = await prisma.mPesaTransaction.create({
+      data: {
+        subscriptionId: subscription.id,
+        phoneNumber: subscription.phoneNumber,
+        amount: subscription.amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+  } catch (error) {
+    await prisma.mPesaSubscription.updateMany({
+      where: { id: subscription.id, status: "RENEWAL_INITIATING" },
+      data: { status: "PAST_DUE" },
+    });
+    throw error;
+  }
 
   return initiateSubscriptionStkPush({
     subscriptionId: subscription.id,
@@ -351,7 +360,7 @@ export async function initiateWorkspaceSubscriptionRenewal(input: { subscription
   });
   if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
 
-  let transaction;
+  let transaction: { id: string };
   try {
     transaction = await prisma.mPesaTransaction.create({
       data: {
