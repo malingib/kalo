@@ -295,7 +295,7 @@ function generateFiles() {
         importName: "appDataSchema",
       },
       // HACK: Key must be appId as this is used by eventType metadata and lookup is by appId
-      // This can be removed once we rename the ids of apps like stripe to that of their app folder name
+      // This can be removed once legacy app IDs match their directory names
       entryObjectKeyGetter: (app) => getAppId(app),
     })
   );
@@ -307,7 +307,7 @@ function generateFiles() {
         importName: "appKeysSchema",
       },
       // HACK: Key must be appId as this is used by eventType metadata and lookup is by appId
-      // This can be removed once we rename the ids of apps like stripe to that of their app folder name
+      // This can be removed once legacy app IDs match their directory names
       entryObjectKeyGetter: (app) => getAppId(app),
     })
   );
