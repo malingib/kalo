@@ -360,9 +360,6 @@ export const useEventTypeForm = ({
     // Ok to cast type here because this metadata will be updated as the event type metadata
     if (checkForMultiplePaymentApps(metadata)) throw new Error(t("event_setup_multiple_payment_apps_error"));
 
-    if (metadata?.apps?.stripe?.paymentOption === "HOLD" && seatsPerTimeSlot) {
-      throw new Error(t("seats_and_no_show_fee_error"));
-    }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { availability, users, scheduleName, disabledCancelling, disabledRescheduling, ...rest } = input;
