@@ -65,49 +65,48 @@ export class PaymentService implements IAbstractPaymentService {
     });
     if (!booking) throw new Error("Booking not found");
 
-    // Booking creation can be retried by upstream workers. Reuse an existing
-    // pending STK attempt rather than prompting the customer more than once.
-    const existingPayment = await prisma.payment.findFirst({
-      where: { bookingId, appId: "mpesa", success: false },
-      orderBy: { id: "desc" },
-      include: { mpesaTransaction: true },
-    });
-    if (existingPayment?.mpesaTransaction) {
-      const existingStatus = existingPayment.mpesaTransaction.status;
-      if (["INITIATING", "PENDING", "PROCESSING"].includes(existingStatus)) {
-        return existingPayment;
-      }
-      if (existingStatus === "RECONCILIATION_REQUIRED") {
-        throw new Error("payment_pending_reconciliation_error");
-      }
-    }
+    const isBuyGoods = booking.user?.mpesaShortcodeType === "BUY_GOODS";
+    const attempt = await prisma.$transaction(async (tx) => {
+      // Serialize STK creation attempts for a booking. The lock and lookup
+      // must share a transaction with the insert to prevent duplicate prompts.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('kalo:mpesa:booking-payment'), ${bookingId})`;
 
-    if (!booking.userId || !booking.user?.mpesaShortcode || !booking.user.mpesaPasskey) {
-      throw new Error("The booking host has not configured M-Pesa STK credentials");
-    }
-
-    // Booking payments use the host's own Daraja shortcode and encrypted
-    // passkey. Platform credentials are reserved for KALO subscription billing.
-    const businessShortCode = booking.user.mpesaShortcode;
-    const isBuyGoods = booking.user.mpesaShortcodeType === "BUY_GOODS";
-    if (isBuyGoods && !booking.user.mpesaTillNumber) {
-      throw new Error("The booking host must configure a Buy Goods Till number for STK Push");
-    }
-    const storedPasskey = decryptMpesaSecret(booking.user.mpesaPasskey);
-    if (!storedPasskey.encrypted) {
-      await prisma.user.update({
-        where: { id: booking.userId },
-        data: { mpesaPasskey: encryptMpesaSecret(storedPasskey.plaintext) },
+      const existingPayment = await tx.payment.findFirst({
+        where: { bookingId, appId: "mpesa", success: false },
+        orderBy: { id: "desc" },
+        include: { mpesaTransaction: true },
       });
-    }
+      if (existingPayment?.mpesaTransaction) {
+        const existingStatus = existingPayment.mpesaTransaction.status;
+        if (["INITIATING", "PENDING", "PROCESSING"].includes(existingStatus)) {
+          return { created: false as const, payment: existingPayment };
+        }
+        if (existingStatus === "RECONCILIATION_REQUIRED") {
+          throw new Error("payment_pending_reconciliation_error");
+        }
+      }
 
-    const amountKes = convertFromSmallestToPresentableCurrencyUnit(payment.amount, payment.currency);
-    if (!Number.isSafeInteger(amountKes) || amountKes <= 0) {
-      throw new Error("M-Pesa checkout requires a positive whole-KES amount");
-    }
+      if (!booking.userId || !booking.user?.mpesaShortcode || !booking.user.mpesaPasskey) {
+        throw new Error("The booking host has not configured M-Pesa STK credentials");
+      }
+      if (isBuyGoods && !booking.user.mpesaTillNumber) {
+        throw new Error("The booking host must configure a Buy Goods Till number for STK Push");
+      }
 
-    const paymentUid = uuidv4();
-    const { paymentRecord, transaction } = await prisma.$transaction(async (tx) => {
+      const storedPasskey = decryptMpesaSecret(booking.user.mpesaPasskey);
+      if (!storedPasskey.encrypted) {
+        await tx.user.update({
+          where: { id: booking.userId },
+          data: { mpesaPasskey: encryptMpesaSecret(storedPasskey.plaintext) },
+        });
+      }
+
+      const amountKes = convertFromSmallestToPresentableCurrencyUnit(payment.amount, payment.currency);
+      if (!Number.isSafeInteger(amountKes) || amountKes <= 0) {
+        throw new Error("M-Pesa checkout requires a positive whole-KES amount");
+      }
+
+      const paymentUid = uuidv4();
       const paymentRecord = await tx.payment.create({
         data: {
           uid: paymentUid,
@@ -133,8 +132,21 @@ export class PaymentService implements IAbstractPaymentService {
           status: "INITIATING",
         },
       });
-      return { paymentRecord, transaction };
+
+      return {
+        created: true as const,
+        payment: paymentRecord,
+        transaction,
+        passkey: storedPasskey.plaintext,
+        businessShortCode: booking.user.mpesaShortcode,
+        partyB: isBuyGoods ? booking.user.mpesaTillNumber ?? undefined : booking.user.mpesaShortcode,
+        amountKes,
+      };
     });
+
+    if (!attempt.created) return attempt.payment;
+
+    const { payment: paymentRecord, transaction, passkey, businessShortCode, partyB, amountKes } = attempt;
 
     let response: Awaited<ReturnType<typeof DarajaClient.initiateStkPush>>;
     try {
@@ -143,8 +155,8 @@ export class PaymentService implements IAbstractPaymentService {
         consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
         businessShortCode,
         transactionType: isBuyGoods ? "CustomerBuyGoodsOnline" : "CustomerPayBillOnline",
-        partyB: isBuyGoods ? booking.user.mpesaTillNumber ?? undefined : businessShortCode,
-        passkey: storedPasskey.plaintext,
+        partyB,
+        passkey,
         phoneNumber,
         amount: amountKes,
         accountReference: booking.uid,
