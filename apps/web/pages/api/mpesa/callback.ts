@@ -193,7 +193,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               await tx.mPesaSubscription.updateMany({
                 where: {
                   id: subscription.id,
-                  status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
+                  status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING"] },
                 },
                 data: { status: "RECONCILIATION_REQUIRED" },
               });
