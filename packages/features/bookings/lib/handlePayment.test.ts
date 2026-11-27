@@ -101,6 +101,28 @@ describe("handlePayment", () => {
     expect(result).toBeNull();
   });
 
+  it("rejects fractional-KES totals from priced booking fields", async () => {
+    const eventWithAddon = {
+      ...mockEvent,
+      responses: { extraService: { value: true } },
+    };
+    const bookingFields = [
+      { name: "extraService", type: "boolean" as const, price: 0.5, required: false },
+    ];
+
+    await expect(
+      handlePayment({
+        evt: eventWithAddon,
+        selectedEventType: mockEventType,
+        paymentAppCredentials: mockPaymentCredentials,
+        booking: mockBooking,
+        bookerName: "John Doe",
+        bookerEmail: "john@example.com",
+        bookingFields,
+      })
+    ).rejects.toThrow("M-Pesa booking totals must be whole KES amounts");
+  });
+
   it("should calculate total amount with no addons", async () => {
     const result = await handlePayment({
       evt: mockEvent,
