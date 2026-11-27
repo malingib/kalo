@@ -519,6 +519,7 @@ model User {
   mpesaPaybill      String?
   mpesaTillNumber   String?
   mpesaShortcode    String?
+  mpesaShortcodeType String @default("PAYBILL")
   mpesaPasskey      String?
   whatsAppSessions  WhatsAppSession[]
   whatsAppLogs      WhatsAppMessageLog[]
