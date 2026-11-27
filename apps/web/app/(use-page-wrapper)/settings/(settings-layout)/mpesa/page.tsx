@@ -17,6 +17,8 @@ export default function MpesaSettingsPage() {
   const [accountName, setAccountName] = useState("");
   const [payoutPhone, setPayoutPhone] = useState("");
   const [darajaShortcode, setDarajaShortcode] = useState("");
+  const [darajaShortcodeType, setDarajaShortcodeType] = useState<"PAYBILL" | "BUY_GOODS">("PAYBILL");
+  const [darajaTillNumber, setDarajaTillNumber] = useState("");
   const [darajaPasskey, setDarajaPasskey] = useState("");
   const credentialsStatus = trpc.viewer.vendor.getMpesaCredentialsStatus.useQuery();
   const saveCredentials = trpc.viewer.vendor.updateMpesaCredentials.useMutation({
@@ -25,6 +27,13 @@ export default function MpesaSettingsPage() {
       await credentialsStatus.refetch();
     },
   });
+
+  useEffect(() => {
+    if (!credentialsStatus.data) return;
+    setDarajaShortcode(credentialsStatus.data.shortcode);
+    setDarajaShortcodeType(credentialsStatus.data.shortcodeType);
+    setDarajaTillNumber(credentialsStatus.data.tillNumber);
+  }, [credentialsStatus.data]);
 
   useEffect(() => {
     if (!profileQuery.data) return;
@@ -38,6 +47,8 @@ export default function MpesaSettingsPage() {
     event.preventDefault();
     saveCredentials.mutate({
       shortcode: darajaShortcode.trim(),
+      shortcodeType: darajaShortcodeType,
+      ...(darajaShortcodeType === "BUY_GOODS" ? { tillNumber: darajaTillNumber.trim() } : {}),
       ...(darajaPasskey.trim() ? { passkey: darajaPasskey.trim() } : {}),
     });
   };
@@ -189,6 +200,36 @@ export default function MpesaSettingsPage() {
           </label>
 
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            STK payment type
+            <select
+              value={darajaShortcodeType}
+              onChange={(event) => setDarajaShortcodeType(event.target.value as "PAYBILL" | "BUY_GOODS")}
+              className={inputClass}
+            >
+              <option value="PAYBILL">Paybill</option>
+              <option value="BUY_GOODS">Buy Goods / Till</option>
+            </select>
+          </label>
+
+          {darajaShortcodeType === "BUY_GOODS" && (
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Buy Goods Till number
+              <input
+                value={darajaTillNumber}
+                onChange={(event) => setDarajaTillNumber(event.target.value.replace(/\D/g, "").slice(0, 10))}
+                inputMode="numeric"
+                autoComplete="off"
+                required
+                placeholder="Enter the customer-facing Till number"
+                className={inputClass}
+              />
+              <span className="mt-1 block text-xs text-gray-500">
+                The business shortcode above must be the store / head-office shortcode enabled for Daraja.
+              </span>
+            </label>
+          )}
+
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Daraja Passkey
             <input
               type="password"
@@ -218,6 +259,7 @@ export default function MpesaSettingsPage() {
                 saveCredentials.isPending ||
                 credentialsStatus.isLoading ||
                 !darajaShortcode.trim() ||
+                (darajaShortcodeType === "BUY_GOODS" && !darajaTillNumber.trim()) ||
                 (!credentialsStatus.data?.hasPasskey && !darajaPasskey.trim())
               }
               className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
