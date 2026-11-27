@@ -63,3 +63,11 @@ export const ZApproveVendorSchema = z.object({
 
 export type TUpsertVendorProfileSchema = z.infer<typeof ZUpsertVendorProfileSchema>;
 export type TApproveVendorSchema = z.infer<typeof ZApproveVendorSchema>;
+
+
+export const ZUpdateMpesaCredentialsSchema = z.object({
+  shortcode: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid M-Pesa shortcode"),
+  passkey: z.string().trim().min(1).max(256).optional(),
+});
+
+export type TUpdateMpesaCredentialsSchema = z.infer<typeof ZUpdateMpesaCredentialsSchema>;
