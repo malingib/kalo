@@ -1,20 +1,9 @@
-import type { ZodObject } from "zod";
 import { z } from "zod";
 
-const dateSchema: z.ZodDate = z.coerce.date();
-const optionalDateSchema: z.ZodNullable<z.ZodDate> = z.coerce.date().nullable();
+const dateSchema = z.coerce.date();
+const optionalDateSchema = z.coerce.date().nullable();
 
-export const featureSchema: ZodObject<{
-  slug: z.ZodString;
-  enabled: z.ZodBoolean;
-  description: z.ZodNullable<z.ZodString>;
-  type: z.ZodNullable<z.ZodEnum<["RELEASE", "EXPERIMENT", "OPERATIONAL", "PERMISSION", "KILL_SWITCH"]>>;
-  stale: z.ZodNullable<z.ZodBoolean>;
-  lastUsedAt: z.ZodNullable<z.ZodDate>;
-  createdAt: z.ZodNullable<z.ZodDate>;
-  updatedAt: z.ZodNullable<z.ZodDate>;
-  updatedBy: z.ZodNullable<z.ZodNumber>;
-}> = z.object({
+export const featureSchema = z.object({
   slug: z.string(),
   enabled: z.boolean(),
   description: z.string().nullable(),
