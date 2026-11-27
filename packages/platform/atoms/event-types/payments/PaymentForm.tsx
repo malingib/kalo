@@ -17,6 +17,8 @@ const MPesaPaymentForm = React.lazy(() => import("./MPesaPaymentForm"));
 
 export const PaymentForm = ({
   paymentUid,
+  onPaymentSuccess,
+  onPaymentCancellation,
   onEventTypePaymentInfoSuccess,
   onEventTypePaymentInfoFailure,
 }: {
@@ -109,7 +111,13 @@ export const PaymentForm = ({
                         <div className="mt-4 text-center text-default dark:text-gray-300">{t("paid")}</div>
                       )}
                       {paymentInfo.payment.appId === "mpesa" && !paymentInfo.payment.success && (
-                        <MPesaPaymentForm booking={paymentInfo.booking} payment={paymentInfo.payment} />
+                        <MPesaPaymentForm
+                          booking={paymentInfo.booking}
+                          payment={paymentInfo.payment}
+                          paymentInfo={paymentInfo}
+                          onPaymentSuccess={onPaymentSuccess}
+                          onPaymentCancellation={onPaymentCancellation}
+                        />
                       )}
 
                       {paymentInfo.payment.refunded && (
