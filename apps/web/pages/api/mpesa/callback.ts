@@ -151,6 +151,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 select: { userId: true, title: true },
               })
             : null;
+          const subscription = existingTx.subscriptionId
+            ? await prisma.mPesaSubscription.findUnique({
+                where: { id: existingTx.subscriptionId },
+                select: { userId: true, teamId: true, subscriptionType: true },
+              })
+            : null;
+          const subscriptionRecipients = subscription?.userId
+            ? [subscription.userId]
+            : subscription?.teamId
+              ? (
+                  await prisma.membership.findMany({
+                    where: {
+                      teamId: subscription.teamId,
+                      accepted: true,
+                      role: { in: ["OWNER", "ADMIN"] },
+                    },
+                    select: { userId: true },
+                  })
+                ).map((membership) => membership.userId)
+              : [];
           await prisma.$transaction(async (tx) => {
             await tx.mPesaTransaction.update({
               where: { id: existingTx.id },
@@ -159,21 +179,49 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 resultDesc: `Daraja success requires manual reconciliation: ${reasons.join(", ")}`,
               },
             });
-            if (booking?.userId && existingTx.status !== "RECONCILIATION_REQUIRED") {
-              await tx.alert.create({
-                data: {
-                  userId: booking.userId,
-                  type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
-                  channel: "IN_APP",
-                  title: "M-Pesa payment needs verification",
-                  body: "A Daraja callback did not match the original payment request. Verify the payment in your Daraja records before confirming the booking.",
-                  metadata: {
-                    bookingUid: existingTx.bookingUid,
-                    checkoutRequestId: CheckoutRequestID,
-                    reasons,
-                  },
+            if (subscription) {
+              await tx.mPesaSubscription.updateMany({
+                where: {
+                  id: existingTx.subscriptionId!,
+                  status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
                 },
+                data: { status: "RECONCILIATION_REQUIRED" },
               });
+            }
+            if (existingTx.status !== "RECONCILIATION_REQUIRED") {
+              if (booking?.userId) {
+                await tx.alert.create({
+                  data: {
+                    userId: booking.userId,
+                    type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                    channel: "IN_APP",
+                    title: "M-Pesa payment needs verification",
+                    body: "A Daraja callback did not match the original payment request. Verify the payment in your Daraja records before confirming the booking.",
+                    metadata: {
+                      bookingUid: existingTx.bookingUid,
+                      checkoutRequestId: CheckoutRequestID,
+                      reasons,
+                    },
+                  },
+                });
+              }
+              if (subscriptionRecipients.length) {
+                await tx.alert.createMany({
+                  data: subscriptionRecipients.map((userId) => ({
+                    userId,
+                    type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                    channel: "IN_APP",
+                    title: "M-Pesa subscription payment needs verification",
+                    body: "A Daraja callback did not match the subscription payment request. Verify the transaction before requesting another payment.",
+                    metadata: {
+                      subscriptionId: existingTx.subscriptionId,
+                      checkoutRequestId: CheckoutRequestID,
+                      subscriptionType: subscription?.subscriptionType,
+                      reasons,
+                    },
+                  })),
+                });
+              }
             }
           });
           console.error(
