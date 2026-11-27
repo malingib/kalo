@@ -1051,15 +1051,13 @@ export const EventAdvancedTab = ({
                 />
               }
               checked={value}
-              disabled={noShowFeeEnabled || multiLocation || (!seatsEnabled && isRecurringEvent)}
+              disabled={multiLocation || (!seatsEnabled && isRecurringEvent)}
               tooltip={
                 multiLocation
                   ? t("multilocation_doesnt_support_seats")
-                  : noShowFeeEnabled
-                    ? t("no_show_fee_doesnt_support_seats")
-                    : isRecurringEvent
-                      ? t("recurring_event_doesnt_support_seats")
-                      : undefined
+                  : isRecurringEvent
+                    ? t("recurring_event_doesnt_support_seats")
+                    : undefined
               }
               onCheckedChange={(e) => {
                 // Enabling seats will disable guests and requiring confirmation until fully supported
@@ -1159,7 +1157,6 @@ export const EventAdvancedTab = ({
                 />
               </div>
             </SettingsToggle>
-            {noShowFeeEnabled && <Alert severity="warning" title={t("seats_and_no_show_fee_error")} />}
           </>
         )}
       />
