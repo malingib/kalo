@@ -83,6 +83,54 @@ export async function GET(request: Request) {
     })
   );
 
+  const staleBookingTransactions = await prisma.mPesaTransaction.findMany({
+    where: {
+      source: "booking-payment",
+      status: "PENDING",
+      checkoutRequestId: { not: null },
+      createdAt: { lte: staleBefore },
+    },
+    select: {
+      id: true,
+      paymentId: true,
+      booking: { select: { uid: true, userId: true } },
+    },
+    take: 100,
+    orderBy: { createdAt: "asc" },
+  });
+
+  await Promise.all(
+    staleBookingTransactions.map(async (transaction) => {
+      await prisma.$transaction(async (tx) => {
+        const claimed = await tx.mPesaTransaction.updateMany({
+          where: { id: transaction.id, status: "PENDING" },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "No Daraja callback was received; verify the payment before confirming the booking",
+          },
+        });
+        if (claimed.count !== 1) return;
+
+        if (transaction.booking?.userId) {
+          await tx.alert.create({
+            data: {
+              userId: transaction.booking.userId,
+              type: "PAYMENT_RECONCILIATION_REQUIRED",
+              channel: "IN_APP",
+              title: "M-Pesa booking payment needs verification",
+              body: "No Daraja callback was received. Check the M-Pesa statement before confirming the booking or requesting another payment.",
+              metadata: {
+                bookingUid: transaction.booking.uid,
+                transactionId: transaction.id,
+                paymentId: transaction.paymentId,
+              },
+            },
+          });
+        }
+      });
+    })
+  );
+
   const due = await prisma.mPesaSubscription.findMany({
     where: {
       subscriptionType: { in: ["PREMIUM_USERNAME", "TEAM", "ORGANIZATION"] },
