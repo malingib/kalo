@@ -56,6 +56,24 @@ export class PaymentService implements IAbstractPaymentService {
       },
     });
     if (!booking) throw new Error("Booking not found");
+
+    // Booking creation can be retried by upstream workers. Reuse an existing
+    // pending STK attempt rather than prompting the customer more than once.
+    const existingPayment = await prisma.payment.findFirst({
+      where: { bookingId, appId: "mpesa", success: false },
+      orderBy: { id: "desc" },
+      include: { mpesaTransaction: true },
+    });
+    if (existingPayment?.mpesaTransaction) {
+      const existingStatus = existingPayment.mpesaTransaction.status;
+      if (["INITIATING", "PENDING", "PROCESSING"].includes(existingStatus)) {
+        return existingPayment;
+      }
+      if (existingStatus === "RECONCILIATION_REQUIRED") {
+        throw new Error("payment_pending_reconciliation_error");
+      }
+    }
+
     if (!booking.userId || !booking.user?.mpesaShortcode || !booking.user.mpesaPasskey) {
       throw new Error("The booking host has not configured M-Pesa STK credentials");
     }
