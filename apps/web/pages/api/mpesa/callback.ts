@@ -5,6 +5,7 @@ import { WhatsAppSessionRepository } from "@kalo/features/whatsapp-bot/src/sessi
 import prisma from "@kalo/prisma";
 import type { Prisma } from "@kalo/prisma/client";
 import { BookingStatus } from "@kalo/prisma/enums";
+import type { AlertType } from "@kalo/prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type StkCallbackItem = { Name: string; Value: string | number };
@@ -144,12 +145,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             !amountMatches ? "amount mismatch" : null,
             !phoneMatches ? "phone mismatch" : null,
           ].filter(Boolean);
-          await prisma.mPesaTransaction.update({
-            where: { id: existingTx.id },
-            data: {
-              status: "RECONCILIATION_REQUIRED",
-              resultDesc: `Daraja success requires manual reconciliation: ${reasons.join(", ")}`,
-            },
+          const booking = existingTx.bookingUid
+            ? await prisma.booking.findFirst({
+                where: { uid: existingTx.bookingUid },
+                select: { userId: true, title: true },
+              })
+            : null;
+          await prisma.$transaction(async (tx) => {
+            await tx.mPesaTransaction.update({
+              where: { id: existingTx.id },
+              data: {
+                status: "RECONCILIATION_REQUIRED",
+                resultDesc: `Daraja success requires manual reconciliation: ${reasons.join(", ")}`,
+              },
+            });
+            if (booking?.userId && existingTx.status !== "RECONCILIATION_REQUIRED") {
+              await tx.alert.create({
+                data: {
+                  userId: booking.userId,
+                  type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                  channel: "IN_APP",
+                  title: "M-Pesa payment needs verification",
+                  body: "A Daraja callback did not match the original payment request. Verify the payment in your Daraja records before confirming the booking.",
+                  metadata: {
+                    bookingUid: existingTx.bookingUid,
+                    checkoutRequestId: CheckoutRequestID,
+                    reasons,
+                  },
+                },
+              });
+            }
           });
           console.error(
             `M-Pesa callback requires reconciliation for ${CheckoutRequestID}: ${reasons.join(", ")}`
@@ -172,9 +197,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const customerPhone = callbackPhoneMatches
         ? phoneNumber || existingTx.phoneNumber
         : existingTx.phoneNumber;
-      // Daraja retries callbacks until it receives HTTP 200. Only run the payment
+      // Duplicate callback deliveries must be idempotent. Only run the payment
       // side-effects (receipt, alerts, WhatsApp logs, session resolution) the first
-      // time we observe the transaction — otherwise retries duplicate receipts.
+      // time we observe the transaction — otherwise receipts and alerts duplicate.
       const isWhatsAppPayment = existingTx.source === "whatsapp-bot";
       const isNewOutcome = existingTx.status !== "SUCCESS";
 
