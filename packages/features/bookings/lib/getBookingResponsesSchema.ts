@@ -440,6 +440,7 @@ function preprocess<T extends z.ZodType<Record<string, unknown>>>({
         return;
       }
 
+      const responseValues = responses as Record<string, unknown>;
       const attendeePhoneNumberField = bookingFields.find((field) => field.name === "attendeePhoneNumber");
       const isAttendeePhoneNumberFieldHidden = attendeePhoneNumberField?.hidden;
 
@@ -448,11 +449,11 @@ function preprocess<T extends z.ZodType<Record<string, unknown>>>({
 
       // To prevent using user's session email as attendee's email, we set email to empty string
       if (isEmailFieldHidden && !isAttendeePhoneNumberFieldHidden) {
-        responses["email"] = "";
+        responseValues["email"] = "";
       }
 
       for (const bookingField of bookingFields) {
-        const value = responses[bookingField.name];
+        const value = responseValues[bookingField.name];
         const views = bookingField.views;
         const isFieldApplicableToCurrentView =
           currentView === "ALL_VIEWS" ? true : views ? views.find((view) => view.id === currentView) : true;
@@ -491,7 +492,7 @@ function preprocess<T extends z.ZodType<Record<string, unknown>>>({
             checkOptional,
             zodCtx: fieldZodCtx,
             translateFn,
-            responses,
+            responses: responseValues,
           });
         } catch (e) {
           if (!isPartialSchema) {
@@ -503,7 +504,7 @@ function preprocess<T extends z.ZodType<Record<string, unknown>>>({
         // For partial schemas, remove invalid fields from responses
         const issues = state?.issues ?? [];
         if (isPartialSchema && (superRefineError || issues.length > 0)) {
-          delete responses[bookingField.name];
+          delete responseValues[bookingField.name];
           console.warn(
             `Partial prefill: skipped field '${bookingField.name}' due to ${issues.length} validation error(s)`
           );
