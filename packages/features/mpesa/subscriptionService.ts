@@ -122,7 +122,7 @@ export async function startPremiumUsernameSubscription(input: {
     where: {
       userId: input.userId,
       subscriptionType: "PREMIUM_USERNAME",
-      status: { in: ["ACTIVE", "PAYMENT_PENDING"] },
+      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE"] },
     },
   });
   if (existing) throw new Error("An active or pending premium subscription already exists");
@@ -295,7 +295,7 @@ export async function startWorkspaceSubscription(input: {
     where: {
       teamId: input.teamId,
       subscriptionType: input.subscriptionType,
-      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "ACTIVE", "PAST_DUE"] },
+      status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING", "RECONCILIATION_REQUIRED", "ACTIVE", "PAST_DUE"] },
     },
   });
   if (existing) throw new Error("A pending or active subscription already exists for this workspace");
