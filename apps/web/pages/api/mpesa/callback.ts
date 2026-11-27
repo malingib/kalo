@@ -41,7 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // STK push, so a request without the matching secret did not come from that
   // push — reject it before doing any work.
   const callbackSecret = process.env.DARAJA_CALLBACK_SECRET;
-  if (callbackSecret && !safeEqual(req.query.secret, callbackSecret)) {
+  if (!callbackSecret) {
+    console.error("DARAJA_CALLBACK_SECRET is not configured; refusing unsigned M-Pesa callbacks.");
+    return res.status(503).json({ message: "M-Pesa callback verification is not configured" });
+  }
+  if (!safeEqual(req.query.secret, callbackSecret)) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
