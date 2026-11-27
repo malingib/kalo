@@ -53,7 +53,14 @@ export class PaymentService implements IAbstractPaymentService {
         uid: true,
         title: true,
         userId: true,
-        user: { select: { mpesaShortcode: true, mpesaPasskey: true } },
+        user: {
+          select: {
+            mpesaShortcode: true,
+            mpesaShortcodeType: true,
+            mpesaTillNumber: true,
+            mpesaPasskey: true,
+          },
+        },
       },
     });
     if (!booking) throw new Error("Booking not found");
@@ -82,6 +89,10 @@ export class PaymentService implements IAbstractPaymentService {
     // Booking payments use the host's own Daraja shortcode and encrypted
     // passkey. Platform credentials are reserved for KALO subscription billing.
     const businessShortCode = booking.user.mpesaShortcode;
+    const isBuyGoods = booking.user.mpesaShortcodeType === "BUY_GOODS";
+    if (isBuyGoods && !booking.user.mpesaTillNumber) {
+      throw new Error("The booking host must configure a Buy Goods Till number for STK Push");
+    }
     const storedPasskey = decryptMpesaSecret(booking.user.mpesaPasskey);
     if (!storedPasskey.encrypted) {
       await prisma.user.update({
@@ -129,6 +140,8 @@ export class PaymentService implements IAbstractPaymentService {
         consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
         consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
         businessShortCode,
+        transactionType: isBuyGoods ? "CustomerBuyGoodsOnline" : "CustomerPayBillOnline",
+        partyB: isBuyGoods ? booking.user.mpesaTillNumber ?? undefined : businessShortCode,
         passkey: storedPasskey.plaintext,
         phoneNumber,
         amount: amountKes,
