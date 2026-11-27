@@ -33,15 +33,11 @@ function validateInput(etcInput: EventTypeCustomInput, value: string | boolean |
 }
 
 function validateBooleanInput(value: string | boolean | undefined, errorMessage: string) {
-  z.literal(true, {
-    errorMap: () => ({ message: errorMessage }),
-  }).parse(value);
+  z.literal(true, { error: errorMessage }).parse(value);
 }
 
 function validatePhoneInput(value: string | boolean | undefined, errorMessage: string) {
-  z.string({
-    errorMap: () => ({ message: errorMessage }),
-  })
+  z.string({ error: errorMessage })
     .refine((val) => isValidPhoneNumber(val), {
       message: "Phone number is invalid",
     })
