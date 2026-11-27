@@ -4,6 +4,10 @@ export interface MPesaStkPushOptions {
   consumerKey: string;
   consumerSecret: string;
   businessShortCode: string;
+  /** Paybill or Buy Goods STK routing. Defaults to Paybill. */
+  transactionType?: "CustomerPayBillOnline" | "CustomerBuyGoodsOnline";
+  /** Receiver shortcode; for Buy Goods this is the till, not the head-office shortcode. */
+  partyB?: string;
   passkey: string;
   phoneNumber: string;
   amount: number;
@@ -120,14 +124,19 @@ export class DarajaClient {
 
     const baseUrl = DarajaClient.getBaseUrl(options.isSandbox);
 
+    const transactionType = options.transactionType ?? "CustomerPayBillOnline";
+    if (transactionType === "CustomerBuyGoodsOnline" && !options.partyB) {
+      throw new Error("A Buy Goods Till number is required for M-Pesa STK Push");
+    }
+
     const payload = {
       BusinessShortCode: options.businessShortCode,
       Password: password,
       Timestamp: timestamp,
-      TransactionType: "CustomerPayBillOnline",
+      TransactionType: transactionType,
       Amount: Math.ceil(options.amount),
       PartyA: formattedPhone,
-      PartyB: options.businessShortCode,
+      PartyB: options.partyB ?? options.businessShortCode,
       PhoneNumber: formattedPhone,
       CallBackURL: options.callbackUrl,
       AccountReference: options.accountReference.slice(0, 12),
