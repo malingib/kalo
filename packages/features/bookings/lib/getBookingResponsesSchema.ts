@@ -393,7 +393,7 @@ function preprocess<T extends z.ZodType>({
   // - Even a field response itself can be partial so the content isn't validated e.g. a field with type="phone" can be given a partial phone number(e.g. Specifying the country code like +91)
   isPartialSchema: boolean;
   checkOptional?: boolean;
-}): z.ZodType<z.infer<T>, z.infer<T>, z.infer<T>> {
+}): z.ZodType<z.infer<T>> {
   const log = logger.getSubLogger({ prefix: ["getBookingResponsesSchema"] });
   const preprocessed = z.preprocess(
     (responses) => {
