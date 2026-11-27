@@ -2,6 +2,7 @@ import { DarajaClient, isDarajaStkOutcomeUncertain } from "./darajaClient";
 import { normalizeKenyanPhone } from "./normalizePhone";
 import { z } from "zod";
 import prisma from "@kalo/prisma";
+import type { AlertType } from "@kalo/prisma/client";
 
 const requiredEnv = (name: string): string => {
   const value = process.env[name];
@@ -41,16 +42,51 @@ async function initiateSubscriptionStkPush(input: {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Daraja STK Push failed";
     if (isDarajaStkOutcomeUncertain(error)) {
-      await prisma.$transaction([
-        prisma.mPesaTransaction.update({
+      const subscription = await prisma.mPesaSubscription.findUnique({
+        where: { id: input.subscriptionId },
+        select: { userId: true, teamId: true, subscriptionType: true },
+      });
+      const recipients = subscription?.userId
+        ? [subscription.userId]
+        : subscription?.teamId
+          ? (
+              await prisma.membership.findMany({
+                where: {
+                  teamId: subscription.teamId,
+                  accepted: true,
+                  role: { in: ["OWNER", "ADMIN"] },
+                },
+                select: { userId: true },
+              })
+            ).map((membership) => membership.userId)
+          : [];
+
+      await prisma.$transaction(async (tx) => {
+        await tx.mPesaTransaction.update({
           where: { id: input.transactionId },
           data: { status: "RECONCILIATION_REQUIRED", resultDesc: message },
-        }),
-        prisma.mPesaSubscription.update({
+        });
+        await tx.mPesaSubscription.update({
           where: { id: input.subscriptionId },
           data: { status: "RECONCILIATION_REQUIRED" },
-        }),
-      ]);
+        });
+        if (recipients.length) {
+          await tx.alert.createMany({
+            data: recipients.map((userId) => ({
+              userId,
+              type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+              channel: "IN_APP",
+              title: "M-Pesa subscription needs verification",
+              body: "Daraja returned an uncertain STK result. Verify the payment before requesting another prompt.",
+              metadata: {
+                subscriptionId: input.subscriptionId,
+                transactionId: input.transactionId,
+                subscriptionType: subscription?.subscriptionType ?? null,
+              },
+            })),
+          });
+        }
+      });
       return { subscriptionId: input.subscriptionId, status: "RECONCILIATION_REQUIRED" as const };
     }
     await prisma.$transaction([
