@@ -607,20 +607,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
               }
             } else {
+              // A failed first payment is not an expired subscription. Keep it
+              // retryable as PAYMENT_FAILED; only failed renewals move an
+              // already-active billing period to PAST_DUE.
+              const failureStatus = subscription.currentPeriodEnd ? "PAST_DUE" : "PAYMENT_FAILED";
               await tx.mPesaSubscription.update({
                 where: { id: subscription.id },
-                data: { status: "PAST_DUE" },
+                data: { status: failureStatus },
               });
               if (subscription.teamId && subscription.subscriptionType === "TEAM") {
                 await tx.teamBilling.updateMany({
                   where: { teamId: subscription.teamId },
-                  data: { status: "PAST_DUE" },
+                  data: { status: failureStatus },
                 });
               }
               if (subscription.teamId && subscription.subscriptionType === "ORGANIZATION") {
                 await tx.organizationBilling.updateMany({
                   where: { teamId: subscription.teamId },
-                  data: { status: "PAST_DUE" },
+                  data: { status: failureStatus },
                 });
               }
               if (subscription.teamId) {
