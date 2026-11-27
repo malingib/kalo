@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import dayjs from "@kalo/dayjs";
 import tasker from "@kalo/features/tasker";
-import { DarajaClient, decryptMpesaSecret, encryptMpesaSecret, normalizeKenyanPhone } from "@kalo/features/mpesa";
+import { DarajaClient, normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { convertFromSmallestToPresentableCurrencyUnit } from "@kalo/lib/currencyConversions";
 import prisma from "@kalo/prisma";
 import type { Booking, Payment, PaymentOption, Prisma } from "@kalo/prisma/client";
@@ -29,7 +29,7 @@ export class PaymentService implements IAbstractPaymentService {
   async create(
     payment: Pick<Prisma.PaymentUncheckedCreateInput, "amount" | "currency">,
     bookingId: Booking["id"],
-    userId: Booking["userId"],
+    _userId: Booking["userId"],
     _username: string | null,
     _bookerName: string | null,
     paymentOption: PaymentOption,
@@ -47,27 +47,14 @@ export class PaymentService implements IAbstractPaymentService {
     const phoneNumber = bookerPhoneNumber ? normalizeKenyanPhone(bookerPhoneNumber) : null;
     if (!phoneNumber) throw new Error("A valid Kenyan mobile number is required for M-Pesa");
 
-    const [booking, vendor] = await Promise.all([
-      prisma.booking.findUnique({ where: { id: bookingId }, select: { uid: true } }),
-      userId
-        ? prisma.user.findUnique({
-            where: { id: userId },
-            select: { mpesaShortcode: true, mpesaPasskey: true },
-          })
-        : null,
-    ]);
+    const booking = await prisma.booking.findUnique({ where: { id: bookingId }, select: { uid: true } });
     if (!booking) throw new Error("Booking not found");
-    if (!vendor?.mpesaShortcode || !vendor.mpesaPasskey) {
-      throw new Error("The booking host has not configured their M-Pesa shortcode and passkey");
-    }
 
-    const storedPasskey = decryptMpesaSecret(vendor.mpesaPasskey);
-    if (!storedPasskey.encrypted) {
-      await prisma.user.update({
-        where: { id: userId! },
-        data: { mpesaPasskey: encryptMpesaSecret(storedPasskey.plaintext) },
-      });
-    }
+    // Public booking checkout uses the platform's centrally managed Daraja
+    // shortcode/passkey. Tenant Till/Paybill details are payout/settlement
+    // destinations, not credentials for initiating an STK push.
+    const businessShortCode = requiredEnv("DARAJA_SHORTCODE");
+    const passkey = requiredEnv("DARAJA_PASSKEY");
 
     const amountKes = convertFromSmallestToPresentableCurrencyUnit(payment.amount, payment.currency);
     if (!Number.isFinite(amountKes) || amountKes <= 0) throw new Error("Invalid M-Pesa payment amount");
