@@ -124,17 +124,19 @@ export async function initiatePremiumSubscriptionRenewal(input: {
   });
   if (claimed.count !== 1) throw new Error("Subscription renewal is already being processed");
 
-  const transaction = await prisma.mPesaTransaction.create({
-    data: {
-      subscriptionId: subscription.id,
-      phoneNumber: subscription.phoneNumber,
-      amount: subscription.amountKes,
-      source: "subscription-payment",
-      status: "INITIATING",
-    },
-  });
-
+  let transactionId: string | undefined;
   try {
+    const transaction = await prisma.mPesaTransaction.create({
+      data: {
+        subscriptionId: subscription.id,
+        phoneNumber: subscription.phoneNumber,
+        amount: subscription.amountKes,
+        source: "subscription-payment",
+        status: "INITIATING",
+      },
+    });
+    transactionId = transaction.id;
+
     const response = await DarajaClient.initiateStkPush({
       consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
       consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
@@ -165,10 +167,14 @@ export async function initiatePremiumSubscriptionRenewal(input: {
     return { subscriptionId: subscription.id, status: "PAYMENT_PENDING" as const };
   } catch {
     await prisma.$transaction([
-      prisma.mPesaTransaction.update({
-        where: { id: transaction.id },
-        data: { status: "FAILED", resultDesc: "Daraja renewal STK Push failed" },
-      }),
+      ...(transactionId
+        ? [
+            prisma.mPesaTransaction.update({
+              where: { id: transactionId },
+              data: { status: "FAILED", resultDesc: "Daraja renewal STK Push failed" },
+            }),
+          ]
+        : []),
       prisma.mPesaSubscription.update({
         where: { id: subscription.id },
         data: { status: "PAST_DUE" },
