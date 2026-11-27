@@ -102,8 +102,9 @@ export class PaymentService implements IAbstractPaymentService {
       },
     });
 
+    let response: Awaited<ReturnType<typeof DarajaClient.initiateStkPush>>;
     try {
-      const response = await DarajaClient.initiateStkPush({
+      response = await DarajaClient.initiateStkPush({
         consumerKey: requiredEnv("DARAJA_CONSUMER_KEY"),
         consumerSecret: requiredEnv("DARAJA_CONSUMER_SECRET"),
         businessShortCode,
@@ -115,7 +116,26 @@ export class PaymentService implements IAbstractPaymentService {
         callbackUrl: getCallbackUrl(),
         isSandbox: process.env.DARAJA_ENVIRONMENT !== "production",
       });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "M-Pesa STK Push failed";
+      await prisma.$transaction([
+        prisma.mPesaTransaction.update({
+          where: { id: transaction.id },
+          data: { status: "FAILED", resultDesc: message },
+        }),
+        prisma.payment.update({
+          where: { id: paymentRecord.id },
+          data: { data: { provider: "mpesa", phoneNumber, status: "FAILED", error: message } },
+        }),
+      ]);
+      throw new Error("payment_not_created_error");
+    }
 
+    // Once Daraja has accepted the STK request, a local persistence error must
+    // never mark the payment FAILED: the customer may still authorize it. Keep
+    // the transaction open for reconciliation and avoid inviting a duplicate
+    // prompt from a misleading failure state.
+    try {
       return await prisma.$transaction(async (tx) => {
         const updatedPayment = await tx.payment.update({
           where: { id: paymentRecord.id },
@@ -142,18 +162,40 @@ export class PaymentService implements IAbstractPaymentService {
         return updatedPayment;
       });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "M-Pesa STK Push failed";
-      await prisma.$transaction([
-        prisma.mPesaTransaction.update({
+      console.error("Daraja accepted an M-Pesa prompt but local checkout persistence failed.", {
+        paymentId: paymentRecord.id,
+        transactionId: transaction.id,
+        checkoutRequestId: response.CheckoutRequestID,
+        error: error instanceof Error ? error.message : "Unknown persistence error",
+      });
+      try {
+        await prisma.mPesaTransaction.update({
           where: { id: transaction.id },
-          data: { status: "FAILED", resultDesc: message },
-        }),
-        prisma.payment.update({
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "Daraja accepted STK push; local checkout identifiers require reconciliation",
+          },
+        });
+        await prisma.payment.update({
           where: { id: paymentRecord.id },
-          data: { data: { provider: "mpesa", phoneNumber, status: "FAILED", error: message } },
-        }),
-      ]);
-      throw new Error("payment_not_created_error");
+          data: {
+            data: {
+              provider: "mpesa",
+              phoneNumber,
+              status: "RECONCILIATION_REQUIRED",
+              checkoutRequestId: response.CheckoutRequestID,
+              merchantRequestId: response.MerchantRequestID,
+            },
+          },
+        });
+      } catch (reconciliationError) {
+        console.error("Could not persist M-Pesa reconciliation marker.", {
+          paymentId: paymentRecord.id,
+          transactionId: transaction.id,
+          error: reconciliationError instanceof Error ? reconciliationError.message : "Unknown error",
+        });
+      }
+      throw new Error("payment_pending_reconciliation_error");
     }
   }
 
