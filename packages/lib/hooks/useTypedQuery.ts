@@ -7,11 +7,24 @@ import { z } from "zod";
 import { useRouterQuery } from "./useRouterQuery";
 
 type OptionalKeys<T> = {
-  [K in keyof T]-?: Record<string, unknown> extends Pick<T, K> ? K : never;
+  [K in keyof T]-?: {} extends Pick<T, K> ? K : never;
 }[keyof T];
 
-type FilteredKeys<T, U> = {
-  [K in keyof T as T[K] extends U ? K : never]: T[K];
+type ArrayKeys<T> = {
+  [K in keyof T]-?: T[K] extends unknown[] ? K : never;
+}[keyof T];
+
+const toSearchParams = (query: Record<string, unknown>) => {
+  const params = new URLSearchParams();
+  Object.entries(query).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
+    if (Array.isArray(value)) {
+      value.forEach((item) => params.append(key, String(item)));
+    } else {
+      params.set(key, String(value));
+    }
+  });
+  return params;
 };
 
 // Take array as a string and return zod array
@@ -25,20 +38,16 @@ export const queryNumberArray = z
     return [a];
   });
 
-// Take array as a string and return zod  number array
-
-// Take string and return return zod string array - comma separated
+// Take string and return zod string array - comma separated
 export const queryStringArray = z
   .preprocess((a) => z.string().parse(a).split(","), z.string().array())
   .or(z.string().array());
 
 export function useTypedQuery<T extends z.ZodObject>(schema: T) {
-  type Output = z.infer<typeof schema>;
-  type FullOutput = Required<Output>;
-  type OutputKeys = Required<keyof FullOutput>;
+  type Output = z.output<T>;
+  type OutputKeys = keyof Output;
   type OutputOptionalKeys = OptionalKeys<Output>;
-  type ArrayOutput = FilteredKeys<FullOutput, Array<unknown>>;
-  type ArrayOutputKeys = keyof ArrayOutput;
+  type ArrayOutputKeys = ArrayKeys<Output>;
   const router = useRouter();
   const unparsedQuery = useRouterQuery();
   const pathname = usePathname();
@@ -51,62 +60,57 @@ export function useTypedQuery<T extends z.ZodObject>(schema: T) {
     if (parsedQuerySchema.success && parsedQuerySchema.data) {
       Object.entries(parsedQuerySchema.data).forEach(([key, value]) => {
         if (key in unparsedQuery || !value) return;
-        const search = new URLSearchParams(parsedQuery);
+        const search = toSearchParams(parsedQuerySchema.data as Record<string, unknown>);
         search.set(String(key), String(value));
         router.replace(`${pathname}?${search.toString()}`);
       });
     }
-  }, [parsedQuerySchema, schema, router, pathname, unparsedQuery, parsedQuery]);
+  }, [parsedQuerySchema, schema, router, pathname, unparsedQuery]);
 
   if (parsedQuerySchema.success) parsedQuery = parsedQuerySchema.data;
   else if (!parsedQuerySchema.success) console.error(parsedQuerySchema.error);
 
-  // Set the query based on schema values
   const setQuery = useCallback(
     function setQuery<J extends OutputKeys>(key: J, value: Output[J]) {
-      // Remove old value by key so we can merge new value
-      const search = new URLSearchParams(parsedQuery);
+      const search = toSearchParams(parsedQuery as Record<string, unknown>);
       search.set(String(key), String(value));
       router.replace(`${pathname}?${search.toString()}`);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [parsedQuery, router]
+    [parsedQuery, router, pathname]
   );
 
-  // Delete a key from the query
   function removeByKey(key: OutputOptionalKeys) {
-    const search = new URLSearchParams(parsedQuery);
+    const search = toSearchParams(parsedQuery as Record<string, unknown>);
     search.delete(String(key));
     router.replace(`${pathname}?${search.toString()}`);
   }
 
-  // push item to existing key
-  function pushItemToKey<J extends ArrayOutputKeys>(key: J, value: ArrayOutput[J][number]) {
+  function pushItemToKey<J extends ArrayOutputKeys>(
+    key: J,
+    value: Output[J] extends (infer Item)[] ? Item : never
+  ) {
     const existingValue = parsedQuery[key];
     if (Array.isArray(existingValue)) {
-      if (existingValue.includes(value)) return; // prevent adding the same value to the array
-      // @ts-expect-error this is too much for TS it seems
-      setQuery(key, [...existingValue, value]);
+      if (existingValue.includes(value)) return;
+      setQuery(key, [...existingValue, value] as Output[J]);
     } else {
-      // @ts-expect-error this is too much for TS it seems
-      setQuery(key, [value]);
+      setQuery(key, [value] as Output[J]);
     }
   }
 
-  // Remove item by key and value
-  function removeItemByKeyAndValue<J extends ArrayOutputKeys>(key: J, value: ArrayOutput[J][number]) {
+  function removeItemByKeyAndValue<J extends ArrayOutputKeys>(
+    key: J,
+    value: Output[J] extends (infer Item)[] ? Item : never
+  ) {
     const existingValue = parsedQuery[key];
     if (Array.isArray(existingValue) && existingValue.length > 1) {
-      // @ts-expect-error this is too much for TS it seems
       const newValue = existingValue.filter((item) => item !== value);
-      setQuery(key, newValue);
+      setQuery(key, newValue as Output[J]);
     } else {
-      // @ts-expect-error this is too much for TS it seems
-      removeByKey(key);
+      removeByKey(key as OutputOptionalKeys);
     }
   }
 
-  // Remove all query params from the URL
   function removeAllQueryParams() {
     if (pathname !== null) {
       router.replace(pathname);
