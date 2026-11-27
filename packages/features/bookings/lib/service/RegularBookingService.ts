@@ -1790,7 +1790,7 @@ async function handler(
               description: additionalNotes,
               responses,
             },
-            metadata: reqBody.metadata,
+            metadata: reqBody.metadata as Prisma.InputJsonObject,
             booking: {
               connect: {
                 id: booking.id,
