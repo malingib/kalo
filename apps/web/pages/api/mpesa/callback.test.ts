@@ -228,6 +228,9 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
       res
     );
     expect(res._status).toBe(200);
+    expect(mockHandlePaymentSuccess).toHaveBeenCalledWith(
+      expect.objectContaining({ paymentId: 99, bookingId: 1, appSlug: "mpesa" })
+    );
     expect(mockPrisma.payment.update).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 99 },
@@ -280,6 +283,9 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
     );
 
     expect(res._status).toBe(200);
+    expect(mockHandlePaymentSuccess).toHaveBeenCalledWith(
+      expect.objectContaining({ paymentId: 123, bookingId: 1, appSlug: "mpesa" })
+    );
     expect(mockPrisma.payment.update).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 123 },
