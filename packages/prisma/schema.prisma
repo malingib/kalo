@@ -2268,7 +2268,8 @@ model OrganizationOnboarding {
   isDomainConfigured Boolean @default(false)
 
   // Linked after the organization subscription is paid through M-Pesa.
-  mpesaSubscriptionId String? @unique
+  mpesaSubscriptionId String?             @unique
+  mpesaSubscription   MPesaSubscription? @relation(fields: [mpesaSubscriptionId], references: [id], onDelete: SetNull)
 
   /// @zod.import(["import { orgOnboardingInvitedMembersSchema } from '../../zod-utils'"]).custom.use(orgOnboardingInvitedMembersSchema)
   invitedMembers Json @default("[]")
@@ -2904,6 +2905,7 @@ model MPesaSubscription {
   status              String   @default("PENDING")
   teamBilling         TeamBilling?        @relation("TeamMpesaBilling")
   organizationBilling OrganizationBilling? @relation("OrganizationMpesaBilling")
+  organizationOnboarding OrganizationOnboarding?
   currentPeriodStart DateTime?
   currentPeriodEnd   DateTime?
   nextBillingAt      DateTime?
