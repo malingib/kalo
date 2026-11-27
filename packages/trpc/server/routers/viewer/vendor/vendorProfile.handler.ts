@@ -139,9 +139,17 @@ export const listVendorsHandler = async ({ ctx }: Ctx) => {
 export const getMpesaCredentialsStatusHandler = async ({ ctx }: Ctx) => {
   const user = await prisma.user.findUnique({
     where: { id: ctx.user.id },
-    select: { mpesaShortcode: true, mpesaPasskey: true },
+    select: {
+      mpesaShortcode: true,
+      mpesaShortcodeType: true,
+      mpesaTillNumber: true,
+      mpesaPasskey: true,
+    },
   });
   return {
+    shortcode: user?.mpesaShortcode ?? "",
+    shortcodeType: user?.mpesaShortcodeType ?? "PAYBILL",
+    tillNumber: user?.mpesaTillNumber ?? "",
     hasShortcode: Boolean(user?.mpesaShortcode),
     hasPasskey: Boolean(user?.mpesaPasskey),
   };
@@ -151,7 +159,7 @@ export const getMpesaCredentialsStatusHandler = async ({ ctx }: Ctx) => {
 export const updateMpesaCredentialsHandler = async ({ ctx, input }: UpdateMpesaCredentialsOpts) => {
   const current = await prisma.user.findUnique({
     where: { id: ctx.user.id },
-    select: { mpesaPasskey: true },
+    select: { mpesaPasskey: true, mpesaTillNumber: true },
   });
   if (!input.passkey && !current?.mpesaPasskey) {
     throw new TRPCError({
@@ -159,9 +167,17 @@ export const updateMpesaCredentialsHandler = async ({ ctx, input }: UpdateMpesaC
       message: "Enter your Daraja passkey to complete M-Pesa setup",
     });
   }
+  if (input.shortcodeType === "BUY_GOODS" && !input.tillNumber && !current?.mpesaTillNumber) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Enter the Buy Goods Till number used as the STK receiver",
+    });
+  }
 
   const data = {
     mpesaShortcode: input.shortcode,
+    mpesaShortcodeType: input.shortcodeType,
+    ...(input.tillNumber ? { mpesaTillNumber: input.tillNumber } : {}),
     ...(input.passkey ? { mpesaPasskey: encryptMpesaSecret(input.passkey) } : {}),
   };
   await prisma.user.update({ where: { id: ctx.user.id }, data });
