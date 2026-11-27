@@ -115,6 +115,7 @@ export class WhatsAppWebhookService {
       Boolean(process.env.DARAJA_CONSUMER_KEY) &&
       Boolean(process.env.DARAJA_CONSUMER_SECRET) &&
       Boolean(process.env.DARAJA_CALLBACK_URL) &&
+      Boolean(process.env.DARAJA_CALLBACK_SECRET) &&
       Boolean(process.env.MPESA_CREDENTIALS_ENCRYPTION_KEY);
 
     if (darajaRuntimeConfigured && vendor.mpesaPasskey) {
