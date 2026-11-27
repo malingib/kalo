@@ -8,7 +8,7 @@ import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { isBrowserLocale24h } from "@kalo/lib/timeFormat";
 import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
 import { localStorage } from "@kalo/lib/webstorage";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { AtomsWrapper } from "../../src/components/atoms-wrapper";
 import { cn } from "../../src/lib/utils";
 import { useAtomsEventTypePaymentInfo } from "../hooks/useAtomEventTypePaymentInfo";
