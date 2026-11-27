@@ -34,7 +34,7 @@ export function getPaymentAppData(
     ? {
         enabled: true,
         price: legacyMpesa.price ?? 0,
-        currency: "KES",
+        currency: legacyMpesa.currency ?? _eventType.currency ?? "KES",
         appId: "mpesa" as const,
         paymentOption: "ON_BOOKING" as const,
         credentialId: undefined,
