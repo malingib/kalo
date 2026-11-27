@@ -401,6 +401,16 @@ describe("M-Pesa callback", () => {  it("rejects callbacks without a checkout re
         data: expect.objectContaining({ status: "RECONCILIATION_REQUIRED" }),
       })
     );
+    expect(mockPrisma.alert.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          userId: 42,
+          type: "PAYMENT_RECONCILIATION_REQUIRED",
+          channel: "IN_APP",
+          metadata: expect.objectContaining({ bookingUid: "booking-1", checkoutRequestId: "ws_CO_123" }),
+        }),
+      })
+    );
   });
 
   it("marks the WhatsApp session paymentFailed when the payment fails", async () => {
