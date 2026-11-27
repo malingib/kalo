@@ -12,13 +12,76 @@ export async function GET(request: Request) {
   }
 
   const staleBefore = new Date(Date.now() - 30 * 60 * 1000);
-  await prisma.mPesaSubscription.updateMany({
+  const staleSubscriptions = await prisma.mPesaSubscription.findMany({
     where: {
       status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
       updatedAt: { lte: staleBefore },
     },
-    data: { status: "PAST_DUE" },
+    select: { id: true, userId: true, teamId: true, subscriptionType: true },
+    take: 50,
+    orderBy: { updatedAt: "asc" },
   });
+
+  // No callback is not proof of a failed payment. Do not unlock another STK
+  // prompt after a timeout: the first prompt may have been paid and its callback
+  // lost. Require reconciliation before another charge can be requested.
+  await Promise.all(
+    staleSubscriptions.map(async (subscription) => {
+      const recipients = subscription.userId
+        ? [subscription.userId]
+        : subscription.teamId
+          ? (
+              await prisma.membership.findMany({
+                where: {
+                  teamId: subscription.teamId,
+                  accepted: true,
+                  role: { in: ["OWNER", "ADMIN"] },
+                },
+                select: { userId: true },
+              })
+            ).map((membership) => membership.userId)
+          : [];
+
+      await prisma.$transaction(async (tx) => {
+        const claimed = await tx.mPesaSubscription.updateMany({
+          where: {
+            id: subscription.id,
+            status: { in: ["PAYMENT_PENDING", "RENEWAL_INITIATING"] },
+            updatedAt: { lte: staleBefore },
+          },
+          data: { status: "RECONCILIATION_REQUIRED" },
+        });
+        if (claimed.count !== 1) return;
+
+        await tx.mPesaTransaction.updateMany({
+          where: {
+            subscriptionId: subscription.id,
+            status: { in: ["INITIATING", "PENDING"] },
+          },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "No Daraja callback was received; verify the transaction before requesting another payment",
+          },
+        });
+
+        if (recipients.length) {
+          await tx.alert.createMany({
+            data: recipients.map((userId) => ({
+              userId,
+              type: "PAYMENT_RECONCILIATION_REQUIRED",
+              channel: "IN_APP",
+              title: "M-Pesa subscription needs verification",
+              body: "No Daraja callback was received. Check the M-Pesa statement before requesting another payment.",
+              metadata: {
+                subscriptionId: subscription.id,
+                subscriptionType: subscription.subscriptionType,
+              },
+            })),
+          });
+        }
+      });
+    })
+  );
 
   const due = await prisma.mPesaSubscription.findMany({
     where: {
