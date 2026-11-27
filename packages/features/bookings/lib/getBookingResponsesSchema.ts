@@ -379,7 +379,7 @@ const buildFieldZodCtx = ({
 
 // TODO: Move preprocess of `booking.responses` to FormBuilder schema as that is going to parse the fields supported by FormBuilder
 // It allows anyone using FormBuilder to get the same preprocessing automatically
-function preprocess<T extends z.ZodType>({
+function preprocess<T extends z.ZodType<Record<string, unknown>>>({
   schema,
   bookingFields,
   isPartialSchema,
