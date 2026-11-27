@@ -166,7 +166,7 @@ function UsernameField({
               <div data-testid="premium-username-warning" className="flex items-center">
                 <StarIcon className="mr-1 inline-block h-4 w-4" />
                 <p>
-                  {t("premium_username")}
+                  {t("premium_username", { price: "M-Pesa" })}
                 </p>
               </div>
             ) : null}
@@ -594,7 +594,7 @@ export default function Signup({
                         <Button
                           color="primary"
                           loading={isGoogleLoading}
-                          disabled={isMicrosoftLoading}
+                          disabled={isMicrosoftLoading || premiumUsername}
                           CustomStartIcon={
                             <>
                               {/* eslint-disable @next/next/no-img-element */}
@@ -645,7 +645,7 @@ export default function Signup({
                         <Button
                           color="secondary"
                           loading={isMicrosoftLoading}
-                          disabled={isGoogleLoading}
+                          disabled={isGoogleLoading || premiumUsername}
                           CustomStartIcon={
                             <>
                               {/* eslint-disable @next/next/no-img-element */}
