@@ -82,7 +82,7 @@ export interface ContextForGetSchedule extends Record<string, unknown> {
   req?: (IncomingMessage & { cookies: Partial<{ [key: string]: string }> }) | undefined;
 }
 
-export type TGetScheduleInputSchema = z.infer<typeof getScheduleSchemaObject>;
+export type TGetScheduleInputSchema = z.input<typeof getScheduleSchemaObject>;
 export const ZGetScheduleInputSchema = getScheduleSchema;
 
 export type GetScheduleOptions = {
