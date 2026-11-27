@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: prebuild-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -37,6 +37,25 @@ jobs:
 
       - name: Install dependencies using repository setup
         uses: ./.github/actions/yarn-install
+
+      - name: Regenerate app-store registries from retained source apps
+        run: yarn app-store:build
+
+      - name: Commit generated app-store registries
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/app-store/*.generated.ts packages/app-store/*.generated.tsx
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore(app-store): regenerate integration registries"
+          git push origin "HEAD:${HEAD_REF}"
+          gh workflow run prebuild-quality-gate.yml --ref "${HEAD_REF}"
 
       - name: TypeScript checks
         run: yarn type-check:ci
