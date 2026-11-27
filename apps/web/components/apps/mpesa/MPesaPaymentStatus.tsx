@@ -43,7 +43,7 @@ export function MPesaPaymentStatus({ bookingUid, initialSuccess }: Props) {
   if (status === "SUCCESS") return <p className="mt-4 text-center text-green-700">M-Pesa payment confirmed.</p>;
   if (status === "FAILED") return <p className="mt-4 text-center text-red-600">M-Pesa payment was not completed. Please contact the booking host.</p>;
   if (status === "RECONCILIATION_REQUIRED") {
-    return <p className="mt-4 text-center text-amber-700">Your payment needs verification. The booking host will confirm it after reconciliation.</p>;
+    return <p className="mt-4 text-center text-amber-700">Your payment needs verification. The booking host has been notified and will check the Daraja records before confirming.</p>;
   }
   return <p className="mt-4 text-center text-default">Check your phone and enter your M-Pesa PIN. Waiting for payment confirmation…</p>;
 }
