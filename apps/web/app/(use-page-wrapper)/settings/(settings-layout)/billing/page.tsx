@@ -132,12 +132,14 @@ export default function WorkspaceBillingPage() {
         const subscription = workspace.subscription;
         const plans = workspace.plans;
         const availablePlanNames = [...new Set(plans.map((plan) => plan.planName))];
+        const selectedPlanName = selections[workspace.id] ?? availablePlanNames[0] ?? "";
         const availablePeriods = plans
-          .filter((plan) => !selections[workspace.id] || plan.planName === selections[workspace.id])
+          .filter((plan) => plan.planName === selectedPlanName)
           .map((plan) => plan.billingPeriod);
-        const selectedPeriod = periods[workspace.id] ?? "MONTHLY";
+        const selectedPeriod =
+          periods[workspace.id] ?? (availablePeriods.includes("MONTHLY") ? "MONTHLY" : availablePeriods[0] ?? "MONTHLY");
         const selectedPrice = plans.find(
-          (plan) => plan.planName === selections[workspace.id] && plan.billingPeriod === selectedPeriod
+          (plan) => plan.planName === selectedPlanName && plan.billingPeriod === selectedPeriod
         )?.amountKes;
 
         return (
@@ -192,10 +194,19 @@ export default function WorkspaceBillingPage() {
                     <label className="block text-sm">
                       Plan
                       <select
-                        value={selections[workspace.id] ?? availablePlanNames[0] ?? ""}
+                        value={selectedPlanName}
                         onChange={(event) => {
-                          setSelections((current) => ({ ...current, [workspace.id]: event.target.value }));
-                          setPeriods((current) => ({ ...current, [workspace.id]: "MONTHLY" }));
+                          const nextPlan = event.target.value;
+                          const nextPeriods = plans
+                            .filter((plan) => plan.planName === nextPlan)
+                            .map((plan) => plan.billingPeriod);
+                          setSelections((current) => ({ ...current, [workspace.id]: nextPlan }));
+                          setPeriods((current) => ({
+                            ...current,
+                            [workspace.id]: nextPeriods.includes(current[workspace.id] ?? "MONTHLY")
+                              ? current[workspace.id] ?? "MONTHLY"
+                              : nextPeriods[0] ?? "MONTHLY",
+                          }));
                         }}
                         className="mt-1 block w-full rounded-md border border-subtle bg-default px-3 py-2">
                         {availablePlanNames.map((name) => <option key={name} value={name}>{name}</option>)}
