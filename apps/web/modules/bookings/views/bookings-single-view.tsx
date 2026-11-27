@@ -426,9 +426,7 @@ export default function Success(props: PageProps) {
 
   const successPageHeadline = (() => {
     if (isAwaitingPayment && !isCancelled) {
-      return props.paymentStatus?.paymentOption === "HOLD"
-        ? t("meeting_awaiting_payment_method")
-        : t("meeting_awaiting_payment");
+      return t("meeting_awaiting_payment");
     }
 
     if (needsConfirmationAndReschedulable) {
@@ -708,9 +706,7 @@ export default function Success(props: PageProps) {
                         {props.paymentStatus && (
                           <>
                             <div className="mt-3 font-medium">
-                              {props.paymentStatus.paymentOption === "HOLD"
-                                ? t("complete_your_booking")
-                                : t("payment")}
+                              {t("payment")}
                             </div>
                             <div className="col-span-2 mb-2 mt-3">
                               <Price
