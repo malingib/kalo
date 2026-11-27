@@ -16,6 +16,15 @@ export default function MpesaSettingsPage() {
   const [paybill, setPaybill] = useState("");
   const [accountName, setAccountName] = useState("");
   const [payoutPhone, setPayoutPhone] = useState("");
+  const [darajaShortcode, setDarajaShortcode] = useState("");
+  const [darajaPasskey, setDarajaPasskey] = useState("");
+  const credentialsStatus = trpc.viewer.vendor.getMpesaCredentialsStatus.useQuery();
+  const saveCredentials = trpc.viewer.vendor.updateMpesaCredentials.useMutation({
+    onSuccess: async () => {
+      setDarajaPasskey("");
+      await credentialsStatus.refetch();
+    },
+  });
 
   useEffect(() => {
     if (!profileQuery.data) return;
@@ -24,6 +33,14 @@ export default function MpesaSettingsPage() {
     setAccountName(profileQuery.data.mpesaAccountName ?? "");
     setPayoutPhone(profileQuery.data.mpesaPayoutPhone ?? "");
   }, [profileQuery.data]);
+
+  const handleSaveCredentials = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    saveCredentials.mutate({
+      shortcode: darajaShortcode.trim(),
+      ...(darajaPasskey.trim() ? { passkey: darajaPasskey.trim() } : {}),
+    });
+  };
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -120,12 +137,47 @@ export default function MpesaSettingsPage() {
             </label>
           </div>
 
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
-            <p className="font-semibold">STK Push is platform-managed</p>
-            <p className="mt-1">
-              Daraja credentials are not collected on this page. The platform-managed integration will be enabled
-              after its secure credential, callback, and payment-reconciliation setup is completed.
+          <div className="rounded-lg border border-gray-200 p-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Daraja STK Push credentials</h2>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              Enter the shortcode and passkey issued for your business. The passkey is encrypted before storage and is never returned to the browser.
             </p>
+            <p className="mt-2 text-xs text-gray-500">
+              Configuration status: {credentialsStatus.data?.hasShortcode && credentialsStatus.data?.hasPasskey ? "Configured" : "Not configured"}
+            </p>
+            <form onSubmit={handleSaveCredentials} className="mt-4 space-y-3">
+              <label className="block text-sm font-medium">
+                Daraja Business Shortcode
+                <input
+                  value={darajaShortcode}
+                  onChange={(event) => setDarajaShortcode(event.target.value.replace(/\\D/g, "").slice(0, 10))}
+                  inputMode="numeric"
+                  autoComplete="off"
+                  required
+                  placeholder="Business shortcode"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700"
+                />
+              </label>
+              <label className="block text-sm font-medium">
+                Daraja Passkey
+                <input
+                  type="password"
+                  value={darajaPasskey}
+                  onChange={(event) => setDarajaPasskey(event.target.value)}
+                  autoComplete="new-password"
+                  required={!credentialsStatus.data?.hasPasskey}
+                  placeholder={credentialsStatus.data?.hasPasskey ? "Saved securely — leave blank to keep current" : "Enter passkey"}
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700"
+                />
+              </label>
+              {saveCredentials.isError && <p role="alert" className="text-sm text-red-600">{saveCredentials.error.message}</p>}
+              {saveCredentials.isSuccess && <p role="status" className="text-sm text-green-700">Daraja credentials saved securely.</p>}
+              <div className="flex justify-end">
+                <button type="submit" disabled={saveCredentials.isPending || !darajaShortcode.trim()} className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+                  {saveCredentials.isPending ? "Saving…" : "Save Daraja credentials"}
+                </button>
+              </div>
+            </form>
           </div>
 
           <div className="flex justify-end">
