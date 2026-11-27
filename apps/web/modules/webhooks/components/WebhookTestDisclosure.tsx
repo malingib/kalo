@@ -43,7 +43,7 @@ export default function WebhookTestDisclosure() {
                 mutation.mutate({ url: subscriberUrl, secret: webhookSecret, type: "PING", payloadTemplate });
               } catch (error) {
                 if (error instanceof ZodError) {
-                  const errorMessage = error.errors.map((e) => e.message).join(", ");
+                  const errorMessage = error.issues.map((e) => e.message).join(", ");
                   toastManager.add({ title: errorMessage, type: "error" });
                 } else {
                   toastManager.add({ title: t("unexpected_error_try_again"), type: "error" });
