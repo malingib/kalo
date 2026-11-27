@@ -1,4 +1,4 @@
-import { DarajaClient } from "./darajaClient";
+import { DarajaClient, isDarajaStkOutcomeUncertain } from "./darajaClient";
 import { normalizeKenyanPhone } from "./normalizePhone";
 import { z } from "zod";
 import prisma from "@kalo/prisma";
@@ -40,6 +40,19 @@ async function initiateSubscriptionStkPush(input: {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Daraja STK Push failed";
+    if (isDarajaStkOutcomeUncertain(error)) {
+      await prisma.$transaction([
+        prisma.mPesaTransaction.update({
+          where: { id: input.transactionId },
+          data: { status: "RECONCILIATION_REQUIRED", resultDesc: message },
+        }),
+        prisma.mPesaSubscription.update({
+          where: { id: input.subscriptionId },
+          data: { status: "RECONCILIATION_REQUIRED" },
+        }),
+      ]);
+      return { subscriptionId: input.subscriptionId, status: "RECONCILIATION_REQUIRED" as const };
+    }
     await prisma.$transaction([
       prisma.mPesaTransaction.update({
         where: { id: input.transactionId },
