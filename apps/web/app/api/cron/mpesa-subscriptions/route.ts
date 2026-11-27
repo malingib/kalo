@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const due = await prisma.mPesaSubscription.findMany({
     where: {
       subscriptionType: { in: ["PREMIUM_USERNAME", "TEAM", "ORGANIZATION"] },
-      status: { in: ["ACTIVE", "PAST_DUE"] },
+      status: "ACTIVE",
       nextBillingAt: { lte: new Date() },
     },
     select: { id: true, userId: true, teamId: true, subscriptionType: true },
