@@ -17,15 +17,7 @@ describe("errorFormatter", () => {
   };
 
   it("should format ZodError as BAD_REQUEST", () => {
-    const zodError = new z.ZodError([
-      {
-        path: ["name"],
-        message: "Required",
-        code: "invalid_type",
-        expected: "string",
-        received: "undefined",
-      },
-    ]);
+    const zodError = z.object({ name: z.string() }).safeParse({}).error!;
 
     const error = new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -67,16 +59,7 @@ describe("errorFormatter", () => {
       }),
     });
 
-    const zodError = new z.ZodError([
-      {
-        path: ["user", "age"],
-        message: "Number must be greater than or equal to 18",
-        code: "too_small",
-        minimum: 18,
-        type: "number",
-        inclusive: true,
-      },
-    ]);
+    const zodError = schema.safeParse({ user: { name: "Jane", age: 17 } }).error!;
 
     const error = new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -100,34 +83,13 @@ describe("errorFormatter", () => {
         code: "BAD_REQUEST",
         httpStatus: 400,
         path: "test",
-        zodError: {
-          formErrors: [],
-          fieldErrors: {
-            user: ["Number must be greater than or equal to 18"],
-          },
-        },
+        zodError: zodError.flatten(),
       },
     });
   });
 
   it("should handle multiple ZodError issues", () => {
-    const zodError = new z.ZodError([
-      {
-        path: ["name"],
-        message: "Required",
-        code: "invalid_type",
-        expected: "string",
-        received: "undefined",
-      },
-      {
-        path: ["age"],
-        message: "Number must be greater than or equal to 18",
-        code: "too_small",
-        minimum: 18,
-        type: "number",
-        inclusive: true,
-      },
-    ]);
+    const zodError = z.object({ name: z.string(), age: z.number().min(18) }).safeParse({ age: 17 }).error!;
 
     const error = new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -151,13 +113,7 @@ describe("errorFormatter", () => {
         code: "BAD_REQUEST",
         httpStatus: 400,
         path: "test",
-        zodError: {
-          formErrors: [],
-          fieldErrors: {
-            name: ["Required"],
-            age: ["Number must be greater than or equal to 18"],
-          },
-        },
+        zodError: zodError.flatten(),
       },
     });
   });
