@@ -24,6 +24,6 @@ export const mpesaSubscriptionHandler = async ({ ctx }: Options) => {
     username: subscription?.username ?? null,
     status: subscription?.status ?? null,
     currentPeriodEnd: subscription?.currentPeriodEnd ?? null,
-    phoneNumber: subscription?.phoneNumber ?? null,
+    phoneNumber: subscription?.phoneNumber ? `••••${subscription.phoneNumber.slice(-4)}` : null,
   };
 };
