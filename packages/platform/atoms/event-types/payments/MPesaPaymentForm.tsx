@@ -53,7 +53,7 @@ export default function MPesaPaymentForm({ booking, payment }: Props) {
       )}
       {status === "RECONCILIATION_REQUIRED" && (
         <p className="text-amber-700">
-          Safaricom reported a payment that needs verification. The booking host will confirm it after reconciliation.
+          The payment needs verification. The booking host has been notified and will check the Daraja records before confirming.
         </p>
       )}
       {status === "PENDING" && <p>Check your phone and enter your M-Pesa PIN. Waiting for payment confirmation…</p>}
