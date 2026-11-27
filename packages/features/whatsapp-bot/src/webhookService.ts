@@ -40,6 +40,7 @@ const vendorSelect = {
   mpesaPaybill: true,
   mpesaTillNumber: true,
   mpesaShortcode: true,
+  mpesaShortcodeType: true,
   mpesaPasskey: true,
 } as const;
 
@@ -134,7 +135,12 @@ export class WhatsAppWebhookService {
       }
     }
 
-    const darajaConfigured = darajaRuntimeConfigured && Boolean(decryptedPasskey);
+    const isBuyGoods = vendor.mpesaShortcodeType === "BUY_GOODS";
+    const darajaConfigured =
+      darajaRuntimeConfigured &&
+      Boolean(decryptedPasskey) &&
+      Boolean(vendor.mpesaShortcode) &&
+      (!isBuyGoods || Boolean(vendor.mpesaTillNumber));
     const vendorMpesaDetails = {
       paybill: vendor.mpesaPaybill ?? undefined,
       tillNumber: vendor.mpesaTillNumber ?? undefined,
@@ -174,6 +180,8 @@ export class WhatsAppWebhookService {
           consumerKey: process.env.DARAJA_CONSUMER_KEY ?? "",
           consumerSecret: process.env.DARAJA_CONSUMER_SECRET ?? "",
           businessShortCode: vendor.mpesaShortcode ?? "",
+          transactionType: isBuyGoods ? "CustomerBuyGoodsOnline" : "CustomerPayBillOnline",
+          partyB: isBuyGoods ? vendor.mpesaTillNumber ?? undefined : vendor.mpesaShortcode ?? "",
           passkey: decryptedPasskey ?? "",
           phoneNumber: stkPushRequest.phoneNumber,
           amount: stkPushRequest.amount,
