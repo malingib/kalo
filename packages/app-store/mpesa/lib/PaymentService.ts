@@ -93,31 +93,33 @@ export class PaymentService implements IAbstractPaymentService {
     if (!Number.isFinite(amountKes) || amountKes <= 0) throw new Error("Invalid M-Pesa payment amount");
 
     const paymentUid = uuidv4();
-    const paymentRecord = await prisma.payment.create({
-      data: {
-        uid: paymentUid,
-        app: { connect: { slug: "mpesa" } },
-        booking: { connect: { id: bookingId } },
-        amount: payment.amount,
-        currency: payment.currency,
-        externalId: `mpesa-init-${paymentUid}`,
-        data: { provider: "mpesa", phoneNumber, status: "INITIATING" },
-        fee: 0,
-        refunded: false,
-        success: false,
-        paymentOption: "ON_BOOKING",
-      },
-    });
-
-    const transaction = await prisma.mPesaTransaction.create({
-      data: {
-        paymentId: paymentRecord.id,
-        bookingUid: booking.uid,
-        phoneNumber,
-        amount: amountKes,
-        source: "booking-payment",
-        status: "INITIATING",
-      },
+    const { paymentRecord, transaction } = await prisma.$transaction(async (tx) => {
+      const paymentRecord = await tx.payment.create({
+        data: {
+          uid: paymentUid,
+          app: { connect: { slug: "mpesa" } },
+          booking: { connect: { id: bookingId } },
+          amount: payment.amount,
+          currency: payment.currency,
+          externalId: `mpesa-init-${paymentUid}`,
+          data: { provider: "mpesa", phoneNumber, status: "INITIATING" },
+          fee: 0,
+          refunded: false,
+          success: false,
+          paymentOption: "ON_BOOKING",
+        },
+      });
+      const transaction = await tx.mPesaTransaction.create({
+        data: {
+          paymentId: paymentRecord.id,
+          bookingUid: booking.uid,
+          phoneNumber,
+          amount: amountKes,
+          source: "booking-payment",
+          status: "INITIATING",
+        },
+      });
+      return { paymentRecord, transaction };
     });
 
     let response: Awaited<ReturnType<typeof DarajaClient.initiateStkPush>>;
@@ -190,6 +192,8 @@ export class PaymentService implements IAbstractPaymentService {
         await prisma.mPesaTransaction.update({
           where: { id: transaction.id },
           data: {
+            checkoutRequestId: response.CheckoutRequestID,
+            merchantRequestId: response.MerchantRequestID,
             status: "RECONCILIATION_REQUIRED",
             resultDesc: "Daraja accepted STK push; local checkout identifiers require reconciliation",
           },
