@@ -203,7 +203,9 @@ const PremiumTextfield = (props: ICustomUsernameProps) => {
   let paymentMsg = !currentUsername ? (
     <span className="text-xs text-orange-400">Premium usernames require a monthly M-Pesa subscription.</span>
   ) : null;
-  if (mpesaSubscription?.status === "PAYMENT_PENDING" || mpesaSubscription?.status === "RENEWAL_INITIATING") {
+  if (mpesaSubscription?.status === "PENDING") {
+    paymentMsg = <span className="text-xs text-orange-400">Preparing your M-Pesa payment prompt…</span>;
+  } else if (mpesaSubscription?.status === "PAYMENT_PENDING" || mpesaSubscription?.status === "RENEWAL_INITIATING") {
     paymentMsg = <span className="text-xs text-orange-400">M-Pesa prompt sent. Enter your PIN to authorize payment.</span>;
   } else if (mpesaSubscription?.status === "PAST_DUE") {
     paymentMsg = <span className="text-xs text-red-500">Your premium subscription is past due. Renew to keep premium username access.</span>;
