@@ -197,6 +197,8 @@ export class PaymentService implements IAbstractPaymentService {
         process.env.DARAJA_CONSUMER_SECRET &&
         process.env.DARAJA_CALLBACK_URL &&
         process.env.DARAJA_CALLBACK_SECRET &&
+        process.env.DARAJA_SHORTCODE &&
+        process.env.DARAJA_PASSKEY &&
         process.env.MPESA_CREDENTIALS_ENCRYPTION_KEY
     );
   }
