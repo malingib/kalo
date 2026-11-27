@@ -55,7 +55,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     return res.status(202).json({
       ...result,
-      message: "M-Pesa payment prompt sent. Enter your PIN to authorize the subscription.",
+      message: result.status === "RECONCILIATION_REQUIRED"
+        ? "Safaricom accepted the payment prompt, but the local transaction needs reconciliation. Do not retry the payment."
+        : "M-Pesa payment prompt sent. Enter your PIN to authorize the subscription.",
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Workspace subscription could not be started";
