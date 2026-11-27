@@ -86,6 +86,9 @@ describe("BookingPageTagManager", () => {
             apps: {
               mpesa: {
                 enabled: true,
+                price: 100,
+                currency: "KES",
+                paymentOption: "ON_BOOKING",
               },
             },
           },
