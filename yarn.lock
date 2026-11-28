@@ -2410,20 +2410,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formbricks/api@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@formbricks/api@npm:3.0.0"
-  checksum: 10/d20cde3e904eaf62b3886dabfdcd8b51b7018f146325def413ba4c788ad3a5c8fc3be6e0931199b3ab8ba21ba0cd3e2aa2eaae874623fa17c43178d1269ee87a
-  languageName: node
-  linkType: hard
-
-"@formbricks/js@npm:4.3.0":
-  version: 4.3.0
-  resolution: "@formbricks/js@npm:4.3.0"
-  checksum: 10/9ab7e85963f03f095c4c7edd14670258afe5c1c9010137a8bf33fb09bed96a68ff6449e5949b4ea8dccce2c33d02cdd7c426034e422b675df28d6750ebdd8b84
-  languageName: node
-  linkType: hard
-
 "@formkit/auto-animate@npm:1.0.0-beta.5":
   version: 1.0.0-beta.5
   resolution: "@formkit/auto-animate@npm:1.0.0-beta.5"
