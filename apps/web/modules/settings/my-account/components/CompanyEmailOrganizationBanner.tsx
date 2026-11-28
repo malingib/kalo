@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 
 import { useFlagMap } from "@kalo/features/flags/context/provider";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
