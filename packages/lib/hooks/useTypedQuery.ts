@@ -107,7 +107,7 @@ export function useTypedQuery<T extends z.ZodObject>(schema: T) {
       const newValue = existingValue.filter((item) => item !== value);
       setQuery(key, newValue as Output[J]);
     } else {
-      removeByKey(key as OutputOptionalKeys);
+      removeByKey(key as unknown as OutputOptionalKeys);
     }
   }
 
