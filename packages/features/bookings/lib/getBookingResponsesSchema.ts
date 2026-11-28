@@ -13,7 +13,7 @@ type TranslationFunction = (key: string, options?: Record<string, unknown>) => s
 type CommonParams = { bookingFields: BookingFields; view: View; translateFn?: TranslationFunction };
 
 export const bookingResponse = dbReadResponseSchema;
-export const bookingResponsesDbSchema = z.record(dbReadResponseSchema);
+export const bookingResponsesDbSchema = z.record(z.string(), dbReadResponseSchema);
 
 const catchAllSchema = bookingResponsesDbSchema;
 
@@ -323,7 +323,7 @@ export const getBookingResponsesPartialSchema = ({ bookingFields, view, translat
 // - Can happen when we are parsing the prefill query string
 // - Can happen when we are parsing a booking's responses (which was created before we added a new required field)
 export default function getBookingResponsesSchema({ bookingFields, view, translateFn }: CommonParams) {
-  const schema = bookingResponses.and(z.record(z.any()));
+  const schema = bookingResponses.and(z.record(z.string(), z.any()));
   return preprocess({ schema, bookingFields, isPartialSchema: false, view, translateFn });
 }
 
@@ -333,7 +333,7 @@ export function getBookingResponsesSchemaWithOptionalChecks({
   view,
   translateFn,
 }: CommonParams) {
-  const schema = bookingResponses.and(z.record(z.any()));
+  const schema = bookingResponses.and(z.record(z.string(), z.any()));
   return preprocess({
     schema,
     bookingFields,
@@ -345,7 +345,7 @@ export function getBookingResponsesSchemaWithOptionalChecks({
 }
 
 type FieldZodCtxState = {
-  issues: z.IssueData[];
+  issues: Parameters<FieldZodCtx["addIssue"]>[0][];
 } | null;
 
 const buildFieldZodCtx = ({
@@ -364,7 +364,7 @@ const buildFieldZodCtx = ({
     };
     return {
       fieldZodCtx: {
-        addIssue: (issue: z.IssueData) => {
+        addIssue: (issue: Parameters<FieldZodCtx["addIssue"]>[0]) => {
           state.issues.push(issue);
         },
       },
@@ -379,7 +379,7 @@ const buildFieldZodCtx = ({
 
 // TODO: Move preprocess of `booking.responses` to FormBuilder schema as that is going to parse the fields supported by FormBuilder
 // It allows anyone using FormBuilder to get the same preprocessing automatically
-function preprocess<T extends z.ZodType>({
+function preprocess<T extends z.ZodType<Record<string, unknown>>>({
   schema,
   bookingFields,
   isPartialSchema,
@@ -393,11 +393,11 @@ function preprocess<T extends z.ZodType>({
   // - Even a field response itself can be partial so the content isn't validated e.g. a field with type="phone" can be given a partial phone number(e.g. Specifying the country code like +91)
   isPartialSchema: boolean;
   checkOptional?: boolean;
-}): z.ZodType<z.infer<T>, z.infer<T>, z.infer<T>> {
+}): z.ZodType<z.infer<T>> {
   const log = logger.getSubLogger({ prefix: ["getBookingResponsesSchema"] });
   const preprocessed = z.preprocess(
     (responses) => {
-      const parsedResponses = z.record(z.any()).nullable().parse(responses) || {};
+      const parsedResponses = z.record(z.string(), z.unknown()).nullable().parse(responses) || {};
       const newResponses = {} as typeof parsedResponses;
       // if eventType has been deleted, we won't have bookingFields and thus we can't preprocess or validate them.
       if (!bookingFields) return parsedResponses;
@@ -440,6 +440,7 @@ function preprocess<T extends z.ZodType>({
         return;
       }
 
+      const responseValues = responses as Record<string, unknown>;
       const attendeePhoneNumberField = bookingFields.find((field) => field.name === "attendeePhoneNumber");
       const isAttendeePhoneNumberFieldHidden = attendeePhoneNumberField?.hidden;
 
@@ -448,11 +449,11 @@ function preprocess<T extends z.ZodType>({
 
       // To prevent using user's session email as attendee's email, we set email to empty string
       if (isEmailFieldHidden && !isAttendeePhoneNumberFieldHidden) {
-        responses["email"] = "";
+        responseValues["email"] = "";
       }
 
       for (const bookingField of bookingFields) {
-        const value = responses[bookingField.name];
+        const value = responseValues[bookingField.name];
         const views = bookingField.views;
         const isFieldApplicableToCurrentView =
           currentView === "ALL_VIEWS" ? true : views ? views.find((view) => view.id === currentView) : true;
@@ -491,7 +492,7 @@ function preprocess<T extends z.ZodType>({
             checkOptional,
             zodCtx: fieldZodCtx,
             translateFn,
-            responses,
+            responses: responseValues,
           });
         } catch (e) {
           if (!isPartialSchema) {
@@ -503,7 +504,7 @@ function preprocess<T extends z.ZodType>({
         // For partial schemas, remove invalid fields from responses
         const issues = state?.issues ?? [];
         if (isPartialSchema && (superRefineError || issues.length > 0)) {
-          delete responses[bookingField.name];
+          delete responseValues[bookingField.name];
           console.warn(
             `Partial prefill: skipped field '${bookingField.name}' due to ${issues.length} validation error(s)`
           );
@@ -513,9 +514,9 @@ function preprocess<T extends z.ZodType>({
   );
   if (isPartialSchema) {
     // Query Params can be completely invalid, try to preprocess as much of it in correct format but in worst case simply don't prefill instead of crashing
-    return preprocessed.catch((res?: { error?: unknown[] }) => {
-      console.error("Failed to validate query params, prefilling will be skipped entirely", res?.error);
-      return {};
+    return preprocessed.catch(() => {
+      console.error("Failed to validate query params, prefilling will be skipped entirely");
+      return {} as z.infer<T>;
     });
   }
   return preprocessed;

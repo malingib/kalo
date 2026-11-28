@@ -1,9 +1,14 @@
 import crypto from "node:crypto";
 import process from "node:process";
 import { normalizeKenyanPhone } from "@kalo/features/mpesa/normalizePhone";
+import { handlePaymentSuccess } from "@kalo/app-store/_utils/payments/handlePaymentSuccess";
+import { HttpError } from "@kalo/lib/http-error";
+import { distributedTracing } from "@kalo/lib/tracing/factory";
 import { WhatsAppSessionRepository } from "@kalo/features/whatsapp-bot/src/sessionStore";
 import prisma from "@kalo/prisma";
+import type { Prisma } from "@kalo/prisma/client";
 import { BookingStatus } from "@kalo/prisma/enums";
+import type { AlertType } from "@kalo/prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type StkCallbackItem = { Name: string; Value: string | number };
@@ -31,6 +36,7 @@ function sessionPhoneCandidates(phone: string): string[] {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  let claimedTransactionId: string | null = null;
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
@@ -40,7 +46,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // STK push, so a request without the matching secret did not come from that
   // push — reject it before doing any work.
   const callbackSecret = process.env.DARAJA_CALLBACK_SECRET;
-  if (callbackSecret && !safeEqual(req.query.secret, callbackSecret)) {
+  if (!callbackSecret) {
+    console.error("DARAJA_CALLBACK_SECRET is not configured; refusing unsigned M-Pesa callbacks.");
+    return res.status(503).json({ message: "M-Pesa callback verification is not configured" });
+  }
+  if (!safeEqual(req.query.secret, callbackSecret)) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
@@ -53,6 +63,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { CheckoutRequestID, ResultCode, ResultDesc, CallbackMetadata } = stkCallback;
+    if (
+      typeof CheckoutRequestID !== "string" ||
+      CheckoutRequestID.length === 0 ||
+      typeof ResultCode !== "number" ||
+      !Number.isInteger(ResultCode)
+    ) {
+      return res.status(400).json({ message: "Invalid M-Pesa callback identifiers" });
+    }
     const success = ResultCode === 0;
 
     let amount = 0;
@@ -67,12 +85,187 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    // Find existing transaction by CheckoutRequestID
-    const existingTx = await prisma.mPesaTransaction.findFirst({
+    // Find existing transaction by CheckoutRequestID.
+    let existingTx = await prisma.mPesaTransaction.findFirst({
       where: { checkoutRequestId: CheckoutRequestID },
     });
 
+    if (!existingTx) {
+      // Recover the narrow case where Daraja accepted the prompt and the
+      // Payment row stored CheckoutRequestID, but the paired transaction
+      // update failed. Payment.externalId is written in the same update.
+      const linkedPayment = await prisma.payment.findFirst({
+        where: { appId: "mpesa", externalId: CheckoutRequestID },
+        select: { id: true },
+      });
+      if (linkedPayment) {
+        const pendingTransaction = await prisma.mPesaTransaction.findFirst({
+          where: { paymentId: linkedPayment.id },
+        });
+        if (pendingTransaction) {
+          existingTx = pendingTransaction.checkoutRequestId
+            ? pendingTransaction
+            : await prisma.mPesaTransaction.update({
+                where: { id: pendingTransaction.id },
+                data: {
+                  checkoutRequestId: CheckoutRequestID,
+                  merchantRequestId: stkCallback.MerchantRequestID ?? pendingTransaction.merchantRequestId,
+                },
+              });
+        }
+      }
+    }
+
+    if (!existingTx) {
+      // Safaricom does not guarantee callback retries. Acknowledge the callback
+      // to avoid repeated delivery attempts, but log the unmatched checkout ID
+      // for operator reconciliation rather than inventing a payment record.
+      console.error(`M-Pesa callback has no matching transaction: ${CheckoutRequestID}`);
+      return res.status(200).json({
+        ResultCode: 0,
+        ResultDesc: "Callback acknowledged; transaction requires reconciliation",
+      });
+    }
+
     if (existingTx) {
+      // A terminal Daraja result cannot be silently reversed by a conflicting
+      // callback. Flag the conflict for manual reconciliation instead.
+      if (
+        (existingTx.status === "SUCCESS" && !success) ||
+        (existingTx.status === "FAILED" && success)
+      ) {
+        await prisma.mPesaTransaction.update({
+          where: { id: existingTx.id },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "Conflicting callback received after a terminal payment result",
+          },
+        });
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback received; payment pending reconciliation" });
+      }
+
+      // Daraja retries callbacks. A duplicate with the same terminal result
+      // must not repeat booking, receipt, or subscription side-effects.
+      if (
+        (existingTx.status === "SUCCESS" && success) ||
+        (existingTx.status === "FAILED" && !success)
+      ) {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Duplicate callback acknowledged" });
+      }
+      // A callback worker already owns this transaction. Never process the
+      // same STK result concurrently; stale PROCESSING rows require manual
+      // reconciliation rather than a second booking confirmation.
+      if (existingTx.status === "PROCESSING") {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback processing is already in progress" });
+      }
+
+      // A successful Daraja result is not sufficient by itself: require the
+      // complete receipt metadata and reconcile it against the original STK
+      // request before any booking, receipt, or notification side-effects.
+      if (success) {
+        const normalizedCallbackPhone = normalizeKenyanPhone(phoneNumber);
+        const normalizedRecordedPhone = normalizeKenyanPhone(existingTx.phoneNumber);
+        const metadataIsComplete =
+          Number.isFinite(amount) && amount > 0 && Boolean(mpesaReceiptNumber) && Boolean(normalizedCallbackPhone);
+        // Daraja STK accepts whole KES amounts; the client rounds up when
+        // initiating the request, so reconcile against that exact submitted value.
+        const amountMatches = amount === existingTx.amount;
+        const phoneMatches =
+          Boolean(normalizedCallbackPhone) &&
+          Boolean(normalizedRecordedPhone) &&
+          normalizedCallbackPhone === normalizedRecordedPhone;
+
+        if (!metadataIsComplete || !amountMatches || !phoneMatches) {
+          const reasons = [
+            !metadataIsComplete ? "incomplete success metadata" : null,
+            !amountMatches ? "amount mismatch" : null,
+            !phoneMatches ? "phone mismatch" : null,
+          ].filter(Boolean);
+          const booking = existingTx.bookingUid
+            ? await prisma.booking.findFirst({
+                where: { uid: existingTx.bookingUid },
+                select: { userId: true, title: true },
+              })
+            : null;
+          const subscription = existingTx.subscriptionId
+            ? await prisma.mPesaSubscription.findUnique({
+                where: { id: existingTx.subscriptionId },
+                select: { id: true, userId: true, teamId: true, subscriptionType: true },
+              })
+            : null;
+          const subscriptionRecipients = subscription?.userId
+            ? [subscription.userId]
+            : subscription?.teamId
+              ? (
+                  await prisma.membership.findMany({
+                    where: {
+                      teamId: subscription.teamId,
+                      accepted: true,
+                      role: { in: ["OWNER", "ADMIN"] },
+                    },
+                    select: { userId: true },
+                  })
+                ).map((membership) => membership.userId)
+              : [];
+          await prisma.$transaction(async (tx) => {
+            await tx.mPesaTransaction.update({
+              where: { id: existingTx.id },
+              data: {
+                status: "RECONCILIATION_REQUIRED",
+                resultDesc: `Daraja success requires manual reconciliation: ${reasons.join(", ")}`,
+              },
+            });
+            if (subscription) {
+              await tx.mPesaSubscription.updateMany({
+                where: {
+                  id: subscription.id,
+                  status: { in: ["PENDING", "PAYMENT_PENDING", "RENEWAL_INITIATING"] },
+                },
+                data: { status: "RECONCILIATION_REQUIRED" },
+              });
+            }
+            if (existingTx.status !== "RECONCILIATION_REQUIRED") {
+              if (booking?.userId) {
+                await tx.alert.create({
+                  data: {
+                    userId: booking.userId,
+                    type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                    channel: "IN_APP",
+                    title: "M-Pesa payment needs verification",
+                    body: "A Daraja callback did not match the original payment request. Verify the payment in your Daraja records before confirming the booking.",
+                    metadata: {
+                      bookingUid: existingTx.bookingUid,
+                      checkoutRequestId: CheckoutRequestID,
+                      reasons,
+                    },
+                  },
+                });
+              }
+              if (subscriptionRecipients.length) {
+                await tx.alert.createMany({
+                  data: subscriptionRecipients.map((userId) => ({
+                    userId,
+                    type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                    channel: "IN_APP",
+                    title: "M-Pesa subscription payment needs verification",
+                    body: "A Daraja callback did not match the subscription payment request. Verify the transaction before requesting another payment.",
+                    metadata: {
+                      subscriptionId: existingTx.subscriptionId,
+                      checkoutRequestId: CheckoutRequestID,
+                      subscriptionType: subscription?.subscriptionType,
+                      reasons,
+                    },
+                  })),
+                });
+              }
+            }
+          });
+          console.error(
+            `M-Pesa callback requires reconciliation for ${CheckoutRequestID}: ${reasons.join(", ")}`
+          );
+          return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback received; payment pending reconciliation" });
+        }
+      }
       // The callback's phone metadata is Daraja-supplied but unverified. When it
       // contradicts the phone we recorded when initiating the push, prefer the
       // recorded one (and flag it) so a forged callback can't resolve a
@@ -88,25 +281,95 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const customerPhone = callbackPhoneMatches
         ? phoneNumber || existingTx.phoneNumber
         : existingTx.phoneNumber;
-      // Daraja retries callbacks until it receives HTTP 200. Only run the payment
+      // Duplicate callback deliveries must be idempotent. Only run the payment
       // side-effects (receipt, alerts, WhatsApp logs, session resolution) the first
-      // time we observe the transaction — otherwise retries duplicate receipts.
+      // time we observe the transaction — otherwise receipts and alerts duplicate.
+      // Claim the callback before invoking booking side-effects. This conditional
+      // update serializes concurrent Safaricom retries and leaves an explicit
+      // PROCESSING marker if downstream work cannot be completed.
+      const claim = await prisma.mPesaTransaction.updateMany({
+        where: { id: existingTx.id, status: existingTx.status },
+        data: { status: "PROCESSING" },
+      });
+      if (claim.count !== 1) {
+        return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback already claimed" });
+      }
+      claimedTransactionId = existingTx.id;
+
+      // Reuse KALO's standard paid-booking pipeline for first-party booking
+      // payments. It handles confirmation requirements, calendar events,
+      // attendee/organizer emails, and BOOKING_PAID / BOOKING_REQUESTED webhooks.
+      // WhatsApp-originated transactions have no Payment row and keep their
+      // dedicated booking + receipt path below.
+      if (success && existingTx.source === "booking-payment" && existingTx.paymentId) {
+        const linkedBooking = existingTx.bookingUid
+          ? await prisma.booking.findFirst({
+              where: { uid: existingTx.bookingUid },
+              select: { id: true, userId: true, status: true },
+            })
+          : null;
+        if (!linkedBooking) {
+          throw new Error("M-Pesa booking payment has no linked booking");
+        }
+        // Never resurrect a cancelled, rejected, or already-confirmed booking
+        // from a late callback. The funds are real, but the booking/payment
+        // relationship needs an operator to reconcile it safely.
+        if (linkedBooking.status !== BookingStatus.PENDING) {
+          await prisma.mPesaTransaction.update({
+            where: { id: existingTx.id },
+            data: {
+              status: "RECONCILIATION_REQUIRED",
+              resultDesc: `Payment succeeded after booking left PENDING state (${linkedBooking.status})`,
+            },
+          });
+          if (linkedBooking.userId) {
+            await prisma.alert.create({
+              data: {
+                userId: linkedBooking.userId,
+                type: "PAYMENT_RECONCILIATION_REQUIRED" as AlertType,
+                channel: "IN_APP",
+                title: "M-Pesa payment needs booking review",
+                body: "A payment arrived after the booking changed status. Verify the payment and booking before taking further action.",
+                metadata: { bookingUid: existingTx.bookingUid, transactionId: existingTx.id },
+              },
+            });
+          }
+          return res.status(200).json({
+            ResultCode: 0,
+            ResultDesc: "Callback acknowledged; booking payment requires reconciliation",
+          });
+        }
+        try {
+          await handlePaymentSuccess({
+            paymentId: existingTx.paymentId,
+            bookingId: linkedBooking.id,
+            appSlug: "mpesa",
+            traceContext: distributedTracing.createTrace("mpesa_payment_callback"),
+          });
+        } catch (error) {
+          // handlePaymentSuccess intentionally throws HTTP 200 after completing
+          // all success work so its legacy webhook caller can stop processing.
+          if (!(error instanceof HttpError) || error.statusCode !== 200) throw error;
+        }
+      }
+
+      const isWhatsAppPayment = existingTx.source === "whatsapp-bot";
       const isNewOutcome = existingTx.status !== "SUCCESS";
 
-      // Booking + receipt + alert + log + session resolution + status flip are
-      // atomic in one transaction: either they all succeed or none do. This keeps
-      // Daraja's callback retries idempotent — a mid-block throw rolls everything
-      // back, the status stays PENDING, and the retry re-runs cleanly instead of
-      // duplicating receipts.
+      // Receipt + alert + optional WhatsApp side-effects + status flip are
+      // committed atomically after the booking/payment pipeline has succeeded.
       await prisma.$transaction(async (tx) => {
+
         if (success && existingTx.bookingUid) {
           // The customer did pay, so the booking is paid regardless of its
           // current status (the webhook service creates it as a PENDING
           // reservation when the STK push fires).
+          const isFirstPartyBookingPayment =
+            existingTx.source === "booking-payment" && Boolean(existingTx.paymentId);
           const updatedBooking = await tx.booking.update({
             where: { uid: existingTx.bookingUid },
             data: {
-              paymentStatus: "DEPOSIT_PAID",
+              paymentStatus: isFirstPartyBookingPayment ? "PAID" : "DEPOSIT_PAID",
               paid: true,
             },
             select: {
@@ -119,10 +382,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
           });
 
-          // Confirming the payment confirms the reservation — but only promote a
-          // still-pending booking; one the vendor already cancelled or rejected
-          // before the payment landed must not be resurrected.
-          if (updatedBooking.status === BookingStatus.PENDING) {
+          // First-party payments use the standard KALO booking pipeline above,
+          // which preserves event-type confirmation requirements. The WhatsApp
+          // bot's own reservation flow is auto-confirmed after verified payment.
+          if (!isFirstPartyBookingPayment && updatedBooking.status === BookingStatus.PENDING) {
             await tx.booking.update({
               where: { uid: updatedBooking.uid },
               data: { status: BookingStatus.ACCEPTED },
@@ -162,7 +425,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 totalAmount: amount || existingTx.amount,
                 mpesaReceiptNumber: mpesaReceiptNumber || null,
                 paymentMethod: "M-Pesa",
-                sentViaWhatsapp: true,
+                sentViaWhatsapp: isWhatsAppPayment,
               },
             });
 
@@ -184,34 +447,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
               });
 
-              // 4. Log WhatsApp confirmation message to customer log
-              await tx.whatsAppMessageLog.create({
-                data: {
-                  userId: updatedBooking.userId,
-                  customerPhone,
-                  direction: "OUTBOUND",
-                  message:
-                    `✅ *M-Pesa Payment Received!*\n\n` +
-                    `Receipt No: *${receipt.receiptNumber}*\n` +
-                    `M-Pesa Ref: *${mpesaReceiptNumber}*\n` +
-                    `Amount Paid: *KES ${(amount || existingTx.amount).toLocaleString()}*\n\n` +
-                    `Your booking for *${updatedBooking.title}* is now CONFIRMED. Thank you!`,
-                  state: "CONFIRMED",
-                },
-              });
+              // WhatsApp-specific customer log; generic M-Pesa payments do not create bot messages.
+              if (isWhatsAppPayment) {
+                await tx.whatsAppMessageLog.create({
+                  data: {
+                    userId: updatedBooking.userId,
+                    customerPhone,
+                    direction: "OUTBOUND",
+                    message:
+                      `✅ *M-Pesa Payment Received!*\n\n` +
+                      `Receipt No: *${receipt.receiptNumber}*\n` +
+                      `M-Pesa Ref: *${mpesaReceiptNumber}*\n` +
+                      `Amount Paid: *KES ${(amount || existingTx.amount).toLocaleString()}*\n\n` +
+                      `Your booking for *${updatedBooking.title}* is now CONFIRMED. Thank you!`,
+                    state: "CONFIRMED",
+                  },
+                });
+              }
+
             }
           }
         }
 
-        // Resolve the WhatsApp bot conversation server-side for ANY successful
-        // payment: mark the customer's session paymentVerified so WAITING_MPESA_STK
-        // resolves to CONFIRMED on the next message, independent of the customer's
-        // word. This runs even when no booking is linked yet (the WhatsApp bot flow
-        // records transactions before a booking exists). It lives inside the same
+        // Resolve only WhatsApp-originated conversations server-side. Generic
+        // M-Pesa transactions must not mutate a WhatsApp session. This runs even
+        // when no booking is linked yet (the WhatsApp bot flow records transactions
+        // before a booking exists). It lives inside the same
         // transaction, bound to the tx client — so a rollback also rolls the
         // session write back, and a committed tx guarantees the session write
         // happened (Daraja's retry won't skip it after seeing status SUCCESS).
-        if (success && isNewOutcome) {
+        if (isWhatsAppPayment && success && isNewOutcome) {
           if (customerPhone) {
             const txSessionRepository = new WhatsAppSessionRepository({ prismaClient: tx });
             for (const candidate of sessionPhoneCandidates(customerPhone)) {
@@ -276,12 +541,177 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // meaning a rebooked conversation's fresh session is never clobbered by a
         // stale failure callback. Runs even without a linked booking (the STK
         // resilience fallback records transactions without one).
-        if (!success && existingTx.status === "PENDING" && customerPhone) {
+        if (isWhatsAppPayment && !success && existingTx.status === "PENDING" && customerPhone) {
           const txSessionRepository = new WhatsAppSessionRepository({ prismaClient: tx });
           for (const candidate of sessionPhoneCandidates(customerPhone)) {
             const updated = await txSessionRepository.markPaymentFailed(candidate);
             if (updated) break;
           }
+        }
+
+        // Apply a subscription period only on the first verified callback.
+        // Daraja STK is user-authorized on every renewal; this is not a silent
+        // recurring card debit.
+        if (existingTx.subscriptionId && isNewOutcome) {
+          const subscription = await tx.mPesaSubscription.findUnique({
+            where: { id: existingTx.subscriptionId },
+          });
+          if (subscription) {
+            if (success) {
+              const now = new Date();
+              const periodStart =
+                subscription.currentPeriodEnd && subscription.currentPeriodEnd > now
+                  ? subscription.currentPeriodEnd
+                  : now;
+              const periodEnd = new Date(periodStart);
+              if (subscription.billingPeriod === "ANNUALLY") {
+                periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+              } else {
+                periodEnd.setMonth(periodEnd.getMonth() + 1);
+              }
+
+              let subscriptionStatus = "ACTIVE";
+              if (subscription.subscriptionType === "PREMIUM_USERNAME" && subscription.userId && subscription.username) {
+                const user = await tx.user.findUnique({
+                  where: { id: subscription.userId },
+                  select: { metadata: true },
+                });
+                if (user) {
+                  try {
+                    const metadata =
+                      user.metadata && typeof user.metadata === "object" && !Array.isArray(user.metadata)
+                        ? (user.metadata as Prisma.JsonObject)
+                        : {};
+                    await tx.user.update({
+                      where: { id: subscription.userId },
+                      data: {
+                        username: subscription.username,
+                        metadata: { ...metadata, isPremium: true },
+                      },
+                    });
+                  } catch {
+                    // The customer has paid; preserve the payment and route the
+                    // username collision to manual reconciliation, not a retry.
+                    subscriptionStatus = "RECONCILIATION_REQUIRED";
+                  }
+                } else {
+                  subscriptionStatus = "RECONCILIATION_REQUIRED";
+                }
+              }
+
+              await tx.mPesaSubscription.update({
+                where: { id: subscription.id },
+                data: {
+                  status: subscriptionStatus,
+                  currentPeriodStart: periodStart,
+                  currentPeriodEnd: periodEnd,
+                  nextBillingAt: periodEnd,
+                  lastPaymentAt: now,
+                },
+              });
+
+              if (subscription.teamId && subscription.subscriptionType === "TEAM") {
+                const billingData = {
+                  mpesaSubscriptionId: subscription.id,
+                  status: subscriptionStatus,
+                  planName: subscription.planName,
+                  subscriptionStart: periodStart,
+                  subscriptionEnd: periodEnd,
+                  billingPeriod: subscription.billingPeriod ?? "MONTHLY",
+                  billingMode: subscription.billingMode ?? "SEATS",
+                  pricePerSeat: subscription.pricePerSeat,
+                  paidSeats: subscription.paidSeats,
+                };
+                await tx.teamBilling.upsert({
+                  where: { teamId: subscription.teamId },
+                  create: { teamId: subscription.teamId, ...billingData },
+                  update: billingData,
+                });
+              }
+
+              if (subscription.teamId && subscription.subscriptionType === "ORGANIZATION") {
+                const billingData = {
+                  mpesaSubscriptionId: subscription.id,
+                  status: subscriptionStatus,
+                  planName: subscription.planName,
+                  subscriptionStart: periodStart,
+                  subscriptionEnd: periodEnd,
+                  billingPeriod: subscription.billingPeriod ?? "MONTHLY",
+                  billingMode: subscription.billingMode ?? "SEATS",
+                  pricePerSeat: subscription.pricePerSeat,
+                  paidSeats: subscription.paidSeats,
+                };
+                await tx.organizationBilling.upsert({
+                  where: { teamId: subscription.teamId },
+                  create: { teamId: subscription.teamId, ...billingData },
+                  update: billingData,
+                });
+              }
+
+              if (subscription.teamId) {
+                await tx.platformBilling.updateMany({
+                  where: { id: subscription.teamId },
+                  data: {
+                    mpesaSubscriptionId: subscription.id,
+                    plan: subscription.planName,
+                    overdue: false,
+                    billingCycleStart: Math.floor(periodStart.getTime() / 1000),
+                    billingCycleEnd: Math.floor(periodEnd.getTime() / 1000),
+                  },
+                });
+              }
+            } else {
+              // A failed first payment is not an expired subscription. Keep it
+              // retryable as PAYMENT_FAILED; only failed renewals move an
+              // already-active billing period to PAST_DUE.
+              const failureStatus = subscription.currentPeriodEnd ? "PAST_DUE" : "PAYMENT_FAILED";
+              await tx.mPesaSubscription.update({
+                where: { id: subscription.id },
+                data: { status: failureStatus },
+              });
+              if (subscription.teamId && subscription.subscriptionType === "TEAM") {
+                await tx.teamBilling.updateMany({
+                  where: { teamId: subscription.teamId },
+                  data: { status: failureStatus },
+                });
+              }
+              if (subscription.teamId && subscription.subscriptionType === "ORGANIZATION") {
+                await tx.organizationBilling.updateMany({
+                  where: { teamId: subscription.teamId },
+                  data: { status: failureStatus },
+                });
+              }
+              if (subscription.teamId) {
+                await tx.platformBilling.updateMany({
+                  where: { id: subscription.teamId },
+                  data: { overdue: true },
+                });
+              }
+            }
+          }
+        }
+
+        // Link verified Daraja outcomes to the first-party booking payment.
+        // The update is in the same DB transaction as booking confirmation and
+        // receipt creation, so retries cannot leave the payment and booking split.
+        if (existingTx.paymentId) {
+          await tx.payment.update({
+            where: { id: existingTx.paymentId },
+            data: {
+              success,
+              data: {
+                provider: "mpesa",
+                status: success ? "SUCCESS" : "FAILED",
+                checkoutRequestId: CheckoutRequestID,
+                merchantRequestId: existingTx.merchantRequestId,
+                mpesaReceiptNumber: mpesaReceiptNumber || null,
+                phoneNumber: existingTx.phoneNumber,
+                amount: success ? amount : existingTx.amount,
+                resultDesc: ResultDesc,
+                ...(success ? { paidAt: new Date().toISOString() } : {}),
+              },
+            },
+          });
         }
 
         // Update the transaction outcome inside the same transaction, so a throw
@@ -302,6 +732,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ ResultCode: 0, ResultDesc: "Callback accepted" });
   } catch (error) {
     console.error("Error processing M-Pesa callback:", error);
+    if (claimedTransactionId) {
+      try {
+        await prisma.mPesaTransaction.update({
+          where: { id: claimedTransactionId },
+          data: {
+            status: "RECONCILIATION_REQUIRED",
+            resultDesc: "Callback processing failed after claim; verify Daraja and KALO booking records before retrying",
+          },
+        });
+      } catch (reconciliationError) {
+        console.error("Could not mark the claimed M-Pesa callback for reconciliation.", reconciliationError);
+      }
+      return res.status(200).json({
+        ResultCode: 0,
+        ResultDesc: "Callback acknowledged; payment requires reconciliation",
+      });
+    }
     return res.status(500).json({ ResultCode: 1, ResultDesc: "Internal Server Error" });
   }
 }

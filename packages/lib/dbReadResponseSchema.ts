@@ -14,5 +14,5 @@ export const dbReadResponseSchema = z.union([
     value: z.string(),
   }),
   // For variantsConfig case
-  z.record(z.string()),
+  z.record(z.string(), z.string()),
 ]);

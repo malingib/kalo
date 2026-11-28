@@ -18,7 +18,6 @@ import {
   getGoogleMeetCredential,
   getOrganizer,
   getScenarioData,
-  getStripeAppCredential,
   getZoomAppCredential,
   MockError,
   mockCalendar,
@@ -60,16 +59,15 @@ import { test } from "@kalo/testing/lib/fixtures/fixtures";
 import type { Request, Response } from "express";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { describe, expect } from "vitest";
-import type Stripe from "stripe";
 import { getNewBookingHandler } from "./getNewBookingHandler";
 
 const log = logger.getSubLogger({ prefix: ["[fresh-booking.test]"] });
 
-async function mockPaymentSuccessWebhookFromStripe({ externalId }: { externalId: string }) {
+async function mockPaymentSuccessWebhookFromMpesa({ externalId }: { externalId: string }) {
   const { handlePaymentSuccess } = await import("@kalo/app-store/_utils/payments/handlePaymentSuccess");
   let webhookResponse = null;
   try {
-    // Look up the payment by externalId (simulating what the old Stripe webhook handler did)
+    // Look up the payment by externalId (simulating what the old M-Pesa webhook handler did)
     const payment = await prismaMock.payment.findFirst({
       where: { externalId },
       select: { id: true, bookingId: true },
@@ -77,15 +75,15 @@ async function mockPaymentSuccessWebhookFromStripe({ externalId }: { externalId:
     if (!payment) {
       throw new Error(`Payment not found for externalId: ${externalId}`);
     }
-    const traceContext = distributedTracing.createTrace("test_stripe_webhook");
+    const traceContext = distributedTracing.createTrace("test_mpesa_callback");
     await handlePaymentSuccess({
       paymentId: payment.id,
       bookingId: payment.bookingId,
-      appSlug: "stripe",
+      appSlug: "mpesa",
       traceContext,
     });
   } catch (e) {
-    log.silly("mockPaymentSuccessWebhookFromStripe:catch", JSON.stringify(e));
+    log.silly("mockPaymentSuccessWebhookFromMpesa:catch", JSON.stringify(e));
     webhookResponse = e as HttpError;
   }
   return { webhookResponse };
@@ -2948,12 +2946,13 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });          const organizer = getOrganizer({
             name: "Organizer",
             email: "organizer@example.com",
             id: 101,
             schedules: [TestData.schedules.IstWorkHours],
-            credentials: [getGoogleCalendarCredential(), getStripeAppCredential()],
+            credentials: [getGoogleCalendarCredential()],
             selectedCalendars: [TestData.selectedCalendars.google],
           });
           const scenarioData = getScenarioData({
@@ -2976,11 +2975,11 @@ describe("handleNewBooking", () => {
                 requiresConfirmation: false,
                 metadata: {
                   apps: {
-                    // EventType is connected to stripe.
-                    stripe: {
+                    // EventType is connected to mpesa.
+                    mpesa: {
                       price: 100,
                       enabled: true,
-                      currency: "inr" /*, credentialId: 57*/,
+                      currency: "KES" /*, credentialId: 57*/,
                     },
                   },
                 },
@@ -2996,7 +2995,7 @@ describe("handleNewBooking", () => {
             apps: [
               TestData.apps["google-calendar"],
               TestData.apps["daily-video"],
-              TestData.apps["stripe-payment"],
+              TestData.apps["mpesa"],
             ],
           });
           await createBookingScenario(scenarioData);
@@ -3004,8 +3003,8 @@ describe("handleNewBooking", () => {
             metadataLookupKey: "dailyvideo",
           });
           const { paymentUid, externalId } = mockPaymentApp({
-            metadataLookupKey: "stripe",
-            appStoreLookupKey: "stripepayment",
+            metadataLookupKey: "mpesa",
+            appStoreLookupKey: "mpesa",
           });
           mockCalendarToHaveNoBusySlots("googlecalendar");
           const mockBookingData = getMockRequestDataForBooking({
@@ -3054,7 +3053,7 @@ describe("handleNewBooking", () => {
             paymentId: createdBooking.paymentId!,
           });
 
-          const { webhookResponse } = await mockPaymentSuccessWebhookFromStripe({ externalId });
+          const { webhookResponse } = await mockPaymentSuccessWebhookFromMpesa({ externalId });
 
           expect(webhookResponse?.statusCode).toBe(200);
           await expectBookingToBeInDatabase({
@@ -3091,6 +3090,7 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });
 
           const organizer = getOrganizer({
@@ -3098,7 +3098,7 @@ describe("handleNewBooking", () => {
             email: "organizer@example.com",
             id: 101,
             schedules: [TestData.schedules.IstWorkHours],
-            credentials: [getGoogleCalendarCredential(), getStripeAppCredential()],
+            credentials: [getGoogleCalendarCredential()],
             selectedCalendars: [TestData.selectedCalendars.google],
           });
 
@@ -3120,10 +3120,10 @@ describe("handleNewBooking", () => {
                 requiresConfirmation: true,
                 metadata: {
                   apps: {
-                    stripe: {
+                    mpesa: {
                       price: 100,
                       enabled: true,
-                      currency: "inr" /*, credentialId: 57*/,
+                      currency: "KES" /*, credentialId: 57*/,
                     },
                   },
                 },
@@ -3139,7 +3139,7 @@ describe("handleNewBooking", () => {
             apps: [
               TestData.apps["google-calendar"],
               TestData.apps["daily-video"],
-              TestData.apps["stripe-payment"],
+              TestData.apps["mpesa"],
             ],
           });
           await createBookingScenario(scenarioData);
@@ -3147,8 +3147,8 @@ describe("handleNewBooking", () => {
             metadataLookupKey: "dailyvideo",
           });
           const { paymentUid, externalId } = mockPaymentApp({
-            metadataLookupKey: "stripe",
-            appStoreLookupKey: "stripepayment",
+            metadataLookupKey: "mpesa",
+            appStoreLookupKey: "mpesa",
           });
           mockCalendarToHaveNoBusySlots("googlecalendar");
 
@@ -3203,7 +3203,7 @@ describe("handleNewBooking", () => {
           // FIXME: Right now we need to reset the test Emails because email expects only tests first email content for an email address
           // Reset Test Emails to test for more Emails
           resetTestEmails();
-          const { webhookResponse } = await mockPaymentSuccessWebhookFromStripe({ externalId });
+          const { webhookResponse } = await mockPaymentSuccessWebhookFromMpesa({ externalId });
 
           expect(webhookResponse?.statusCode).toBe(200);
           await expectBookingToBeInDatabase({
@@ -3238,6 +3238,7 @@ describe("handleNewBooking", () => {
           const booker = getBooker({
             email: "booker@example.com",
             name: "Booker",
+          attendeePhoneNumber: "0712345678",
           });
 
           const organizerOtherEmail = "organizer2@example.com";
@@ -3394,7 +3395,7 @@ describe("handleNewBooking", () => {
             email: "organizer@example.com",
             id: 101,
             schedules: [TestData.schedules.IstWorkHours],
-            credentials: [getGoogleCalendarCredential(), getStripeAppCredential()],
+            credentials: [getGoogleCalendarCredential()],
             selectedCalendars: [TestData.selectedCalendars.google],
           });
 
@@ -3408,10 +3409,10 @@ describe("handleNewBooking", () => {
                 requiresConfirmation: false,
                 metadata: {
                   apps: {
-                    stripe: {
+                    mpesa: {
                       price: 100,
                       enabled: true,
-                      currency: "usd",
+                      currency: "KES",
                     },
                   },
                 },
@@ -3424,7 +3425,7 @@ describe("handleNewBooking", () => {
               },
             ],
             organizer,
-            apps: [TestData.apps["stripe-payment"]],
+            apps: [TestData.apps["mpesa"]],
           });
 
           await createBookingScenario(scenarioData);
@@ -3432,8 +3433,8 @@ describe("handleNewBooking", () => {
             metadataLookupKey: "dailyvideo",
           });
           const { paymentUid: _paymentUid } = mockPaymentApp({
-            metadataLookupKey: "stripe",
-            appStoreLookupKey: "stripepayment",
+            metadataLookupKey: "mpesa",
+            appStoreLookupKey: "mpesa",
           });
           mockCalendarToHaveNoBusySlots("googlecalendar");
 

@@ -4,6 +4,10 @@ export interface MPesaStkPushOptions {
   consumerKey: string;
   consumerSecret: string;
   businessShortCode: string;
+  /** Paybill or Buy Goods STK routing. Defaults to Paybill. */
+  transactionType?: "CustomerPayBillOnline" | "CustomerBuyGoodsOnline";
+  /** Receiver shortcode; for Buy Goods this is the till, not the head-office shortcode. */
+  partyB?: string;
   passkey: string;
   phoneNumber: string;
   amount: number;
@@ -22,6 +26,28 @@ export interface MPesaStkPushResponse {
 }
 
 export class DarajaClient {
+  private static readonly REQUEST_TIMEOUT_MS = 15_000;
+
+  /** Daraja calls must not hold a serverless request open indefinitely. */
+  private static async request(
+    url: string,
+    init: RequestInit,
+    operation: "M-Pesa auth" | "M-Pesa STK Push"
+  ): Promise<Response> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), DarajaClient.REQUEST_TIMEOUT_MS);
+    try {
+      return await fetch(url, { ...init, signal: controller.signal });
+    } catch {
+      if (controller.signal.aborted) {
+        throw new Error(`${operation} request timed out`);
+      }
+      throw new Error(`${operation} transport failed`);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
   private static getBaseUrl(isSandbox = false): string {
     return isSandbox ? "https://sandbox.safaricom.co.ke" : "https://api.safaricom.co.ke";
   }
@@ -49,19 +75,21 @@ export class DarajaClient {
     const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
     const baseUrl = DarajaClient.getBaseUrl(isSandbox);
 
-    const response = await fetch(`${baseUrl}/oauth/v1/generate?grant_type=client_credentials`, {
+    const response = await DarajaClient.request(`${baseUrl}/oauth/v1/generate?grant_type=client_credentials`, {
       method: "GET",
       headers: {
         Authorization: `Basic ${auth}`,
       },
-    });
+    }, "M-Pesa auth");
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`M-Pesa auth failed: ${response.status} ${errorText}`);
+      throw new Error(`M-Pesa auth failed: HTTP ${response.status}`);
     }
 
-    const data = (await response.json()) as { access_token: string };
+    const data = (await response.json()) as { access_token?: unknown };
+    if (typeof data.access_token !== "string" || data.access_token.length === 0) {
+      throw new Error("M-Pesa auth response did not contain an access token");
+    }
     return data.access_token;
   }
 
@@ -82,6 +110,11 @@ export class DarajaClient {
       );
     }
 
+    const transactionType = options.transactionType ?? "CustomerPayBillOnline";
+    if (transactionType === "CustomerBuyGoodsOnline" && !options.partyB) {
+      throw new Error("A Buy Goods Till number is required for M-Pesa STK Push");
+    }
+
     const accessToken = await DarajaClient.getAccessToken(
       options.consumerKey,
       options.consumerSecret,
@@ -100,28 +133,27 @@ export class DarajaClient {
       BusinessShortCode: options.businessShortCode,
       Password: password,
       Timestamp: timestamp,
-      TransactionType: "CustomerPayBillOnline",
+      TransactionType: transactionType,
       Amount: Math.ceil(options.amount),
       PartyA: formattedPhone,
-      PartyB: options.businessShortCode,
+      PartyB: options.partyB ?? options.businessShortCode,
       PhoneNumber: formattedPhone,
       CallBackURL: options.callbackUrl,
       AccountReference: options.accountReference.slice(0, 12),
       TransactionDesc: options.transactionDesc.slice(0, 12),
     };
 
-    const response = await fetch(`${baseUrl}/mpesa/stkpush/v1/processrequest`, {
+    const response = await DarajaClient.request(`${baseUrl}/mpesa/stkpush/v1/processrequest`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    });
+    }, "M-Pesa STK Push");
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`M-Pesa STK Push request failed: ${response.status} ${errorText.slice(0, 300)}`);
+      throw new Error(`M-Pesa STK Push request failed: HTTP ${response.status}`);
     }
 
     let data: MPesaStkPushResponse;
@@ -137,6 +169,29 @@ export class DarajaClient {
       );
     }
 
+    if (
+      typeof data.MerchantRequestID !== "string" ||
+      typeof data.CheckoutRequestID !== "string" ||
+      typeof data.ResponseDescription !== "string" ||
+      typeof data.CustomerMessage !== "string"
+    ) {
+      throw new Error("M-Pesa STK Push response is missing required fields");
+    }
+
     return data;
   }
+}
+
+
+/** True when Daraja may have accepted an STK request but the client did not receive a reliable result. */
+export function isDarajaStkOutcomeUncertain(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes("M-Pesa STK Push request timed out") ||
+    message.includes("M-Pesa STK Push transport failed") ||
+    message.includes("M-Pesa STK Push returned a non-JSON response") ||
+    message.includes("M-Pesa STK Push response is missing required fields") ||
+    message.includes("Invalid Daraja STK Push response") ||
+    /M-Pesa STK Push request failed: HTTP 5\d\d/.test(message)
+  );
 }

@@ -18,6 +18,7 @@ import {
   ZApproveVendorSchema,
   ZGetVendorProfileSchema,
   ZUpsertVendorProfileSchema,
+  ZUpdateMpesaCredentialsSchema,
 } from "./vendorProfile.schema";
 
 export const vendorRouter = router({
@@ -29,6 +30,14 @@ export const vendorRouter = router({
   upsertProfile: authedProcedure.input(ZUpsertVendorProfileSchema).mutation(async (opts) => {
     const { upsertVendorProfileHandler } = await import("./vendorProfile.handler");
     return upsertVendorProfileHandler(opts);
+  }),
+  getMpesaCredentialsStatus: authedProcedure.query(async (opts) => {
+    const { getMpesaCredentialsStatusHandler } = await import("./vendorProfile.handler");
+    return getMpesaCredentialsStatusHandler(opts);
+  }),
+  updateMpesaCredentials: authedProcedure.input(ZUpdateMpesaCredentialsSchema).mutation(async (opts) => {
+    const { updateMpesaCredentialsHandler } = await import("./vendorProfile.handler");
+    return updateMpesaCredentialsHandler(opts);
   }),
 
   // ── Admin: Vendor Management ─────────────────────────────────────────────────

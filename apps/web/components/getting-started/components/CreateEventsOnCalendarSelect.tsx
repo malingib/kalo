@@ -4,7 +4,7 @@ import type { RouterInputs } from "@kalo/trpc/react";
 import { trpc } from "@kalo/trpc/react";
 
 interface ICreateEventsOnCalendarSelectProps {
-  calendar?: RouterInputs["viewer"]["calendars"]["setDestinationCalendar"] | null;
+  calendar?: { externalId: string } | null;
 }
 
 const CreateEventsOnCalendarSelect = (props: ICreateEventsOnCalendarSelectProps) => {
@@ -24,7 +24,7 @@ const CreateEventsOnCalendarSelect = (props: ICreateEventsOnCalendarSelectProps)
             <DestinationCalendarSelector
               value={calendar ? calendar.externalId : undefined}
               onChange={(calendar) => {
-                mutation.mutate(calendar);
+                mutation.mutate(calendar as RouterInputs["viewer"]["calendars"]["setDestinationCalendar"]);
               }}
               hidePlaceholder
               calendarsQueryData={connectedCalendarsQuery.data}

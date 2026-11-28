@@ -36,12 +36,11 @@ export const getEventTypeAppData = <T extends EventTypeAppsList>(
   // TODO: After the new AppStore EventType App flow is stable, write a migration to migrate metadata to new format which will let us remove this compatibility code
   // Migration isn't being done right now, to allow a revert if needed
   const legacyAppsData = {
-    stripe: {
-      enabled: !!eventType.price,
-      // Price default is 0 in DB. So, it would always be non nullish.
+    mpesa: {
+      // Do not silently convert legacy USD/EUR amounts to KES.
+      enabled: !!eventType.price && eventType.currency.toUpperCase() === "KES",
       price: eventType.price,
-      // Currency default is "usd" in DB.So, it would also be available always
-      currency: eventType.currency,
+      currency: "KES",
       paymentOption: "ON_BOOKING",
     },
     giphy: {

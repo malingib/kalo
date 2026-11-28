@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { Session } from "next-auth";
 
 import { throwIfNotHaveAdminAccessToTeam } from "@kalo/app-store/_utils/throwIfNotHaveAdminAccessToTeam";
+import { isKaloMarketplaceApp } from "@kalo/app-store/_appRegistry";
+import { appStoreMetadata } from "@kalo/app-store/appStoreMetaData";
 import { getServerSession } from "@kalo/features/auth/lib/getServerSession";
 import { deriveAppDictKeyFromType } from "@kalo/lib/deriveAppDictKeyFromType";
 import { HttpError } from "@kalo/lib/http-error";
@@ -61,6 +63,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
+    if (apiEndpoint === "add") {
+      const appMetadata = Object.values(appStoreMetadata).find(
+        (metadata) => metadata.type === appName || metadata.slug === appName
+      );
+      if (appMetadata && !isKaloMarketplaceApp(appMetadata.slug)) {
+        const existingCredential = await prisma.credential.findFirst({
+          where: {
+            appId: appMetadata.slug,
+            OR: [
+              { userId: req.session?.user?.id, teamId: null },
+              ...(teamId ? [{ userId: req.session?.user?.id, teamId: Number(teamId) }] : []),
+            ],
+          },
+          select: { id: true },
+        });
+        if (!existingCredential) {
+          throw new HttpError({
+            statusCode: 403,
+            message: "This integration is not available for new installations.",
+          });
+        }
+      }
+    }
     /* Absolute path didn't work */
     const handlerMap = (await import("@kalo/app-store/apps.server.generated")).apiHandlers;
     const handlerKey = deriveAppDictKeyFromType(appName, handlerMap);

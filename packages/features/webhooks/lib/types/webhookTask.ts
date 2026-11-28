@@ -7,7 +7,7 @@ import { z } from "zod";
 const baseWebhookTaskSchema = z.object({
   operationId: z.string(),
   timestamp: z.string(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**

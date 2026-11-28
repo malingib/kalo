@@ -751,7 +751,7 @@ function FieldEditDialog({
                           } catch (err) {
                             if (err instanceof ZodError) {
                               fieldForm.setError("requireEmails", {
-                                message: err.errors[0]?.message || "Invalid input",
+                                message: err.issues[0]?.message || "Invalid input",
                               });
                             }
                           }
@@ -772,7 +772,7 @@ function FieldEditDialog({
                           } catch (err) {
                             if (err instanceof ZodError) {
                               fieldForm.setError("excludeEmails", {
-                                message: err.errors[0]?.message || "Invalid input",
+                                message: err.issues[0]?.message || "Invalid input",
                               });
                             }
                           }

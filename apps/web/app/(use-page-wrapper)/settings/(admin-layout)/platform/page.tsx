@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { trpc } from "@kalo/trpc/react";
 
 interface SubscriptionPlan {
   slug: string;
@@ -16,23 +17,38 @@ const DEFAULT_PLANS: SubscriptionPlan[] = [
 ];
 
 export default function PlatformSettingsPage() {
+  const utils = trpc.useUtils();
+  const settingsQuery = trpc.viewer.admin.getPlatformSettings.useQuery({});
+  const saveSettings = trpc.viewer.admin.updatePlatformSettings.useMutation({
+    onSuccess: async () => {
+      await utils.viewer.admin.getPlatformSettings.invalidate();
+    },
+  });
   const [fee, setFee] = useState(3);
-  const [isSandbox, setIsSandbox] = useState(true);
   const [requireApproval, setRequireApproval] = useState(true);
   const [centralWaEnabled, setCentralWaEnabled] = useState(false);
   const [centralWaPhone, setCentralWaPhone] = useState("");
-  const [darajaKey, setDarajaKey] = useState("");
-  const [darajaSecret, setDarajaSecret] = useState("");
-  const [darajaShortcode, setDarajaShortcode] = useState("");
-  const [darajaPasskey, setDarajaPasskey] = useState("");
-  const [darajaCallbackUrl, setDarajaCallbackUrl] = useState("");
   const [plans, setPlans] = useState<SubscriptionPlan[]>(DEFAULT_PLANS);
-  const [saved, setSaved] = useState(false);
+  useEffect(() => {
+    const settings = settingsQuery.data;
+    if (!settings) return;
+    setFee(settings.platformFeePercent);
+    setRequireApproval(settings.requireVendorApproval);
+    setCentralWaEnabled(settings.centralWhatsappEnabled);
+    setCentralWaPhone(settings.centralWhatsappPhone ?? "");
+    setPlans((settings.subscriptionPlans as unknown as SubscriptionPlan[] | null) ?? DEFAULT_PLANS);
+  }, [settingsQuery.data]);
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    saveSettings.mutate({
+      platformFeePercent: fee,
+      platformFeeCurrency: "KES",
+      subscriptionPlans: plans,
+      requireVendorApproval: requireApproval,
+      centralWhatsappEnabled: centralWaEnabled,
+      centralWhatsappPhone: centralWaPhone.trim() || null,
+    });
   };
 
   return (
@@ -44,11 +60,10 @@ export default function PlatformSettingsPage() {
         </p>
       </div>
 
-      {saved && (
-        <div className="p-4 rounded-lg bg-green-50 text-green-800 border border-green-200">
-          ✅ Platform settings saved.
-        </div>
-      )}
+      {settingsQuery.isLoading && <p className="text-sm text-gray-500">Loading platform settings…</p>}
+      {settingsQuery.isError && <p role="alert" className="text-sm text-red-600">Could not load platform settings.</p>}
+      {saveSettings.isSuccess && <p role="status" className="rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">Platform settings saved.</p>}
+      {saveSettings.isError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{saveSettings.error.message}</p>}
 
       <form onSubmit={handleSave} className="space-y-8">
         {/* ── Monetisation ───────────────────────────────── */}
@@ -140,54 +155,25 @@ export default function PlatformSettingsPage() {
         </section>
 
         {/* ── Master Daraja (Platform M-Pesa) ───────────── */}
-        <section className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow p-6 space-y-4">
+        <section className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow p-6 space-y-3">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            💚 Master M-Pesa / Safaricom Daraja Credentials
+            💚 Master M-Pesa / Safaricom Daraja
           </h2>
-          <p className="text-xs text-gray-500">
-            Used by the platform for centralised STK Push and automated vendor payouts. Individual Pro vendors can
-            override with their own credentials.
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Daraja is configured through server-side deployment environment variables, not this browser form.
+            Credentials are never returned by the settings API or stored in platform settings.
           </p>
-
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isSandbox}
-              onChange={(e) => setIsSandbox(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-black focus:ring-0"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Use Daraja Sandbox (test mode)</span>
-          </label>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { label: "Consumer Key", value: darajaKey, onChange: setDarajaKey },
-              { label: "Consumer Secret", value: darajaSecret, onChange: setDarajaSecret },
-              { label: "Business Shortcode", value: darajaShortcode, onChange: setDarajaShortcode },
-              { label: "Passkey", value: darajaPasskey, onChange: setDarajaPasskey },
-            ].map(({ label, value, onChange }) => (
-              <div key={label}>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-                <input
-                  type="password"
-                  value={value}
-                  onChange={(e) => onChange(e.target.value)}
-                  placeholder={`Platform ${label}`}
-                  className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                />
-              </div>
-            ))}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Callback URL</label>
-              <input
-                type="url"
-                value={darajaCallbackUrl}
-                onChange={(e) => setDarajaCallbackUrl(e.target.value)}
-                placeholder="https://yourdomain.com/api/mpesa/callback"
-                className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-          </div>
+          <ul className="list-disc pl-5 text-xs text-gray-500 dark:text-gray-400 space-y-1">
+            <li>DARAJA_CONSUMER_KEY</li>
+            <li>DARAJA_CONSUMER_SECRET</li>
+            <li>DARAJA_CALLBACK_URL</li>
+            <li>DARAJA_CALLBACK_SECRET</li>
+            <li>DARAJA_ENVIRONMENT (sandbox or production)</li>
+          </ul>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            STK Push remains unavailable until the production credentials, callback URL, and payment reconciliation
+            are configured and verified.
+          </p>
         </section>
 
         {/* ── Central WhatsApp Gateway ───────────────────── */}
@@ -227,9 +213,10 @@ export default function PlatformSettingsPage() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition"
+            disabled={settingsQuery.isLoading || settingsQuery.isError || saveSettings.isPending}
+            className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg text-sm hover:opacity-90 transition disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Save Platform Settings
+            {saveSettings.isPending ? "Saving…" : "Save Platform Settings"}
           </button>
         </div>
       </form>

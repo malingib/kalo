@@ -1,4 +1,3 @@
-import { admin_directory_v1 } from "@googleapis/admin";
 import { OAuth2Client } from "google-auth-library";
 import { z } from "zod";
 
@@ -21,6 +20,11 @@ const credentialsSchema = z.object({
   id_token: z.string().optional(),
   scope: z.string().optional(),
 });
+
+type GoogleWorkspaceDirectoryUsersResponse = {
+  users?: Array<{ primaryEmail?: string | null }>;
+  nextPageToken?: string;
+};
 
 export const checkForGWorkspace = async ({ ctx }: CheckForGCalOptions) => {
   const gWorkspacePresent = await prisma.credential.findFirst({
@@ -49,23 +53,34 @@ export const getUsersFromGWorkspace = async ({ ctx }: CheckForGCalOptions) => {
   }
 
   const credentials = credentialsSchema.parse(hasExistingCredentials.key);
-
   const oAuth2Client = new OAuth2Client(client_id, client_secret);
-
-  // Set users credentials instead of our app credentials - allowing us to make requests on their behalf
   oAuth2Client.setCredentials(credentials);
 
-  // Create a new instance of the Admin SDK directory API
-  const directory = new admin_directory_v1.Admin({
-    auth: oAuth2Client,
-  });
-  const { data } = await directory.users.list({
-    maxResults: 200, // Up this if we ever need to get more than 200 users
-    customer: "my_customer", // This only works for single domain setups - we'll need to change this if we ever support multi-domain setups (unlikely we'll ever need to)
-  });
+  // Use the Admin SDK REST endpoint through the existing authenticated OAuth
+  // client. This avoids introducing a separate generated Google API package.
+  const emails: string[] = [];
+  let pageToken: string | undefined;
 
-  // We only want their email addresses
-  const emails = data.users?.map((user) => user.primaryEmail as string) ?? ([] as string[]);
+  do {
+    const response = await oAuth2Client.request<GoogleWorkspaceDirectoryUsersResponse>({
+      url: "https://admin.googleapis.com/admin/directory/v1/users",
+      method: "GET",
+      params: {
+        maxResults: 200,
+        customer: "my_customer",
+        ...(pageToken ? { pageToken } : {}),
+      },
+    });
+
+    for (const user of response.data.users ?? []) {
+      if (typeof user.primaryEmail === "string" && user.primaryEmail.length > 0) {
+        emails.push(user.primaryEmail);
+      }
+    }
+
+    pageToken = response.data.nextPageToken;
+  } while (pageToken);
+
   return emails;
 };
 

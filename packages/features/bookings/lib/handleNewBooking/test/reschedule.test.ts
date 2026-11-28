@@ -5,7 +5,6 @@ import {
   getDate,
   getGoogleCalendarCredential,
   getGoogleMeetCredential,
-  getStripeAppCredential,
   TestData,
   getOrganizer,
   getBooker,
@@ -1773,9 +1772,9 @@ describe("handleNewBooking", () => {
 
       describe("Paid event type - attendee reschedule", () => {
         test(
-          `when event type does NOT require confirmation, attendee reschedule of paid event creates a PENDING booking (payment handling removed)
+          `when event type does NOT require confirmation, attendee reschedule of paid event creates a PENDING booking (M-Pesa payment remains linked without creating a duplicate STK charge)
           1. Should cancel the existing booking
-          2. Should create a new booking in PENDING state (no payment processing available)
+          2. Should create a new booking in PENDING state (the existing payment is preserved)
           3. Should send rescheduled emails and trigger BOOKING_RESCHEDULED webhook
         `,
           async ({ emails }) => {
@@ -1783,7 +1782,8 @@ describe("handleNewBooking", () => {
             const booker = getBooker({
               email: "booker@example.com",
               name: "Booker",
-            });
+            attendeePhoneNumber: "0712345678",
+              });
 
             const organizer = getOrganizer({
               name: "Organizer",
@@ -1792,7 +1792,7 @@ describe("handleNewBooking", () => {
               schedules: [TestData.schedules.IstWorkHours],
               credentials: [
                 getGoogleCalendarCredential(),
-                getStripeAppCredential(),
+                
               ],
               selectedCalendars: [TestData.selectedCalendars.google],
             });
@@ -1822,10 +1822,10 @@ describe("handleNewBooking", () => {
                     requiresConfirmation: false,
                     metadata: {
                       apps: {
-                        stripe: {
+                        mpesa: {
                           price: 100,
                           enabled: true,
-                          currency: "usd",
+                          currency: "KES",
                         },
                       },
                     },
@@ -1866,7 +1866,7 @@ describe("handleNewBooking", () => {
                 apps: [
                   TestData.apps["google-calendar"],
                   TestData.apps["daily-video"],
-                  TestData.apps["stripe-payment"],
+                  TestData.apps["mpesa"],
                 ],
               });
             await createBookingScenario(scenarioData);
@@ -1881,12 +1881,12 @@ describe("handleNewBooking", () => {
                   bookingId: existingBooking.id,
                   amount: 100,
                   fee: 0,
-                  currency: "usd",
+                  currency: "KES",
                   success: true,
                   refunded: false,
                   data: {},
                   externalId: "ext-reschedule-paid-1",
-                  appId: "stripepayment",
+                  appId: "mpesa",
                 },
               });
               await prismaMock.booking.update({
@@ -1935,7 +1935,7 @@ describe("handleNewBooking", () => {
               },
             });
 
-            // With payment handling removed, booking stays PENDING
+            // With M-Pesa payment remains linked without creating a duplicate STK charge, booking stays PENDING
             // System sends booking-requested emails/webhooks instead of rescheduled ones
             expectBookingRequestedEmails({ booker, organizer, emails });
             expectBookingRequestedWebhookToHaveBeenFired({
@@ -1961,7 +1961,8 @@ describe("handleNewBooking", () => {
             const booker = getBooker({
               email: "booker@example.com",
               name: "Booker",
-            });
+            attendeePhoneNumber: "0712345678",
+              });
 
             const organizer = getOrganizer({
               name: "Organizer",
@@ -1970,7 +1971,7 @@ describe("handleNewBooking", () => {
               schedules: [TestData.schedules.IstWorkHours],
               credentials: [
                 getGoogleCalendarCredential(),
-                getStripeAppCredential(),
+                
               ],
               selectedCalendars: [TestData.selectedCalendars.google],
             });
@@ -1998,10 +1999,10 @@ describe("handleNewBooking", () => {
                   requiresConfirmation: true,
                   metadata: {
                     apps: {
-                      stripe: {
+                      mpesa: {
                         price: 100,
                         enabled: true,
-                        currency: "usd",
+                        currency: "KES",
                       },
                     },
                   },
@@ -2041,7 +2042,7 @@ describe("handleNewBooking", () => {
               apps: [
                 TestData.apps["google-calendar"],
                 TestData.apps["daily-video"],
-                TestData.apps["stripe-payment"],
+                TestData.apps["mpesa"],
               ],
             });
             await createBookingScenario(scenarioData);
@@ -2056,12 +2057,12 @@ describe("handleNewBooking", () => {
                   bookingId: existingBookingForConfirmation.id,
                   amount: 100,
                   fee: 0,
-                  currency: "usd",
+                  currency: "KES",
                   success: true,
                   refunded: false,
                   data: {},
                   externalId: "ext-reschedule-confirm-1",
-                  appId: "stripepayment",
+                  appId: "mpesa",
                 },
               });
               await prismaMock.booking.update({

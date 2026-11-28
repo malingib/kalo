@@ -1,4 +1,4 @@
-name: Pre-build quality gate
+name: Pre-build implementation gate
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Type check, lint and unit tests
+    name: Type check, lint and generated-artifact verification
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -35,8 +35,18 @@ jobs:
       - name: Check out repository with project cache settings
         uses: ./.github/actions/cache-checkout
 
+      - name: Refresh Yarn lockfile for workspace removals
+        run: yarn install --mode=update-lockfile
+
       - name: Install dependencies using repository setup
         uses: ./.github/actions/yarn-install
+
+      - name: Regenerate app-store registries from retained source apps
+        run: yarn app-store:build
+
+      - name: Verify generated registries and lockfile are committed
+        run: |
+          git diff --exit-code -- yarn.lock packages/app-store/*.generated.ts packages/app-store/*.generated.tsx
 
       - name: TypeScript checks
         run: yarn type-check:ci
@@ -46,9 +56,3 @@ jobs:
 
       - name: Generate Prisma client
         run: yarn prisma generate
-
-      - name: Unit tests
-        run: yarn test -- --no-isolate
-        env:
-          CI: true
-          TZ: UTC

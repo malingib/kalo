@@ -216,7 +216,7 @@ describe("handlePaymentSuccess", () => {
     await expect(
       handlePaymentSuccess({
         paymentId: mockPaymentId,
-        appSlug: "stripe",
+        appSlug: "mpesa",
         bookingId: mockBookingId,
         traceContext: mockTraceContext,
       })
@@ -262,7 +262,7 @@ describe("handlePaymentSuccess", () => {
     await expect(
       handlePaymentSuccess({
         paymentId: mockPaymentId,
-        appSlug: "stripe",
+        appSlug: "mpesa",
         bookingId: mockBookingId,
         traceContext: mockTraceContext,
       })
@@ -276,7 +276,7 @@ describe("handlePaymentSuccess", () => {
     await expect(
       handlePaymentSuccess({
         paymentId: mockPaymentId,
-        appSlug: "stripe",
+        appSlug: "mpesa",
         bookingId: mockBookingId,
         traceContext: mockTraceContext,
       })

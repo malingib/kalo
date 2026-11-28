@@ -1,15 +1,7 @@
 import type { UnitTypeLongPlural } from "dayjs";
 import type { TFunction } from "i18next";
-import type {
-  AnyZodObject,
-  objectInputType,
-  objectOutputType,
-  ZodNullableDef,
-  ZodOptionalDef,
-  ZodRawShape,
-  ZodTypeAny,
-} from "zod";
-import z, { ZodNullable, ZodObject, ZodOptional } from "zod";
+import type { ZodRawShape } from "zod";
+import z from "zod";
 import type { Prisma } from "./client";
 import { EventTypeCustomInputType } from "./enums";
 
@@ -462,7 +454,7 @@ export const bookingMetadataSchema = z
     videoCallUrl: z.string().optional(),
     platformClientId: z.string().optional(),
   })
-  .and(z.record(z.string()))
+  .and(z.record(z.string(), z.string()))
   .nullable()
   .describe("BookingMetadata");
 
@@ -546,40 +538,36 @@ export const DeploymentTheme = z
   })
   .optional();
 
-export type ZodDenullish<T extends ZodTypeAny> = T extends ZodNullable<infer U> | ZodOptional<infer U>
+export type ZodDenullish<T> = T extends z.ZodNullable<infer U extends z.ZodType>
   ? ZodDenullish<U>
-  : T;
+  : T extends z.ZodOptional<infer U extends z.ZodType>
+    ? ZodDenullish<U>
+    : T;
 
 export type ZodDenullishShape<T extends ZodRawShape> = {
-  [k in keyof T]: ZodDenullish<T[k]>;
+  [K in keyof T]: ZodDenullish<T[K]>;
 };
 
-export const denullish = <T extends ZodTypeAny>(schema: T): ZodDenullish<T> =>
-  (schema instanceof ZodNullable || schema instanceof ZodOptional
-    ? denullish((schema._def as ZodNullableDef | ZodOptionalDef).innerType)
-    : schema) as ZodDenullish<T>;
-
-type UnknownKeysParam = "passthrough" | "strict" | "strip";
+export const denullish = <T extends z.ZodType>(schema: T): ZodDenullish<T> => {
+  if (schema instanceof z.ZodNullable || schema instanceof z.ZodOptional) {
+    // unwrap() is a public Zod API; the cast keeps its classic-schema type
+    // instead of widening to the lower-level Zod core interface.
+    return denullish(schema.unwrap() as z.ZodType) as ZodDenullish<T>;
+  }
+  return schema as ZodDenullish<T>;
+};
 
 /**
- * @see https://github.com/3x071c/lsg-remix/blob/e2a9592ba3ec5103556f2cf307c32f08aeaee32d/app/lib/util/zod.ts
+ * Remove nullable and optional wrappers from each property while preserving
+ * the source object's unknown-key and catchall configuration.
  */
-export function denullishShape<
-  T extends ZodRawShape,
-  UnknownKeys extends UnknownKeysParam = "strip",
-  Catchall extends ZodTypeAny = ZodTypeAny,
-  Output = objectOutputType<T, Catchall>,
-  Input = objectInputType<T, Catchall>,
->(
-  obj: ZodObject<T, UnknownKeys, Catchall, Output, Input>
-): ZodObject<ZodDenullishShape<T>, UnknownKeys, Catchall> {
-  const a = entries(obj.shape).map(([field, schema]) => [field, denullish(schema)] as const) as {
-    [K in keyof T]: [K, ZodDenullish<T[K]>];
-  }[keyof T][];
-  return new ZodObject({
-    ...obj._def,
-    shape: () => fromEntries(a) as unknown as ZodDenullishShape<T>, // TODO: Safely assert type
-  });
+export function denullishShape<T extends ZodRawShape>(
+  obj: z.ZodObject<T>
+): z.ZodObject<ZodDenullishShape<T>> {
+  const shape = Object.fromEntries(
+    Object.entries(obj.shape).map(([key, schema]) => [key, denullish(schema as z.ZodType)])
+  ) as unknown as ZodDenullishShape<T>;
+  return obj.extend(shape) as unknown as z.ZodObject<ZodDenullishShape<T>>;
 }
 
 /**
@@ -649,13 +637,13 @@ export const optionToValueSchema = <T extends z.ZodTypeAny>(valueSchema: T) =>
  * @url https://github.com/colinhacks/zod/discussions/1655#discussioncomment-4367368
  */
 export const getParserWithGeneric =
-  <T extends AnyZodObject>(valueSchema: T) =>
+  <T extends z.ZodObject>(valueSchema: T) =>
   <Data>(data: Data) => {
     type Output = z.infer<T>;
     type SimpleFormValues = string | number | null | undefined;
     return valueSchema.parse(data) as {
       // TODO: Invesitage why this broke on zod 3.22.2 upgrade
-      [key in keyof Data]: Data[key] extends SimpleFormValues ? Data[key] : Output[key];
+      [key in keyof Data]: Data[key] extends SimpleFormValues ? Data[key] : key extends keyof Output ? Output[key] : never;
     };
   };
 export const sendDailyVideoRecordingEmailsSchema = z.object({
@@ -997,7 +985,7 @@ export const baseFieldSchema = z.object({
    * e.g. If user is given a list of locations and he selects "Phone", then he will be shown a phone input
    */
   optionsInputs: z
-    .record(
+    .record(z.string(),
       z.object({
         // Support all types as needed
         // Must be a subset of `fieldTypeEnum`.TODO: Enforce it in TypeScript
@@ -1032,7 +1020,7 @@ export const baseFieldSchema = z.object({
 });
 
 export const variantsConfigSchema = z.object({
-  variants: z.record(
+  variants: z.record(z.string(),
     z.object({
       /**
        * Variant Fields schema for a variant of the main field.
@@ -1090,4 +1078,4 @@ export const fieldSchema = baseFieldSchema.merge(
 );
 
 export const eventTypeBookingFields = z.array(fieldSchema);
-export const BookingFieldTypeEnum = eventTypeBookingFields.element.shape.type.Enum;
+export const BookingFieldTypeEnum = eventTypeBookingFields.element.shape.type.enum;

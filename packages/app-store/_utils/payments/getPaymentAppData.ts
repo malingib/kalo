@@ -3,10 +3,12 @@ import type { z } from "zod";
 import type { EventTypeMetaDataSchema } from "@kalo/prisma/zod-utils";
 
 import type { appDataSchemas } from "../../apps.schemas.generated";
-import type { appDataSchema, paymentOptionEnum } from "../../stripepayment/zod";
 import type { EventTypeAppsList } from "../../utils";
 import { eventTypeMetaDataSchemaWithTypedApps } from "../../zod-utils";
 import { getEventTypeAppData } from "../getEventTypeAppData";
+
+type PaymentOption = "ON_BOOKING" | "HOLD";
+type PaymentAppConfig = { price?: number; currency?: string; enabled?: boolean; paymentOption?: PaymentOption; credentialId?: number; refundPolicy?: string; refundDaysCount?: number; refundCountCalendarDays?: boolean };
 
 export function getPaymentAppData(
   _eventType: {
@@ -21,25 +23,48 @@ export function getPaymentAppData(
     metadata: eventTypeMetaDataSchemaWithTypedApps.parse(_eventType.metadata),
   };
   const metadataApps = eventType.metadata?.apps;
+  // Older paid event types stored payment details at the event-type level and
+  // identified a payment provider only implicitly. Preserve KES booking payments by routing
+  // that legacy shape through the native M-Pesa app, but never auto-convert a
+  // non-KES price or override an explicitly configured M-Pesa app.
+  const legacyMpesa = !metadataApps?.mpesa
+    ? (getEventTypeAppData(eventType, "mpesa", forcedGet) as PaymentAppConfig | null)
+    : null;
+  const legacyPaymentAppData = legacyMpesa
+    ? {
+        enabled: true,
+        price: legacyMpesa.price ?? 0,
+        currency: legacyMpesa.currency ?? _eventType.currency ?? "KES",
+        appId: "mpesa" as const,
+        paymentOption: "ON_BOOKING" as const,
+        credentialId: undefined,
+        refundPolicy: undefined,
+        refundDaysCount: undefined,
+        refundCountCalendarDays: undefined,
+      }
+    : null;
+
   if (!metadataApps) {
-    return {
-      enabled: false,
-      price: 0,
-      currency: "usd",
-      appId: null,
-      paymentOption: "ON_BOOKING" as const,
-      credentialId: undefined,
-      refundPolicy: undefined,
-      refundDaysCount: undefined,
-      refundCountCalendarDays: undefined,
-    };
+    return (
+      legacyPaymentAppData || {
+        enabled: false,
+        price: 0,
+        currency: _eventType.currency || "KES",
+        appId: null,
+        paymentOption: "ON_BOOKING" as const,
+        credentialId: undefined,
+        refundPolicy: undefined,
+        refundDaysCount: undefined,
+        refundCountCalendarDays: undefined,
+      }
+    );
   }
   type appId = keyof typeof metadataApps;
   // @TODO: a lot of unknowns types here can be improved later
   const paymentAppIds = (Object.keys(metadataApps) as Array<keyof typeof appDataSchemas>).filter(
     (app) =>
-      (metadataApps[app as appId] as unknown as z.infer<typeof appDataSchema>)?.price &&
-      (metadataApps[app as appId] as unknown as z.infer<typeof appDataSchema>)?.enabled
+      (metadataApps[app as appId] as PaymentAppConfig | undefined)?.price &&
+      (metadataApps[app as appId] as PaymentAppConfig | undefined)?.enabled
   );
 
   // Event type should only have one payment app data
@@ -48,7 +73,7 @@ export function getPaymentAppData(
     price: number;
     currency: string;
     appId: EventTypeAppsList | null;
-    paymentOption: z.infer<typeof paymentOptionEnum>;
+    paymentOption: PaymentOption;
     credentialId?: number;
     refundPolicy?: string;
     refundDaysCount?: number;
@@ -57,12 +82,12 @@ export function getPaymentAppData(
   for (const appId of paymentAppIds) {
     const appData = getEventTypeAppData(eventType, appId, forcedGet);
     if (appData && paymentAppData === null) {
-      const data = appData as { enabled?: boolean; price?: number; currency?: string; paymentOption?: string; credentialId?: number; refundPolicy?: string; refundDaysCount?: number; refundCountCalendarDays?: boolean };
+      const data = appData as PaymentAppConfig;
       paymentAppData = {
         enabled: data.enabled ?? false,
         price: data.price ?? 0,
-        currency: data.currency ?? "usd",
-        paymentOption: (data.paymentOption ?? "ON_BOOKING") as z.infer<typeof paymentOptionEnum>,
+        currency: data.currency ?? eventType.currency ?? "KES",
+        paymentOption: data.paymentOption ?? "ON_BOOKING",
         credentialId: data.credentialId,
         refundPolicy: data.refundPolicy,
         refundDaysCount: data.refundDaysCount,
@@ -74,10 +99,11 @@ export function getPaymentAppData(
   // This is the current expectation of system to have price and currency set always(using DB Level defaults).
   // Newly added apps code should assume that their app data might not be set.
   return (
-    paymentAppData || {
+    paymentAppData ||
+    legacyPaymentAppData || {
       enabled: false,
       price: 0,
-      currency: "usd",
+      currency: _eventType.currency || "KES",
       appId: null,
       paymentOption: "ON_BOOKING",
       credentialId: undefined,

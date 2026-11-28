@@ -1,8 +1,6 @@
-import { IS_DUB_REFERRALS_ENABLED } from "@kalo/lib/constants";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { trpc } from "@kalo/trpc/react";
 import { showToast } from "@kalo/ui/components/toast";
-import posthog from "posthog-js";
 import type { NavigationItemType } from "./navigation/NavigationItem";
 
 type BottomNavItemsProps = {
@@ -30,18 +28,7 @@ export function useBottomNavItems({ publicPageUrl }: BottomNavItemsProps): Navig
       },
       icon: "copy",
     },
-    IS_DUB_REFERRALS_ENABLED
-      ? {
-          name: "referral_text",
-          href: "/refer",
-          icon: "gift",
-          onClick: () => {
-            posthog.capture("refer_and_earn_clicked");
-          },
-        }
-      : null,
-
-    {
+{
       name: "settings",
       href: "/settings/my-account/profile",
       icon: "settings",

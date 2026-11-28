@@ -8,6 +8,10 @@ import { userMetadata } from "@kalo/prisma/zod-utils";
 import type { AppFrontendPayload as App } from "@kalo/types/App";
 import type { CredentialFrontendPayload as Credential } from "@kalo/types/Credential";
 
+// Kalo's initial marketplace exposes Google Calendar only. M-Pesa is a first-party
+// payment flow and is intentionally not registered as a marketplace app.
+export const isKaloMarketplaceApp = (slug: string) => slug === "google-calendar";
+
 export type TDependencyData = {
   name?: string;
   installed?: boolean;
@@ -46,7 +50,7 @@ export async function getAppRegistry() {
   const installCountPerApp = await getInstallCountPerApp();
   for await (const dbapp of dbApps) {
     const app = await getAppWithMetadata(dbapp);
-    if (!app) continue;
+    if (!app || !isKaloMarketplaceApp(dbapp.slug)) continue;
     // Skip if app isn't installed
     /* This is now handled from the DB */
     // if (!app.installed) return apps;
@@ -109,7 +113,8 @@ export async function getAppRegistryWithCredentials(userId: number, userAdminTea
     const nonDelegationCredentialsForApp = dbapp.credentials;
     const allCredentials = [...delegationCredentialsForApp, ...nonDelegationCredentialsForApp];
     const app = await getAppWithMetadata(dbapp);
-    if (!app) continue;
+    // Keep previously installed integrations manageable without exposing them for new installs.
+    if (!app || (!isKaloMarketplaceApp(dbapp.slug) && allCredentials.length === 0)) continue;
     // Skip if app isn't installed
     /* This is now handled from the DB */
     // if (!app.installed) return apps;

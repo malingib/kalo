@@ -117,6 +117,16 @@ const getTabs = (
           href: "/settings/vendor/receipts",
           trackingMetadata: { section: "vendor", page: "receipts" },
         },
+        {
+          name: "mpesa",
+          href: "/settings/mpesa",
+          trackingMetadata: { section: "vendor", page: "mpesa" },
+        },
+        {
+          name: "billing",
+          href: "/settings/billing",
+          trackingMetadata: { section: "vendor", page: "billing" },
+        },
       ],
     },
     {

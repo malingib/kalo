@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 
 import { InstallAppButton } from "@kalo/app-store/InstallAppButton";
 import { isRedirectApp } from "@kalo/app-store/_utils/redirectApps";

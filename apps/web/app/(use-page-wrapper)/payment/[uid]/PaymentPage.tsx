@@ -3,7 +3,7 @@
 import { getPaymentAppData } from "@kalo/app-store/_utils/payments/getPaymentAppData";
 import { getSuccessPageLocationMessage } from "@kalo/app-store/locations";
 import dayjs from "@kalo/dayjs";
-import { sdkActionManager, useIsEmbed } from "@kalo/embed-core/embed-iframe";
+import { useIsEmbed } from "@kalo/embed-core/embed-iframe";
 import { PayIcon } from "@kalo/features/bookings/components/event-meta/PayIcon";
 import { Price } from "@kalo/features/bookings/components/event-meta/Price";
 import { APP_NAME, WEBSITE_URL } from "@kalo/lib/constants";
@@ -13,8 +13,8 @@ import { getIs24hClockFromLocalStorage, isBrowserLocale24h } from "@kalo/lib/tim
 import { CURRENT_TIMEZONE } from "@kalo/lib/timezoneConstants";
 import { localStorage } from "@kalo/lib/webstorage";
 import classNames from "classnames";
-import dynamic from "next/dynamic";
 import type { FC } from "react";
+import { MPesaPaymentStatus } from "@kalo/web/components/apps/mpesa/MPesaPaymentStatus";
 import { useEffect, useState } from "react";
 
 
@@ -27,39 +27,6 @@ type PaymentPageProps = {
   user?: { name?: string | null; username?: string | null } | null;
 };
 
-const PaypalPaymentComponent = dynamic(
-  () =>
-    import("@kalo/web/components/apps/paypal/PaypalPaymentComponent").then((m) => m.PaypalPaymentComponent),
-  {
-    ssr: false,
-  }
-);
-
-const AlbyPaymentComponent = dynamic(
-  () => import("@kalo/web/components/apps/alby/AlbyPaymentComponent").then((m) => m.AlbyPaymentComponent),
-  {
-    ssr: false,
-  }
-);
-
-const HitpayPaymentComponent = dynamic(
-  () =>
-    import("@kalo/web/components/apps/hitpay/HitpayPaymentComponent").then((m) => m.HitpayPaymentComponent),
-  {
-    ssr: false,
-  }
-);
-
-const BtcpayPaymentComponent = dynamic(
-  () =>
-    import("@kalo/web/components/apps/btcpayserver/BtcpayPaymentComponent").then(
-      (m) => m.BtcpayPaymentComponent
-    ),
-  {
-    ssr: false,
-  }
-);
-
 const PaymentPage: FC<PaymentPageProps> = (props) => {
   const { t, i18n } = useLocale();
   const [is24h, setIs24h] = useState(isBrowserLocale24h());
@@ -69,27 +36,11 @@ const PaymentPage: FC<PaymentPageProps> = (props) => {
   const isEmbed = useIsEmbed();
   const paymentAppData = getPaymentAppData(props.eventType);
   useEffect(() => {
-    let embedIframeWidth = 0;
     const _timezone = localStorage.getItem("timeOption.preferredTimeZone") || CURRENT_TIMEZONE;
     setTimezone(_timezone);
     setDate(date.tz(_timezone));
     setIs24h(!!getIs24hClockFromLocalStorage());
-    if (isEmbed) {
-      requestAnimationFrame(function fixStripeIframe() {
-        // HACK: Look for stripe iframe and center position it just above the embed content
-        const stripeIframeWrapper = document.querySelector(
-          'iframe[src*="https://js.stripe.com/v3/authorize-with-url-inner"]'
-        )?.parentElement;
-        if (stripeIframeWrapper) {
-          stripeIframeWrapper.style.margin = "0 auto";
-          stripeIframeWrapper.style.width = `${embedIframeWidth}px`;
-        }
-        requestAnimationFrame(fixStripeIframe);
-      });
-      sdkActionManager?.on("__dimensionChanged", (e) => {
-        embedIframeWidth = e.detail.data.iframeWidth as number;
-      });
-    }
+    // No third-party checkout iframe is required for native M-Pesa payments.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEmbed, date.tz]);
 
@@ -156,20 +107,8 @@ const PaymentPage: FC<PaymentPageProps> = (props) => {
                   {props.payment.success && !props.payment.refunded && (
                     <div className="mt-4 text-center text-default dark:text-gray-300">{t("paid")}</div>
                   )}
-                  {props.payment.appId === "stripe" && !props.payment.success && (
-                    <div>{/* StripePaymentComponent removed */}</div>
-                  )}
-                  {props.payment.appId === "paypal" && !props.payment.success && (
-                    <PaypalPaymentComponent payment={props.payment} />
-                  )}
-                  {props.payment.appId === "alby" && !props.payment.success && (
-                    <AlbyPaymentComponent payment={props.payment} paymentPageProps={props} />
-                  )}
-                  {props.payment.appId === "hitpay" && !props.payment.success && (
-                    <HitpayPaymentComponent payment={props.payment} />
-                  )}
-                  {props.payment.appId === "btcpayserver" && !props.payment.success && (
-                    <BtcpayPaymentComponent payment={props.payment} paymentPageProps={props} />
+                  {props.payment.appId === "mpesa" && !props.payment.success && (
+                    <MPesaPaymentStatus bookingUid={props.booking.uid} initialSuccess={props.payment.success} />
                   )}
                   {props.payment.refunded && (
                     <div className="mt-4 text-center text-default dark:text-gray-300">{t("refunded")}</div>

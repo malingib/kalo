@@ -66,14 +66,14 @@ export const fieldTypeConfigSchema = z
          *  Used only when there are 2 variants, so that UI can be simplified by showing a switch(with this label) instead of a Select
          */
         toggleLabel: z.string().optional(),
-        variants: z.record(
+        variants: z.record(z.string(),
           z.object({
             /**
              * That's how the variant would be labelled in App UI. This label represents the field in booking questions' list
              * Supports translation
              */
             label: z.string(),
-            fieldsMap: z.record(
+            fieldsMap: z.record(z.string(),
               z.object({
                 /**
                  * Supports translation
@@ -293,6 +293,4 @@ export const fieldTypesSchemaMap = {
   }),
 };
 
-export type FieldZodCtx = {
-  addIssue: (issue: z.IssueData) => void;
-};
+export type FieldZodCtx = Pick<z.RefinementCtx, "addIssue">;

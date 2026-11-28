@@ -25,6 +25,7 @@ import EventManager, { placeholderCreatedEvent } from "@kalo/features/bookings/l
 import { getAssignmentReasonCategory } from "@kalo/features/bookings/lib/getAssignmentReasonCategory";
 import type { CheckBookingAndDurationLimitsService } from "@kalo/features/bookings/lib/handleNewBooking/checkBookingAndDurationLimits";
 import { handlePayment } from "@kalo/features/bookings/lib/handlePayment";
+import { normalizeKenyanPhone } from "@kalo/features/mpesa";
 import { handleWebhookTrigger } from "@kalo/features/bookings/lib/handleWebhookTrigger";
 import { isEventTypeLoggingEnabled } from "@kalo/features/bookings/lib/isEventTypeLoggingEnabled";
 import type { BookingEmailAndSmsTasker } from "@kalo/features/bookings/lib/tasker/BookingEmailAndSmsTasker";
@@ -65,7 +66,7 @@ import { getServerErrorFromUnknown } from "@kalo/lib/server/getServerErrorFromUn
 import { getTimeFormatStringFromUserTimeFormat } from "@kalo/lib/timeFormat";
 import { distributedTracing } from "@kalo/lib/tracing/factory";
 import type { PrismaClient } from "@kalo/prisma";
-import type { AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@kalo/prisma/client";
+import type { AppCategories, AssignmentReasonEnum, DestinationCalendar, Prisma, User } from "@kalo/prisma/client";
 import { BookingStatus, CreationSource, SchedulingType, WebhookTriggerEvents } from "@kalo/prisma/enums";
 import { userMetadata as userMetadataSchema } from "@kalo/prisma/zod-utils";
 import type {
@@ -681,6 +682,7 @@ async function handler(
     ...eventType,
     metadata: eventTypeMetaDataSchemaWithTypedApps.parse(eventType.metadata),
   });
+  const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
 
   const { userReschedulingIsOwner, isConfirmedByDefault } = await getRequiresConfirmationFlags({
     eventType,
@@ -696,8 +698,6 @@ async function handler(
     (!isConfirmedByDefault && !userReschedulingIsOwner) ||
     eventType.schedulingType === SchedulingType.ROUND_ROBIN
   ) {
-    const requiresPayment = !Number.isNaN(paymentAppData.price) && paymentAppData.price > 0;
-
     const existingBooking = await deps.bookingRepository.getValidBookingFromEventTypeForAttendee({
       eventTypeId,
       bookerEmail: bookingContext.bookerEmail,
@@ -1163,6 +1163,48 @@ async function handler(
   const organizerUser = reqBody.teamMemberEmail
     ? (users.find((user) => user.email === reqBody.teamMemberEmail) ?? users[0])
     : users[0];
+
+  if (isNormalBookingOrFirstRecurringSlot && requiresPayment && !originalRescheduledBooking?.paid && paymentAppData.appId === "mpesa") {
+    if (!organizerUser) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "A booking host is required to accept M-Pesa payments.",
+      });
+    }
+    if (paymentAppData.currency.toUpperCase() !== "KES") {
+      throw new HttpError({
+        statusCode: 400,
+        message: "Native M-Pesa checkout requires the event price to be set in KES.",
+      });
+    }
+    if (!bookingContext.bookerPhoneNumber || !normalizeKenyanPhone(bookingContext.bookerPhoneNumber)) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "A valid Kenyan attendee mobile number is required for M-Pesa STK Push.",
+      });
+    }
+    const hostMpesaConfig = await deps.prismaClient.user.findUnique({
+      where: { id: organizerUser.id },
+      select: {
+        mpesaShortcode: true,
+        mpesaShortcodeType: true,
+        mpesaTillNumber: true,
+        mpesaPasskey: true,
+      },
+    });
+    if (!hostMpesaConfig?.mpesaShortcode || !hostMpesaConfig.mpesaPasskey) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "The booking host must complete M-Pesa Daraja setup before accepting paid bookings.",
+      });
+    }
+    if (hostMpesaConfig.mpesaShortcodeType === "BUY_GOODS" && !hostMpesaConfig.mpesaTillNumber) {
+      throw new HttpError({
+        statusCode: 400,
+        message: "The booking host must configure a Buy Goods Till number for STK Push.",
+      });
+    }
+  }
 
   const tOrganizer = await getTranslation(organizerUser?.locale ?? "en", "common");
   const allCredentials = await getAllCredentialsIncludeServiceAccountKey(organizerUser, eventType);
@@ -1790,7 +1832,7 @@ async function handler(
               description: additionalNotes,
               responses,
             },
-            metadata: reqBody.metadata,
+            metadata: reqBody.metadata as Prisma.InputJsonObject,
             booking: {
               connect: {
                 id: booking.id,
@@ -2268,29 +2310,30 @@ async function handler(
   if (bookingRequiresPayment) {
     tracingLogger.debug(`Booking ${organizerUser.username} requires payment`);
     // Load credentials.app.categories
-    const credentialPaymentAppCategories = await deps.prismaClient.credential.findMany({
-      where: {
-        ...(paymentAppData.credentialId ? { id: paymentAppData.credentialId } : { userId: organizerUser.id }),
-        app: {
-          categories: {
-            hasSome: ["payment"],
-          },
-        },
-      },
-      select: {
-        key: true,
-        appId: true,
-        app: {
-          select: {
-            categories: true,
-            dirName: true,
-          },
-        },
-      },
-    });
-    const eventTypePaymentAppCredential = credentialPaymentAppCategories.find((credential) => {
-      return credential.appId === paymentAppData.appId;
-    });
+    // Native M-Pesa credentials are stored on the host's User record and
+    // encrypted at rest; they are not third-party Credential rows.
+    const eventTypePaymentAppCredential =
+      paymentAppData.appId === "mpesa"
+        ? {
+            key: {},
+            appId: "mpesa",
+            app: { categories: ["payment"] as AppCategories[], dirName: "mpesa" },
+          }
+        : (
+            await deps.prismaClient.credential.findMany({
+              where: {
+                ...(paymentAppData.credentialId
+                  ? { id: paymentAppData.credentialId }
+                  : { userId: organizerUser.id }),
+                app: { categories: { hasSome: ["payment"] } },
+              },
+              select: {
+                key: true,
+                appId: true,
+                app: { select: { categories: true, dirName: true } },
+              },
+            })
+          ).find((credential) => credential.appId === paymentAppData.appId);
 
     if (!eventTypePaymentAppCredential) {
       throw new HttpError({

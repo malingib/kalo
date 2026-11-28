@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useTransition } from "react";
 import { Toaster } from "sonner";
 import { z } from "zod";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 
 import { APP_NAME } from "@kalo/lib/constants";
 import { useLocale } from "@kalo/lib/hooks/useLocale";

@@ -1,10 +1,5 @@
-import formbricks from "@formbricks/js";
-
+/** Formbricks event tracking has been removed. */
 export const trackFormbricksAction = (
-  eventName: string,
-  hiddenFields?: Record<string | number, string | number | string[]>
-) => {
-  if (process.env.NEXT_PUBLIC_FORMBRICKS_HOST_URL && process.env.NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID) {
-    formbricks.track(eventName, hiddenFields ? { hiddenFields } : undefined);
-  }
-};
+  _eventName: string,
+  _hiddenFields?: Record<string | number, string | number | string[]>
+): void => {};

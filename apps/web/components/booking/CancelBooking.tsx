@@ -2,14 +2,13 @@
 
 import { sdkActionManager } from "@kalo/embed-core/embed-iframe";
 import { isCancellationReasonRequired } from "@kalo/features/bookings/lib/cancellationReason";
-import { shouldChargeNoShowCancellationFee } from "@kalo/features/bookings/lib/payment/shouldChargeNoShowCancellationFee";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { useRefreshData } from "@kalo/lib/hooks/useRefreshData";
 import type { CancellationReasonRequirement } from "@kalo/prisma/enums";
 import type { RecurringEvent } from "@kalo/types/Calendar";
 import classNames from "@kalo/ui/classNames";
 import { Button } from "@kalo/ui/components/button";
-import { CheckboxField, Label, Select, TextArea } from "@kalo/ui/components/form";
+import { Label, Select, TextArea } from "@kalo/ui/components/form";
 import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon, XIcon } from "@coss/ui/icons";
 import { useCallback, useState } from "react";
@@ -130,36 +129,6 @@ export default function CancelBooking(props: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(booking ? null : t("booking_already_cancelled"));
   const [internalNote, setInternalNote] = useState<{ id: number; name: string } | null>(null);
-  const [acknowledgeCancellationNoShowFee, setAcknowledgeCancellationNoShowFee] = useState(false);
-
-  const getAppMetadata = (appId: string): Record<string, unknown> | null => {
-    if (!eventTypeMetadata?.apps || !appId) return null;
-    const apps = eventTypeMetadata.apps as Record<string, unknown>;
-    return (apps[appId] as Record<string, unknown>) || null;
-  };
-
-  const timeValue = booking?.payment?.appId
-    ? (getAppMetadata(booking.payment.appId) as Record<string, unknown> | null)?.autoChargeNoShowFeeTimeValue
-    : null;
-  const timeUnit = booking?.payment?.appId
-    ? (getAppMetadata(booking.payment.appId) as Record<string, unknown> | null)?.autoChargeNoShowFeeTimeUnit
-    : null;
-
-  const autoChargeNoShowFee = () => {
-    if (props.isHost) return false; // Hosts/organizers are exempt
-
-    if (!booking?.startTime) return false;
-
-    if (!booking?.payment) return false;
-
-    return shouldChargeNoShowCancellationFee({
-      eventTypeMetadata: eventTypeMetadata || null,
-      booking,
-      payment: booking.payment,
-    });
-  };
-
-  const cancellationNoShowFeeWarning = autoChargeNoShowFee();
 
   const isCancellationUserHost =
     props.isHost || bookingCancelledEventProps.organizer.email === currentUserEmail;
@@ -172,10 +141,7 @@ export default function CancelBooking(props: Props) {
   const missingRequiredReason = isReasonRequired && !cancellationReason?.trim();
   const hostMissingInternalNote =
     isCancellationUserHost && props.internalNotePresets.length > 0 && !internalNote?.id;
-  const cancellationNoShowFeeNotAcknowledged =
-    !props.isHost && cancellationNoShowFeeWarning && !acknowledgeCancellationNoShowFee;
-  const canCancel =
-    !missingRequiredReason && !hostMissingInternalNote && !cancellationNoShowFeeNotAcknowledged;
+  const canCancel = !missingRequiredReason && !hostMissingInternalNote;
   const cancelBookingRef = useCallback((node: HTMLTextAreaElement) => {
     if (node !== null) {
       // eslint-disable-next-line @kalo/eslint/no-scroll-into-view-embed -- CancelBooking is not usually used in embed mode
@@ -245,23 +211,6 @@ export default function CancelBooking(props: Props) {
               </p>
             </div>
           ) : null}
-          {cancellationNoShowFeeWarning && booking?.payment && (
-            <div>
-              <div className="bg-attention mb-5 rounded-md p-3">
-                <CheckboxField
-                  description={t("cancel_booking_acknowledge_no_show_fee", {
-                    timeValue,
-                    timeUnit,
-                    amount: booking.payment.amount / 100,
-                    formatParams: { amount: { currency: booking.payment.currency } },
-                  })}
-                  onChange={(e) => setAcknowledgeCancellationNoShowFee(e.target.checked)}
-                  descriptionClassName="text-info font-semibold"
-                />
-                <p className="text-subtle ml-9 mt-2 text-sm">{t("contact_organizer")}</p>
-              </div>
-            </div>
-          )}
           <div className="flex flex-col-reverse rtl:space-x-reverse ">
             <div
               className={classNames(

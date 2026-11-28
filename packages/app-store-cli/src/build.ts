@@ -35,8 +35,7 @@ const formatOutput = (source: string) => source;
 
 const getVariableName = (appName: string) => appName.replace(/[-./]/g, "_");
 
-// INFO: Handle stripe separately as it's an old app with different dirName than slug/appId
-const getAppId = (app: { name: string }) => (app.name === "stripepayment" ? "stripe" : app.name);
+const getAppId = (app: { name: string }) => app.name;
 
 type App = Partial<AppMetaType> & {
   name: string;
@@ -296,7 +295,7 @@ function generateFiles() {
         importName: "appDataSchema",
       },
       // HACK: Key must be appId as this is used by eventType metadata and lookup is by appId
-      // This can be removed once we rename the ids of apps like stripe to that of their app folder name
+      // This can be removed once legacy app IDs match their directory names
       entryObjectKeyGetter: (app) => getAppId(app),
     })
   );
@@ -308,7 +307,7 @@ function generateFiles() {
         importName: "appKeysSchema",
       },
       // HACK: Key must be appId as this is used by eventType metadata and lookup is by appId
-      // This can be removed once we rename the ids of apps like stripe to that of their app folder name
+      // This can be removed once legacy app IDs match their directory names
       entryObjectKeyGetter: (app) => getAppId(app),
     })
   );

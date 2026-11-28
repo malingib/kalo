@@ -27,7 +27,7 @@ export const EventTypeAppCard = (props: {
     <ErrorBoundary message={`There is some problem with ${app.name} App`}>
       <EventTypeAppContext.Provider value={{ getAppData, setAppData, LockedIcon, disabled }}>
         <DynamicComponent
-          slug={app.slug === "stripe" ? "stripepayment" : app.slug}
+          slug={app.slug}
           componentMap={EventTypeAddonMap}
           {...props}
           onAppInstallSuccess={onAppInstallSuccess}

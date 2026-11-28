@@ -15,13 +15,7 @@ export const ZUpdatePlatformSettingsSchema = z.object({
       })
     )
     .optional(),
-  // Master Daraja credentials
-  darajaConsumerKey: z.string().optional().nullable(),
-  darajaConsumerSecret: z.string().optional().nullable(),
-  darajaShortcode: z.string().optional().nullable(),
-  darajaPasskey: z.string().optional().nullable(),
-  darajaCallbackUrl: z.string().url().optional().nullable(),
-  darajaIsSandbox: z.boolean().optional(),
+  // Daraja credentials are server-only environment configuration, not admin API inputs.
   // Central WhatsApp Gateway
   centralWhatsappPhone: z.string().optional().nullable(),
   centralWhatsappEnabled: z.boolean().optional(),

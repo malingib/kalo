@@ -262,6 +262,14 @@ export async function getConnectedApps({
     });
   }
 
+  // Keep previously installed integrations manageable, while exposing
+  // only the first-party integrations approved for new installations.
+  // M-Pesa must remain available in the event-type payment picker.
+  if (!onlyInstalled) {
+    const approvedInstallSlugs = new Set(["google-calendar", "mpesa"]);
+    apps = apps.filter((app) => approvedInstallSlugs.has(app.slug));
+  }
+
   return {
     items: apps,
   };

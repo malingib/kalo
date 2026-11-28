@@ -1,10 +1,7 @@
 "use client";
 
-import getStripe from "@kalo/app-store/stripepayment/lib/client";
-import { getPremiumPlanPriceValue } from "@kalo/app-store/stripepayment/lib/utils";
 import {
   fetchSignup,
-  hasCheckoutSession,
   isAccountUnderReview,
   isUserAlreadyExistsError,
 } from "@kalo/features/auth/signup/lib/fetchSignup";
@@ -20,7 +17,6 @@ import {
   WEBSITE_TERMS_URL,
   WEBSITE_URL,
 } from "@kalo/lib/constants";
-import { isENVDev } from "@kalo/lib/env";
 import { fetchUsername } from "@kalo/lib/fetchUsername";
 import { pushGTMEvent } from "@kalo/lib/gtm";
 import { useCompatSearchParams } from "@kalo/lib/hooks/useCompatSearchParams";
@@ -37,7 +33,6 @@ import { CheckboxField, Form, PasswordField, SelectField, TextField } from "@kal
 import { Icon } from "@kalo/ui/components/icon";
 import { showToast } from "@kalo/ui/components/toast";
 import { InfoIcon, ShieldCheckIcon, StarIcon } from "@coss/ui/icons";
-import { Analytics as DubAnalytics } from "@dub/analytics/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { getServerSideProps } from "@lib/signup/getServerSideProps";
 import dynamic from "next/dynamic";
@@ -45,16 +40,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { signIn } from "next-auth/react";
-import posthog from "posthog-js";
 import { useEffect, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm, useFormContext } from "react-hook-form";
 import { Toaster } from "sonner";
 import { z } from "zod";
 
-const signupSchema = apiSignupSchema.extend({
-  apiError: z.string().optional(), // Needed to display API errors doesn't get passed to the API
+const signupSchema = apiSignupSchema.extend({  apiError: z.string().optional(), // Needed to display API errors doesn't get passed to the API
   cfToken: z.string().optional(),
+  phoneNumber: z.string().optional(),
 });
 
 const TurnstileCaptcha = dynamic(() => import("@kalo/web/modules/auth/components/Turnstile"), {
@@ -169,10 +163,7 @@ function UsernameField({
               <div data-testid="premium-username-warning" className="flex items-center">
                 <StarIcon className="mr-1 inline-block h-4 w-4" />
                 <p>
-                  {t("premium_username", {
-                    price: getPremiumPlanPriceValue(),
-                    interpolation: { escapeValue: false },
-                  })}
+                  {t("premium_username", { price: "M-Pesa" })}
                 </p>
               </div>
             ) : null}
@@ -240,13 +231,6 @@ export default function Signup({
   const signUp: SubmitHandler<FormValues> = async (_data) => {
     const { cfToken, ...data } = _data;
 
-    posthog.capture("signup_form_submitted", {
-      has_token: !!token,
-      is_org_invite: isOrgInviteByLink,
-      org_slug: orgSlug,
-      is_premium_username: premiumUsername,
-      username_taken: usernameTaken,
-    });
 
     try {
       const result = await fetchSignup(
@@ -267,18 +251,6 @@ export default function Signup({
           }, 3000);
           return;
         }
-
-        if (hasCheckoutSession(result)) {
-          const stripe = await getStripe();
-          if (stripe) {
-            const { error } = await stripe.redirectToCheckout({
-              sessionId: result.error.checkoutSessionId,
-            });
-            if (error) console.warn(error.message);
-          }
-          return;
-        }
-
         throw new Error(result.error.message);
       }
 
@@ -323,13 +295,6 @@ export default function Signup({
         return;
       }
 
-      posthog.capture("signup_form_submit_error", {
-        has_token: !!token,
-        is_org_invite: isOrgInviteByLink,
-        org_slug: orgSlug,
-        is_premium_username: premiumUsername,
-        error_message: errorMessage,
-      });
       formMethods.setError("apiError", { message: errorMessage });
     }
   };
@@ -362,15 +327,6 @@ export default function Signup({
               />
             </>
           )}
-          <DubAnalytics
-            apiHost="/_proxy/dub"
-            cookieOptions={{
-              domain: isENVDev ? undefined : `.${new URL(WEBSITE_URL).hostname}`,
-            }}
-            domainsConfig={{
-              refer: "refer.cal.com",
-            }}
-          />
         </>
       ) : null}
       <div
@@ -522,7 +478,17 @@ export default function Signup({
                                 )
                           }
                         />
-                      ) : null}
+                      ) : null}{premiumUsername && (
+                        <TextField
+                          id="signup-phone-number"
+                          {...register("phoneNumber")}
+                          label={t("phone_number")}
+                          placeholder="+2547XXXXXXXX"
+                          type="tel"
+                          autoComplete="tel"
+                          required
+                        />
+                      )}
                       {/* Email */}
                       <TextField
                         id="signup-email"
@@ -584,13 +550,12 @@ export default function Signup({
                           !!formMethods.formState.errors.email ||
                           !formMethods.getValues("email") ||
                           !formMethods.getValues("password") ||
+                          (premiumUsername && !formMethods.getValues("phoneNumber")) ||
                           (CLOUDFLARE_SITE_ID && !process.env.NEXT_PUBLIC_IS_E2E && !watch("cfToken")) ||
                           isSubmitting ||
                           usernameTaken
                         }>
-                        {premiumUsername && !usernameTaken
-                          ? `${t("get_started")} (${getPremiumPlanPriceValue()})`
-                          : t("get_started")}
+                        {t("get_started")}
                       </Button>
                     </Form>
                   </div>
@@ -603,7 +568,7 @@ export default function Signup({
                         <Button
                           color="primary"
                           loading={isGoogleLoading}
-                          disabled={isMicrosoftLoading}
+                          disabled={isMicrosoftLoading || premiumUsername}
                           CustomStartIcon={
                             <>
                               {/* eslint-disable @next/next/no-img-element */}
@@ -620,12 +585,7 @@ export default function Signup({
                           className={classNames("w-full justify-center rounded-md text-center")}
                           data-testid="continue-with-google-button"
                           onClick={async () => {
-                            posthog.capture("signup_google_button_clicked", {
-                              has_token: !!token,
-                              is_org_invite: isOrgInviteByLink,
-                              org_slug: orgSlug,
-                              has_prepopulated_username: !!prepopulateFormValues?.username,
-                            });
+
                             setIsGoogleLoading(true);
                             const baseUrl = process.env.NEXT_PUBLIC_WEBAPP_URL;
                             const GOOGLE_AUTH_URL = `${baseUrl}/auth/sso/google`;
@@ -654,7 +614,7 @@ export default function Signup({
                         <Button
                           color="secondary"
                           loading={isMicrosoftLoading}
-                          disabled={isGoogleLoading}
+                          disabled={isGoogleLoading || premiumUsername}
                           CustomStartIcon={
                             <>
                               {/* eslint-disable @next/next/no-img-element */}
@@ -671,12 +631,7 @@ export default function Signup({
                           className={classNames("w-full justify-center rounded-md text-center")}
                           data-testid="continue-with-microsoft-button"
                           onClick={async () => {
-                            posthog.capture("signup_microsoft_button_clicked", {
-                              has_token: !!token,
-                              is_org_invite: isOrgInviteByLink,
-                              org_slug: orgSlug,
-                              has_prepopulated_username: !!prepopulateFormValues?.username,
-                            });
+
                             setIsMicrosoftLoading(true);
                             const baseUrl = process.env.NEXT_PUBLIC_WEBAPP_URL;
                             const MICROSOFT_AUTH_URL = `${baseUrl}/auth/sso/microsoft`;
@@ -719,11 +674,7 @@ export default function Signup({
                         disabled={isGoogleLoading || isMicrosoftLoading}
                         className={classNames("w-full justify-center rounded-md text-center")}
                         onClick={() => {
-                          posthog.capture("signup_email_button_clicked", {
-                            has_token: !!token,
-                            is_org_invite: isOrgInviteByLink,
-                            org_slug: orgSlug,
-                          });
+
                           setDisplayEmailForm(true);
                         }}
                         data-testid="continue-with-email-button">

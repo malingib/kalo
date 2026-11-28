@@ -9,7 +9,6 @@ import { teamsAndUserProfilesQuery } from "./procedures/teamsAndUserProfilesQuer
 import { ZRemoveNotificationsSubscriptionInputSchema } from "./removeNotificationsSubscription.schema";
 
 type AppsRouterHandlerCache = {
-  stripeCustomer?: typeof import("./stripeCustomer.handler").stripeCustomerHandler;
   eventTypeOrder?: typeof import("./eventTypeOrder.handler").eventTypeOrderHandler;
   teamsAndUserProfilesQuery?: typeof import("./teamsAndUserProfilesQuery.handler").teamsAndUserProfilesQuery;
   connectAndJoin?: typeof import("./connectAndJoin.handler").Handler;
@@ -20,9 +19,9 @@ type AppsRouterHandlerCache = {
 };
 
 export const loggedInViewerRouter = router({
-  stripeCustomer: authedProcedure.query(async ({ ctx }) => {
-    const { stripeCustomerHandler } = await import("./stripeCustomer.handler");
-    return stripeCustomerHandler({ ctx });
+  mpesaSubscription: authedProcedure.query(async ({ ctx }) => {
+    const { mpesaSubscriptionHandler } = await import("./mpesaSubscription.handler");
+    return mpesaSubscriptionHandler({ ctx });
   }),
 
   unlinkConnectedAccount: authedProcedure.mutation(async (opts) => {

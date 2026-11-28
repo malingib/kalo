@@ -13,7 +13,7 @@ import { AtomsWrapper } from "../../src/components/atoms-wrapper";
 import { cn } from "../../src/lib/utils";
 import { useAtomsEventTypePaymentInfo } from "../hooks/useAtomEventTypePaymentInfo";
 
-const StripePaymentForm = React.lazy(() => import("./StripePaymentForm"));
+const MPesaPaymentForm = React.lazy(() => import("./MPesaPaymentForm"));
 
 export const PaymentForm = ({
   paymentUid,
@@ -110,19 +110,16 @@ export const PaymentForm = ({
                       {paymentInfo.payment.success && !paymentInfo.payment.refunded && (
                         <div className="mt-4 text-center text-default dark:text-gray-300">{t("paid")}</div>
                       )}
-                      {paymentInfo.payment.appId === "stripe" && !paymentInfo.payment.success && (
-                        <StripePaymentForm
-                          clientSecret={paymentInfo.clientSecret}
-                          payment={paymentInfo.payment}
-                          eventType={paymentInfo.eventType}
-                          user={paymentInfo.user}
-                          location={paymentInfo.booking.location}
+                      {paymentInfo.payment.appId === "mpesa" && !paymentInfo.payment.success && (
+                        <MPesaPaymentForm
                           booking={paymentInfo.booking}
-                          uid={paymentUid}
+                          payment={paymentInfo.payment}
+                          paymentInfo={paymentInfo}
                           onPaymentSuccess={onPaymentSuccess}
                           onPaymentCancellation={onPaymentCancellation}
                         />
                       )}
+
                       {paymentInfo.payment.refunded && (
                         <div className="mt-4 text-center text-default dark:text-gray-300">
                           {t("refunded")}

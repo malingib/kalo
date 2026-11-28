@@ -1,8 +1,7 @@
 import { captureException } from "@sentry/nextjs";
 import type { NextApiRequest } from "next";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import type { ZodIssue } from "zod";
-import { ZodError } from "zod";
+import { z } from "zod";
 
 import { TRPCError } from "@trpc/server";
 import type { AnyRouter } from "@trpc/server";
@@ -49,15 +48,7 @@ describe("createNextApiHandler", () => {
 
   describe("error formatting", () => {
     it("should format ZodError as BAD_REQUEST", () => {
-      const zodError = new ZodError([
-        {
-          path: ["name"],
-          message: "Required",
-          code: "invalid_type",
-          expected: "string",
-          received: "undefined",
-        } as ZodIssue,
-      ]);
+      const zodError = z.object({ name: z.string() }).safeParse({}).error!;
 
       const error = new TRPCError({
         code: "INTERNAL_SERVER_ERROR",

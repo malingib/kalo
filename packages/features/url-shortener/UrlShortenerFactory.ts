@@ -2,7 +2,6 @@ import { FeaturesRepository } from "@kalo/features/flags/features.repository";
 import prisma from "@kalo/prisma";
 
 import type { IUrlShortenerProvider } from "./IUrlShortenerProvider";
-import { DubShortener } from "./providers/DubShortener";
 import { NoopShortener } from "./providers/NoopShortener";
 import { SinkClient } from "./providers/SinkClient";
 import { SinkShortener } from "./providers/SinkShortener";
@@ -35,9 +34,6 @@ export class UrlShortenerFactory {
       }
     }
 
-    if (DubShortener.isConfigured()) {
-      return new DubShortener();
-    }
     return new NoopShortener();
   }
 }

@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 
 import prisma from "@kalo/prisma";
 import { Prisma } from "@kalo/prisma/client";
+import { encryptMpesaSecret } from "@kalo/features/mpesa";
 
 import type { TRPCAuthedContext } from "../../../procedures/authedProcedure";
 import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorProfile.schema";
@@ -9,6 +10,7 @@ import type { TApproveVendorSchema, TUpsertVendorProfileSchema } from "./vendorP
 type Ctx = { ctx: TRPCAuthedContext };
 type UpsertOpts = { ctx: TRPCAuthedContext; input: TUpsertVendorProfileSchema };
 type ApproveOpts = { ctx: TRPCAuthedContext; input: TApproveVendorSchema };
+type UpdateMpesaCredentialsOpts = { ctx: TRPCAuthedContext; input: import("./vendorProfile.schema").TUpdateMpesaCredentialsSchema };
 
 const VENDOR_PROFILE_SELECT = {
   id: true,
@@ -67,10 +69,6 @@ export const upsertVendorProfileHandler = async ({ ctx, input }: UpsertOpts) => 
     ...(input.mpesaPaybill !== undefined && { mpesaPaybill: input.mpesaPaybill }),
     ...(input.mpesaAccountName !== undefined && { mpesaAccountName: input.mpesaAccountName }),
     ...(input.mpesaPayoutPhone !== undefined && { mpesaPayoutPhone: input.mpesaPayoutPhone }),
-    ...(input.darajaConsumerKey !== undefined && { darajaConsumerKey: input.darajaConsumerKey }),
-    ...(input.darajaConsumerSecret !== undefined && { darajaConsumerSecret: input.darajaConsumerSecret }),
-    ...(input.darajaShortcode !== undefined && { darajaShortcode: input.darajaShortcode }),
-    ...(input.darajaPasskey !== undefined && { darajaPasskey: input.darajaPasskey }),
     ...(input.whatsappEnabled !== undefined && { whatsappEnabled: input.whatsappEnabled }),
     ...(input.whatsappGreeting !== undefined && { whatsappGreeting: input.whatsappGreeting }),
     ...(input.whatsappFaqJson !== undefined && {
@@ -83,11 +81,27 @@ export const upsertVendorProfileHandler = async ({ ctx, input }: UpsertOpts) => 
     }),
   };
 
-  return prisma.vendorProfile.upsert({
-    where: { userId: ctx.user.id },
-    create: { userId: ctx.user.id, ...data },
-    update: data,
-    select: VENDOR_PROFILE_SELECT,
+  return prisma.$transaction(async (tx) => {
+    const profile = await tx.vendorProfile.upsert({
+      where: { userId: ctx.user.id },
+      create: { userId: ctx.user.id, ...data },
+      update: data,
+      select: VENDOR_PROFILE_SELECT,
+    });
+
+    // Keep the legacy User-level M-Pesa fields used by the WhatsApp bot and
+    // STK routing in sync with the vendor's settlement settings.
+    if (input.mpesaTillNumber !== undefined || input.mpesaPaybill !== undefined) {
+      await tx.user.update({
+        where: { id: ctx.user.id },
+        data: {
+          ...(input.mpesaTillNumber !== undefined && { mpesaTillNumber: input.mpesaTillNumber }),
+          ...(input.mpesaPaybill !== undefined && { mpesaPaybill: input.mpesaPaybill }),
+        },
+      });
+    }
+
+    return profile;
   });
 };
 
@@ -134,4 +148,54 @@ export const listVendorsHandler = async ({ ctx }: Ctx) => {
     orderBy: { createdAt: "desc" },
     take: 100,
   });
+};
+
+
+/** Return configuration state only; never expose a stored shortcode secret or passkey. */
+export const getMpesaCredentialsStatusHandler = async ({ ctx }: Ctx) => {
+  const user = await prisma.user.findUnique({
+    where: { id: ctx.user.id },
+    select: {
+      mpesaShortcode: true,
+      mpesaShortcodeType: true,
+      mpesaTillNumber: true,
+      mpesaPasskey: true,
+    },
+  });
+  return {
+    shortcode: user?.mpesaShortcode ?? "",
+    shortcodeType: user?.mpesaShortcodeType === "BUY_GOODS" ? ("BUY_GOODS" as const) : ("PAYBILL" as const),
+    tillNumber: user?.mpesaTillNumber ?? "",
+    hasShortcode: Boolean(user?.mpesaShortcode),
+    hasPasskey: Boolean(user?.mpesaPasskey),
+  };
+};
+
+/** Store a vendor's Daraja passkey encrypted at rest. */
+export const updateMpesaCredentialsHandler = async ({ ctx, input }: UpdateMpesaCredentialsOpts) => {
+  const current = await prisma.user.findUnique({
+    where: { id: ctx.user.id },
+    select: { mpesaPasskey: true, mpesaTillNumber: true },
+  });
+  if (!input.passkey && !current?.mpesaPasskey) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Enter your Daraja passkey to complete M-Pesa setup",
+    });
+  }
+  if (input.shortcodeType === "BUY_GOODS" && !input.tillNumber && !current?.mpesaTillNumber) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Enter the Buy Goods Till number used as the STK receiver",
+    });
+  }
+
+  const data = {
+    mpesaShortcode: input.shortcode,
+    mpesaShortcodeType: input.shortcodeType,
+    ...(input.tillNumber ? { mpesaTillNumber: input.tillNumber } : {}),
+    ...(input.passkey ? { mpesaPasskey: encryptMpesaSecret(input.passkey) } : {}),
+  };
+  await prisma.user.update({ where: { id: ctx.user.id }, data });
+  return { saved: true, hasShortcode: true, hasPasskey: true };
 };

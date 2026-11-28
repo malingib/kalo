@@ -10,6 +10,7 @@ describe("WhatsAppWebhookService", () => {
   const mockPrisma = {
     user: {
       findUnique: vi.fn(),
+      update: vi.fn().mockResolvedValue({ id: 42 }),
     },
     mPesaTransaction: {
       create: vi.fn(),
@@ -33,6 +34,8 @@ describe("WhatsAppWebhookService", () => {
     vi.stubEnv("DARAJA_CONSUMER_KEY", "ck");
     vi.stubEnv("DARAJA_CONSUMER_SECRET", "cs");
     vi.stubEnv("DARAJA_CALLBACK_URL", "https://example.com/api/mpesa/callback");
+    vi.stubEnv("DARAJA_CALLBACK_SECRET", "s3cret");
+    vi.stubEnv("MPESA_CREDENTIALS_ENCRYPTION_KEY", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=");
     vi.stubEnv("DARAJA_ENVIRONMENT", "sandbox");
 
     // Defaults for the booking/transaction mocks; individual tests that walk a

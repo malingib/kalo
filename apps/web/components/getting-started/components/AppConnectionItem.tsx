@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 
 import { InstallAppButtonWithoutPlanCheck } from "@kalo/app-store/InstallAppButtonWithoutPlanCheck";
 import type { TDependencyData } from "@kalo/app-store/_appRegistry";

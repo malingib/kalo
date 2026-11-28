@@ -25,11 +25,7 @@ export const ZUpsertVendorProfileSchema = z.object({
   mpesaPaybill: z.string().max(10).optional().nullable(),
   mpesaAccountName: z.string().max(50).optional().nullable(),
   mpesaPayoutPhone: z.string().max(15).optional().nullable(),
-  // Own Daraja keys (only for Pro plan vendors)
-  darajaConsumerKey: z.string().optional().nullable(),
-  darajaConsumerSecret: z.string().optional().nullable(),
-  darajaShortcode: z.string().optional().nullable(),
-  darajaPasskey: z.string().optional().nullable(),
+  // Daraja credentials are platform-managed until encrypted tenant credential storage is available.
 
   // WhatsApp Automation
   whatsappEnabled: z.boolean().optional(),
@@ -67,3 +63,13 @@ export const ZApproveVendorSchema = z.object({
 
 export type TUpsertVendorProfileSchema = z.infer<typeof ZUpsertVendorProfileSchema>;
 export type TApproveVendorSchema = z.infer<typeof ZApproveVendorSchema>;
+
+
+export const ZUpdateMpesaCredentialsSchema = z.object({
+  shortcode: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid M-Pesa business shortcode"),
+  shortcodeType: z.enum(["PAYBILL", "BUY_GOODS"]).default("PAYBILL"),
+  tillNumber: z.string().trim().regex(/^\d{5,10}$/, "Enter a valid Buy Goods Till number").optional(),
+  passkey: z.string().trim().min(1).max(256).optional(),
+});
+
+export type TUpdateMpesaCredentialsSchema = z.infer<typeof ZUpdateMpesaCredentialsSchema>;

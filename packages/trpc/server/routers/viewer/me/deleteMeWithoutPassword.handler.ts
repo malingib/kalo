@@ -1,4 +1,3 @@
-import { deleteStripeCustomer } from "@kalo/app-store/stripepayment/lib/customer";
 import { ErrorCode } from "@kalo/features/auth/lib/ErrorCode";
 import { prisma } from "@kalo/prisma";
 import { IdentityProvider } from "@kalo/prisma/enums";
@@ -27,9 +26,6 @@ export const deleteMeWithoutPasswordHandler = async ({ ctx }: DeleteMeWithoutPas
   if (user.twoFactorEnabled) {
     throw new Error(ErrorCode.SocialIdentityProviderRequired);
   }
-
-  // Remove me from Stripe
-  await deleteStripeCustomer(user).catch(console.warn);
 
   // Remove my account
   await prisma.user.delete({

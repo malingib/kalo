@@ -1,5 +1,5 @@
-import { createPaymentLink } from "@kalo/app-store/stripepayment/lib/client";
 import { sendAwaitingPaymentEmailAndSMS } from "@kalo/emails/email-manager";
+import { WEBSITE_URL } from "@kalo/lib/constants";
 import { getBooking } from "@kalo/features/bookings/lib/payment/getBooking";
 import { AttendeeRepository } from "@kalo/features/bookings/repositories/AttendeeRepository";
 import { PrismaBookingPaymentRepository } from "@kalo/features/bookings/repositories/PrismaBookingPaymentRepository";
@@ -78,12 +78,11 @@ export async function sendAwaitingPaymentEmail(payload: string): Promise<void> {
         ...evt,
         attendees: attendeesToEmail,
         paymentInfo: {
-          link: createPaymentLink({
-            paymentUid: payment.uid,
-            name: primaryAttendee.name ?? null,
-            email: primaryAttendee.email ?? null,
+          link: `${WEBSITE_URL}/payment/${encodeURIComponent(payment.uid)}?${new URLSearchParams({
+            name: primaryAttendee.name ?? "",
+            email: primaryAttendee.email ?? "",
             date: booking.startTime.toISOString(),
-          }),
+          }).toString()}`,
           paymentOption: payment.paymentOption || "ON_BOOKING",
           amount: payment.amount,
           currency: payment.currency,

@@ -46,6 +46,13 @@ import type { z } from "zod";
 import type { getMockRequestDataForBooking } from "./getMockRequestDataForBooking";
 import { getMockPaymentService } from "./MockPaymentService";
 
+const mockPaymentServiceFactory = vi.hoisted(() => vi.fn());
+vi.mock("@kalo/app-store/payment.services.generated", () => ({
+  PaymentServiceMap: {
+    mpesa: Promise.resolve({ BuildPaymentService: mockPaymentServiceFactory }),
+  },
+}));
+
 type NonNullableVideoApiAdapter = NonNullable<VideoApiAdapter>;
 
 // Shared map of mock calendar service constructors accessible to both the vi.mock factory and mockCalendar.
@@ -185,7 +192,16 @@ type InputSelectedCalendar = (typeof TestData.selectedCalendars)[keyof typeof Te
   eventTypeId?: number | null;
 };
 
-type InputUser = Omit<typeof TestData.users.example, "defaultScheduleId"> & {
+type InputUser = Omit<
+  typeof TestData.users.example,
+  "defaultScheduleId" | "mpesaShortcode" | "mpesaShortcodeType" | "mpesaPasskey" | "mpesaTillNumber"
+> & {
+  // M-Pesa credentials are optional in booking fixtures; most tests exercise
+  // calendar and scheduling behavior and should not need payment-host secrets.
+  mpesaShortcode?: typeof TestData.users.example.mpesaShortcode;
+  mpesaShortcodeType?: typeof TestData.users.example.mpesaShortcodeType;
+  mpesaPasskey?: typeof TestData.users.example.mpesaPasskey;
+  mpesaTillNumber?: typeof TestData.users.example.mpesaTillNumber;
   id: number;
   defaultScheduleId?: number | null;
   credentials?: InputCredential[];
@@ -1151,15 +1167,6 @@ export function getZoomAppCredential() {
   });
 }
 
-export function getStripeAppCredential() {
-  return getMockedCredential({
-    metadataLookupKey: "stripepayment",
-    key: {
-      scope: "read_write",
-    },
-  });
-}
-
 export const TestData = {
   selectedCalendars: {
     google: {
@@ -1357,6 +1364,10 @@ export const TestData = {
       username: "example.username",
       defaultScheduleId: 1,
       timeZone: Timezones["+5:30"],
+      mpesaShortcode: "174379",
+      mpesaShortcodeType: "PAYBILL",
+      mpesaPasskey: "test-passkey",
+      mpesaTillNumber: null,
     },
   },
   apps: {
@@ -1397,19 +1408,12 @@ export const TestData = {
         redirect_uris: ["http://localhost:3000/auth/callback"],
       },
     },
+    mpesa: {
+      ...appStoreMetadata.mpesa,
+      keys: {},
+    },
     zoomvideo: {
       ...appStoreMetadata.zoomvideo,
-      keys: {
-        expiry_date: Infinity,
-        api_key: "",
-        scale_plan: "false",
-        client_id: "client_id",
-        client_secret: "client_secret",
-        redirect_uris: ["http://localhost:3000/auth/callback"],
-      },
-    },
-    "stripe-payment": {
-      ...appStoreMetadata.stripepayment,
       keys: {
         expiry_date: Infinity,
         api_key: "",
@@ -2031,7 +2035,8 @@ export function mockPaymentApp({
   appStoreLookupKey?: string;
 }) {
   const _appStoreLookupKey = appStoreLookupKey || metadataLookupKey;
-  const { paymentUid, externalId } = getMockPaymentService();
+  const { paymentUid, externalId, MockPaymentService } = getMockPaymentService();
+  mockPaymentServiceFactory.mockImplementation(() => new MockPaymentService());
 
   return {
     paymentUid,

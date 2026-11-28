@@ -84,8 +84,11 @@ describe("BookingPageTagManager", () => {
         eventType={{
           metadata: {
             apps: {
-              zoomvideo: {
+              mpesa: {
                 enabled: true,
+                price: 100,
+                currency: "KES",
+                paymentOption: "ON_BOOKING",
               },
             },
           },
@@ -94,7 +97,7 @@ describe("BookingPageTagManager", () => {
         }}
       />
     );
-    const scripts = screen.queryAllByTestId("cal-analytics-app-zoomvideo");
+    const scripts = screen.queryAllByTestId("cal-analytics-app-mpesa");
     expect(scripts.length).toBe(0);
   });
 

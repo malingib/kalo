@@ -1,5 +1,4 @@
 import process from "node:process";
-import { getPremiumMonthlyPlanPriceId } from "@kalo/app-store/stripepayment/lib/utils";
 import { getLocaleFromRequest } from "@kalo/features/auth/lib/getLocaleFromRequest";
 import { sendEmailVerification } from "@kalo/features/auth/lib/verifyEmail";
 import { SIGNUP_ERROR_CODES } from "@kalo/features/auth/signup/constants";
@@ -17,15 +16,14 @@ import { getUserRepository } from "@kalo/features/di/containers/UserRepository";
 import { GlobalWatchlistRepository } from "@kalo/features/watchlist/lib/repository/GlobalWatchlistRepository";
 import { sentrySpan } from "@kalo/features/watchlist/lib/telemetry";
 import { normalizeEmail } from "@kalo/features/watchlist/lib/utils/normalization";
+import { startPremiumUsernameSubscription } from "@kalo/features/mpesa";
 import { checkIfEmailIsBlockedInWatchlistController } from "@kalo/features/watchlist/operations/check-if-email-in-watchlist.controller";
 import { hashPassword } from "@kalo/lib/auth/hashPassword";
-import { WEBAPP_URL } from "@kalo/lib/constants";
 import { HttpError } from "@kalo/lib/http-error";
 import logger from "@kalo/lib/logger";
 import { isPrismaError } from "@kalo/lib/server/getServerErrorFromUnknown";
 import type { CustomNextApiHandler } from "@kalo/lib/server/username";
 import { usernameHandler } from "@kalo/lib/server/username";
-import { getTrackingFromCookies } from "@kalo/lib/tracking";
 import { prisma } from "@kalo/prisma";
 import {
   CreationSource,
@@ -40,17 +38,6 @@ import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 const log = logger.getSubLogger({ prefix: ["signupKaloHandler"] });
-
-const billingService = {
-  async createCustomer(_args: Record<string, unknown>): Promise<{ stripeCustomerId: string }> {
-    return { stripeCustomerId: "" };
-  },
-  async createSubscriptionCheckout(
-    _args: Record<string, unknown>
-  ): Promise<{ sessionId: string }> {
-    return { sessionId: "" };
-  },
-};
 
 const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
   const {
@@ -76,7 +63,6 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
   log.debug("handler", { email: _email });
 
   let username: string | null = usernameStatus.requestedUserName;
-  let checkoutSessionId: string | null = null;
 
   // Check for premium username
   if (usernameStatus.statusCode === 418) {
@@ -92,6 +78,15 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
   }
 
   const email = _email.toLowerCase();
+  const premiumUsername = usernameStatus.statusCode === 402 ? username : null;
+  const phoneNumber = typeof body.phoneNumber === "string" ? body.phoneNumber : "";
+  if (premiumUsername && token) {
+    return NextResponse.json({ message: "Premium usernames must be purchased outside an organization invite." }, { status: 400 });
+  }
+  if (premiumUsername && !phoneNumber.trim()) {
+    return NextResponse.json({ message: "A Kenyan phone number is required for M-Pesa payment." }, { status: 400 });
+  }
+  let createdUserId: number | null = null;
 
   let foundToken: { id: number; teamId: number | null; expires: Date } | null = null;
   if (token) {
@@ -134,45 +129,7 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
     username = usernameAndEmailValidation.username;
   }
 
-  // Create the customer in Stripe with ad tracking metadata
-  const cookieStore = await cookies();
-  const cookiesObj = Object.fromEntries(cookieStore.getAll().map((c) => [c.name, c.value]));
-  const tracking = getTrackingFromCookies(cookiesObj, query);
-
-  const customer = await billingService.createCustomer({
-    email,
-    metadata: {
-      email /* Stripe customer email can be changed, so we add this to keep track of which email was used to signup */,
-      username,
-      ...(tracking.googleAds?.gclid && {
-        gclid: tracking.googleAds.gclid,
-        campaignId: tracking.googleAds.campaignId,
-      }),
-      ...(tracking.linkedInAds?.liFatId && {
-        liFatId: tracking.linkedInAds.liFatId,
-        linkedInCampaignId: tracking.linkedInAds.campaignId,
-      }),
-    },
-  });
-
-  const returnUrl = `${WEBAPP_URL}/api/integrations/stripepayment/paymentCallback?checkoutSessionId={CHECKOUT_SESSION_ID}&callbackUrl=/auth/verify?sessionId={CHECKOUT_SESSION_ID}`;
-
-  // Pro username, must be purchased
-  if (usernameStatus.statusCode === 402) {
-    const checkoutSession = await billingService.createSubscriptionCheckout({
-      mode: "subscription",
-      customerId: customer.stripeCustomerId,
-      successUrl: returnUrl,
-      cancelUrl: returnUrl,
-      priceId: getPremiumMonthlyPlanPriceId(),
-      quantity: 1,
-      allowPromotionCodes: true,
-    });
-
-    /** We create a username-less user until he pays */
-    checkoutSessionId = checkoutSession.sessionId;
-    username = null;
-  }
+  if (premiumUsername) username = null;
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
@@ -250,7 +207,7 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
   } else {
     // Create the user
     try {
-      await userRepository.create({
+      const createdUser = await userRepository.create({
         username,
         email,
         hashedPassword,
@@ -258,11 +215,8 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
         creationSource: CreationSource.WEBAPP,
         locked: shouldLockByDefault,
         identityProvider: IdentityProvider.CAL,
-        metadata: {
-          stripeCustomerId: customer.stripeCustomerId,
-          checkoutSessionId,
-        }
-      })
+      });
+      createdUserId = createdUser.id;
     } catch (error) {
       // Fallback for race conditions where user was created between our check and create
       if (isPrismaError(error) && error.code === "P2002") {
@@ -300,12 +254,31 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
     await userRepository.lockByEmail({ email });
 
     return NextResponse.json(
-      { message: "Created user", stripeCustomerId: customer.stripeCustomerId, accountUnderReview: true },
+      { message: "Created user", accountUnderReview: true },
       { status: 201 }
     );
   }
 
-  if (!checkoutSessionId && !token) {
+  if (premiumUsername && createdUserId) {
+    try {
+      await startPremiumUsernameSubscription({
+        userId: createdUserId,
+        username: premiumUsername,
+        phoneNumber,
+      });
+    } catch (error) {
+      log.error("Could not start premium username M-Pesa payment", {
+        userId: createdUserId,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+      return NextResponse.json(
+        { message: "Your account was created, but the M-Pesa prompt could not be started. Please contact support before trying again." },
+        { status: 502 }
+      );
+    }
+  }
+
+  if (!token) {
     sendEmailVerification({
       email,
       language: await getLocaleFromRequest(buildLegacyRequest(await headers(), await cookies())),
@@ -313,16 +286,8 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
     });
   }
 
-  if (checkoutSessionId) {
-    console.log("Created user but missing payment", checkoutSessionId);
-    return NextResponse.json(
-      { message: "Created user but missing payment", checkoutSessionId },
-      { status: 402 }
-    );
-  }
-
   return NextResponse.json(
-    { message: "Created user", stripeCustomerId: customer.stripeCustomerId },
+    { message: premiumUsername ? "Created user; M-Pesa payment prompt initiated" : "Created user" },
     { status: 201 }
   );
 };

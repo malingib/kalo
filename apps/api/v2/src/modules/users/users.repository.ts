@@ -363,7 +363,7 @@ export class UsersRepository {
           some: {
             organization: {
               platformBilling: {
-                subscriptionId,
+                mpesaSubscriptionId: subscriptionId,
               },
             },
           },
@@ -384,7 +384,7 @@ export class UsersRepository {
           some: {
             organization: {
               platformBilling: {
-                subscriptionId,
+                mpesaSubscriptionId: subscriptionId,
               },
             },
           },

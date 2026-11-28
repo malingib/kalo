@@ -10,7 +10,7 @@ vi.mock("@kalo/app-store/zod-utils", () => ({
 
 vi.mock("@kalo/app-store/payment.services.generated", () => ({
   PaymentServiceMap: {
-    stripepayment: Promise.resolve({
+    mpesa: Promise.resolve({
       BuildPaymentService: () => ({
         create: async (paymentData: { amount: number; currency: string }) => ({
           ...paymentData,
@@ -48,10 +48,10 @@ describe("handlePayment", () => {
     title: "Test Event",
     metadata: {
       apps: {
-        stripe: {
+        mpesa: {
           enabled: true,
           price: 1000,
-          currency: "USD",
+          currency: "KES",
           paymentOption: "ON_BOOKING",
         },
       },
@@ -60,9 +60,9 @@ describe("handlePayment", () => {
 
   const mockPaymentCredentials = {
     key: {},
-    appId: "stripe" as const,
+    appId: "mpesa" as const,
     app: {
-      dirName: "stripepayment",
+      dirName: "mpesa",
       categories: ["payment"],
     },
   };
@@ -101,6 +101,28 @@ describe("handlePayment", () => {
     expect(result).toBeNull();
   });
 
+  it("rejects fractional-KES totals from priced booking fields", async () => {
+    const eventWithAddon = {
+      ...mockEvent,
+      responses: { extraService: { value: true } },
+    };
+    const bookingFields = [
+      { name: "extraService", type: "boolean" as const, price: 0.5, required: false },
+    ];
+
+    await expect(
+      handlePayment({
+        evt: eventWithAddon,
+        selectedEventType: mockEventType,
+        paymentAppCredentials: mockPaymentCredentials,
+        booking: mockBooking,
+        bookerName: "John Doe",
+        bookerEmail: "john@example.com",
+        bookingFields,
+      })
+    ).rejects.toThrow("M-Pesa booking totals must be whole KES amounts");
+  });
+
   it("should calculate total amount with no addons", async () => {
     const result = await handlePayment({
       evt: mockEvent,
@@ -113,7 +135,7 @@ describe("handlePayment", () => {
     });
 
     expect(result?.amount).toBe(1000);
-    expect(result?.currency).toBe("USD");
+    expect(result?.currency).toBe("KES");
   });
 
   it("should calculate total amount with number field addon", async () => {
@@ -143,7 +165,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(2000); // Base 1000 cents + (2 * $5 * 100 cents)
+    expect(result?.amount).toBe(2000); // Base 1000 cents + (2 * KES 5 * 100 cents)
   });
 
   it("should calculate total amount with boolean field addon", async () => {
@@ -173,7 +195,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(2500); // Base 1000 cents + ($15 * 100 cents)
+    expect(result?.amount).toBe(2500); // Base 1000 cents + (KES 15 * 100 cents)
   });
 
   it("should calculate total amount with select field addon", async () => {
@@ -206,7 +228,7 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(3000); // Base 1000 cents + ($20 * 100 cents)
+    expect(result?.amount).toBe(3000); // Base 1000 cents + (KES 20 * 100 cents)
   });
 
   it("should calculate total amount with multiple addons", async () => {
@@ -253,14 +275,14 @@ describe("handlePayment", () => {
       bookingFields,
     });
 
-    expect(result?.amount).toBe(5500); // Base 1000 cents + (2 * $5 * 100 cents) + ($15 * 100 cents) + ($20 * 100 cents)
+    expect(result?.amount).toBe(5500); // Base 1000 cents + (2 * KES 5 * 100 cents) + (KES 15 * 100 cents) + (KES 20 * 100 cents)
   });
 
   it("should calculate total amount with radio field addon using locale", async () => {
     const mockEventWithResponse = {
       ...mockEvent,
       responses: {
-        mealChoice: { value: "premium ($20.00)" }, // Formatted with price
+        mealChoice: { value: "premium (KES 20.00)" }, // Formatted with price
       },
     };
 
@@ -287,6 +309,6 @@ describe("handlePayment", () => {
       locale: "en",
     });
 
-    expect(result?.amount).toBe(3000); // Base 1000 cents + ($20 * 100 cents)
+    expect(result?.amount).toBe(3000); // Base 1000 cents + (KES 20 * 100 cents)
   });
 });

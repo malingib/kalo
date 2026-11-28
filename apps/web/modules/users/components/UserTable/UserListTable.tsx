@@ -32,7 +32,7 @@ import {
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { parseAsBoolean, useQueryState } from "nuqs";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import { useMemo, useReducer, useState } from "react";
 import { createPortal } from "react-dom";
 import {

@@ -74,7 +74,7 @@ const handlePayment = async ({
   const paymentOption = (appData?.paymentOption || "ON_BOOKING") as PaymentOption;
   const paymentCurrency = appData?.currency;
   // Ensure we have a valid currency - fallback to USD if undefined
-  const currency = paymentCurrency || "USD";
+  const currency = paymentCurrency || (paymentAppCredentials.appId === "mpesa" ? "KES" : "USD");
 
   let totalAmount = appData?.price || 0;
 
@@ -159,6 +159,10 @@ const handlePayment = async ({
     });
 
     totalAmount += convertToSmallestCurrencyUnit(addonsPrice, currency);
+  }
+
+  if (paymentAppCredentials.appId === "mpesa" && totalAmount % 100 !== 0) {
+    throw new Error("M-Pesa booking totals must be whole KES amounts, including priced booking fields");
   }
 
   const paymentPriceAndCurrency = {
