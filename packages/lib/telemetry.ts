@@ -91,3 +91,9 @@ export const extendEventData = (
     utc_time: new Date().toISOString(),
   };
 };
+
+
+/** No-op compatibility adapter after removal of the PostHog integration. */
+export const posthog = {
+  capture: (_event: string, _properties?: Record<string, unknown>) => undefined,
+};
