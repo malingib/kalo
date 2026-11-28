@@ -2,6 +2,7 @@ import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { z } from "zod";
 
 import { createDefaultInstallation } from "@kalo/app-store/_utils/installation";
+import { isKaloMarketplaceApp } from "@kalo/app-store/_appRegistry";
 import { filterEventTypesWhereLocationUpdateIsAllowed } from "@kalo/app-store/_utils/getBulkEventTypes";
 import { appStoreMetadata } from "@kalo/app-store/appStoreMetaData";
 import type { LocationObject } from "@kalo/app-store/locations";
@@ -535,6 +536,10 @@ export const getServerSideProps = async (
     user.id,
     userTeams.map(({ id }: MinimalTeam) => id)
   );
+  // Existing integrations remain configurable, but removed integrations cannot be installed again.
+  if (!isKaloMarketplaceApp(parsedAppSlug) && appInstalls.length === 0) {
+    return { redirect: { permanent: false, destination: "/apps" } };
+  }
   const { credentialId, redirect: credRedirect } = await getCredential(
     parsedTeamIdParam,
     appInstalls,
