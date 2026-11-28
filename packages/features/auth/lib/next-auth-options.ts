@@ -172,7 +172,7 @@ export async function authorizeCredentials(
     identifier: hashEmail(user.email),
   });
 
-  // Users without a password must use their identity provider (Google/SAML) to login
+  // Users without a password must use their identity provider (Google or Microsoft) to login
   if (!user.password?.hash) {
     throw new Error(ErrorCode.IncorrectEmailPassword);
   }
@@ -298,18 +298,6 @@ export const CalComCredentialsProvider = CredentialsProvider({
 });
 
 const providers: Provider[] = [CalComCredentialsProvider];
-type SamlIdpUser = {
-  id: number;
-  userId: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  name: string;
-  email_verified: boolean;
-  profile: UserProfile;
-  samlTenant?: string;
-};
-
 if (IS_GOOGLE_LOGIN_ENABLED) {
   providers.push(
     GoogleProvider({
@@ -522,17 +510,6 @@ export const getOptions = (): AuthOptions => ({
       }
       if (account.type === "credentials") {
         log.debug("callbacks:jwt:accountType:credentials", safeStringify({ account }));
-        // return token if credentials,saml-idp
-        if (account.provider === "saml-idp") {
-          const samlIdpUser = user as SamlIdpUser;
-          const updatedToken = {
-            ...token,
-            // Server Session explicitly requires sub to be userId. So, override what is set by BoxyHQ
-            sub: samlIdpUser.userId.toString(),
-            upId: samlIdpUser.profile?.upId ?? token.upId ?? null,
-          } as JWT;
-          return updatedToken;
-        }
         // any other credentials, add user info
         return {
           ...token,
@@ -794,19 +771,16 @@ export const getOptions = (): AuthOptions => ({
       }
       // In this case we've already verified the credentials in the authorize
       // callback so we can sign the user in.
-      // Only if provider is not saml-idp
-      if (account?.provider !== "saml-idp") {
-        if (account?.type === "credentials") {
-          return true;
-        }
+      if (account?.type === "credentials") {
+        return true;
+      }
 
-        if (account?.type !== "oauth") {
-          log.warn("callbacks:signIn - unsupported account type for non-saml-idp provider", {
-            accountType: account?.type,
-            provider: account?.provider,
-          });
-          return false;
-        }
+      if (account?.type !== "oauth") {
+        log.warn("callbacks:signIn - unsupported account type for provider", {
+          accountType: account?.type,
+          provider: account?.provider,
+        });
+        return false;
       }
       if (!user.email) {
         log.warn("callbacks:signIn - user email is missing", { provider: account?.provider });
@@ -1019,9 +993,7 @@ export const getOptions = (): AuthOptions => ({
           // User signs up with email/password and then tries to login with Google/SAML/AzureAD using the same email
           if (
             existingUserWithEmail.identityProvider === IdentityProvider.CAL &&
-            (idP === IdentityProvider.GOOGLE ||
-              idP === IdentityProvider.SAML ||
-              idP === IdentityProvider.AZUREAD)
+            (idP === IdentityProvider.GOOGLE || idP === IdentityProvider.AZUREAD)
           ) {
             // Prevent account pre-hijacking: block OAuth linking for unverified accounts
             if (!existingUserWithEmail.emailVerified) {
