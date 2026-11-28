@@ -14,7 +14,7 @@ import { Form, Input, Label, Select, Switch } from "@kalo/ui/components/form";
 import { RadioField, RadioGroup } from "@kalo/ui/components/radio";
 import { showToast } from "@kalo/ui/components/toast";
 import { useSession } from "next-auth/react";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDataTable } from "~/data-table/hooks";
