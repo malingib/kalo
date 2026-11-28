@@ -113,7 +113,8 @@ export async function getAppRegistryWithCredentials(userId: number, userAdminTea
     const nonDelegationCredentialsForApp = dbapp.credentials;
     const allCredentials = [...delegationCredentialsForApp, ...nonDelegationCredentialsForApp];
     const app = await getAppWithMetadata(dbapp);
-    if (!app || !isKaloMarketplaceApp(dbapp.slug)) continue;
+    // Keep previously installed integrations manageable without exposing them for new installs.
+    if (!app || (!isKaloMarketplaceApp(dbapp.slug) && allCredentials.length === 0)) continue;
     // Skip if app isn't installed
     /* This is now handled from the DB */
     // if (!app.installed) return apps;
