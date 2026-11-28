@@ -86,7 +86,6 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
   if (premiumUsername && !phoneNumber.trim()) {
     return NextResponse.json({ message: "A Kenyan phone number is required for M-Pesa payment." }, { status: 400 });
   }
-  if (premiumUsername) username = null;
   let createdUserId: number | null = null;
 
   let foundToken: { id: number; teamId: number | null; expires: Date } | null = null;
@@ -129,6 +128,8 @@ const handler: CustomNextApiHandler = async (body, usernameStatus, query) => {
 
     username = usernameAndEmailValidation.username;
   }
+
+  if (premiumUsername) username = null;
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
