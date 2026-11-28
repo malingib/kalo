@@ -8,7 +8,7 @@ import type { IconName } from "@kalo/ui/components/icon";
 import { RadioAreaGroup } from "@kalo/ui/components/radio";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import { useEffect, useRef, useTransition } from "react";
 import { OnboardingCard } from "../components/OnboardingCard";
 import { OnboardingLayout } from "../components/OnboardingLayout";
