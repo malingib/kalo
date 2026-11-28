@@ -827,7 +827,7 @@ export const getOptions = (): AuthOptions => ({
         }
 
         if (!isEmailVerified && idP !== IdentityProvider.AZUREAD) {
-          log.error("Attention: SAML/Google User email is not verified in the IdP", safeStringify({ user }));
+          log.error("Attention: OAuth user email is not verified by the identity provider", safeStringify({ user }));
           return "/auth/error?error=unverified-email";
         }
 
@@ -990,7 +990,7 @@ export const getOptions = (): AuthOptions => ({
             }
           }
 
-          // User signs up with email/password and then tries to login with Google/SAML/AzureAD using the same email
+          // User signs up with email/password and then tries to login with Google/Microsoft using the same email
           if (
             existingUserWithEmail.identityProvider === IdentityProvider.CAL &&
             (idP === IdentityProvider.GOOGLE || idP === IdentityProvider.AZUREAD)
