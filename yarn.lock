@@ -5289,8 +5289,6 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:2.3.10"
     "@faker-js/faker": "npm:10.6.0"
-    "@formbricks/api": "npm:3.0.0"
-    "@formbricks/js": "npm:4.3.0"
     "@kalo/config": "workspace:*"
     "@kalo/dayjs": "workspace:*"
     "@kalo/i18n": "workspace:*"
@@ -5669,7 +5667,6 @@ __metadata:
   resolution: "@kalo/trpc@workspace:packages/trpc"
   dependencies:
     "@biomejs/biome": "npm:2.3.10"
-    "@formbricks/api": "npm:3.0.0"
     "@kalo/i18n": "workspace:*"
     "@tanstack/react-query": "npm:5.17.19"
     "@trpc/client": "npm:11.0.0-next-beta.222"
@@ -5815,6 +5812,8 @@ __metadata:
     "@babel/core": "npm:7.26.10"
     "@biomejs/biome": "npm:2.3.10"
     "@coss/ui": "workspace:*"
+    "@daily-co/daily-js": "npm:0.83.1"
+    "@daily-co/daily-react": "npm:0.23.2"
     "@formkit/auto-animate": "npm:1.0.0-beta.5"
     "@glidejs/glide": "npm:3.5.2"
     "@googleapis/calendar": "npm:9.7.9"
