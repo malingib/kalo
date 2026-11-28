@@ -11,7 +11,7 @@ type OptionalKeys<T> = {
 }[keyof T];
 
 type ArrayKeys<T> = {
-  [K in keyof T]-?: T[K] extends unknown[] ? K : never;
+  [K in keyof T]-?: NonNullable<T[K]> extends unknown[] ? K : never;
 }[keyof T];
 
 const toSearchParams = (query: Record<string, unknown>) => {
