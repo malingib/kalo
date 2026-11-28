@@ -10,7 +10,6 @@
     "lint:report": "biome lint --reporter json . > ../../lint-results/lib.json"
   },
   "dependencies": {
-    "@formbricks/api": "3.0.0",
     "@formbricks/js": "4.3.0",
     "@kalo/config": "workspace:*",
     "@kalo/dayjs": "workspace:*",
