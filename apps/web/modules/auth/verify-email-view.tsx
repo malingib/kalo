@@ -2,7 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import { useEffect } from "react";
 
 import { useFlagMap } from "@kalo/features/flags/context/provider";
