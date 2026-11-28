@@ -2,7 +2,7 @@ import { IS_DUB_REFERRALS_ENABLED } from "@kalo/lib/constants";
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { trpc } from "@kalo/trpc/react";
 import { showToast } from "@kalo/ui/components/toast";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import type { NavigationItemType } from "./navigation/NavigationItem";
 
 type BottomNavItemsProps = {
