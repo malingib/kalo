@@ -2,7 +2,6 @@ import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { useUrlMatchesCurrentUrl } from "@kalo/lib/hooks/useUrlMatchesCurrentUrl";
 import classNames from "@kalo/ui/classNames";
 import Link from "next/link";
-import posthog from "posthog-js";
 import { Fragment } from "react";
 import type { IconName } from "../../icon";
 import { Icon } from "../../icon";
@@ -53,9 +52,6 @@ const VerticalTabItem = ({
         <>
           <Link
             onClick={(e) => {
-              if (props.trackingMetadata) {
-                posthog.capture("settings_sidebar_button_clicked", props.trackingMetadata);
-              }
               if (props.onClick) {
                 e.preventDefault();
                 props.onClick(name);
