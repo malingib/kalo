@@ -9,7 +9,7 @@ import { SkeletonText } from "@kalo/ui/components/skeleton";
 import { Tooltip } from "@kalo/ui/components/tooltip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 import type React from "react";
 import { Fragment, useEffect, useState } from "react";
 import { useShouldDisplayNavigationItem } from "./useShouldDisplayNavigationItem";
