@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import posthog from "posthog-js";
+import posthog from "@kalo/lib/telemetry";
 
 import { useLocale } from "@kalo/lib/hooks/useLocale";
 import { md } from "@kalo/lib/markdownIt";
