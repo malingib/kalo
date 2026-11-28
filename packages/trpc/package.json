@@ -14,7 +14,6 @@
     "build:react": "yarn tsc --project tsconfig.react.json"
   },
   "dependencies": {
-    "@formbricks/api": "3.0.0",
     "@kalo/i18n": "workspace:*",
     "@trpc/client": "11.0.0-next-beta.222",
     "@trpc/next": "11.0.0-next-beta.222",
