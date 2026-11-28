@@ -1536,6 +1536,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@daily-co/daily-js@npm:0.83.1":
+  version: 0.83.1
+  resolution: "@daily-co/daily-js@npm:0.83.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    "@sentry/browser": "npm:^8.33.1"
+    bowser: "npm:^2.8.1"
+    dequal: "npm:^2.0.3"
+    events: "npm:^3.1.0"
+  checksum: 10/5707bbdab86a3d407cb5696e57dd2670eac55a10b7dbaab6899fac49d43bf08cb14d414822c71af627dffb684f6554e1481cc2b02d068c458e73f4fa6a2784f9
+  languageName: node
+  linkType: hard
+
+"@daily-co/daily-react@npm:0.23.2":
+  version: 0.23.2
+  resolution: "@daily-co/daily-react@npm:0.23.2"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.3"
+    lodash.throttle: "npm:^4.1.1"
+  peerDependencies:
+    "@daily-co/daily-js": ">=0.68.0 <1"
+    jotai: ^2
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
+  checksum: 10/d1522247c7d38290dfefb8422f4ba206914f835974114e72b39bf864072d8961d98c9ee63d757f47e6f775d2b2b844a027e1603eed73b66c4844cc0325d9c9d0
+  languageName: node
+  linkType: hard
+
 "@datocms/cma-client-node@npm:4.0.1":
   version: 4.0.1
   resolution: "@datocms/cma-client-node@npm:4.0.1"
@@ -11446,6 +11474,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry-internal/browser-utils@npm:8.55.2":
+  version: 8.55.2
+  resolution: "@sentry-internal/browser-utils@npm:8.55.2"
+  dependencies:
+    "@sentry/core": "npm:8.55.2"
+  checksum: 10/382dc53b4e983548fa3d2901656ba1c76251f12853fabc712f8d5945e9d1cdc55b7a25f4344aa107cb7d96ce42d23da367d8673e047007f3a9a80db88275a434
+  languageName: node
+  linkType: hard
+
+"@sentry-internal/feedback@npm:8.55.2":
+  version: 8.55.2
+  resolution: "@sentry-internal/feedback@npm:8.55.2"
+  dependencies:
+    "@sentry/core": "npm:8.55.2"
+  checksum: 10/c0720b8653cc3e0e7d9abd9dcf38bc6c1752db1fb241782e74aafc7fc50d1346776f7dce063a8e935c36566f36b1273d1ef9156f3c5c2d9abd19afb523c4a375
+  languageName: node
+  linkType: hard
+
 "@sentry-internal/node-cpu-profiler@npm:^2.2.0":
   version: 2.2.0
   resolution: "@sentry-internal/node-cpu-profiler@npm:2.2.0"
@@ -11454,6 +11500,26 @@ __metadata:
     node-abi: "npm:^3.73.0"
     node-gyp: "npm:latest"
   checksum: 10/94b82c8da52cca3c71f4515940cb5bd02d9902a802f10ba66bea96784e6ccfdb8285215c4a2d8f442a182b8e5543a301007217175cb6538bc9229f8a799b1219
+  languageName: node
+  linkType: hard
+
+"@sentry-internal/replay-canvas@npm:8.55.2":
+  version: 8.55.2
+  resolution: "@sentry-internal/replay-canvas@npm:8.55.2"
+  dependencies:
+    "@sentry-internal/replay": "npm:8.55.2"
+    "@sentry/core": "npm:8.55.2"
+  checksum: 10/32772c23f460172333ac7c6dbb694f996dcc7bf66ce55d7bdb7e4c59779c46c548a22186ffd3315c8b7596449b30a29867084a1c56c74edf4d23d45c6c2b7816
+  languageName: node
+  linkType: hard
+
+"@sentry-internal/replay@npm:8.55.2":
+  version: 8.55.2
+  resolution: "@sentry-internal/replay@npm:8.55.2"
+  dependencies:
+    "@sentry-internal/browser-utils": "npm:8.55.2"
+    "@sentry/core": "npm:8.55.2"
+  checksum: 10/cb4421a641d0eb3769c6b13bf4902f68c5c17fc110447ae8b42d7042a2b3760807e0d4a5bae6f4db21f4b53e535b00295d35ba6d82f0a2d74a6dbdc00074f988
   languageName: node
   linkType: hard
 
@@ -11485,6 +11551,19 @@ __metadata:
     "@sentry/replay": "npm:10.75.2"
     "@sentry/replay-canvas": "npm:10.75.2"
   checksum: 10/488d167dadccdfe99e6d28cf5ecd6cba9e1d094c62434a39678a629a7c445b7c61d10be330684772603c3d2c11ba178326faf7e97ca9cf395a9002c8a0737b88
+  languageName: node
+  linkType: hard
+
+"@sentry/browser@npm:^8.33.1":
+  version: 8.55.2
+  resolution: "@sentry/browser@npm:8.55.2"
+  dependencies:
+    "@sentry-internal/browser-utils": "npm:8.55.2"
+    "@sentry-internal/feedback": "npm:8.55.2"
+    "@sentry-internal/replay": "npm:8.55.2"
+    "@sentry-internal/replay-canvas": "npm:8.55.2"
+    "@sentry/core": "npm:8.55.2"
+  checksum: 10/a32a3fc7d5ae03500a84f6ab593e7c0e3c612bc5a3408be4303f5f943a7d00333a1acad0bb35603c2a463339eab26be7bdcb78829b216dea8666be8325826ab8
   languageName: node
   linkType: hard
 
@@ -11644,6 +11723,13 @@ __metadata:
   dependencies:
     "@sentry/conventions": "npm:^0.16.0"
   checksum: 10/79e7edf96bddebec3dc3f9bf8dbd475cfaaae13adc53f0a30b15042f29c4c3f3e1b24939e74eb6eff320bfe8657b173df33910d43101b3ffc11c761826e2ca0e
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:8.55.2":
+  version: 8.55.2
+  resolution: "@sentry/core@npm:8.55.2"
+  checksum: 10/62e523099725fdb5b7f7023189bb8047abe80a097d76443efa55f75a363068a1da8aefc245a53b59d2e5d0a5fade763392b5aace88fb96edae58b2af505a8a78
   languageName: node
   linkType: hard
 
@@ -16174,6 +16260,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bowser@npm:^2.8.1":
+  version: 2.15.1
+  resolution: "bowser@npm:2.15.1"
+  checksum: 10/6689d9d3c01f2a141e4c243f05dce4250e02238a4332371cd6bf9244e8ab502803c98374e9f0e0c78c054a8e29eec1d5d0e68ad50b5c85bf2d582e24b4ad095e
+  languageName: node
+  linkType: hard
+
 "brace-expansion@npm:1.1.20":
   version: 1.1.20
   resolution: "brace-expansion@npm:1.1.20"
@@ -20193,7 +20286,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.2.0, events@npm:^3.3.0":
+"events@npm:^3.1.0, events@npm:^3.2.0, events@npm:^3.3.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: 10/a3d47e285e28d324d7180f1e493961a2bbb4cad6412090e4dec114f4db1f5b560c7696ee8e758f55e23913ede856e3689cd3aa9ae13c56b5d8314cd3b3ddd1be
@@ -25597,6 +25690,13 @@ __metadata:
   version: 4.2.1
   resolution: "lodash.startswith@npm:4.2.1"
   checksum: 10/a89ef56880a2c9f904fbf820708a8d848a7bc737519235c413b708fbff75f137e5cfd553e98dc023ca676374ebb38a81078b02fb6b20fb71525c905a15e6a046
+  languageName: node
+  linkType: hard
+
+"lodash.throttle@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 10/9be9fb2ffd686c20543167883305542f4564062a5f712a40e8c6f2f0d9fd8254a6e9d801c2470b1b24e0cdf2ae83c1277b55aa0fb4799a2db6daf545f53820e1
   languageName: node
   linkType: hard
 
