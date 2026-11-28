@@ -94,6 +94,8 @@ export const extendEventData = (
 
 
 /** No-op compatibility adapter after removal of the PostHog integration. */
-export const posthog = {
+const posthog = {
   capture: (_event: string, _properties?: Record<string, unknown>) => undefined,
 };
+
+export default posthog;
